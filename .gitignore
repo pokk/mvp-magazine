@@ -44,3 +44,10 @@ captures/
 # External native build folder generated in Android Studio 2.2 and later
 .externalNativeBuild
 
+app/.gitignore
+app/libs/
+app/src/main/java/
+app/src/main/res/drawable/
+gradle/wrapper/gradle-wrapper.jar
+gradlew
+gradlew.bat

@@ -13,9 +13,13 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    sourceSets {
+        main.java.srcDirs += 'src/main/java'
+        main.java.srcDirs += 'src/main/kotlin'
+    }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -47,6 +51,7 @@ dependencies {
     compile "com.squareup.retrofit2:converter-gson:${retrofit_2_version}"
     compile "com.squareup.retrofit2:adapter-rxjava:${retrofit_2_version}"
     // Dagger 2
+    kapt "com.google.dagger:dagger-compiler:${dagger_2_version}"
     compile "com.google.dagger:dagger:${dagger_2_version}"
     annotationProcessor "com.google.dagger:dagger-compiler:${dagger_2_version}"
     // Gson

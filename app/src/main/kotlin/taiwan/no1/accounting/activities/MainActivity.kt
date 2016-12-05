@@ -1,9 +1,9 @@
-package taiwan.no1.accounting
+package taiwan.no1.accounting.activities
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import taiwan.no1.accounting.R
 
-class MainActivity: AppCompatActivity() {
+class MainActivity: BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
