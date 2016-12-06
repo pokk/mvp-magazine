@@ -6,6 +6,14 @@ import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import dagger.Module
 import dagger.Provides
+import taiwan.no1.accounting.data.AccountDataRepository
+import taiwan.no1.accounting.data.AccountRepository
+import taiwan.no1.accounting.data.executor.JobExecutor
+import taiwan.no1.accounting.data.source.CloudDataStore
+import taiwan.no1.accounting.data.source.DataStore
+import taiwan.no1.accounting.domain.executor.PostExecutionThread
+import taiwan.no1.accounting.domain.executor.ThreadExecutor
+import taiwan.no1.accounting.utilies.UIThread
 import javax.inject.Singleton
 
 /**
@@ -29,9 +37,28 @@ class AppModule(private val app: Application) {
     @Singleton
     fun provideSharePreferences(application: Application): SharedPreferences = PreferenceManager.getDefaultSharedPreferences(application)
 
+    @Provides @Singleton
+    fun providePlayoneDataStore(): DataStore {
+        return CloudDataStore()
+    }
+
+    @Provides
+    @Singleton
+    fun providePlayoneRepository(accountDataRepository: AccountDataRepository): AccountRepository = accountDataRepository
+
+    @Provides
+    @Singleton
+    fun providePostExecutionThread(uiThread: UIThread): PostExecutionThread = uiThread
+
+    @Provides
+    @Singleton
+    fun provideThreadExecutor(jobExecutor: JobExecutor): ThreadExecutor = jobExecutor
+    
 //    @Provides
 //    @Singleton
-//    fun providePostExecutionThread(uiThread: UIThread) {
-//        
-//    }
+//    fun createFake(threadExecutor: ThreadExecutor,
+//                   postExecutionThread: PostExecutionThread,
+//                   accountDataRepository: AccountRepository): CreateFakeCase = CreateFakeCase(threadExecutor, 
+//            postExecutionThread,
+//            accountDataRepository)
 }

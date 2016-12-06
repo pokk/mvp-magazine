@@ -1,14 +1,25 @@
 package com.playone.mobile.presenter
 
+import com.playone.mobile.view.Viewable
+
 /**
- *
  * @author  Jieyi Wu
  * @version 0.0.1
  * @since   12/6/16
  */
 
-interface Presentable {
-    fun start()
+interface Presentable<in V: Viewable> {
+    /**
+     * Set a viewable.
+     *
+     * @param view [Viewable]
+     */
+    fun setView(view: V)
+
+    /**
+     * Initial method.
+     */
+    fun init()
 
     /**
      * Method that control the lifecycle of the view. It should be called in the view's

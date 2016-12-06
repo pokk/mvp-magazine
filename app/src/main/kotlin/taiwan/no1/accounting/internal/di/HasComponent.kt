@@ -7,6 +7,6 @@ package taiwan.no1.accounting.internal.di
  * @since   2016/12/06
  */
 
-interface HasComponent<C> {
-    fun getComponent(): C
+interface HasComponent<out C> {
+    fun getComponent(obj: Any?): C
 }

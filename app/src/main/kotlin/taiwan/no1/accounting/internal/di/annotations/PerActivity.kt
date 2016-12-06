@@ -1,6 +1,6 @@
 package taiwan.no1.accounting.internal.di.annotations
 
-import javax.inject.Qualifier
+import javax.inject.Scope
 
 /**
  *
@@ -9,6 +9,6 @@ import javax.inject.Qualifier
  * @since   2016/12/06
  */
 
-@Qualifier
-@Retention(AnnotationRetention.RUNTIME)
-annotation class PreActivity
+@Scope
+@kotlin.annotation.Retention
+annotation class PerActivity

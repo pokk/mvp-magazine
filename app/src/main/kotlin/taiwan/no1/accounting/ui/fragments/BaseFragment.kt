@@ -1,8 +1,9 @@
-package taiwan.no1.accounting.fragments
+package taiwan.no1.accounting.ui.fragments
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.View
+import taiwan.no1.accounting.internal.di.HasComponent
 
 /**
  *
@@ -11,7 +12,7 @@ import android.view.View
  * @since   12/5/16
  */
 
-open abstract class BaseFragment: Fragment() {
+abstract class BaseFragment: Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -24,7 +25,7 @@ open abstract class BaseFragment: Fragment() {
         super.onDestroy()
     }
 
-//    protected fun <C> getComponent(componentType: Class<C>, obj: Object?): C {
-//        return componentType.cast((activity as HasComponent<C>).getComponent(obj))
-//    }
+    protected fun <C> getComponent(componentType: Class<C>, obj: Any?): C {
+        return componentType.cast((activity as HasComponent<C>).getComponent(obj))
+    }
 }

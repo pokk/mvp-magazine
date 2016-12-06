@@ -1,7 +1,6 @@
 package com.playone.mobile.view
 
 import android.content.Context
-import com.playone.mobile.presenter.Presentable
 
 /**
  *
@@ -10,14 +9,7 @@ import com.playone.mobile.presenter.Presentable
  * @since   12/6/16
  */
 
-interface Viewable<P: Presentable> {
-    /**
-     * Set a presenter.
-     *
-     * @param presenter [Presentable]
-     */
-    fun setPresenter(presenter: Presentable)
-
+interface Viewable {
     /**
      * Show a view with a progress bar indicating a loading process.
      */
