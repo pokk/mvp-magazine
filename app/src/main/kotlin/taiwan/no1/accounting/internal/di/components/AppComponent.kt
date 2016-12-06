@@ -17,10 +17,9 @@ import javax.inject.Singleton
 @Component(modules = arrayOf(AppModule::class))
 interface AppComponent {
     object Initializer {
-        fun init(app: Application): AppComponent =
-                DaggerAppComponent.builder()
-                        .appModule(AppModule(app))
-                        .build()
+        fun init(app: Application): AppComponent = DaggerAppComponent.builder()
+                .appModule(AppModule(app))
+                .build()
     }
 
     fun context(): Context
