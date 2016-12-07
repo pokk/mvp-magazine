@@ -27,6 +27,6 @@ public class CreateFakeCase extends BaseCase {
 
     @Override
     protected Observable buildUseCaseObservable() {
-        return null;
+        return accountRepository.CreateFakes();
     }
 }

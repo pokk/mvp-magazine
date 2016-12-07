@@ -1,7 +1,5 @@
 package taiwan.no1.accounting.data.source;
 
-import java.util.List;
-
 import rx.Observable;
 import taiwan.no1.accounting.data.entities.FakeEntity;
 
@@ -11,9 +9,9 @@ import taiwan.no1.accounting.data.entities.FakeEntity;
  * @since 12/6/16
  */
 
-public interface DataStore {
+public interface IDataStore {
     /**
      * Get an {@link rx.Observable} which will emit a List of {@link FakeEntity}.
      */
-    Observable<List<FakeEntity>> EntityList();
+    Observable<FakeEntity> createEntity();
 }

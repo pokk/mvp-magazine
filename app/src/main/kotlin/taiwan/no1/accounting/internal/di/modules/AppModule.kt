@@ -10,7 +10,7 @@ import taiwan.no1.accounting.data.AccountDataRepository
 import taiwan.no1.accounting.data.AccountRepository
 import taiwan.no1.accounting.data.executor.JobExecutor
 import taiwan.no1.accounting.data.source.CloudDataStore
-import taiwan.no1.accounting.data.source.DataStore
+import taiwan.no1.accounting.data.source.IDataStore
 import taiwan.no1.accounting.domain.executor.PostExecutionThread
 import taiwan.no1.accounting.domain.executor.ThreadExecutor
 import taiwan.no1.accounting.utilies.UIThread
@@ -38,7 +38,7 @@ class AppModule(private val app: Application) {
     fun provideSharePreferences(application: Application): SharedPreferences = PreferenceManager.getDefaultSharedPreferences(application)
 
     @Provides @Singleton
-    fun providePlayoneDataStore(): DataStore {
+    fun providePlayoneDataStore(): IDataStore {
         return CloudDataStore()
     }
 

@@ -36,18 +36,15 @@ class MainFragment: BaseFragment(), MainView {
     //region Fragment lifecycle
     override fun onAttach(context: Context?) {
         super.onAttach(context)
+        // TODO: Set the listener for transfer activity or fragment.
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        this.getComponent(UseCaseComponent::class.java, null).inject(MainFragment@ this)
-    }
-
-    //    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-//        val rootView = inflate(R.layout.fragment_playone_create_team, inflater, container)
-//    }
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        // Avoid that an activity is deleted and get null pointer so inject the component here.
+        this.getComponent(UseCaseComponent::class.java, null).inject(MainFragment@ this)
+        // Keep the instance data.
+        this.retainInstance = true
+
         // FIXED: https://www.zybuluo.com/kimo/note/255244
         if (null == rootView)
             rootView = inflater?.inflate(R.layout.fragment_main, null)

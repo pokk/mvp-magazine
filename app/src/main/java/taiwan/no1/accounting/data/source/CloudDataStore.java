@@ -1,7 +1,5 @@
 package taiwan.no1.accounting.data.source;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import rx.Observable;
@@ -13,14 +11,17 @@ import taiwan.no1.accounting.data.entities.FakeEntity;
  * @since 12/6/16
  */
 
-public class CloudDataStore implements DataStore {
+public class CloudDataStore implements IDataStore {
 
     @Inject
     public CloudDataStore() {
     }
 
     @Override
-    public Observable<List<FakeEntity>> EntityList() {
-        return null;
+    public Observable<FakeEntity> createEntity() {
+        return Observable.create(subscriber -> {
+            subscriber.onNext(null);
+            subscriber.onCompleted();
+        });
     }
 }
