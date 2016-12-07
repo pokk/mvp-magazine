@@ -12,7 +12,7 @@ import taiwan.no1.accounting.data.source.IDataStore;
  */
 
 @Singleton
-class DataStoreFactory {
+public class DataStoreFactory {
     private taiwan.no1.accounting.data.source.IDataStore IDataStore;
 
     @Inject

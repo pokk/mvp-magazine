@@ -1,11 +1,15 @@
 package taiwan.no1.accounting.data;
 
+import android.support.annotation.NonNull;
+
 import javax.inject.Inject;
 
 import rx.Observable;
 import taiwan.no1.accounting.data.entities.FakeEntity;
 import taiwan.no1.accounting.data.mapper.FakeMapper;
 import taiwan.no1.accounting.data.source.factory.DataStoreFactory;
+import taiwan.no1.accounting.mvp.models.FakeModel;
+import taiwan.no1.accounting.utilies.AppLog;
 
 /**
  * Higher data model convert to low layer pure entities for fitting the repository.
@@ -26,7 +30,10 @@ public class AccountDataRepository implements AccountRepository {
     }
 
     @Override
-    public Observable<FakeEntity> CreateFakes() {
-        //        return dataStoreFactory.create().createEntity().map(model -> fakeMapper.transform(model));
+    public Observable<FakeEntity> CreateFakes(@NonNull FakeModel fakeModel) {
+        return dataStoreFactory.create().createEntity().map(model -> {
+            AppLog.INSTANCE.w("12312312", model);
+            return fakeMapper.transform(model);
+        });
     }
 }

@@ -9,4 +9,4 @@ import taiwan.no1.accounting.mvp.views.MainView
  * @since   12/6/16
  */
 
-interface MainPresenter: IPresenter<MainView> 
+interface MainIPresenter: IPresenter<MainView> 

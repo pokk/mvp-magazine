@@ -15,11 +15,12 @@ import taiwan.no1.accounting.domain.executor.ThreadExecutor;
  * @since 12/6/16
  */
 
-public abstract class BaseCase {
+public abstract class BaseCase<R extends BaseCase.RequestValues> {
     private final ThreadExecutor threadExecutor;
     private final PostExecutionThread postExecutionThread;
 
     private Subscription subscription = Subscriptions.empty();
+    protected R requestValues = null;
 
     protected BaseCase(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
         this.threadExecutor = threadExecutor;
@@ -34,14 +35,23 @@ public abstract class BaseCase {
     /**
      * Executes the current use case.
      *
-     * @param UseCaseSubscriber The guy who will be listen to the observable build
-     *                          with {@link #buildUseCaseObservable()}.
+     * @param useCaseSubscriber The guy who will be listen to the observable build with {@link #buildUseCaseObservable()}.
      */
-    public void execute(Subscriber UseCaseSubscriber) {
+    public void execute(Subscriber useCaseSubscriber) {
         this.subscription = this.buildUseCaseObservable()
                                 .subscribeOn(getSubscribeScheduler())
-                                .observeOn(getObserveScheduler())
-                                .subscribe(UseCaseSubscriber);
+                                .observeOn(getObserveScheduler()).subscribe(useCaseSubscriber);
+    }
+
+    /**
+     * Executes the current use case with request parameters.
+     *
+     * @param request Send the data to data layer with request parameters.
+     * @param useCaseSubscriber The guy who will be listen to the observable build with {@link #buildUseCaseObservable()}.
+     */
+    public void execute(R request, Subscriber useCaseSubscriber) {
+        this.requestValues = request;
+        this.execute(useCaseSubscriber);
     }
 
     /**
@@ -60,4 +70,9 @@ public abstract class BaseCase {
     protected Scheduler getSubscribeScheduler() {
         return Schedulers.from(threadExecutor);
     }
+
+    /**
+     * Data passed to a request.
+     */
+    public interface RequestValues {}
 }

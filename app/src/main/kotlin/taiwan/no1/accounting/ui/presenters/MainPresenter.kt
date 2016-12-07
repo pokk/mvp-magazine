@@ -1,9 +1,9 @@
 package taiwan.no1.accounting.ui.presenters
 
 import taiwan.no1.accounting.domain.BaseCase
+import taiwan.no1.accounting.domain.CreateFakeCase
 import taiwan.no1.accounting.internal.di.annotations.PerActivity
-import taiwan.no1.accounting.mvp.models.FakeModel
-import taiwan.no1.accounting.mvp.presenters.MainPresenter
+import taiwan.no1.accounting.mvp.presenters.MainIPresenter
 import taiwan.no1.accounting.mvp.views.MainView
 import taiwan.no1.accounting.utilies.AppLog
 import javax.inject.Inject
@@ -16,7 +16,7 @@ import javax.inject.Inject
  */
 
 @PerActivity
-class MainPresenter @Inject constructor(val fakeCase: BaseCase): MainPresenter {
+class MainPresenter @Inject constructor(val fakeCase: BaseCase<CreateFakeCase.Requests>): MainIPresenter {
     private lateinit var view: MainView
 
     //region View implementation
@@ -39,7 +39,7 @@ class MainPresenter @Inject constructor(val fakeCase: BaseCase): MainPresenter {
     }
     //endregion
 
-    private inner class FakeSubscriber: rx.Subscriber<FakeModel>() {
+    private inner class FakeSubscriber: rx.Subscriber<String>() {
         override fun onCompleted() {
             AppLog.w("hello")
         }
@@ -48,7 +48,7 @@ class MainPresenter @Inject constructor(val fakeCase: BaseCase): MainPresenter {
             AppLog.e("WTF")
         }
 
-        override fun onNext(t: FakeModel) {
+        override fun onNext(t: String) {
             AppLog.w(t)
         }
 
