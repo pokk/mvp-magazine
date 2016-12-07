@@ -9,7 +9,7 @@ import android.content.Context
  * @since   12/6/16
  */
 
-interface Viewable {
+interface IView {
     /**
      * Show a view with a progress bar indicating a loading process.
      */

@@ -1,6 +1,6 @@
 package taiwan.no1.accounting.mvp.views
 
-import com.playone.mobile.view.Viewable
+import com.playone.mobile.view.IView
 
 /**
  *
@@ -9,4 +9,4 @@ import com.playone.mobile.view.Viewable
  * @since   12/6/16
  */
 
-interface MainViewable: Viewable
+interface MainView: IView

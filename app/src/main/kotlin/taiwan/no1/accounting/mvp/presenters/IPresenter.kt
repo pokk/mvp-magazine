@@ -1,6 +1,6 @@
 package com.playone.mobile.presenter
 
-import com.playone.mobile.view.Viewable
+import com.playone.mobile.view.IView
 
 /**
  * @author  Jieyi Wu
@@ -8,11 +8,11 @@ import com.playone.mobile.view.Viewable
  * @since   12/6/16
  */
 
-interface Presentable<in V: Viewable> {
+interface IPresenter<in V: IView> {
     /**
      * Set a viewable.
      *
-     * @param view [Viewable]
+     * @param view [IView]
      */
     fun setView(view: V)
 

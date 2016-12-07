@@ -2,8 +2,8 @@ package taiwan.no1.accounting.ui.presenters
 
 import taiwan.no1.accounting.domain.BaseCase
 import taiwan.no1.accounting.internal.di.annotations.PerActivity
-import taiwan.no1.accounting.mvp.presenters.MainPresentable
-import taiwan.no1.accounting.mvp.views.MainViewable
+import taiwan.no1.accounting.mvp.presenters.MainPresenter
+import taiwan.no1.accounting.mvp.views.MainView
 import javax.inject.Inject
 
 /**
@@ -14,11 +14,11 @@ import javax.inject.Inject
  */
 
 @PerActivity
-class MainPresenter @Inject constructor(val fakeCase: BaseCase): MainPresentable {
-    private lateinit var view: MainViewable
+class MainPresenter @Inject constructor(val fakeCase: BaseCase): MainPresenter {
+    private lateinit var view: MainView
 
     //region View implementation
-    override fun setView(view: MainViewable) {
+    override fun setView(view: MainView) {
         this.view = view
     }
 

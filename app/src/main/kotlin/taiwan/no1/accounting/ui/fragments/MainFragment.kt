@@ -10,7 +10,7 @@ import butterknife.bindView
 import com.playone.mobile.internal.components.UseCaseComponent
 import taiwan.no1.accounting.R
 import taiwan.no1.accounting.internal.di.annotations.PerActivity
-import taiwan.no1.accounting.mvp.views.MainViewable
+import taiwan.no1.accounting.mvp.views.MainView
 import taiwan.no1.accounting.ui.presenters.MainPresenter
 import javax.inject.Inject
 
@@ -21,7 +21,7 @@ import javax.inject.Inject
  */
 
 @PerActivity
-class MainFragment: BaseFragment(), MainViewable {
+class MainFragment: BaseFragment(), MainView {
     companion object {
         @JvmStatic fun newInstance() = MainFragment()
     }
