@@ -20,7 +20,7 @@ public class CloudDataStore implements IDataStore {
     @Override
     public Observable<FakeModel> createEntity() {
         return Observable.create(subscriber -> {
-            subscriber.onNext(null);
+            //            subscriber.onNext(null);
             subscriber.onCompleted();
         });
     }

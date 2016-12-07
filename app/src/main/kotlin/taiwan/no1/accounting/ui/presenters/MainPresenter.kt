@@ -3,6 +3,7 @@ package taiwan.no1.accounting.ui.presenters
 import taiwan.no1.accounting.domain.BaseCase
 import taiwan.no1.accounting.domain.CreateFakeCase
 import taiwan.no1.accounting.internal.di.annotations.PerActivity
+import taiwan.no1.accounting.mvp.models.FakeModel
 import taiwan.no1.accounting.mvp.presenters.MainIPresenter
 import taiwan.no1.accounting.mvp.views.MainView
 import taiwan.no1.accounting.utilies.AppLog
@@ -26,7 +27,7 @@ class MainPresenter @Inject constructor(val fakeCase: BaseCase<CreateFakeCase.Re
 
     override fun init() {
         AppLog.w(fakeCase)
-        fakeCase.execute(FakeSubscriber())
+        fakeCase.execute(CreateFakeCase.Requests(FakeModel("Jieyi", 19, "H")), FakeSubscriber())
     }
 
     override fun resume() {

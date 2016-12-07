@@ -16,5 +16,5 @@ import taiwan.no1.accounting.internal.di.annotations.PerActivity
 class UseCaseModule(var id: String = "-1") {
     @Provides
     @PerActivity
-    fun provideFakeCase(createFakeCase: CreateFakeCase): BaseCase = createFakeCase
+    fun provideFakeCase(createFakeCase: CreateFakeCase): BaseCase<CreateFakeCase.Requests> = createFakeCase
 }

@@ -1,7 +1,7 @@
 package taiwan.no1.accounting.data.source;
 
 import rx.Observable;
-import taiwan.no1.accounting.data.entities.FakeEntity;
+import taiwan.no1.accounting.mvp.models.FakeModel;
 
 /**
  * @author Jieyi Wu
@@ -11,7 +11,7 @@ import taiwan.no1.accounting.data.entities.FakeEntity;
 
 public class LocalDataStore implements IDataStore {
     @Override
-    public Observable<FakeEntity> createEntity() {
+    public Observable<FakeModel> createEntity() {
         return null;
     }
 }
