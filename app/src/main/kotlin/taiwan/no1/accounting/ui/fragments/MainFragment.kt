@@ -60,7 +60,7 @@ class MainFragment: BaseFragment(), MainIView {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        this.tvShow.text = "WTF!!!!"
+        this.tvShow.text = "Hello World!!"
     }
 
     override fun onResume() {

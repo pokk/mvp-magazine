@@ -6,7 +6,7 @@ import android.util.Log
  * Log Module
  *
  * @author Jieyi Wu
- * @version 1.0.2
+ * @version 1.1.0
  * @since 2015/08/01
  */
 
@@ -126,17 +126,12 @@ object AppLog {
      * @param msg output message
      */
     fun e(vararg msg: Any) {
-        val msgString = combineInputArguments(*msg)
-        LogWrapper().debugCheck(Log::class.java, MsgLevel.e.name, getLogMsg(msgString))
-    }
-
-    /**
-     * ERROR log for exception.
-     *
-     * @param msg output message
-     */
-    fun e(msg: Exception) {
-        LogWrapper().debugCheck(Log::class.java, MsgLevel.e.name, getExceptionMsg(msg))
+        if (1 == msg.size && msg[0] is Exception)
+            LogWrapper().debugCheck(Log::class.java, MsgLevel.e.name, getExceptionMsg(msg[0] as Exception))
+        else {
+            val msgString = combineInputArguments(*msg)
+            LogWrapper().debugCheck(Log::class.java, MsgLevel.e.name, getLogMsg(msgString))
+        }
     }
 
     /**
@@ -159,9 +154,7 @@ object AppLog {
      * @param msg log message.
      * @return meta information + msg.
      */
-    private fun getLogMsg(msg: String?): String {
-        return getMetaInfo(null == msg) + COLON + (msg ?: NULL_STRING)
-    }
+    private fun getLogMsg(msg: String?): String = getMetaInfo(null == msg) + COLON + (msg ?: NULL_STRING)
 
     /**
      * Combine the meta information and exception msg.

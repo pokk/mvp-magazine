@@ -5,7 +5,6 @@ import taiwan.no1.accounting.internal.di.annotations.PerActivity
 import taiwan.no1.accounting.mvp.models.FakeModel
 import taiwan.no1.accounting.mvp.presenters.MainIPresenter
 import taiwan.no1.accounting.mvp.views.MainIView
-import taiwan.no1.accounting.utilies.AppLog
 import javax.inject.Inject
 
 /**
@@ -25,7 +24,6 @@ class MainPresenter @Inject constructor(val fakeCase: CreateFakeUseCase): MainIP
     }
 
     override fun init() {
-        AppLog.w(fakeCase)
         fakeCase.execute(CreateFakeUseCase.Requests(FakeModel("Jieyi", 19, "H")), FakeSubscriber())
     }
 
