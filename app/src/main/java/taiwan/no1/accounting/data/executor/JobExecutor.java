@@ -26,6 +26,7 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import dagger.internal.Preconditions;
 import taiwan.no1.accounting.domain.executor.ThreadExecutor;
 
 /**
@@ -60,6 +61,8 @@ public class JobExecutor implements ThreadExecutor {
 
     @Override
     public void execute(@NonNull Runnable runnable) {
+        Preconditions.checkNotNull(runnable);
+
         this.threadPoolExecutor.execute(runnable);
     }
 

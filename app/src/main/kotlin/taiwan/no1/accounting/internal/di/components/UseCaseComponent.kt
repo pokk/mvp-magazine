@@ -13,7 +13,8 @@ import taiwan.no1.accounting.ui.fragments.MainFragment
  */
 
 @PerActivity
-@Component(dependencies = arrayOf(AppComponent::class), modules = arrayOf(ActivityModule::class, UseCaseModule::class))
+@Component(dependencies = arrayOf(AppComponent::class),
+        modules = arrayOf(ActivityModule::class, UseCaseModule::class))
 interface UseCaseComponent: ActivityComponent {
     fun inject(mainFragment: MainFragment)
 }

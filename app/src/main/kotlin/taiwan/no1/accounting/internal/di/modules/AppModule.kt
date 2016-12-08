@@ -7,6 +7,7 @@ import android.preference.PreferenceManager
 import dagger.Module
 import dagger.Provides
 import taiwan.no1.accounting.data.executor.JobExecutor
+import taiwan.no1.accounting.data.repositiry.AccountDataRepository
 import taiwan.no1.accounting.data.source.CloudDataStore
 import taiwan.no1.accounting.data.source.IDataStore
 import taiwan.no1.accounting.domain.executor.PostExecutionThread
@@ -17,7 +18,7 @@ import javax.inject.Singleton
 
 /**
  * Dagger module that provides objects which will live during the application lifecycle.
- * 
+ *
  * @author  Jieyi Wu
  * @version 0.0.1
  * @since   12/6/16
@@ -35,7 +36,8 @@ class AppModule(private val app: Application) {
 
     @Provides
     @Singleton
-    fun provideSharePreferences(application: Application): SharedPreferences = PreferenceManager.getDefaultSharedPreferences(application)
+    fun provideSharePreferences(application: Application): SharedPreferences =
+            PreferenceManager.getDefaultSharedPreferences(application)
 
     @Provides @Singleton
     fun provideAccountDataStore(): IDataStore {
@@ -44,8 +46,8 @@ class AppModule(private val app: Application) {
 
     @Provides
     @Singleton
-    fun provideAccountRepository(
-            accountDataRepository: taiwan.no1.accounting.data.repositiry.AccountDataRepository): AccountRepository = accountDataRepository
+    fun provideAccountRepository(accountDataRepository: AccountDataRepository): AccountRepository =
+            accountDataRepository
 
     @Provides
     @Singleton

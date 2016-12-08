@@ -5,6 +5,7 @@ import android.os.PersistableBundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import dagger.internal.Preconditions
 import taiwan.no1.accounting.App
 import taiwan.no1.accounting.internal.di.components.AppComponent
 import taiwan.no1.accounting.internal.di.modules.ActivityModule
@@ -37,7 +38,12 @@ open class BaseActivity: AppCompatActivity() {
      * @param containerViewId The container view to where add the fragment.
      * @param fragment The fragment to be added.
      */
-    fun addFragment(containerViewId: Int, fragment: Fragment, needBack: Boolean, sharedElement: View?, shareElementName: String?) {
+    fun addFragment(containerViewId: Int, fragment: Fragment, needBack: Boolean, sharedElement: View?,
+                    shareElementName: String?) {
+        Preconditions.checkNotNull(containerViewId)
+        Preconditions.checkNotNull(fragment)
+        Preconditions.checkNotNull(needBack)
+
         val fragmentTransaction = this.supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(containerViewId, fragment, fragment.javaClass.name)
 

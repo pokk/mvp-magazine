@@ -4,8 +4,11 @@ import android.support.annotation.NonNull;
 
 import javax.inject.Inject;
 
+import dagger.internal.Preconditions;
+import retrofit2.Retrofit;
 import rx.Observable;
 import taiwan.no1.accounting.data.entities.FakeEntity;
+import taiwan.no1.accounting.internal.di.components.NetComponent;
 import taiwan.no1.accounting.mvp.models.FakeModel;
 
 /**
@@ -15,12 +18,16 @@ import taiwan.no1.accounting.mvp.models.FakeModel;
  */
 
 public class CloudDataStore implements IDataStore {
+    @Inject Retrofit retrofit;
+
     @Inject
     public CloudDataStore() {
+        NetComponent.Initializer.INSTANCE.init("http://www.google.com.tw").inject(CloudDataStore.this);
     }
 
     @Override
-    public Observable<FakeEntity> createEntity(@NonNull FakeModel model) {
+    public Observable<FakeEntity> createEntity(@NonNull final FakeModel model) {
+        Preconditions.checkNotNull(model);
         return Observable.create(subscriber -> {
             subscriber.onNext(new FakeEntity("Test", 100, "F"));
             subscriber.onCompleted();

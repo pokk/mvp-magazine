@@ -2,7 +2,6 @@ package taiwan.no1.accounting.ui.activities
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import retrofit2.Retrofit
 import taiwan.no1.accounting.R
 import taiwan.no1.accounting.internal.di.HasComponent
 import taiwan.no1.accounting.internal.di.components.DaggerUseCaseComponent
@@ -10,12 +9,8 @@ import taiwan.no1.accounting.internal.di.components.UseCaseComponent
 import taiwan.no1.accounting.internal.di.modules.UseCaseModule
 import taiwan.no1.accounting.ui.BaseActivity
 import taiwan.no1.accounting.ui.fragments.MainFragment
-import javax.inject.Inject
 
 class MainActivity: BaseActivity(), HasComponent<UseCaseComponent> {
-    @Inject
-    lateinit var retrofit: Retrofit
-    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

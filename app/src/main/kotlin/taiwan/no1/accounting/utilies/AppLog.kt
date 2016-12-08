@@ -177,7 +177,7 @@ object AppLog {
      * Get the file name, method name, line number.
      *
      * @param isNullString the input string is null no not.
-     * @return methodName(fileName:line)
+     * @return the format is "methodName(fileName:line)"
      */
     private fun getMetaInfo(isNullString: Boolean): String {
         // Because the function nest so we can get in stack index 3. 

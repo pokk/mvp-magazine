@@ -15,7 +15,6 @@ import taiwan.no1.accounting.internal.di.annotations.PerActivity
  */
 @Module
 class ActivityModule(var activity: Activity) {
-    // Expose the activity to dependents in the graph.
     @Provides
     @PerActivity
     fun activity(): Activity = this.activity

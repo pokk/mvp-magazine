@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import butterknife.bindView
+import dagger.internal.Preconditions
 import taiwan.no1.accounting.R
 import taiwan.no1.accounting.internal.di.annotations.PerActivity
 import taiwan.no1.accounting.internal.di.components.UseCaseComponent
@@ -35,12 +36,13 @@ class MainFragment: BaseFragment(), MainIView {
     private var rootView: View? = null
 
     //region Fragment lifecycle
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         // TODO: Set the listener for transfer activity or fragment.
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         // Avoid that an activity is deleted and get null pointer so inject the component here.
         this.getComponent(UseCaseComponent::class.java, null).inject(MainFragment@ this)
         // Keep the instance data.
@@ -48,7 +50,7 @@ class MainFragment: BaseFragment(), MainIView {
 
         // FIXED: https://www.zybuluo.com/kimo/note/255244
         if (null == rootView)
-            rootView = inflater?.inflate(R.layout.fragment_main, null)
+            rootView = inflater.inflate(R.layout.fragment_main, null)
         val parent: ViewGroup? = rootView?.parent as ViewGroup?
         parent?.removeView(rootView)
 
@@ -90,6 +92,7 @@ class MainFragment: BaseFragment(), MainIView {
     }
 
     override fun showError(message: String) {
+        Preconditions.checkNotNull(message)
     }
 
     override fun context(): Context {

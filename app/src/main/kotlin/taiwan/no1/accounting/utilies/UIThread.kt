@@ -7,8 +7,8 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * MainThread (UI Thread) implementation based on a [Scheduler]
- * which will execute actions on the Android UI thread
+ * MainThread (UI Thread) implementation based on a [Scheduler] which will execute actions on the
+ * Android UI thread.
  *
  * @author  jieyi
  * @version 0.0.1

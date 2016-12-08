@@ -1,7 +1,10 @@
 package taiwan.no1.accounting.domain;
 
+import android.support.annotation.NonNull;
+
 import java.util.concurrent.ThreadPoolExecutor;
 
+import dagger.internal.Preconditions;
 import rx.Observable;
 import rx.Scheduler;
 import rx.Subscriber;
@@ -13,14 +16,14 @@ import taiwan.no1.accounting.domain.executor.ThreadExecutor;
 
 /**
  * Abstract class for a Use Case (Interactor in terms of Clean Architecture).
- * This interface represents a execution unit for different use cases (this means any use case in the application
- * should implement this contract).
+ * This interface represents a execution unit for different use cases (this means any use case in the
+ * application should implement this contract).
  * <p>
- * By convention each UseCase implementation will return the result using a {@link rx.Subscriber} that will execute
- * its job in a background thread and will post the result in the UI thread.
+ * By convention each UseCase implementation will return the result using a {@link rx.Subscriber} that will
+ * execute its job in a background thread and will post the result in the UI thread.
  * <p>
- * For passing a request parameters {@link RequestValues} to data layer that set a generic type for wrapping vary
- * data.
+ * For passing a request parameters {@link RequestValues} to data layer that set a generic type for wrapping
+ * vary data.
  *
  * @author Jieyi Wu
  * @version 0.0.1
@@ -42,25 +45,35 @@ public abstract class BaseUseCase<R extends BaseUseCase.RequestValues> {
     /**
      * Builds an {@link Observable} which will be used when executing the current {@link BaseUseCase}.
      */
+    @NonNull
     protected abstract Observable buildUseCaseObservable();
 
     /**
      * Executes the current use case.
      *
-     * @param useCaseSubscriber The guy who will be listen to the observable build with {@link #buildUseCaseObservable()}.
+     * @param useCaseSubscriber The guy who will be listen to the observable build with
+     *                          {@link #buildUseCaseObservable()}.
      */
-    public void execute(Subscriber useCaseSubscriber) {
+    public void execute(@NonNull final Subscriber useCaseSubscriber) {
+        Preconditions.checkNotNull(useCaseSubscriber);
+
         this.subscription = this.buildUseCaseObservable()
-                                .subscribeOn(getSubscribeScheduler()).observeOn(getObserveScheduler()).subscribe(useCaseSubscriber);
+                                .subscribeOn(getSubscribeScheduler())
+                                .observeOn(getObserveScheduler())
+                                .subscribe(useCaseSubscriber);
     }
 
     /**
      * Executes the current use case with request parameters.
      *
      * @param request           Send the data to data layer with request parameters.
-     * @param useCaseSubscriber The guy who will be listen to the observable build with {@link #buildUseCaseObservable()}.
+     * @param useCaseSubscriber The guy who will be listen to the observable build with
+     *                          {@link #buildUseCaseObservable()}.
      */
-    public void execute(R request, Subscriber useCaseSubscriber) {
+    public void execute(@NonNull final R request, @NonNull final Subscriber useCaseSubscriber) {
+        Preconditions.checkNotNull(request);
+        Preconditions.checkNotNull(useCaseSubscriber);
+
         this.requestValues = request;
         this.execute(useCaseSubscriber);
     }
@@ -79,6 +92,7 @@ public abstract class BaseUseCase<R extends BaseUseCase.RequestValues> {
      *
      * @return {@link Scheduler} implement from {@link PostExecutionThread}.
      */
+    @NonNull
     protected Scheduler getObserveScheduler() {
         return postExecutionThread.getScheduler();
     }
@@ -88,6 +102,7 @@ public abstract class BaseUseCase<R extends BaseUseCase.RequestValues> {
      *
      * @return {@link Scheduler} implement from {@link ThreadExecutor}.
      */
+    @NonNull
     protected Scheduler getSubscribeScheduler() {
         return Schedulers.from(threadExecutor);
     }

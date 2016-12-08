@@ -1,5 +1,7 @@
 package taiwan.no1.accounting.data.mapper;
 
+import android.support.annotation.NonNull;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -22,12 +24,14 @@ public class FakeEntityMapper implements BaseEntityMapper<FakeModel, FakeEntity>
     FakeEntityMapper() {}
 
     @Override
-    public FakeEntity transformFrom(FakeModel model) {
+    @NonNull
+    public FakeEntity transformFrom(@NonNull FakeModel model) {
         return new FakeEntity(model.getName(), model.getAge(), model.getSex());
     }
 
     @Override
-    public FakeModel transformTo(FakeEntity entity) {
+    @NonNull
+    public FakeModel transformTo(@NonNull FakeEntity entity) {
         return new FakeModel(entity.getName(), entity.getAge(), entity.getSex());
     }
 }

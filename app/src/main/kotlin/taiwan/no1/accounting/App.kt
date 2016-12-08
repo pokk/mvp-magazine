@@ -6,7 +6,7 @@ import taiwan.no1.accounting.internal.di.components.AppComponent
 
 /**
  * Android Main Application
- * 
+ *
  * @author  Jieyi Wu
  * @version 0.0.1
  * @since   12/6/16

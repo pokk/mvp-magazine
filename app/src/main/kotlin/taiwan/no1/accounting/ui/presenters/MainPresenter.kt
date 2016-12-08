@@ -1,5 +1,6 @@
 package taiwan.no1.accounting.ui.presenters
 
+import dagger.internal.Preconditions
 import taiwan.no1.accounting.domain.CreateFakeUseCase
 import taiwan.no1.accounting.internal.di.annotations.PerActivity
 import taiwan.no1.accounting.mvp.models.FakeModel
@@ -20,6 +21,8 @@ class MainPresenter @Inject constructor(val fakeCase: CreateFakeUseCase): MainIP
 
     //region View implementation
     override fun setView(view: MainIView) {
+        Preconditions.checkNotNull(view)
+
         this.view = view
     }
 

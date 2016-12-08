@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import javax.inject.Inject;
 
+import dagger.internal.Preconditions;
 import rx.Observable;
 import taiwan.no1.accounting.data.mapper.FakeEntityMapper;
 import taiwan.no1.accounting.data.source.factory.DataStoreFactory;
@@ -29,7 +30,12 @@ public class AccountDataRepository implements AccountRepository {
     }
 
     @Override
+    @NonNull
     public Observable<FakeModel> CreateFakes(@NonNull FakeModel fakeModel) {
-        return dataStoreFactory.create().createEntity(fakeModel).map(entity -> fakeMapper.transformTo(entity));
+        Preconditions.checkNotNull(fakeModel);
+
+        return dataStoreFactory.create()
+                               .createEntity(fakeModel)
+                               .map(entity -> fakeMapper.transformTo(entity));
     }
 }

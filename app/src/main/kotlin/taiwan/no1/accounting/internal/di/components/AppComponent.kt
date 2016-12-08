@@ -22,18 +22,21 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = arrayOf(AppModule::class, NetModule::class))
 interface AppComponent {
-    fun inject(baseActivity: BaseActivity)
-
     object Initializer {
-        fun init(app: App): AppComponent = DaggerAppComponent.builder()
+        fun init(app: App, baseUrl: String = ""): AppComponent = DaggerAppComponent.builder()
                 .appModule(AppModule(app))
-                .netModule(NetModule("xxx"))
+                .netModule(NetModule(baseUrl))
                 .build()
     }
 
+    fun inject(baseActivity: BaseActivity)
+
     // Exposed to sub-graphs.
     fun context(): Context
+
     fun threadExecutor(): ThreadExecutor
+
     fun postExecutionThread(): PostExecutionThread
+
     fun accountRepository(): AccountRepository
 }
