@@ -17,9 +17,11 @@ package taiwan.no1.accounting.domain.executor;
 
 import java.util.concurrent.Executor;
 
+import taiwan.no1.accounting.domain.BaseUseCase;
+
 /**
  * Executor implementation can be based on different frameworks or techniques of asynchronous
  * execution, but every implementation will execute the
- * {@link taiwan.no1.accounting.domain.BaseCase} out of the UI thread.
+ * {@link BaseUseCase} out of the UI thread.
  */
 public interface ThreadExecutor extends Executor {}

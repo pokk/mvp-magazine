@@ -3,15 +3,16 @@ package taiwan.no1.accounting.internal.di.components
 import android.content.Context
 import dagger.Component
 import taiwan.no1.accounting.App
-import taiwan.no1.accounting.data.AccountRepository
 import taiwan.no1.accounting.domain.executor.PostExecutionThread
 import taiwan.no1.accounting.domain.executor.ThreadExecutor
+import taiwan.no1.accounting.domain.repository.AccountRepository
 import taiwan.no1.accounting.internal.di.modules.AppModule
 import taiwan.no1.accounting.internal.di.modules.NetModule
-import taiwan.no1.accounting.ui.activities.BaseActivity
+import taiwan.no1.accounting.ui.BaseActivity
 import javax.inject.Singleton
 
 /**
+ * A component whose lifetime is the life of the application.
  *
  * @author  Jieyi Wu
  * @version 0.0.1
@@ -22,7 +23,7 @@ import javax.inject.Singleton
 @Component(modules = arrayOf(AppModule::class, NetModule::class))
 interface AppComponent {
     fun inject(baseActivity: BaseActivity)
-    
+
     object Initializer {
         fun init(app: App): AppComponent = DaggerAppComponent.builder()
                 .appModule(AppModule(app))
@@ -30,6 +31,7 @@ interface AppComponent {
                 .build()
     }
 
+    // Exposed to sub-graphs.
     fun context(): Context
     fun threadExecutor(): ThreadExecutor
     fun postExecutionThread(): PostExecutionThread

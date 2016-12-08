@@ -1,7 +1,6 @@
 package taiwan.no1.accounting.mvp.presenters
 
-import com.playone.mobile.presenter.IPresenter
-import taiwan.no1.accounting.mvp.views.MainView
+import taiwan.no1.accounting.mvp.views.MainIView
 
 /**
  * @author  Jieyi Wu
@@ -9,4 +8,4 @@ import taiwan.no1.accounting.mvp.views.MainView
  * @since   12/6/16
  */
 
-interface MainIPresenter: IPresenter<MainView> 
+interface MainIPresenter: IPresenter<MainIView> 

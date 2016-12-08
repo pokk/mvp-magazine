@@ -7,6 +7,8 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
+ * MainThread (UI Thread) implementation based on a [Scheduler]
+ * which will execute actions on the Android UI thread
  *
  * @author  jieyi
  * @version 0.0.1
@@ -15,7 +17,5 @@ import javax.inject.Singleton
 
 @Singleton
 class UIThread @Inject constructor(): PostExecutionThread {
-    override fun getScheduler(): Scheduler {
-        return AndroidSchedulers.mainThread()
-    }
+    override fun getScheduler(): Scheduler = AndroidSchedulers.mainThread()
 }

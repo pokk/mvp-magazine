@@ -4,7 +4,8 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- *
+ * Class used to navigate through the application.
+ * 
  * @author  Jieyi Wu
  * @version 0.0.1
  * @since   12/6/16

@@ -29,7 +29,7 @@ import javax.inject.Singleton;
 import taiwan.no1.accounting.domain.executor.ThreadExecutor;
 
 /**
- * Decorated {@link java.util.concurrent.ThreadPoolExecutor}
+ * Decorated {@link ThreadPoolExecutor}
  */
 @Singleton
 public class JobExecutor implements ThreadExecutor {

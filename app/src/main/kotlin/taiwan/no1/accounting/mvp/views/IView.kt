@@ -1,9 +1,10 @@
-package com.playone.mobile.view
+package taiwan.no1.accounting.mvp.views
 
 import android.content.Context
 
 /**
- *
+ * Interface representing a View that will use to load data.
+ * 
  * @author  Jieyi Wu
  * @version 0.0.1
  * @since   12/6/16

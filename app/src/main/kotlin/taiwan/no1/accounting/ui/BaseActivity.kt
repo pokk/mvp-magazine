@@ -1,14 +1,13 @@
-package taiwan.no1.accounting.ui.activities
+package taiwan.no1.accounting.ui
 
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import com.playone.mobile.internal.modules.ActivityModule
 import taiwan.no1.accounting.App
 import taiwan.no1.accounting.internal.di.components.AppComponent
-import taiwan.no1.accounting.ui.Navigator
+import taiwan.no1.accounting.internal.di.modules.ActivityModule
 import javax.inject.Inject
 
 /**
@@ -77,7 +76,7 @@ open class BaseActivity: AppCompatActivity() {
     /**
      * Get an Activity module for dependency injection.
      *
-     * @return [com.playone.mobile.internal.modules.ActivityModule]
+     * @return [ActivityModule]
      */
     protected fun getActivityModule(): ActivityModule {
         return ActivityModule(this)

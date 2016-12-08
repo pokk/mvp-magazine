@@ -6,9 +6,10 @@ import android.util.Log
  * Log Module
  *
  * @author Jieyi Wu
- * @version 1.0.1
+ * @version 1.0.2
  * @since 2015/08/01
  */
+
 object AppLog {
     private val COLON = ":"
     private val LEFT_PARENTHESIS = "("

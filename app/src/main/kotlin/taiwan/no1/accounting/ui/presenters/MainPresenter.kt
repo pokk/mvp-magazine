@@ -1,11 +1,10 @@
 package taiwan.no1.accounting.ui.presenters
 
-import taiwan.no1.accounting.domain.BaseCase
-import taiwan.no1.accounting.domain.CreateFakeCase
+import taiwan.no1.accounting.domain.CreateFakeUseCase
 import taiwan.no1.accounting.internal.di.annotations.PerActivity
 import taiwan.no1.accounting.mvp.models.FakeModel
 import taiwan.no1.accounting.mvp.presenters.MainIPresenter
-import taiwan.no1.accounting.mvp.views.MainView
+import taiwan.no1.accounting.mvp.views.MainIView
 import taiwan.no1.accounting.utilies.AppLog
 import javax.inject.Inject
 
@@ -17,17 +16,17 @@ import javax.inject.Inject
  */
 
 @PerActivity
-class MainPresenter @Inject constructor(val fakeCase: BaseCase<CreateFakeCase.Requests>): MainIPresenter {
-    private lateinit var view: MainView
+class MainPresenter @Inject constructor(val fakeCase: CreateFakeUseCase): MainIPresenter {
+    private lateinit var view: MainIView
 
     //region View implementation
-    override fun setView(view: MainView) {
+    override fun setView(view: MainIView) {
         this.view = view
     }
 
     override fun init() {
         AppLog.w(fakeCase)
-        fakeCase.execute(CreateFakeCase.Requests(FakeModel("Jieyi", 19, "H")), FakeSubscriber())
+        fakeCase.execute(CreateFakeUseCase.Requests(FakeModel("Jieyi", 19, "H")), FakeSubscriber())
     }
 
     override fun resume() {
@@ -40,18 +39,14 @@ class MainPresenter @Inject constructor(val fakeCase: BaseCase<CreateFakeCase.Re
     }
     //endregion
 
-    private inner class FakeSubscriber: rx.Subscriber<String>() {
+    private inner class FakeSubscriber: rx.Subscriber<FakeModel>() {
         override fun onCompleted() {
-            AppLog.w("hello")
         }
 
         override fun onError(e: Throwable) {
-            AppLog.e("WTF")
         }
 
-        override fun onNext(t: String) {
-            AppLog.w(t)
+        override fun onNext(t: FakeModel) {
         }
-
     }
 }

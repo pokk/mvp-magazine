@@ -1,10 +1,9 @@
-package com.playone.mobile.internal.components
+package taiwan.no1.accounting.internal.di.components
 
-import com.playone.mobile.internal.modules.ActivityModule
-import com.playone.mobile.internal.modules.UseCaseModule
 import dagger.Component
 import taiwan.no1.accounting.internal.di.annotations.PerActivity
-import taiwan.no1.accounting.internal.di.components.AppComponent
+import taiwan.no1.accounting.internal.di.modules.ActivityModule
+import taiwan.no1.accounting.internal.di.modules.UseCaseModule
 import taiwan.no1.accounting.ui.fragments.MainFragment
 
 /**

@@ -1,9 +1,8 @@
-package com.playone.mobile.internal.components
+package taiwan.no1.accounting.internal.di.components
 
-import com.playone.mobile.internal.modules.ActivityModule
 import dagger.Component
 import taiwan.no1.accounting.internal.di.annotations.PerActivity
-import taiwan.no1.accounting.internal.di.components.AppComponent
+import taiwan.no1.accounting.internal.di.modules.ActivityModule
 
 /**
  * @author  Jieyi Wu

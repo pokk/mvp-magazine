@@ -1,6 +1,9 @@
 package taiwan.no1.accounting.data.source;
 
+import android.support.annotation.NonNull;
+
 import rx.Observable;
+import taiwan.no1.accounting.data.entities.FakeEntity;
 import taiwan.no1.accounting.mvp.models.FakeModel;
 
 /**
@@ -11,7 +14,7 @@ import taiwan.no1.accounting.mvp.models.FakeModel;
 
 public class LocalDataStore implements IDataStore {
     @Override
-    public Observable<FakeModel> createEntity() {
+    public Observable<FakeEntity> createEntity(@NonNull FakeModel model) {
         return null;
     }
 }

@@ -6,6 +6,8 @@ import javax.inject.Singleton;
 import taiwan.no1.accounting.data.source.IDataStore;
 
 /**
+ * Factory that creates different implementations of {@link IDataStore}.
+ * 
  * @author Jieyi Wu
  * @version 0.0.1
  * @since 12/6/16

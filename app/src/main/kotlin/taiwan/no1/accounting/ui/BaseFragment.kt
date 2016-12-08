@@ -1,4 +1,4 @@
-package taiwan.no1.accounting.ui.fragments
+package taiwan.no1.accounting.ui
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -26,6 +26,6 @@ abstract class BaseFragment: Fragment() {
     }
 
     protected fun <C> getComponent(componentType: Class<C>, obj: Any?): C {
-        return componentType.cast((activity as HasComponent<C>).getComponent(obj))
+        return componentType.cast((activity as HasComponent<*>).getComponent(obj))
     }
 }

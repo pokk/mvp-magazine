@@ -7,10 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import butterknife.bindView
-import com.playone.mobile.internal.components.UseCaseComponent
 import taiwan.no1.accounting.R
 import taiwan.no1.accounting.internal.di.annotations.PerActivity
-import taiwan.no1.accounting.mvp.views.MainView
+import taiwan.no1.accounting.internal.di.components.UseCaseComponent
+import taiwan.no1.accounting.mvp.views.MainIView
+import taiwan.no1.accounting.ui.BaseFragment
 import taiwan.no1.accounting.ui.presenters.MainPresenter
 import javax.inject.Inject
 
@@ -21,7 +22,7 @@ import javax.inject.Inject
  */
 
 @PerActivity
-class MainFragment: BaseFragment(), MainView {
+class MainFragment: BaseFragment(), MainIView {
     companion object {
         @JvmStatic fun newInstance() = MainFragment()
     }
