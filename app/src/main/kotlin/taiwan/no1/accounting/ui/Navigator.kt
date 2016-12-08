@@ -23,7 +23,7 @@ class Navigator @Inject constructor() {
      *
      * @param context A Context needed to open the destiny activity.
      */
-    fun navigateToSecond(context: Context): Unit {
+    fun navigateToSecond(context: Context) {
         
     }
 }

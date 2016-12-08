@@ -5,6 +5,7 @@ import android.os.PersistableBundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import com.hwangjr.rxbus.RxBus
 import dagger.internal.Preconditions
 import taiwan.no1.accounting.App
 import taiwan.no1.accounting.internal.di.components.AppComponent
@@ -26,6 +27,16 @@ open class BaseActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState, persistentState)
 
         this.initialInjector()
+
+        // Register RxBus.
+        RxBus.get().register(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        // Unregister RxBus.
+        RxBus.get().unregister(this)
     }
 
     fun initialInjector() {
@@ -66,7 +77,7 @@ open class BaseActivity: AppCompatActivity() {
     /**
      * Pop a [Fragment] from [getSupportFragmentManager].
      */
-    fun popFragment(): Unit {
+    fun popFragment() {
         this.supportFragmentManager.popBackStack()
     }
 
