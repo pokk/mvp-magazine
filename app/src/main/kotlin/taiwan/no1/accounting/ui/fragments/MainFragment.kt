@@ -11,9 +11,9 @@ import dagger.internal.Preconditions
 import taiwan.no1.accounting.R
 import taiwan.no1.accounting.internal.di.annotations.PerActivity
 import taiwan.no1.accounting.internal.di.components.UseCaseComponent
-import taiwan.no1.accounting.mvp.views.MainIView
+import taiwan.no1.accounting.mvp.contracts.MainContract
+import taiwan.no1.accounting.mvp.presenters.MainPresenter
 import taiwan.no1.accounting.ui.BaseFragment
-import taiwan.no1.accounting.ui.presenters.MainPresenter
 import javax.inject.Inject
 
 /**
@@ -23,7 +23,7 @@ import javax.inject.Inject
  */
 
 @PerActivity
-class MainFragment: BaseFragment(), MainIView {
+class MainFragment: BaseFragment(), MainContract.View {
     companion object {
         @JvmStatic fun newInstance() = MainFragment()
     }
@@ -67,14 +67,17 @@ class MainFragment: BaseFragment(), MainIView {
 
     override fun onResume() {
         super.onResume()
+        this.presenter.resume()
     }
 
     override fun onPause() {
         super.onPause()
+        this.presenter.pause()
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        this.presenter.destroy()
     }
     //endregion
 
