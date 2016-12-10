@@ -8,7 +8,7 @@ import rx.Observable;
 import rx.Subscriber;
 import taiwan.no1.accounting.domain.executor.PostExecutionThread;
 import taiwan.no1.accounting.domain.executor.ThreadExecutor;
-import taiwan.no1.accounting.domain.repository.AccountRepository;
+import taiwan.no1.accounting.domain.repository.IAccountRepository;
 import taiwan.no1.accounting.mvp.models.FakeModel;
 
 
@@ -20,11 +20,11 @@ import taiwan.no1.accounting.mvp.models.FakeModel;
  * @since 9/6/16
  */
 public class CreateFakeUseCase extends BaseUseCase<CreateFakeUseCase.Requests> {
-    private final AccountRepository accountRepository;
+    private final IAccountRepository accountRepository;
 
     @Inject
     CreateFakeUseCase(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread,
-                      AccountRepository accountRepository) {
+                      IAccountRepository accountRepository) {
         super(threadExecutor, postExecutionThread);
 
         this.accountRepository = accountRepository;

@@ -13,7 +13,7 @@ import taiwan.no1.accounting.mvp.models.FakeModel;
  * @since 5/29/16
  */
 
-public interface AccountRepository {
+public interface IAccountRepository {
     /**
      * Get an {@link Observable} which will emit a {@link FakeModel}.
      */

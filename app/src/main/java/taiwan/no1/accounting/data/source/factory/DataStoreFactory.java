@@ -1,11 +1,14 @@
 package taiwan.no1.accounting.data.source.factory;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import taiwan.no1.accounting.data.source.CloudDataStore;
 import taiwan.no1.accounting.data.source.IDataStore;
+import taiwan.no1.accounting.data.source.LocalDataStore;
 
 /**
  * Factory that creates different implementations of {@link IDataStore}.
@@ -17,15 +20,20 @@ import taiwan.no1.accounting.data.source.IDataStore;
 
 @Singleton
 public class DataStoreFactory {
-    private final IDataStore IDataStore;
+    private final Context context;
 
     @Inject
-    DataStoreFactory(IDataStore IDataStore) {
-        this.IDataStore = IDataStore;
+    DataStoreFactory(Context context) {
+        this.context = context;
     }
 
     @NonNull
-    public IDataStore create() {
-        return this.IDataStore;
+    public IDataStore createLocal() {
+        return new LocalDataStore();
+    }
+
+    @NonNull
+    public IDataStore createCloud() {
+        return new CloudDataStore();
     }
 }

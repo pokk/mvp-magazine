@@ -6,7 +6,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import taiwan.no1.accounting.data.entities.FakeEntity;
-import taiwan.no1.accounting.domain.mapper.BaseEntityMapper;
+import taiwan.no1.accounting.domain.mapper.IEntityMapper;
 import taiwan.no1.accounting.mvp.models.FakeModel;
 
 /**
@@ -19,7 +19,7 @@ import taiwan.no1.accounting.mvp.models.FakeModel;
  */
 
 @Singleton
-public class FakeEntityMapper implements BaseEntityMapper<FakeModel, FakeEntity> {
+public class FakeEntityMapper implements IEntityMapper<FakeModel, FakeEntity> {
     @Inject
     FakeEntityMapper() {}
 

@@ -141,11 +141,9 @@ object AppLog {
      * @return output string message
      */
     private fun combineInputArguments(vararg values: Any): String {
-        val stringBuilder = StringBuilder()
-        for (o in values) {
-            stringBuilder.append(o.toString()).append(SPACE_STRING)
-        }
-        return stringBuilder.toString()
+        strBuilder.setLength(0)
+        values.filter { null != it }.forEach { strBuilder.append(it.toString()).append(SPACE_STRING) }
+        return strBuilder.toString()
     }
 
     /**
@@ -163,13 +161,10 @@ object AppLog {
      * @return meta information + exception msg.
      */
     private fun getExceptionMsg(msg: Exception): String {
-        val stringBuilder = StringBuilder()
-        // Stream.of(msg).forEach(str -> stringBuilder.append(str).append("\n"));
-        for (str in msg.stackTrace) {
-            stringBuilder.append(str).append("\n")
-        }
+        strBuilder.setLength(0)
+        msg.stackTrace.forEach { strBuilder.append(it).append("\n") }
 
-        return stringBuilder.toString()
+        return strBuilder.toString()
     }
 
 

@@ -9,6 +9,9 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import taiwan.no1.accounting.api.RestfulApiFactory
+import taiwan.no1.accounting.api.config.IApiConfig
+import javax.inject.Named
 import javax.inject.Singleton
 
 /**
@@ -19,7 +22,7 @@ import javax.inject.Singleton
  */
 
 @Module
-class NetModule(val baseUrl: String) {
+class NetModule {
     @Provides
     @Singleton
     fun provideConverterGson(gson: Gson): GsonConverterFactory = GsonConverterFactory.create(gson)
@@ -43,13 +46,20 @@ class NetModule(val baseUrl: String) {
 
     @Provides
     @Singleton
-    fun provideRetrofit2(converter: GsonConverterFactory,
-                         callAdapter: RxJavaCallAdapterFactory,
-                         okHttpClient: OkHttpClient): Retrofit =
+    fun provideBaseRetrofitBuilder(converter: GsonConverterFactory,
+                                   callAdapter: RxJavaCallAdapterFactory,
+                                   okHttpClient: OkHttpClient): Retrofit.Builder =
             Retrofit.Builder().
-                    baseUrl(this.baseUrl).
                     addConverterFactory(converter).
                     addCallAdapterFactory(callAdapter).
-                    client(okHttpClient).
-                    build()
+                    client(okHttpClient)
+
+    @Provides
+    @Singleton
+    @Named("FakeHttp")
+    fun provideRetrofit2(baseBuilder: Retrofit.Builder, restfulApiFactory: RestfulApiFactory): Retrofit {
+        val config: IApiConfig = restfulApiFactory.createFakeConfig()
+
+        return baseBuilder.baseUrl(config.apiBaseUrl).build()
+    }
 }

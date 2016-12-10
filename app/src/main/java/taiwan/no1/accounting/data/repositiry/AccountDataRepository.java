@@ -8,7 +8,7 @@ import dagger.internal.Preconditions;
 import rx.Observable;
 import taiwan.no1.accounting.data.mapper.FakeEntityMapper;
 import taiwan.no1.accounting.data.source.factory.DataStoreFactory;
-import taiwan.no1.accounting.domain.repository.AccountRepository;
+import taiwan.no1.accounting.domain.repository.IAccountRepository;
 import taiwan.no1.accounting.mvp.models.FakeModel;
 
 /**
@@ -19,7 +19,7 @@ import taiwan.no1.accounting.mvp.models.FakeModel;
  * @since 12/6/16
  */
 
-public class AccountDataRepository implements AccountRepository {
+public class AccountDataRepository implements IAccountRepository {
 
     private final DataStoreFactory dataStoreFactory;
     @Inject FakeEntityMapper fakeMapper;
@@ -34,7 +34,7 @@ public class AccountDataRepository implements AccountRepository {
     public Observable<FakeModel> CreateFakes(@NonNull FakeModel fakeModel) {
         Preconditions.checkNotNull(fakeModel);
 
-        return dataStoreFactory.create()
+        return dataStoreFactory.createCloud()
                                .createEntity(fakeModel)
                                .map(entity -> fakeMapper.transformTo(entity));
     }

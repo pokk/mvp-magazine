@@ -5,7 +5,7 @@ import dagger.Component
 import taiwan.no1.accounting.App
 import taiwan.no1.accounting.domain.executor.PostExecutionThread
 import taiwan.no1.accounting.domain.executor.ThreadExecutor
-import taiwan.no1.accounting.domain.repository.AccountRepository
+import taiwan.no1.accounting.domain.repository.IAccountRepository
 import taiwan.no1.accounting.internal.di.modules.AppModule
 import taiwan.no1.accounting.internal.di.modules.NetModule
 import taiwan.no1.accounting.ui.BaseActivity
@@ -23,9 +23,9 @@ import javax.inject.Singleton
 @Component(modules = arrayOf(AppModule::class, NetModule::class))
 interface AppComponent {
     object Initializer {
-        fun init(app: App, baseUrl: String = ""): AppComponent = DaggerAppComponent.builder()
+        fun init(app: App): AppComponent = DaggerAppComponent.builder()
                 .appModule(AppModule(app))
-                .netModule(NetModule(baseUrl))
+                .netModule(NetModule())
                 .build()
     }
 
@@ -38,5 +38,5 @@ interface AppComponent {
 
     fun postExecutionThread(): PostExecutionThread
 
-    fun accountRepository(): AccountRepository
+    fun accountRepository(): IAccountRepository
 }

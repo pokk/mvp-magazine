@@ -3,6 +3,7 @@ package taiwan.no1.accounting.data.source;
 import android.support.annotation.NonNull;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import dagger.internal.Preconditions;
 import retrofit2.Retrofit;
@@ -18,11 +19,11 @@ import taiwan.no1.accounting.mvp.models.FakeModel;
  */
 
 public class CloudDataStore implements IDataStore {
-    @Inject Retrofit retrofit;
+    @Inject @Named("FakeHttp") Retrofit retrofit;
 
     @Inject
     public CloudDataStore() {
-        NetComponent.Initializer.INSTANCE.init("http://www.google.com.tw").inject(CloudDataStore.this);
+        NetComponent.Initializer.INSTANCE.init().inject(CloudDataStore.this);
     }
 
     @Override

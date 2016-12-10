@@ -8,7 +8,7 @@ package taiwan.no1.accounting.domain.mapper;
  * @since 2016/12/08
  */
 
-public interface BaseEntityMapper<M, E> {
+public interface IEntityMapper<M, E> {
     /**
      * Interaction of transforming from kotlin layer {@link M} model data to data layer {@link E} entity data.
      *

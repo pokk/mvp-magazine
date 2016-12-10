@@ -16,8 +16,8 @@ import javax.inject.Singleton
 @Component(modules = arrayOf(NetModule::class))
 interface NetComponent {
     object Initializer {
-        fun init(baseUrl: String): NetComponent = DaggerNetComponent.builder()
-                .netModule(NetModule(baseUrl))
+        fun init(): NetComponent = DaggerNetComponent.builder()
+                .netModule(NetModule())
                 .build()
     }
 
