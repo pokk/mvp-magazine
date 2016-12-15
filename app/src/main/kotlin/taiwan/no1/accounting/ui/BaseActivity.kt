@@ -1,15 +1,16 @@
 package taiwan.no1.accounting.ui
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.hwangjr.rxbus.RxBus
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity
+import com.hwangjr.rxbus.annotation.Subscribe
 import dagger.internal.Preconditions
 import taiwan.no1.accounting.App
 import taiwan.no1.accounting.internal.di.components.AppComponent
 import taiwan.no1.accounting.internal.di.modules.ActivityModule
+import taiwan.no1.accounting.utilies.AppLog
 import javax.inject.Inject
 
 /**
@@ -19,25 +20,35 @@ import javax.inject.Inject
  * @since   12/5/16
  */
 
-open class BaseActivity: RxAppCompatActivity() {
+open class BaseActivity: AppCompatActivity() {
     @Inject
     lateinit var navigator: Navigator
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    // Register it in the parent class that it will be not reflected.
+    protected var busEvent = object {
+        @Subscribe
+        fun test(test: String) {
+            AppLog.d(test)
+        }
+    }
+
+    //region Activity lifecycle
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
         this.initialInjector()
-
+ 
         // Register RxBus.
-        RxBus.get().register(this)
+        RxBus.get().register(this.busEvent)
     }
 
     override fun onDestroy() {
         super.onDestroy()
 
         // Unregister RxBus.
-        RxBus.get().unregister(this)
+        RxBus.get().unregister(this.busEvent)
     }
+    //endregion
 
     fun initialInjector() {
         this.getApplicationComponent().inject(BaseActivity@ this)

@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import butterknife.bindView
+import com.hwangjr.rxbus.RxBus
 import dagger.internal.Preconditions
 import taiwan.no1.accounting.R
 import taiwan.no1.accounting.internal.di.annotations.PerActivity
@@ -46,14 +48,16 @@ class MainFragment: BaseFragment(), MainContract.View {
     @Inject
     lateinit var presenter: MainPresenter
 
-    private val tvShow: TextView by bindView<TextView>(R.id.tv_show)
+    private val tvShow by bindView<TextView>(R.id.tv_show)
+    private val btnTest by bindView<Button>(R.id.btn_test) 
 
     // The fragment initialization parameters.
     private var arg1: String? = null
 
     //region Fragment lifecycle
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        
         // Get the arguments from the bundle here.
         this.arg1 = arguments?.getString(MainFragment.ARG_PARAM_)
     }
@@ -96,6 +100,8 @@ class MainFragment: BaseFragment(), MainContract.View {
     //endregion
 
     override fun init() {
+        this.btnTest.setOnClickListener { RxBus.get().post("test") }
+        
         this.tvShow.text = "Hello World!!"
     }
 
