@@ -17,6 +17,7 @@ import javax.inject.Inject
 
 @PerActivity
 class MainPresenter @Inject constructor(val fakeCase: CreateFakeUseCase): MainContract.Presenter {
+    // TODO: implement rx lifecycle.
     private lateinit var view: MainContract.View
 
     //region Subscribers

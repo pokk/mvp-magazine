@@ -3,9 +3,9 @@ package taiwan.no1.accounting.ui
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.hwangjr.rxbus.RxBus
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity
 import dagger.internal.Preconditions
 import taiwan.no1.accounting.App
 import taiwan.no1.accounting.internal.di.components.AppComponent
@@ -19,7 +19,7 @@ import javax.inject.Inject
  * @since   12/5/16
  */
 
-open class BaseActivity: AppCompatActivity() {
+open class BaseActivity: RxAppCompatActivity() {
     @Inject
     lateinit var navigator: Navigator
 

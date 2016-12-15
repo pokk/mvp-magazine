@@ -1,8 +1,8 @@
 package taiwan.no1.accounting.ui
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.View
+import com.trello.rxlifecycle.components.support.RxFragment
 import taiwan.no1.accounting.internal.di.HasComponent
 
 /**
@@ -12,20 +12,18 @@ import taiwan.no1.accounting.internal.di.HasComponent
  * @since   12/5/16
  */
 
-abstract class BaseFragment: Fragment() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+abstract class BaseFragment: RxFragment() {
+    protected var rootView: View? = null
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-    }
 
-    override fun onDestroy() {
-        super.onDestroy()
+        this.init()
     }
 
     protected fun <C> getComponent(componentType: Class<C>, obj: Any?): C {
         return componentType.cast((activity as HasComponent<*>).getComponent(obj))
     }
+
+    abstract protected fun init()
 }

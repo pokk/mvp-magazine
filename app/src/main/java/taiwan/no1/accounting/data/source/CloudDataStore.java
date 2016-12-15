@@ -29,6 +29,7 @@ public class CloudDataStore implements IDataStore {
     @Override
     public Observable<FakeEntity> createEntity(@NonNull final FakeModel model) {
         Preconditions.checkNotNull(model);
+
         return Observable.create(subscriber -> {
             subscriber.onNext(new FakeEntity("Test", 100, "F"));
             subscriber.onCompleted();

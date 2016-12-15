@@ -33,8 +33,10 @@ class NetModule {
 
     @Provides
     @Singleton
-    fun provideGson(): Gson =
-            GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create()
+    fun provideGson(): Gson = with(GsonBuilder()) {
+        setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+        create()
+    }
 
 //    @Provides
 //    @Singleton
@@ -49,17 +51,19 @@ class NetModule {
     fun provideBaseRetrofitBuilder(converter: GsonConverterFactory,
                                    callAdapter: RxJavaCallAdapterFactory,
                                    okHttpClient: OkHttpClient): Retrofit.Builder =
-            Retrofit.Builder().
-                    addConverterFactory(converter).
-                    addCallAdapterFactory(callAdapter).
-                    client(okHttpClient)
+            Retrofit.Builder().apply {
+                addConverterFactory(converter)
+                addCallAdapterFactory(callAdapter)
+                client(okHttpClient)
+            }
 
     @Provides
     @Singleton
     @Named("FakeHttp")
-    fun provideRetrofit2(baseBuilder: Retrofit.Builder, restfulApiFactory: RestfulApiFactory): Retrofit {
-        val config: IApiConfig = restfulApiFactory.createFakeConfig()
-
-        return baseBuilder.baseUrl(config.apiBaseUrl).build()
-    }
+    fun provideRetrofit2(baseBuilder: Retrofit.Builder, restfulApiFactory: RestfulApiFactory): Retrofit =
+            with(baseBuilder) {
+                val config: IApiConfig = restfulApiFactory.createFakeConfig()
+                baseUrl(config.apiBaseUrl)
+                build()
+            }
 }

@@ -4,6 +4,8 @@ import android.app.Activity
 import dagger.Module
 import dagger.Provides
 import taiwan.no1.accounting.internal.di.annotations.PerActivity
+import taiwan.no1.accounting.mvp.contracts.MainContract
+import taiwan.no1.accounting.mvp.presenters.MainPresenter
 
 /**
  * A base component upon which fragment's components may depend.
@@ -18,4 +20,8 @@ class ActivityModule(var activity: Activity) {
     @Provides
     @PerActivity
     fun activity(): Activity = this.activity
+
+    @Provides
+    @PerActivity
+    fun provideMainPresenter(mainPresenter: MainPresenter): MainContract.Presenter = mainPresenter
 }

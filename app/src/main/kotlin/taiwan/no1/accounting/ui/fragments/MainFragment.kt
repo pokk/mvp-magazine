@@ -24,8 +24,23 @@ import javax.inject.Inject
 
 @PerActivity
 class MainFragment: BaseFragment(), MainContract.View {
-    companion object {
-        @JvmStatic fun newInstance() = MainFragment()
+    companion object Factory {
+        // The key name of the fragment initialization parameters.
+        @JvmStatic private val ARG_PARAM_: String = "param_"
+
+        /**
+         * Use this factory method to create a new instance of this fragment using the provided parameters.
+         *
+         * @return A new instance of fragment BlankFragment.
+         */
+        @JvmStatic fun newInstance(arg1: String): MainFragment {
+            val fragment: MainFragment = MainFragment()
+            val bundle: Bundle = Bundle()
+            bundle.putString(ARG_PARAM_, arg1)
+            fragment.arguments = bundle
+
+            return fragment
+        }
     }
 
     @Inject
@@ -33,12 +48,14 @@ class MainFragment: BaseFragment(), MainContract.View {
 
     private val tvShow: TextView by bindView<TextView>(R.id.tv_show)
 
-    private var rootView: View? = null
+    // The fragment initialization parameters.
+    private var arg1: String? = null
 
     //region Fragment lifecycle
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        // TODO: Set the listener for transfer activity or fragment.
+        // Get the arguments from the bundle here.
+        this.arg1 = arguments?.getString(MainFragment.ARG_PARAM_)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -56,13 +73,8 @@ class MainFragment: BaseFragment(), MainContract.View {
 
         this.presenter.setView(MainFragment@ this)
         this.presenter.init()
+
         return rootView
-    }
-
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        this.tvShow.text = "Hello World!!"
     }
 
     override fun onResume() {
@@ -76,10 +88,16 @@ class MainFragment: BaseFragment(), MainContract.View {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
+        // After super.onDestroy() is executed, the presenter will be destroy. So the presenter should be
+        // executed before super.onDestroy().
         this.presenter.destroy()
+        super.onDestroy()
     }
     //endregion
+
+    override fun init() {
+        this.tvShow.text = "Hello World!!"
+    }
 
     //region Presenter implements
     override fun showLoading() {
