@@ -32,7 +32,9 @@ class MainPresenter @Inject constructor(val fakeCase: CreateFakeUseCase): MainCo
     }
 
     override fun init() {
-        fakeCase.execute(CreateFakeUseCase.Requests(FakeModel("Jieyi", 19, "H")), this.fakeSubscriber)
+        val request = CreateFakeUseCase.Requests(FakeModel("Jieyi", 19, "H"))
+        request.fragmentLifecycle = this.view.fragmentLifecycle()
+        this.fakeCase.execute(request, this.fakeSubscriber)
     }
 
     override fun resume() {
@@ -42,8 +44,6 @@ class MainPresenter @Inject constructor(val fakeCase: CreateFakeUseCase): MainCo
     }
 
     override fun destroy() {
-        /* The use case must unsubscribe here. */
-        this.fakeCase.unsubscribe()
     }
     //endregion
 }

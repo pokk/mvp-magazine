@@ -85,7 +85,7 @@ object AppLog {
      *
      * @param msg output message
      */
-    fun v(vararg msg: Any?) {
+    @JvmStatic fun v(vararg msg: Any?) {
         val msgString = combineInputArguments(*msg)
         LogWrapper().debugCheck(Log::class.java, MsgLevel.v.name, getLogMsg(msgString))
     }
@@ -95,7 +95,7 @@ object AppLog {
      *
      * @param msg output message
      */
-    fun d(vararg msg: Any?) {
+    @JvmStatic fun d(vararg msg: Any?) {
         val msgString = combineInputArguments(*msg)
         LogWrapper().debugCheck(Log::class.java, MsgLevel.d.name, getLogMsg(msgString))
     }
@@ -105,7 +105,7 @@ object AppLog {
      *
      * @param msg output message
      */
-    fun i(vararg msg: Any?) {
+    @JvmStatic fun i(vararg msg: Any?) {
         val msgString = combineInputArguments(*msg)
         LogWrapper().debugCheck(Log::class.java, MsgLevel.i.name, getLogMsg(msgString))
     }
@@ -115,7 +115,7 @@ object AppLog {
      *
      * @param msg output message
      */
-    fun w(vararg msg: Any?) {
+    @JvmStatic fun w(vararg msg: Any?) {
         val msgString = combineInputArguments(*msg)
         LogWrapper().debugCheck(Log::class.java, MsgLevel.w.name, getLogMsg(msgString))
     }
@@ -125,7 +125,7 @@ object AppLog {
      *
      * @param msg output message
      */
-    fun e(vararg msg: Any?) {
+    @JvmStatic fun e(vararg msg: Any?) {
         if (1 == msg.size && msg[0] is Exception)
             LogWrapper().debugCheck(Log::class.java, MsgLevel.e.name, getExceptionMsg(msg[0] as Exception))
         else {

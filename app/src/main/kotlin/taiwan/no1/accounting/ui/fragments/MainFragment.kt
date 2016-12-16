@@ -9,7 +9,9 @@ import android.widget.Button
 import android.widget.TextView
 import butterknife.bindView
 import com.hwangjr.rxbus.RxBus
+import com.trello.rxlifecycle.android.FragmentEvent
 import dagger.internal.Preconditions
+import rx.Observable
 import taiwan.no1.accounting.R
 import taiwan.no1.accounting.internal.di.annotations.PerActivity
 import taiwan.no1.accounting.internal.di.components.UseCaseComponent
@@ -122,8 +124,8 @@ class MainFragment: BaseFragment(), MainContract.View {
         Preconditions.checkNotNull(message)
     }
 
-    override fun context(): Context {
-        return this.activity.applicationContext
-    }
+    override fun context(): Context = this.activity.applicationContext
+
+    override fun fragmentLifecycle(): Observable<FragmentEvent> = this.lifecycle()
     //endregion
 }

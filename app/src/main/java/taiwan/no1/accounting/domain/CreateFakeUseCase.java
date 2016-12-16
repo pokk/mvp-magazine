@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import rx.Observable;
 import rx.Subscriber;
+import rx.Subscription;
 import taiwan.no1.accounting.domain.executor.PostExecutionThread;
 import taiwan.no1.accounting.domain.executor.ThreadExecutor;
 import taiwan.no1.accounting.domain.repository.IAccountRepository;
@@ -31,24 +32,23 @@ public class CreateFakeUseCase extends BaseUseCase<CreateFakeUseCase.Requests> {
     }
 
     /**
+     * Executes the current use case with request parameters.
+     *
+     * @param request           Send the data to data layer with request parameters.
      * @param useCaseSubscriber The guy who will be listen to the observable build with
-     *                          {@link #buildUseCaseObservable()}.
-     * @deprecated This method won't do anything, because this {@link Observable} need some parameters.
-     * The other same method with parameters that should be used.
      */
     @Override
-    @Deprecated
-    public void execute(@NonNull final Subscriber useCaseSubscriber) {
-        if (null != requestValues) {
-            super.execute(useCaseSubscriber);
-        }
-    }
-
-    @Override
     public void execute(@NonNull final Requests request, @NonNull final Subscriber useCaseSubscriber) {
+        this.requestValues = request;
+
         super.execute(request, useCaseSubscriber);
     }
 
+    /**
+     * Builds an {@link Observable} which will be used when executing the current {@link BaseUseCase}.
+     *
+     * @return {@link Observable} for connecting with a {@link Subscription} from the kotlin layer.
+     */
     @NonNull
     @Override
     protected Observable buildUseCaseObservable() {
@@ -58,7 +58,7 @@ public class CreateFakeUseCase extends BaseUseCase<CreateFakeUseCase.Requests> {
     /**
      * Wrapping data requests for general situation.
      */
-    public static final class Requests implements BaseUseCase.RequestValues {
+    public static final class Requests extends BaseUseCase.RequestValues {
         @NonNull private final FakeModel fakeModel;
 
         public Requests(@NonNull FakeModel fakeModel) {this.fakeModel = fakeModel;}

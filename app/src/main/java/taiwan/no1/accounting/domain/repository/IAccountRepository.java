@@ -17,5 +17,6 @@ public interface IAccountRepository {
     /**
      * Get an {@link Observable} which will emit a {@link FakeModel}.
      */
+    @NonNull
     Observable<FakeModel> CreateFakes(@NonNull FakeModel fakeModel);
 }

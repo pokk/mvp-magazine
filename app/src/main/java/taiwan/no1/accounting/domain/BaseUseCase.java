@@ -1,6 +1,11 @@
 package taiwan.no1.accounting.domain;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
+import com.trello.rxlifecycle.android.ActivityEvent;
+import com.trello.rxlifecycle.android.FragmentEvent;
+import com.trello.rxlifecycle.android.RxLifecycleAndroid;
 
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -10,9 +15,9 @@ import rx.Scheduler;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.schedulers.Schedulers;
-import rx.subscriptions.Subscriptions;
 import taiwan.no1.accounting.domain.executor.PostExecutionThread;
 import taiwan.no1.accounting.domain.executor.ThreadExecutor;
+import taiwan.no1.accounting.utilies.AppLog;
 
 /**
  * Abstract class for a Use Case (Interactor in terms of Clean Architecture).
@@ -33,8 +38,6 @@ import taiwan.no1.accounting.domain.executor.ThreadExecutor;
 public abstract class BaseUseCase<R extends BaseUseCase.RequestValues> {
     private final ThreadExecutor threadExecutor;
     private final PostExecutionThread postExecutionThread;
-
-    private Subscription subscription = Subscriptions.empty();
     R requestValues = null;
 
     BaseUseCase(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
@@ -44,24 +47,11 @@ public abstract class BaseUseCase<R extends BaseUseCase.RequestValues> {
 
     /**
      * Builds an {@link Observable} which will be used when executing the current {@link BaseUseCase}.
+     *
+     * @return {@link Observable} for connecting with a {@link Subscription} from the kotlin layer.
      */
     @NonNull
     protected abstract Observable buildUseCaseObservable();
-
-    /**
-     * Executes the current use case.
-     *
-     * @param useCaseSubscriber The guy who will be listen to the observable build with
-     *                          {@link #buildUseCaseObservable()}.
-     */
-    public void execute(@NonNull final Subscriber useCaseSubscriber) {
-        Preconditions.checkNotNull(useCaseSubscriber);
-
-        this.subscription = this.buildUseCaseObservable()
-                                .subscribeOn(getSubscribeScheduler())
-                                .observeOn(getObserveScheduler())
-                                .subscribe(useCaseSubscriber);
-    }
 
     /**
      * Executes the current use case with request parameters.
@@ -74,17 +64,20 @@ public abstract class BaseUseCase<R extends BaseUseCase.RequestValues> {
         Preconditions.checkNotNull(request);
         Preconditions.checkNotNull(useCaseSubscriber);
 
-        this.requestValues = request;
-        this.execute(useCaseSubscriber);
-    }
+        Observable observable = this.buildUseCaseObservable()
+                                    .doOnUnsubscribe(() -> AppLog.d("Unsubscribing subscription"));
 
-    /**
-     * Unsubscribes from current {@link Subscription}.
-     */
-    public void unsubscribe() {
-        if (!subscription.isUnsubscribed()) {
-            subscription.unsubscribe();
+        // Assign the one of them to RxJava request.
+        if (null != request.fragmentLifecycle) {
+            observable = observable.compose(RxLifecycleAndroid.bindFragment(request.fragmentLifecycle));
         }
+        else if (null != request.activityLifecycle) {
+            observable = observable.compose(RxLifecycleAndroid.bindActivity(request.activityLifecycle));
+        }
+
+        observable.subscribeOn(getSubscribeScheduler())
+                  .observeOn(getObserveScheduler())
+                  .subscribe(useCaseSubscriber);
     }
 
     /**
@@ -110,5 +103,8 @@ public abstract class BaseUseCase<R extends BaseUseCase.RequestValues> {
     /**
      * Interface for wrap a data for passing to a request.
      */
-    interface RequestValues {}
+    static abstract class RequestValues {
+        @Nullable public Observable<FragmentEvent> fragmentLifecycle;
+        @Nullable public Observable<ActivityEvent> activityLifecycle;
+    }
 }
