@@ -85,6 +85,12 @@ open class BaseActivity: AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
+    /**
+     * Get a fragment from queue by the tag.
+     *
+     * @param tag [Fragment]'s tag.
+     * @return [Fragment]
+     */
     fun findFragmentByTag(tag: String): Fragment {
         return this.supportFragmentManager.findFragmentByTag(tag)
     }
