@@ -15,6 +15,8 @@
  */
 package taiwan.no1.accounting.domain.executor;
 
+import android.support.annotation.NonNull;
+
 import rx.Scheduler;
 
 /**
@@ -22,6 +24,8 @@ import rx.Scheduler;
  * Useful to encapsulate a UI Thread for example, since some job will be done in background, an implementation
  * of this interface will change context and update the UI.
  */
+
 public interface PostExecutionThread {
+    @NonNull
     Scheduler getScheduler();
 }

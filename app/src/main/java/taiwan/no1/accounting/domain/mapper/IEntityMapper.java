@@ -1,5 +1,7 @@
 package taiwan.no1.accounting.domain.mapper;
 
+import android.support.annotation.NonNull;
+
 /**
  * Interface that transform between data layer and kotlin layer.
  *
@@ -15,7 +17,8 @@ public interface IEntityMapper<M, E> {
      * @param model kotlin layer model data.
      * @return data layer entity data.
      */
-    E transformFrom(M model);
+    @NonNull
+    E transformFrom(@NonNull final M model);
 
     /**
      * Interaction of transforming from data layer {@link E} entity data to kotlin layer {@link M} model data.
@@ -23,5 +26,6 @@ public interface IEntityMapper<M, E> {
      * @param entity data layer entity data.
      * @return kotlin layer model data.
      */
-    M transformTo(E entity);
+    @NonNull
+    M transformTo(@NonNull final E entity);
 }

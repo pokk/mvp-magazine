@@ -18,5 +18,6 @@ public interface IDataStore {
     /**
      * Get an {@link rx.Observable} which will emit a List of {@link FakeEntity}.
      */
+    @NonNull
     Observable<FakeEntity> createEntity(@NonNull final FakeModel model);
 }

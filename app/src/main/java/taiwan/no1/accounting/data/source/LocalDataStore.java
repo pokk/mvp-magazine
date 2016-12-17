@@ -13,6 +13,7 @@ import taiwan.no1.accounting.mvp.models.FakeModel;
  */
 
 public class LocalDataStore implements IDataStore {
+    @NonNull
     @Override
     public Observable<FakeEntity> createEntity(@NonNull FakeModel model) {
         return null;

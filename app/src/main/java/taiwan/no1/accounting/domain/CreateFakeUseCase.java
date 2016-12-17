@@ -20,6 +20,7 @@ import taiwan.no1.accounting.mvp.models.FakeModel;
  * @version 0.0.1
  * @since 9/6/16
  */
+
 public class CreateFakeUseCase extends BaseUseCase<CreateFakeUseCase.Requests> {
     private final IAccountRepository accountRepository;
 
@@ -61,6 +62,6 @@ public class CreateFakeUseCase extends BaseUseCase<CreateFakeUseCase.Requests> {
     public static final class Requests extends BaseUseCase.RequestValues {
         @NonNull private final FakeModel fakeModel;
 
-        public Requests(@NonNull FakeModel fakeModel) {this.fakeModel = fakeModel;}
+        public Requests(@NonNull final FakeModel fakeModel) {this.fakeModel = fakeModel;}
     }
 }

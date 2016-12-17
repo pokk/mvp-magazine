@@ -25,13 +25,13 @@ public class FakeEntityMapper implements IEntityMapper<FakeModel, FakeEntity> {
 
     @Override
     @NonNull
-    public FakeEntity transformFrom(@NonNull FakeModel model) {
+    public FakeEntity transformFrom(@NonNull final FakeModel model) {
         return new FakeEntity(model.getName(), model.getAge(), model.getSex());
     }
 
     @Override
     @NonNull
-    public FakeModel transformTo(@NonNull FakeEntity entity) {
+    public FakeModel transformTo(@NonNull final FakeEntity entity) {
         return new FakeModel(entity.getName(), entity.getAge(), entity.getSex());
     }
 }

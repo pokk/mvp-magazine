@@ -8,6 +8,12 @@ import taiwan.no1.accounting.internal.di.components.UseCaseComponent
 import taiwan.no1.accounting.ui.BaseActivity
 import taiwan.no1.accounting.ui.fragments.MainFragment
 
+/**
+ * @author Jieyi Wu
+ * @version 0.0.1
+ * @since 12/6/16
+ */
+
 class MainActivity: BaseActivity(), HasComponent<UseCaseComponent> {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

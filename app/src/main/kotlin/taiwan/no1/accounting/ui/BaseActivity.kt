@@ -14,7 +14,8 @@ import taiwan.no1.accounting.utilies.AppLog
 import javax.inject.Inject
 
 /**
- *
+ * Base activity for collecting all common methods here.
+ * 
  * @author  Jieyi Wu
  * @version 0.0.1
  * @since   12/5/16
@@ -50,6 +51,9 @@ open class BaseActivity: AppCompatActivity() {
     }
     //endregion
 
+    /**
+     * Get an injector and inject [BaseActivity].
+     */
     fun initialInjector() {
         this.getApplicationComponent().inject(BaseActivity@ this)
     }

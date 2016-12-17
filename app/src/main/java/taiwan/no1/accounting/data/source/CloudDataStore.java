@@ -26,6 +26,7 @@ public class CloudDataStore implements IDataStore {
         NetComponent.Initializer.INSTANCE.init().inject(CloudDataStore.this);
     }
 
+    @NonNull
     @Override
     public Observable<FakeEntity> createEntity(@NonNull final FakeModel model) {
         Preconditions.checkNotNull(model);

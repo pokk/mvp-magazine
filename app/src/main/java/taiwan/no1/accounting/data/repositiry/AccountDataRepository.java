@@ -31,7 +31,7 @@ public class AccountDataRepository implements IAccountRepository {
 
     @Override
     @NonNull
-    public Observable<FakeModel> CreateFakes(@NonNull FakeModel fakeModel) {
+    public Observable<FakeModel> CreateFakes(@NonNull final FakeModel fakeModel) {
         Preconditions.checkNotNull(fakeModel);
 
         return dataStoreFactory.createCloud()

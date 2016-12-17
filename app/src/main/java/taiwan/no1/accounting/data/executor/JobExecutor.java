@@ -32,6 +32,7 @@ import taiwan.no1.accounting.domain.executor.ThreadExecutor;
 /**
  * Decorated {@link ThreadPoolExecutor}
  */
+
 @Singleton
 public class JobExecutor implements ThreadExecutor {
     private static final int INITIAL_POOL_SIZE = 3;
@@ -60,7 +61,7 @@ public class JobExecutor implements ThreadExecutor {
     }
 
     @Override
-    public void execute(@NonNull Runnable runnable) {
+    public void execute(@NonNull final Runnable runnable) {
         Preconditions.checkNotNull(runnable);
 
         this.threadPoolExecutor.execute(runnable);
@@ -71,7 +72,7 @@ public class JobExecutor implements ThreadExecutor {
         private int counter = 0;
 
         @Override
-        public Thread newThread(@NonNull Runnable runnable) {
+        public Thread newThread(@NonNull final Runnable runnable) {
             return new Thread(runnable, THREAD_NAME + counter++);
         }
     }
