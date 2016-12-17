@@ -40,8 +40,6 @@ kapt {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile 'com.android.support:appcompat-v7:25.0.1'
-
     /* For language */
     //kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib:${kotlin_version}"
@@ -77,6 +75,9 @@ dependencies {
     /* For json format */
     // Gson
     compile "com.google.code.gson:gson:${gson_version}"
+    
+    compile 'com.android.support:appcompat-v7:25.0.1'
+    compile 'com.android.support:support-v4:25.0.1'
 }
 
 repositories {
