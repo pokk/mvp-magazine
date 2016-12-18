@@ -30,14 +30,14 @@ import javax.inject.Inject
 class MainFragment: BaseFragment(), MainContract.View {
     companion object Factory {
         // The key name of the fragment initialization parameters.
-        @JvmStatic private val ARG_PARAM_: String = "param_"
+        private val ARG_PARAM_: String = "param_"
 
         /**
          * Use this factory method to create a new instance of this fragment using the provided parameters.
          *
          * @return A new instance of fragment BlankFragment.
          */
-        @JvmStatic fun newInstance(arg1: String): MainFragment {
+        fun newInstance(arg1: String): MainFragment {
             val fragment: MainFragment = MainFragment()
             val bundle: Bundle = Bundle()
             bundle.putString(ARG_PARAM_, arg1)
@@ -51,7 +51,7 @@ class MainFragment: BaseFragment(), MainContract.View {
     lateinit var presenter: MainPresenter
 
     private val tvShow by bindView<TextView>(R.id.tv_show)
-    private val btnTest by bindView<Button>(R.id.btn_test) 
+    private val btnTest by bindView<Button>(R.id.btn_test)
 
     // The fragment initialization parameters.
     private var arg1: String? = null
@@ -59,7 +59,7 @@ class MainFragment: BaseFragment(), MainContract.View {
     //region Fragment lifecycle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
+
         // Get the arguments from the bundle here.
         this.arg1 = arguments?.getString(MainFragment.ARG_PARAM_)
     }
@@ -103,7 +103,7 @@ class MainFragment: BaseFragment(), MainContract.View {
 
     override fun init() {
         this.btnTest.setOnClickListener { RxBus.get().post("test") }
-        
+
         this.tvShow.text = "Hello World!!"
     }
 

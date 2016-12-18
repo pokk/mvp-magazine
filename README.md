@@ -9,7 +9,9 @@ This application is used an architecture called __*MVP*__ architecture.
 We mixed two languages in this project, one is __Kotlin__, the other one is __Java__.
 
 ### architecture
-We referenced the [Google clean architecture](https://github.com/googlesamples/android-architecture/tree/todo-mvp-clean/) to this application. There are three parts of clean architecture, __Presentation Layer__, __Domain Layer__, and __Data Layer__.
+We referenced the [Google clean architecture](https://github.com/googlesamples/android-architecture/tree/todo-mvp-clean/)
+to this application. There are three parts of clean architecture, __Presentation Layer__, __Domain Layer__,
+and __Data Layer__.
 
 ### language
 
@@ -37,4 +39,4 @@ We're using a lot of Rx family libraries.
 - [ ] Location
 - [ ] OCR
 - [ ] Backup
-
+- [ ] 

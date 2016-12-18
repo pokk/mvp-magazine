@@ -5,8 +5,8 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * Class used to navigate through the application.
- * 
+ * Class used to navigate between activities through the application.
+ *
  * @author  Jieyi Wu
  * @version 0.0.1
  * @since   12/6/16
@@ -15,7 +15,7 @@ import javax.inject.Singleton
 @Singleton
 class Navigator @Inject constructor() {
     companion object {
-        @JvmStatic var FRAGMENT_RESOURCE_ID: String = "fragment_resource_id"
+        var ACTIVITY_RESOURCE_ID: String = "activity_id"
     }
 
     /**
@@ -23,7 +23,6 @@ class Navigator @Inject constructor() {
      *
      * @param context A Context needed to open the destiny activity.
      */
-    fun navigateToSecond(context: Context) {
-        
+    fun navigateTo(context: Context) {
     }
 }

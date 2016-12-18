@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.hwangjr.rxbus.RxBus
 import com.hwangjr.rxbus.annotation.Subscribe
+import com.hwangjr.rxbus.annotation.Tag
+import com.touchin.constant.RxbusTag
 import dagger.internal.Preconditions
 import taiwan.no1.accounting.App
 import taiwan.no1.accounting.internal.di.components.AppComponent
@@ -27,7 +29,7 @@ open class BaseActivity: AppCompatActivity() {
 
     // Register it in the parent class that it will be not reflected.
     protected var busEvent = object {
-        @Subscribe
+        @Subscribe(tags = arrayOf(Tag(RxbusTag.NAVIGATOR)))
         fun test(test: String) {
             AppLog.d(test)
         }

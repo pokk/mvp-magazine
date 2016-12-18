@@ -11,15 +11,15 @@ import android.util.Log
  */
 
 object AppLog {
-    private val COLON = ":"
-    private val LEFT_PARENTHESIS = "("
-    private val RIGHT_PARENTHESIS = ")"
-    private val NULL_STRING = ""
-    private val SPACE_STRING = " "
-    private val TAG = "MY_LOG"  // TAG
-    private val IS_DEBUG = java.lang.Boolean.TRUE  // Debug mode's switch, default is turn off.
-    private val lockLog = Any()  // Avoid the threading's race condition.
-    private val strBuilder = StringBuilder()  // String builder.
+    private const val COLON: String = ":"
+    private const val LEFT_PARENTHESIS: String = "("
+    private const val RIGHT_PARENTHESIS: String = ")"
+    private const val NULL_STRING: String = ""
+    private const val SPACE_STRING: String = " "
+    private const val TAG: String = "MY_LOG"  // TAG
+    private val IS_DEBUG: Boolean = java.lang.Boolean.TRUE  // Debug mode's switch, default is turn off.
+    private val lockLog: Any = Any()  // Avoid the threading's race condition.
+    private val strBuilder: StringBuilder = StringBuilder()  // String builder.
 
     // Log priority level.
     private enum class MsgLevel {
@@ -49,7 +49,7 @@ object AppLog {
          */
         fun debugCheck(cls: Class<*>, methodName: String, msg: Any): Boolean {
             // Checking the debug mode.
-            if (IS_DEBUG!!) {
+            if (IS_DEBUG) {
                 // Avoid the race condition.
                 synchronized(lockLog) {
                     return this.logMsg(cls, methodName, msg)
