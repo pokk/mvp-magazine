@@ -34,6 +34,7 @@ We're using a lot of Rx family libraries.
 
 # Feature work
 
-location
-OCR
+- [ ] Location
+- [ ] OCR
+- [ ] Backup
 
