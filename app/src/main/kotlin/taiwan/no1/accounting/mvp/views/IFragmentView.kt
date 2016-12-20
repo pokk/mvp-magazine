@@ -4,7 +4,7 @@ import com.trello.rxlifecycle.android.FragmentEvent
 import rx.Observable
 
 /**
- * This specifies [].
+ * This specifies [IFragmentView].
  *
  * @author  Jieyi Wu
  * @version 0.0.1

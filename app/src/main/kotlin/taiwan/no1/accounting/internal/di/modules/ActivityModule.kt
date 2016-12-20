@@ -18,9 +18,9 @@ import taiwan.no1.accounting.mvp.presenters.MainPresenter
 
 @Module
 class ActivityModule(var activity: Activity) {
-    @Provides
-    @PerActivity
-    fun activity(): Activity = this.activity
+//    @Provides
+//    @PerActivity
+//    fun activity(): Activity = this.activity
 
     @Provides
     @PerActivity

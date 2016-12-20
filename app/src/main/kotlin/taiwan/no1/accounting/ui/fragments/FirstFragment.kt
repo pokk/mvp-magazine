@@ -9,10 +9,9 @@ import android.widget.TextView
 import butterknife.bindView
 import com.hwangjr.rxbus.RxBus
 import taiwan.no1.accounting.R
-import taiwan.no1.accounting.internal.di.annotations.PerActivity
+import taiwan.no1.accounting.internal.di.annotations.PerFragment
 import taiwan.no1.accounting.internal.di.components.UseCaseComponent
-import taiwan.no1.accounting.mvp.contracts.MainContract
-import taiwan.no1.accounting.mvp.presenters.MainPresenter
+import taiwan.no1.accounting.mvp.contracts.FirstContract
 import taiwan.no1.accounting.ui.BaseFragment
 import javax.inject.Inject
 
@@ -22,8 +21,8 @@ import javax.inject.Inject
  * @since 12/6/16
  */
 
-@PerActivity
-class MainFragment: BaseFragment(), MainContract.View {
+@PerFragment
+class FirstFragment: BaseFragment(), FirstContract.View {
     companion object Factory {
         // The key name of the fragment initialization parameters.
         private val ARG_PARAM_: String = "param_"
@@ -33,8 +32,8 @@ class MainFragment: BaseFragment(), MainContract.View {
          *
          * @return A new instance of fragment BlankFragment.
          */
-        fun newInstance(arg1: String): MainFragment {
-            val fragment: MainFragment = MainFragment()
+        fun newInstance(arg1: String): FirstFragment {
+            val fragment: FirstFragment = FirstFragment()
             val bundle: Bundle = Bundle()
             bundle.putString(ARG_PARAM_, arg1)
             fragment.arguments = bundle
@@ -44,7 +43,7 @@ class MainFragment: BaseFragment(), MainContract.View {
     }
 
     @Inject
-    lateinit var presenter: MainPresenter
+    lateinit var presenter: FirstContract.Presenter
 
     private val tvShow by bindView<TextView>(R.id.tv_show)
     private val btnTest by bindView<Button>(R.id.btn_test)
@@ -57,7 +56,7 @@ class MainFragment: BaseFragment(), MainContract.View {
         super.onCreate(savedInstanceState)
 
         // Get the arguments from the bundle here.
-        this.arg1 = arguments?.getString(MainFragment.ARG_PARAM_)
+        this.arg1 = arguments?.getString(FirstFragment.ARG_PARAM_)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -73,7 +72,7 @@ class MainFragment: BaseFragment(), MainContract.View {
         val parent: ViewGroup? = rootView?.parent as ViewGroup?
         parent?.removeView(rootView)
 
-        this.presenter.init(MainFragment@ this as MainContract.View)
+        this.presenter.init(MainFragment@ this)
 
         return rootView
     }

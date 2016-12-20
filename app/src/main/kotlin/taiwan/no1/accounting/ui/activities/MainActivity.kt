@@ -5,8 +5,10 @@ import android.support.v4.app.Fragment
 import taiwan.no1.accounting.R
 import taiwan.no1.accounting.internal.di.HasComponent
 import taiwan.no1.accounting.internal.di.components.UseCaseComponent
+import taiwan.no1.accounting.mvp.contracts.MainContract
 import taiwan.no1.accounting.ui.BaseActivity
-import taiwan.no1.accounting.ui.fragments.MainFragment
+import taiwan.no1.accounting.ui.fragments.FirstFragment
+import javax.inject.Inject
 
 /**
  * @author Jieyi Wu
@@ -14,11 +16,23 @@ import taiwan.no1.accounting.ui.fragments.MainFragment
  * @since 12/6/16
  */
 
-class MainActivity: BaseActivity(), HasComponent<UseCaseComponent> {
+class MainActivity: BaseActivity(), MainContract.View, HasComponent<UseCaseComponent> {
+    @Inject
+    lateinit var presenter: MainContract.Presenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+    }
 
+    override fun onStart() {
+        super.onStart()
+
+        // FIXME: 2016/12/20 presenter did't be injected.
+        this.presenter.init(MainActivity@ this)
+    }
+
+    override fun init(savedInstanceState: Bundle?) {
         initFragment(savedInstanceState)
     }
 
@@ -36,10 +50,10 @@ class MainActivity: BaseActivity(), HasComponent<UseCaseComponent> {
     fun getFragment(): Fragment {
         return when (-1) {
             R.layout.fragment_main -> {
-                val fragment = MainFragment.newInstance("")
+                val fragment = FirstFragment.newInstance("")
                 fragment
             }
-            else -> MainFragment.newInstance("")
+            else -> FirstFragment.newInstance("")
         }
     }
 }

@@ -1,7 +1,7 @@
 package taiwan.no1.accounting.mvp.contracts
 
 import taiwan.no1.accounting.mvp.presenters.IPresenter
-import taiwan.no1.accounting.mvp.views.IActivityView
+import taiwan.no1.accounting.mvp.views.IFragmentView
 import taiwan.no1.accounting.mvp.views.IView
 
 /**
@@ -12,8 +12,8 @@ import taiwan.no1.accounting.mvp.views.IView
  * @since   12/8/16
  */
 
-interface MainContract {
+interface FirstContract {
     interface Presenter: IPresenter<View>
 
-    interface View: IView, IActivityView
+    interface View: IView, IFragmentView
 }

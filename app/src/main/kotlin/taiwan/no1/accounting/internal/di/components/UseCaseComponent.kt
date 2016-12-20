@@ -5,7 +5,7 @@ import dagger.Component
 import taiwan.no1.accounting.internal.di.annotations.PerActivity
 import taiwan.no1.accounting.internal.di.modules.ActivityModule
 import taiwan.no1.accounting.internal.di.modules.UseCaseModule
-import taiwan.no1.accounting.ui.fragments.MainFragment
+import taiwan.no1.accounting.ui.fragments.FirstFragment
 
 /**
  * @author  Jieyi Wu
@@ -30,6 +30,6 @@ interface UseCaseComponent: ActivityComponent {
     /**
      * After injected a fragment, the presenter of the fragment should be provided in [ActivityModule].
      */
-    
-    fun inject(mainFragment: MainFragment)
+
+    fun inject(firstFragment: FirstFragment)
 }

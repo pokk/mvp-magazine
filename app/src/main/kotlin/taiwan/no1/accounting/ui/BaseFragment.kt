@@ -48,7 +48,7 @@ abstract class BaseFragment: RxFragment(), IView, IFragmentView {
     }
 
     /**
-     * Get the application [Context].
+     * Get the [Context] of this application.
      *
      * @return application [Context].
      */

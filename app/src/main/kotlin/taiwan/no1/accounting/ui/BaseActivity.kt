@@ -1,29 +1,34 @@
 package taiwan.no1.accounting.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.hwangjr.rxbus.RxBus
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.annotation.Tag
 import com.touchin.constant.RxbusTag
+import com.trello.rxlifecycle.android.ActivityEvent
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity
 import dagger.internal.Preconditions
+import rx.Observable
 import taiwan.no1.accounting.App
 import taiwan.no1.accounting.internal.di.components.AppComponent
 import taiwan.no1.accounting.internal.di.modules.ActivityModule
+import taiwan.no1.accounting.mvp.views.IActivityView
+import taiwan.no1.accounting.mvp.views.IView
 import taiwan.no1.accounting.utilies.AppLog
 import javax.inject.Inject
 
 /**
  * Base activity for collecting all common methods here.
- * 
+ *
  * @author  Jieyi Wu
  * @version 0.0.1
  * @since   12/5/16
  */
 
-open class BaseActivity: AppCompatActivity() {
+abstract class BaseActivity: RxAppCompatActivity(), IView, IActivityView {
     @Inject
     lateinit var navigator: Navigator
 
@@ -40,7 +45,8 @@ open class BaseActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         this.initialInjector()
- 
+        this.init(savedInstanceState)
+
         // Register RxBus.
         RxBus.get().register(this.busEvent)
     }
@@ -53,6 +59,43 @@ open class BaseActivity: AppCompatActivity() {
     }
     //endregion
 
+    //region Presenter implements
+    override fun showLoading() {
+    }
+
+    override fun hideLoading() {
+    }
+
+    override fun showRetry() {
+    }
+
+    override fun hideRetry() {
+    }
+
+    override fun showError(message: String) {
+        Preconditions.checkNotNull(message)
+    }
+
+    /**
+     * Get the [Context] of this application.
+     *
+     * @return application [Context].
+     */
+    override fun context(): Context = this.applicationContext
+
+    /**
+     * Get this activity lifecycle.
+     *
+     * @return [Observable] of lifecycle.
+     */
+    override fun getLifecycle(): Observable<ActivityEvent> = this.lifecycle()
+    //endregion
+
+    /**
+     * Initialize method.
+     */
+    abstract protected fun init(savedInstanceState: Bundle?)
+    
     /**
      * Get an injector and inject [BaseActivity].
      */
