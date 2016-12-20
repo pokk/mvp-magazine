@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import taiwan.no1.accounting.R
 import taiwan.no1.accounting.internal.di.HasComponent
-import taiwan.no1.accounting.internal.di.components.UseCaseComponent
+import taiwan.no1.accounting.internal.di.components.FragmentComponent
 import taiwan.no1.accounting.mvp.contracts.MainContract
 import taiwan.no1.accounting.ui.BaseActivity
 import taiwan.no1.accounting.ui.fragments.FirstFragment
@@ -16,28 +16,23 @@ import javax.inject.Inject
  * @since 12/6/16
  */
 
-class MainActivity: BaseActivity(), MainContract.View, HasComponent<UseCaseComponent> {
+class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComponent> {
     @Inject
     lateinit var presenter: MainContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-    }
 
-    override fun onStart() {
-        super.onStart()
-
-        // FIXME: 2016/12/20 presenter did't be injected.
-        this.presenter.init(MainActivity@ this)
+        this.getComponent().inject(this)
+        this.presenter.init(this)
     }
 
     override fun init(savedInstanceState: Bundle?) {
         initFragment(savedInstanceState)
     }
 
-    override fun getComponent(obj: Any?): UseCaseComponent =
-            UseCaseComponent.Initializer.init(getApplicationComponent(), this)
+    override fun getFragmentComponent(obj: Any?): FragmentComponent = super.provideFragmentComponent(obj)
 
     fun initFragment(savedInstanceState: Bundle?) {
         //apply background bitmap if we have one

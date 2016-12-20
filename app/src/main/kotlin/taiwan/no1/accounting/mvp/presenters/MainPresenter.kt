@@ -2,7 +2,6 @@ package taiwan.no1.accounting.mvp.presenters
 
 import taiwan.no1.accounting.internal.di.annotations.PerActivity
 import taiwan.no1.accounting.mvp.contracts.MainContract
-import taiwan.no1.accounting.utilies.AppLog
 import javax.inject.Inject
 
 /**
@@ -17,8 +16,6 @@ class MainPresenter @Inject constructor(): BasePresenter<MainContract.View>(), M
     //region View implementation
     override fun init(view: MainContract.View) {
         super.init(view)
-
-        AppLog.w("")
     }
     //endregion
 }

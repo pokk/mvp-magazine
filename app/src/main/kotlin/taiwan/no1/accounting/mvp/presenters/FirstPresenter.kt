@@ -2,7 +2,6 @@ package taiwan.no1.accounting.mvp.presenters
 
 import rx.lang.kotlin.subscriber
 import taiwan.no1.accounting.domain.CreateFakeUseCase
-import taiwan.no1.accounting.internal.di.annotations.PerFragment
 import taiwan.no1.accounting.mvp.contracts.FirstContract
 import taiwan.no1.accounting.mvp.models.FakeModel
 import javax.inject.Inject
@@ -14,9 +13,9 @@ import javax.inject.Inject
  * @since   12/6/16
  */
 
-@PerFragment
-class FirstPresenter @Inject constructor(val fakeCase: CreateFakeUseCase): BasePresenter<FirstContract.View>(),
-        FirstContract.Presenter {
+class FirstPresenter @Inject constructor(): BasePresenter<FirstContract.View>(), FirstContract.Presenter {
+    @Inject
+    lateinit var fakeCase: CreateFakeUseCase
 
     //region Subscribers
     private val fakeSubscriber = subscriber<FakeModel>().onCompleted { }.onError { }.onNext { }

@@ -1,16 +1,14 @@
 package taiwan.no1.accounting.ui.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.support.annotation.LayoutRes
 import android.widget.Button
 import android.widget.TextView
 import butterknife.bindView
 import com.hwangjr.rxbus.RxBus
 import taiwan.no1.accounting.R
 import taiwan.no1.accounting.internal.di.annotations.PerFragment
-import taiwan.no1.accounting.internal.di.components.UseCaseComponent
+import taiwan.no1.accounting.internal.di.components.FragmentComponent
 import taiwan.no1.accounting.mvp.contracts.FirstContract
 import taiwan.no1.accounting.ui.BaseFragment
 import javax.inject.Inject
@@ -59,24 +57,6 @@ class FirstFragment: BaseFragment(), FirstContract.View {
         this.arg1 = arguments?.getString(FirstFragment.ARG_PARAM_)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Avoid that an activity is deleted and get null pointer so inject the component here.
-        this.getComponent(UseCaseComponent::class.java, null).inject(MainFragment@ this)
-        // Keep the instance data.
-        this.retainInstance = true
-
-        // FIXED: https://www.zybuluo.com/kimo/note/255244
-        if (null == rootView)
-            rootView = inflater.inflate(R.layout.fragment_main, null)
-        val parent: ViewGroup? = rootView?.parent as ViewGroup?
-        parent?.removeView(rootView)
-
-        this.presenter.init(MainFragment@ this)
-
-        return rootView
-    }
-
     override fun onResume() {
         super.onResume()
         this.presenter.resume()
@@ -95,9 +75,36 @@ class FirstFragment: BaseFragment(), FirstContract.View {
     }
     //endregion
 
+    //region Initialization's order
+    /**
+     * Inject this fragment and [FragmentComponent].
+     */
+    override fun inject() {
+        this.getComponent(FragmentComponent::class.java, null).inject(MainFragment@ this)
+    }
+
+    /**
+     * Set this fragment xml layout.
+     *
+     * @return [LayoutRes] xml layout.
+     */
+    @LayoutRes
+    override fun inflateView(): Int = R.layout.fragment_main
+
+    /**
+     * Set the presenter initialization.
+     */
+    override fun initPresenter() {
+        this.presenter.init(MainFragment@ this)
+    }
+
+    /**
+     * Initialization of this fragment. Set the listeners or view components' attributions.
+     */
     override fun init() {
         this.btnTest.setOnClickListener { RxBus.get().post("test") }
 
         this.tvShow.text = "Hello World!!"
     }
+    //endregion
 }

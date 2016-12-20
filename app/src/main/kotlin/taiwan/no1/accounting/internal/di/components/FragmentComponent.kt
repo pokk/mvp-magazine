@@ -2,8 +2,9 @@ package taiwan.no1.accounting.internal.di.components
 
 import dagger.Component
 import taiwan.no1.accounting.internal.di.annotations.PerFragment
-import taiwan.no1.accounting.internal.di.modules.ActivityModule
 import taiwan.no1.accounting.internal.di.modules.FragmentModule
+import taiwan.no1.accounting.internal.di.modules.FragmentUseCaseModule
+import taiwan.no1.accounting.ui.fragments.FirstFragment
 
 /**
  *
@@ -13,5 +14,20 @@ import taiwan.no1.accounting.internal.di.modules.FragmentModule
  */
 
 @PerFragment
-@Component(dependencies = arrayOf(ActivityModule::class), modules = arrayOf(FragmentModule::class))
-interface FragmentComponent
+@Component(dependencies = arrayOf(AppComponent::class)
+        , modules = arrayOf(FragmentModule::class, FragmentUseCaseModule::class))
+interface FragmentComponent {
+    object Initializer {
+        fun init(appComponent: AppComponent): FragmentComponent = DaggerFragmentComponent.builder()
+                .appComponent(appComponent)
+                .fragmentUseCaseModule(FragmentUseCaseModule())
+                .fragmentModule(FragmentModule())
+                .build()
+    }
+
+    /**
+     * After injected a fragment, the presenter of the fragment should be provided in [FragmentModule].
+     */
+
+    fun inject(firstFragment: FirstFragment)
+}

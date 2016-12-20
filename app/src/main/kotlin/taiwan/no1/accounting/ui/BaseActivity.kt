@@ -13,12 +13,13 @@ import com.trello.rxlifecycle.components.support.RxAppCompatActivity
 import dagger.internal.Preconditions
 import rx.Observable
 import taiwan.no1.accounting.App
+import taiwan.no1.accounting.internal.di.components.ActivityComponent
 import taiwan.no1.accounting.internal.di.components.AppComponent
+import taiwan.no1.accounting.internal.di.components.FragmentComponent
 import taiwan.no1.accounting.internal.di.modules.ActivityModule
 import taiwan.no1.accounting.mvp.views.IActivityView
 import taiwan.no1.accounting.mvp.views.IView
 import taiwan.no1.accounting.utilies.AppLog
-import javax.inject.Inject
 
 /**
  * Base activity for collecting all common methods here.
@@ -29,8 +30,8 @@ import javax.inject.Inject
  */
 
 abstract class BaseActivity: RxAppCompatActivity(), IView, IActivityView {
-    @Inject
-    lateinit var navigator: Navigator
+//    @Inject
+//    lateinit var navigator: Navigator
 
     // Register it in the parent class that it will be not reflected.
     protected var busEvent = object {
@@ -95,12 +96,12 @@ abstract class BaseActivity: RxAppCompatActivity(), IView, IActivityView {
      * Initialize method.
      */
     abstract protected fun init(savedInstanceState: Bundle?)
-    
+
     /**
      * Get an injector and inject [BaseActivity].
      */
     fun initialInjector() {
-        this.getApplicationComponent().inject(BaseActivity@ this)
+//        this.getApplicationComponent().inject(BaseActivity@ this)
     }
 
     /**
@@ -147,21 +148,23 @@ abstract class BaseActivity: RxAppCompatActivity(), IView, IActivityView {
         this.supportFragmentManager.popBackStack()
     }
 
+    protected fun getComponent(): ActivityComponent =
+            ActivityComponent.Initializer.init(this.getApplicationComponent())
+
+    protected fun provideFragmentComponent(obj: Any?): FragmentComponent =
+            FragmentComponent.Initializer.init(this.getApplicationComponent())
+
     /**
      * Get the Main Application component for dependency injection.
      *
      * @return [AppComponent]
      */
-    protected fun getApplicationComponent(): AppComponent {
-        return App.appComponent(application)
-    }
+    protected fun getApplicationComponent(): AppComponent = App.appComponent(this.applicationContext)
 
     /**
      * Get an Activity module for dependency injection.
      *
      * @return [ActivityModule]
      */
-    protected fun getActivityModule(): ActivityModule {
-        return ActivityModule(this)
-    }
+    protected fun getActivityModule(): ActivityModule = ActivityModule()
 }

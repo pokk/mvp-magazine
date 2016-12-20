@@ -11,4 +11,4 @@ import dagger.Module
  */
 
 @Module
-class UseCaseModule(var id: String = "-1")
+class ActivityUseCaseModule

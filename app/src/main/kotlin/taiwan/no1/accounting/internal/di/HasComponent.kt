@@ -9,5 +9,5 @@ package taiwan.no1.accounting.internal.di
  */
 
 interface HasComponent<out C> {
-    fun getComponent(obj: Any?): C
+    fun getFragmentComponent(obj: Any?): C
 }
