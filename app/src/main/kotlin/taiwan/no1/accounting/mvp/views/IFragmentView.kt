@@ -15,5 +15,5 @@ interface IFragmentView {
     /**
      * Get a fragment life cycle.
      */
-    fun fragmentLifecycle(): Observable<FragmentEvent>?
+    fun getLifecycle(): Observable<FragmentEvent>?
 }

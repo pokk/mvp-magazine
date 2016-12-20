@@ -1,6 +1,5 @@
 package taiwan.no1.accounting.mvp.presenters
 
-import dagger.internal.Preconditions
 import rx.lang.kotlin.subscriber
 import taiwan.no1.accounting.domain.CreateFakeUseCase
 import taiwan.no1.accounting.internal.di.annotations.PerActivity
@@ -16,33 +15,20 @@ import javax.inject.Inject
  */
 
 @PerActivity
-class MainPresenter @Inject constructor(val fakeCase: CreateFakeUseCase): MainContract.Presenter {
-    private lateinit var view: MainContract.View
+class MainPresenter @Inject constructor(val fakeCase: CreateFakeUseCase): BasePresenter<MainContract.View>(),
+        MainContract.Presenter {
 
     //region Subscribers
     private val fakeSubscriber = subscriber<FakeModel>().onCompleted { }.onError { }.onNext { }
     //endregion
 
     //region View implementation
-    override fun setView(view: MainContract.View) {
-        Preconditions.checkNotNull(view)
-
-        this.view = view
-    }
-
-    override fun init() {
+    override fun init(view: MainContract.View) {
+        super.init(view)
+        
         val request = CreateFakeUseCase.Requests(FakeModel("Jieyi", 19, "H"))
-        request.fragmentLifecycle = this.view.fragmentLifecycle()
+        request.fragmentLifecycle = this.view.getLifecycle()
         this.fakeCase.execute(request, this.fakeSubscriber)
-    }
-
-    override fun resume() {
-    }
-
-    override fun pause() {
-    }
-
-    override fun destroy() {
     }
     //endregion
 }

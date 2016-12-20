@@ -12,16 +12,11 @@ import taiwan.no1.accounting.mvp.views.IView
 
 interface IPresenter<in V: IView> {
     /**
-     * Set a viewable.
-     *
+     * Initial method.
+     * 
      * @param view [IView]
      */
-    fun setView(view: V)
-
-    /**
-     * Initial method.
-     */
-    fun init()
+    fun init(view: V)
 
     /**
      * Method that control the lifecycle of the view. It should be called in the view's (Activity or Fragment)

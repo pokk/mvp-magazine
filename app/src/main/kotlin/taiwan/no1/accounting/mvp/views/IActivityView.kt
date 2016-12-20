@@ -15,5 +15,5 @@ interface IActivityView {
     /**
      * Get a activity life cycle.
      */
-    fun activityLifecycle(): Observable<ActivityEvent>
+    fun getLifecycle(): Observable<ActivityEvent>
 }

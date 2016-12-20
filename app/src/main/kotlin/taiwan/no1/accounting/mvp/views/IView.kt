@@ -39,7 +39,7 @@ interface IView {
     fun showError(message: String)
 
     /**
-     * Get a [Context].
+     * Get the application [Context].
      */
     fun context(): Context
 }

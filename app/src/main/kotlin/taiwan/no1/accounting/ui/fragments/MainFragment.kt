@@ -1,6 +1,5 @@
 package taiwan.no1.accounting.ui.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,9 +8,6 @@ import android.widget.Button
 import android.widget.TextView
 import butterknife.bindView
 import com.hwangjr.rxbus.RxBus
-import com.trello.rxlifecycle.android.FragmentEvent
-import dagger.internal.Preconditions
-import rx.Observable
 import taiwan.no1.accounting.R
 import taiwan.no1.accounting.internal.di.annotations.PerActivity
 import taiwan.no1.accounting.internal.di.components.UseCaseComponent
@@ -77,8 +73,7 @@ class MainFragment: BaseFragment(), MainContract.View {
         val parent: ViewGroup? = rootView?.parent as ViewGroup?
         parent?.removeView(rootView)
 
-        this.presenter.setView(MainFragment@ this)
-        this.presenter.init()
+        this.presenter.init(MainFragment@ this as MainContract.View)
 
         return rootView
     }
@@ -106,26 +101,4 @@ class MainFragment: BaseFragment(), MainContract.View {
 
         this.tvShow.text = "Hello World!!"
     }
-
-    //region Presenter implements
-    override fun showLoading() {
-    }
-
-    override fun hideLoading() {
-    }
-
-    override fun showRetry() {
-    }
-
-    override fun hideRetry() {
-    }
-
-    override fun showError(message: String) {
-        Preconditions.checkNotNull(message)
-    }
-
-    override fun context(): Context = this.activity.applicationContext
-
-    override fun fragmentLifecycle(): Observable<FragmentEvent> = this.lifecycle()
-    //endregion
 }

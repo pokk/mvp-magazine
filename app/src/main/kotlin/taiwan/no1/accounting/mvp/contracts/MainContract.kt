@@ -13,7 +13,7 @@ import taiwan.no1.accounting.mvp.views.IView
  */
 
 interface MainContract {
-    interface Presenter: IPresenter<View>
+    interface Presenter
 
     interface View: IView, IFragmentView
 }
