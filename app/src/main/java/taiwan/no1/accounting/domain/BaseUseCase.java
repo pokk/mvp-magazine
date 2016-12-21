@@ -1,5 +1,6 @@
 package taiwan.no1.accounting.domain;
 
+import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -60,6 +61,7 @@ public abstract class BaseUseCase<R extends BaseUseCase.RequestValues> {
      * @param useCaseSubscriber The guy who will be listen to the observable build with
      *                          {@link #buildUseCaseObservable()}.
      */
+    @CallSuper
     public void execute(@NonNull final R request, @NonNull final Subscriber useCaseSubscriber) {
         Preconditions.checkNotNull(request);
         Preconditions.checkNotNull(useCaseSubscriber);

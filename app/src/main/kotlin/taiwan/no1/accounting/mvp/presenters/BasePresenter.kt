@@ -1,5 +1,6 @@
 package taiwan.no1.accounting.mvp.presenters
 
+import android.support.annotation.CallSuper
 import dagger.internal.Preconditions
 import taiwan.no1.accounting.mvp.views.IView
 
@@ -14,6 +15,7 @@ import taiwan.no1.accounting.mvp.views.IView
 open class BasePresenter<V: IView>: IPresenter<V> {
     lateinit protected var view: V
 
+    @CallSuper
     override fun init(view: V) {
         Preconditions.checkNotNull(view)
 

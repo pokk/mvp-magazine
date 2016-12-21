@@ -2,8 +2,6 @@ package taiwan.no1.accounting.domain;
 
 import android.support.annotation.NonNull;
 
-import javax.inject.Inject;
-
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
@@ -24,9 +22,8 @@ import taiwan.no1.accounting.mvp.models.FakeModel;
 public class CreateFakeUseCase extends BaseUseCase<CreateFakeUseCase.Requests> {
     private final IAccountRepository accountRepository;
 
-    @Inject
-    CreateFakeUseCase(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread,
-                      IAccountRepository accountRepository) {
+    public CreateFakeUseCase(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread,
+                             IAccountRepository accountRepository) {
         super(threadExecutor, postExecutionThread);
 
         this.accountRepository = accountRepository;

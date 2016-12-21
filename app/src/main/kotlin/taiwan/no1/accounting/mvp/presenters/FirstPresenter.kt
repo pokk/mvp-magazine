@@ -1,10 +1,10 @@
 package taiwan.no1.accounting.mvp.presenters
 
 import rx.lang.kotlin.subscriber
+import taiwan.no1.accounting.domain.BaseUseCase
 import taiwan.no1.accounting.domain.CreateFakeUseCase
 import taiwan.no1.accounting.mvp.contracts.FirstContract
 import taiwan.no1.accounting.mvp.models.FakeModel
-import javax.inject.Inject
 
 /**
  *
@@ -13,10 +13,8 @@ import javax.inject.Inject
  * @since   12/6/16
  */
 
-class FirstPresenter @Inject constructor(): BasePresenter<FirstContract.View>(), FirstContract.Presenter {
-    @Inject
-    lateinit var fakeCase: CreateFakeUseCase
-
+class FirstPresenter constructor(val fakeCase: BaseUseCase<CreateFakeUseCase.Requests>):
+        BasePresenter<FirstContract.View>(), FirstContract.Presenter {
     //region Subscribers
     private val fakeSubscriber = subscriber<FakeModel>().onCompleted { }.onError { }.onNext { }
     //endregion

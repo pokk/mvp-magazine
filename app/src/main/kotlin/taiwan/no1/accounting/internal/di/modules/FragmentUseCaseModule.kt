@@ -2,10 +2,11 @@ package taiwan.no1.accounting.internal.di.modules
 
 import dagger.Module
 import dagger.Provides
-import taiwan.no1.accounting.domain.BaseUseCase
 import taiwan.no1.accounting.domain.CreateFakeUseCase
+import taiwan.no1.accounting.domain.executor.PostExecutionThread
+import taiwan.no1.accounting.domain.executor.ThreadExecutor
+import taiwan.no1.accounting.domain.repository.IAccountRepository
 import taiwan.no1.accounting.internal.di.annotations.PerFragment
-import javax.inject.Named
 
 /**
  * Dagger use case module that provides user related collaborators.
@@ -19,14 +20,8 @@ import javax.inject.Named
 class FragmentUseCaseModule {
     @Provides
     @PerFragment
-    @Named("Fake")
-    fun providesFake(createFakeUseCase: CreateFakeUseCase): BaseUseCase<CreateFakeUseCase.Requests> {
-        return createFakeUseCase
-    }
-
-//    private fun CreateFakeUseCase(threadExecutor: ThreadExecutor,
-//                                  postExecutionThread: PostExecutionThread,
-//                                  accountRepository: IAccountRepository): BaseUseCase<CreateFakeUseCase.Requests> {
-//        
-//    }
+    fun ProvideFake(threadExecutor: ThreadExecutor,
+                    postExecutionThread: PostExecutionThread,
+                    accountRepository: IAccountRepository): CreateFakeUseCase
+            = CreateFakeUseCase(threadExecutor, postExecutionThread, accountRepository)
 }

@@ -2,6 +2,7 @@ package taiwan.no1.accounting.internal.di.modules
 
 import dagger.Module
 import dagger.Provides
+import taiwan.no1.accounting.domain.CreateFakeUseCase
 import taiwan.no1.accounting.internal.di.annotations.PerFragment
 import taiwan.no1.accounting.mvp.contracts.FirstContract
 import taiwan.no1.accounting.mvp.presenters.FirstPresenter
@@ -17,5 +18,6 @@ import taiwan.no1.accounting.mvp.presenters.FirstPresenter
 class FragmentModule {
     @Provides
     @PerFragment
-    fun provideFirstPresenter(firstPresenter: FirstPresenter): FirstContract.Presenter = firstPresenter
+    fun provideFirstPresenter(fakeUseCase: CreateFakeUseCase): FirstContract.Presenter =
+            FirstPresenter(fakeUseCase)
 }
