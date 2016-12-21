@@ -28,8 +28,8 @@ abstract class BaseFragment: RxFragment(), IView, IFragmentView {
     protected var rootView: View? = null
 
     //region Fragment lifecycle.
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override final fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                                    savedInstanceState: Bundle?): View? {
         // Avoid that an activity is deleted and get null pointer so inject the component here.
         this.inject()
         // Keep the instance data.
@@ -47,7 +47,7 @@ abstract class BaseFragment: RxFragment(), IView, IFragmentView {
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override final fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         this.init()

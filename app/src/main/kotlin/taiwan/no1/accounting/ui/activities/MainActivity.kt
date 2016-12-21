@@ -24,11 +24,9 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        this.getComponent().inject(this)
-        this.presenter.init(this)
-    }
+        this.getComponent().inject(MainActivity@ this)
+        this.presenter.init(MainActivity@ this)
 
-    override fun init(savedInstanceState: Bundle?) {
         initFragment(savedInstanceState)
     }
 

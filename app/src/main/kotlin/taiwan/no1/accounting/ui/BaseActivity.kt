@@ -2,6 +2,7 @@ package taiwan.no1.accounting.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.support.annotation.CallSuper
 import android.support.v4.app.Fragment
 import android.view.View
 import com.hwangjr.rxbus.RxBus
@@ -42,18 +43,17 @@ abstract class BaseActivity: RxAppCompatActivity(), IView, IActivityView {
     }
 
     //region Activity lifecycle
+    @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        getComponent().inject(this)
-
         this.initialInjector()
-        this.init(savedInstanceState)
 
         // Register RxBus.
         RxBus.get().register(this.busEvent)
     }
 
+    @CallSuper
     override fun onDestroy() {
         super.onDestroy()
 
@@ -95,13 +95,19 @@ abstract class BaseActivity: RxAppCompatActivity(), IView, IActivityView {
     //endregion
 
     /**
-     * Initialize method.
+     * Get the [ActivityComponent] for injecting a presenter and a use case.
+     *
+     * @return [ActivityComponent]
      */
-    abstract protected fun init(savedInstanceState: Bundle?)
-
     protected fun getComponent(): ActivityComponent =
             ActivityComponent.Initializer.init(this.getApplicationComponent())
 
+    /**
+     * Provide the [FragmentComponent] to fragments for injecting a presenter and use cases.
+     *
+     * @param obj
+     * @return [FragmentComponent]
+     */
     protected fun provideFragmentComponent(obj: Any?): FragmentComponent =
             FragmentComponent.Initializer.init(this.getApplicationComponent())
 
@@ -116,7 +122,7 @@ abstract class BaseActivity: RxAppCompatActivity(), IView, IActivityView {
      * Get an injector and inject [BaseActivity].
      */
     protected fun initialInjector() {
-//        this.getApplicationComponent().inject(BaseActivity@ this)
+        this.getComponent().inject(BaseActivity@ this)
     }
 
     /**
@@ -124,6 +130,9 @@ abstract class BaseActivity: RxAppCompatActivity(), IView, IActivityView {
      *
      * @param containerViewId The container view to where add the fragment.
      * @param fragment The fragment to be added.
+     * @param needBack Set that it can back to previous fragment.
+     * @param sharedElement
+     * @param shareElementName
      */
     protected fun addFragment(containerViewId: Int,
                               fragment: Fragment,
