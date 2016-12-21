@@ -24,7 +24,7 @@ interface AppComponent {
     object Initializer {
         fun init(app: App): AppComponent = DaggerAppComponent.builder()
                 .appModule(AppModule(app))
-                .netModule(NetModule())
+                .netModule(NetModule(app))
                 .build()
     }
 

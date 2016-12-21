@@ -1,10 +1,12 @@
 package taiwan.no1.accounting.internal.di.modules
 
+import android.content.Context
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
+import okhttp3.Cache
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
@@ -22,7 +24,7 @@ import javax.inject.Singleton
  */
 
 @Module
-class NetModule {
+class NetModule(val context: Context) {
     @Provides
     @Singleton
     fun provideConverterGson(gson: Gson): GsonConverterFactory = GsonConverterFactory.create(gson)
@@ -38,13 +40,13 @@ class NetModule {
         create()
     }
 
-//    @Provides
-//    @Singleton
-//    fun provideOkHttpCache(app: Application): Cache = Cache(app.cacheDir, 10 * 1024 * 1024 /* 10 MiB */)
+    @Provides
+    @Singleton
+    fun provideOkHttpCache(): Cache = Cache(context.cacheDir, 10 * 1024 * 1024 /* 10 MiB */)
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(): OkHttpClient = OkHttpClient.Builder().build()
+    fun provideOkHttpClient(cache: Cache): OkHttpClient = OkHttpClient.Builder().cache(cache).build()
 
     @Provides
     @Singleton

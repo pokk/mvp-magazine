@@ -1,6 +1,7 @@
 package taiwan.no1.accounting.internal.di.components
 
 import dagger.Component
+import taiwan.no1.accounting.App
 import taiwan.no1.accounting.data.source.CloudDataStore
 import taiwan.no1.accounting.internal.di.modules.NetModule
 import javax.inject.Singleton
@@ -17,7 +18,7 @@ import javax.inject.Singleton
 interface NetComponent {
     object Initializer {
         @JvmStatic fun init(): NetComponent = DaggerNetComponent.builder()
-                .netModule(NetModule())
+                .netModule(NetModule(App.getAppContext()))
                 .build()
     }
 
