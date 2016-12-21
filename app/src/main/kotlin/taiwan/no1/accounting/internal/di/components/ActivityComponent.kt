@@ -29,6 +29,7 @@ interface ActivityComponent {
      * After injected an activity, the presenter of the activity should be provided in [ActivityModule].
      */
 
+    // This injection is for the activity navigator.
     fun inject(baseActivity: BaseActivity)
     
     fun inject(mainActivity: MainActivity)

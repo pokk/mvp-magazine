@@ -24,5 +24,5 @@ class ActivityModule {
     
     @Provides
     @PerActivity
-    fun provideMainPresenter(mainPresenter: MainPresenter): MainContract.Presenter = mainPresenter
+    fun provideMainPresenter(): MainContract.Presenter = MainPresenter()
 }

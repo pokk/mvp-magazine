@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import taiwan.no1.accounting.R
 import taiwan.no1.accounting.internal.di.HasComponent
+import taiwan.no1.accounting.internal.di.annotations.PerActivity
 import taiwan.no1.accounting.internal.di.components.FragmentComponent
 import taiwan.no1.accounting.mvp.contracts.MainContract
 import taiwan.no1.accounting.ui.BaseActivity
@@ -16,6 +17,7 @@ import javax.inject.Inject
  * @since 12/6/16
  */
 
+@PerActivity
 class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComponent> {
     @Inject
     lateinit var presenter: MainContract.Presenter

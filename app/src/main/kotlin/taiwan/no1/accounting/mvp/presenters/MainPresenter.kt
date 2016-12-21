@@ -2,7 +2,6 @@ package taiwan.no1.accounting.mvp.presenters
 
 import taiwan.no1.accounting.internal.di.annotations.PerActivity
 import taiwan.no1.accounting.mvp.contracts.MainContract
-import javax.inject.Inject
 
 /**
  *
@@ -12,7 +11,7 @@ import javax.inject.Inject
  */
 
 @PerActivity
-class MainPresenter @Inject constructor(): BasePresenter<MainContract.View>(), MainContract.Presenter {
+class MainPresenter: BasePresenter<MainContract.View>(), MainContract.Presenter {
     //region View implementation
     override fun init(view: MainContract.View) {
         super.init(view)
