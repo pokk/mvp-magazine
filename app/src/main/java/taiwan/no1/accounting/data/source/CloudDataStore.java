@@ -23,7 +23,7 @@ public class CloudDataStore implements IDataStore {
 
     @Inject
     public CloudDataStore() {
-        NetComponent.Initializer.INSTANCE.init().inject(CloudDataStore.this);
+        NetComponent.Initializer.init().inject(CloudDataStore.this);
     }
 
     @NonNull

@@ -20,7 +20,6 @@ import taiwan.no1.accounting.mvp.models.FakeModel;
  */
 
 public class AccountDataRepository implements IAccountRepository {
-
     private final DataStoreFactory dataStoreFactory;
     @Inject FakeEntityMapper fakeMapper;
 

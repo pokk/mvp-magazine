@@ -14,9 +14,18 @@ import taiwan.no1.accounting.internal.di.components.AppComponent
 
 class App: Application() {
     companion object {
-        @JvmStatic fun appComponent(context: Context): AppComponent =
-                (context as App).appComponent
+        lateinit private var context: Context
+
+        @JvmStatic fun appComponent(): AppComponent = (context as App).appComponent
+        // Provide the global application context.
+        @JvmStatic fun getAppContext(): Context = context 
     }
 
     private val appComponent: AppComponent by lazy { AppComponent.Initializer.init(this) }
+
+    override fun onCreate() {
+        super.onCreate()
+
+        context = this
+    }
 }

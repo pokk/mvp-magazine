@@ -5,6 +5,7 @@ import dagger.Provides
 import taiwan.no1.accounting.internal.di.annotations.PerActivity
 import taiwan.no1.accounting.mvp.contracts.MainContract
 import taiwan.no1.accounting.mvp.presenters.MainPresenter
+import taiwan.no1.accounting.ui.Navigator
 
 /**
  * A base component upon which fragment's components may depend.
@@ -17,6 +18,10 @@ import taiwan.no1.accounting.mvp.presenters.MainPresenter
 
 @Module
 class ActivityModule {
+    @Provides
+    @PerActivity
+    fun provideNavigator(): Navigator = Navigator()
+    
     @Provides
     @PerActivity
     fun provideMainPresenter(mainPresenter: MainPresenter): MainContract.Presenter = mainPresenter

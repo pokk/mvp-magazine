@@ -4,6 +4,7 @@ import dagger.Component
 import taiwan.no1.accounting.internal.di.annotations.PerActivity
 import taiwan.no1.accounting.internal.di.modules.ActivityModule
 import taiwan.no1.accounting.internal.di.modules.ActivityUseCaseModule
+import taiwan.no1.accounting.ui.BaseActivity
 import taiwan.no1.accounting.ui.activities.MainActivity
 
 /**
@@ -28,5 +29,7 @@ interface ActivityComponent {
      * After injected an activity, the presenter of the activity should be provided in [ActivityModule].
      */
 
+    fun inject(baseActivity: BaseActivity)
+    
     fun inject(mainActivity: MainActivity)
 }

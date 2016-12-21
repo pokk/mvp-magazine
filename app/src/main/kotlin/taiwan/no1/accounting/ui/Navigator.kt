@@ -1,8 +1,6 @@
 package taiwan.no1.accounting.ui
 
 import android.content.Context
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Class used to navigate between activities through the application.
@@ -12,8 +10,7 @@ import javax.inject.Singleton
  * @since   12/6/16
  */
 
-@Singleton
-class Navigator @Inject constructor() {
+class Navigator {
     companion object {
         var ACTIVITY_RESOURCE_ID: String = "activity_id"
     }

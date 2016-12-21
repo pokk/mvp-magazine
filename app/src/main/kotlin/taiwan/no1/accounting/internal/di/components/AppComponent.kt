@@ -8,7 +8,6 @@ import taiwan.no1.accounting.domain.executor.ThreadExecutor
 import taiwan.no1.accounting.domain.repository.IAccountRepository
 import taiwan.no1.accounting.internal.di.modules.AppModule
 import taiwan.no1.accounting.internal.di.modules.NetModule
-import taiwan.no1.accounting.ui.BaseActivity
 import javax.inject.Singleton
 
 /**
@@ -28,8 +27,6 @@ interface AppComponent {
                 .netModule(NetModule())
                 .build()
     }
-
-    fun inject(baseActivity: BaseActivity)
 
     // Exposed to sub-graphs.
     fun context(): Context

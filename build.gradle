@@ -2,7 +2,7 @@
 
 buildscript {
     ext {
-        kotlin_version = '1.0.5'
+        kotlin_version = '1.0.5-3'
         koterknife_version = '0.1.0-SNAPSHOT'
         rx_binding_kotlin_version = '1.0.0'
         rx_lifecycle_version = '1.0'

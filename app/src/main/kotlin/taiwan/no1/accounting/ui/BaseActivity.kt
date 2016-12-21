@@ -16,10 +16,10 @@ import taiwan.no1.accounting.App
 import taiwan.no1.accounting.internal.di.components.ActivityComponent
 import taiwan.no1.accounting.internal.di.components.AppComponent
 import taiwan.no1.accounting.internal.di.components.FragmentComponent
-import taiwan.no1.accounting.internal.di.modules.ActivityModule
 import taiwan.no1.accounting.mvp.views.IActivityView
 import taiwan.no1.accounting.mvp.views.IView
 import taiwan.no1.accounting.utilies.AppLog
+import javax.inject.Inject
 
 /**
  * Base activity for collecting all common methods here.
@@ -30,8 +30,8 @@ import taiwan.no1.accounting.utilies.AppLog
  */
 
 abstract class BaseActivity: RxAppCompatActivity(), IView, IActivityView {
-//    @Inject
-//    lateinit var navigator: Navigator
+    @Inject
+    lateinit var navigator: Navigator
 
     // Register it in the parent class that it will be not reflected.
     protected var busEvent = object {
@@ -44,6 +44,8 @@ abstract class BaseActivity: RxAppCompatActivity(), IView, IActivityView {
     //region Activity lifecycle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        getComponent().inject(this)
 
         this.initialInjector()
         this.init(savedInstanceState)
@@ -97,10 +99,23 @@ abstract class BaseActivity: RxAppCompatActivity(), IView, IActivityView {
      */
     abstract protected fun init(savedInstanceState: Bundle?)
 
+    protected fun getComponent(): ActivityComponent =
+            ActivityComponent.Initializer.init(this.getApplicationComponent())
+
+    protected fun provideFragmentComponent(obj: Any?): FragmentComponent =
+            FragmentComponent.Initializer.init(this.getApplicationComponent())
+
+    /**
+     * Get the Main Application component for dependency injection.
+     *
+     * @return [AppComponent]
+     */
+    protected fun getApplicationComponent(): AppComponent = App.appComponent()
+
     /**
      * Get an injector and inject [BaseActivity].
      */
-    fun initialInjector() {
+    protected fun initialInjector() {
 //        this.getApplicationComponent().inject(BaseActivity@ this)
     }
 
@@ -110,8 +125,11 @@ abstract class BaseActivity: RxAppCompatActivity(), IView, IActivityView {
      * @param containerViewId The container view to where add the fragment.
      * @param fragment The fragment to be added.
      */
-    fun addFragment(containerViewId: Int, fragment: Fragment, needBack: Boolean, sharedElement: View?,
-                    shareElementName: String?) {
+    protected fun addFragment(containerViewId: Int,
+                              fragment: Fragment,
+                              needBack: Boolean,
+                              sharedElement: View?,
+                              shareElementName: String?) {
         Preconditions.checkNotNull(containerViewId)
         Preconditions.checkNotNull(fragment)
         Preconditions.checkNotNull(needBack)
@@ -137,34 +155,14 @@ abstract class BaseActivity: RxAppCompatActivity(), IView, IActivityView {
      * @param tag [Fragment]'s tag.
      * @return [Fragment]
      */
-    fun findFragmentByTag(tag: String): Fragment {
+    protected fun findFragmentByTag(tag: String): Fragment {
         return this.supportFragmentManager.findFragmentByTag(tag)
     }
 
     /**
      * Pop a [Fragment] from [getSupportFragmentManager].
      */
-    fun popFragment() {
+    protected fun popFragment() {
         this.supportFragmentManager.popBackStack()
     }
-
-    protected fun getComponent(): ActivityComponent =
-            ActivityComponent.Initializer.init(this.getApplicationComponent())
-
-    protected fun provideFragmentComponent(obj: Any?): FragmentComponent =
-            FragmentComponent.Initializer.init(this.getApplicationComponent())
-
-    /**
-     * Get the Main Application component for dependency injection.
-     *
-     * @return [AppComponent]
-     */
-    protected fun getApplicationComponent(): AppComponent = App.appComponent(this.applicationContext)
-
-    /**
-     * Get an Activity module for dependency injection.
-     *
-     * @return [ActivityModule]
-     */
-    protected fun getActivityModule(): ActivityModule = ActivityModule()
 }
