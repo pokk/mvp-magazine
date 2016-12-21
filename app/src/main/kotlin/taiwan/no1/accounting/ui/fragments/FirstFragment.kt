@@ -80,7 +80,7 @@ class FirstFragment: BaseFragment(), FirstContract.View {
      * Inject this fragment and [FragmentComponent].
      */
     override fun inject() {
-        this.getComponent(FragmentComponent::class.java, null).inject(MainFragment@ this)
+        this.getComponent(FragmentComponent::class.java, null).inject(FirstFragment@ this)
     }
 
     /**
@@ -95,7 +95,7 @@ class FirstFragment: BaseFragment(), FirstContract.View {
      * Set the presenter initialization.
      */
     override fun initPresenter() {
-        this.presenter.init(MainFragment@ this)
+        this.presenter.init(FirstFragment@ this)
     }
 
     /**

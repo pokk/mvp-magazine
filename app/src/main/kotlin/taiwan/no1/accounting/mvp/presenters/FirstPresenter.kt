@@ -1,7 +1,6 @@
 package taiwan.no1.accounting.mvp.presenters
 
 import rx.lang.kotlin.subscriber
-import taiwan.no1.accounting.domain.BaseUseCase
 import taiwan.no1.accounting.domain.CreateFakeUseCase
 import taiwan.no1.accounting.mvp.contracts.FirstContract
 import taiwan.no1.accounting.mvp.models.FakeModel
@@ -13,7 +12,7 @@ import taiwan.no1.accounting.mvp.models.FakeModel
  * @since   12/6/16
  */
 
-class FirstPresenter constructor(val fakeCase: BaseUseCase<CreateFakeUseCase.Requests>):
+class FirstPresenter constructor(val fakeCase: CreateFakeUseCase):
         BasePresenter<FirstContract.View>(), FirstContract.Presenter {
     //region Subscribers
     private val fakeSubscriber = subscriber<FakeModel>().onCompleted { }.onError { }.onNext { }
