@@ -5,14 +5,20 @@ Recording your daily outcome.
 
 # Description
 
-This application is based on an architecture called __*MVP*__ architecture. Actually we don't only practice an
-application simply, but also create a base MVP architecture for other projects, too.
-We mixed two languages in this project, one is __Kotlin__, the other one is __Java__.
+This application is based on an architecture called __*MVP*__
+architecture. Actually we don't only practice developing an application
+simply, but also create a base MVP architecture for other projects, too.
+
+This is the first time for us to mix two languages in this project, one
+is __Kotlin__, the other one is __Java__, we could know which parts that
+Kotlin is stronger and more convenient than Java.
 
 ### MVP architecture
 
-We referenced the [Google clean architecture](https://github.com/googlesamples/android-architecture/tree/todo-mvp-clean/)
-to this application. There are three parts of clean architecture as below.
+We referenced the
+[Google clean architecture](https://github.com/googlesamples/android-architecture/tree/todo-mvp-clean/)
+to this application. There are three parts of clean architecture as
+below.
 
 1. __Presentation Layer__
 2. __Domain Layer__
@@ -20,9 +26,8 @@ to this application. There are three parts of clean architecture as below.
 
 ### programming language
 
-__*Kotlin*__ in __Presentation Layer__.
-<br>
-__*Java*__ in __Domain Layer__ and __Data Layer__.
+__*Kotlin*__ in __Presentation Layer__. <br> __*Java*__ in __Domain
+Layer__ and __Data Layer__.
 
 
 # Third-party library
@@ -39,13 +44,20 @@ We're using a lot of Rx family libraries.
 8. [Dagger 2](https://github.com/google/dagger)
 
 
-# Feature work
+### TODO
 
 ### MVP architecture
-- [ ] Decouple the Use Case.
-- [ ] Decouple the injection of library component. 
+
+Our architecture may not enough convenient for start-up project. If you
+have any good idea, please tell us.
+
+- [ ] Decouple between UseCases.
+- [x] Decouple the injection of library component.
+
+# Feature work
 
 ### expense funtions
+
 - [ ] Location
 - [ ] OCR
 - [ ] Backup
