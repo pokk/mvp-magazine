@@ -7,7 +7,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.1"
     defaultConfig {
-        applicationId "taiwan.no1.accounting"
+        applicationId "taiwan.no1.app"
         minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
