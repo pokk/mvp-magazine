@@ -2,14 +2,15 @@ package taiwan.no1.app.data.repositiry;
 
 import android.support.annotation.NonNull;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
-import dagger.internal.Preconditions;
 import rx.Observable;
-import taiwan.no1.app.data.mapper.FakeEntityMapper;
+import taiwan.no1.app.data.mapper.MovieEntityMapper;
 import taiwan.no1.app.data.source.factory.DataStoreFactory;
 import taiwan.no1.app.domain.repository.IRepository;
-import taiwan.no1.app.mvp.models.FakeModel;
+import taiwan.no1.app.mvp.models.MovieModel;
 
 /**
  * Low layer pure entity convert to kotlin layer data model from the repositories.
@@ -21,20 +22,18 @@ import taiwan.no1.app.mvp.models.FakeModel;
 
 public class DataRepository implements IRepository {
     private final DataStoreFactory dataStoreFactory;
-    @Inject FakeEntityMapper fakeMapper;
+    @Inject MovieEntityMapper moviesMapper;
 
     @Inject
     DataRepository(DataStoreFactory dataStoreFactory) {
         this.dataStoreFactory = dataStoreFactory;
     }
 
-    @Override
     @NonNull
-    public Observable<FakeModel> CreateFakes(@NonNull final FakeModel fakeModel) {
-        Preconditions.checkNotNull(fakeModel);
-
+    @Override
+    public Observable<List<MovieModel>> getPopularMovies(final int page) {
         return dataStoreFactory.createCloud()
-                               .createEntity(fakeModel)
-                               .map(entity -> fakeMapper.transformTo(entity));
+                               .getPopularMovieEntities(page)
+                               .map(entity -> this.moviesMapper.transformTo(entity.getMovieEntities()));
     }
 }

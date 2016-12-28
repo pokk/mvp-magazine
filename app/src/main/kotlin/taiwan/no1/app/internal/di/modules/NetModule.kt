@@ -13,7 +13,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import taiwan.no1.app.api.RestfulApiFactory
 import taiwan.no1.app.api.config.IApiConfig
-import javax.inject.Named
+import taiwan.no1.app.api.service.MovieDBService
 import javax.inject.Singleton
 
 /**
@@ -61,11 +61,13 @@ class NetModule(val context: Context) {
 
     @Provides
     @Singleton
-    @Named("FakeHttp")
-    fun provideRetrofit2(baseBuilder: Retrofit.Builder, restfulApiFactory: RestfulApiFactory): Retrofit =
-            with(baseBuilder) {
-                val config: IApiConfig = restfulApiFactory.createFakeConfig()
-                baseUrl(config.apiBaseUrl)
+    fun provideRetrofit2(baseBuilder: Retrofit.Builder,
+                         restfulApiFactory: RestfulApiFactory): MovieDBService {
+        val config: IApiConfig = restfulApiFactory.createMovieDBConfig()
+        val retrofit: Retrofit = baseBuilder.
+                baseUrl(config.apiBaseUrl).
                 build()
-            }
+
+        return retrofit.create(MovieDBService::class.java)
+    }
 }

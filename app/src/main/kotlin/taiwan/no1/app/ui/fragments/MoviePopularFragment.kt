@@ -2,14 +2,12 @@ package taiwan.no1.app.ui.fragments
 
 import android.os.Bundle
 import android.support.annotation.LayoutRes
-import android.widget.Button
 import android.widget.TextView
 import butterknife.bindView
-import com.hwangjr.rxbus.RxBus
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
-import taiwan.no1.app.mvp.contracts.FirstContract
+import taiwan.no1.app.mvp.contracts.MoviePopularContract
 import taiwan.no1.app.ui.BaseFragment
 import javax.inject.Inject
 
@@ -20,20 +18,16 @@ import javax.inject.Inject
  */
 
 @PerFragment
-class FirstFragment: BaseFragment(), FirstContract.View {
+class MoviePopularFragment: BaseFragment(), MoviePopularContract.View {
     companion object Factory {
-        // The key name of the fragment initialization parameters.
-        private val ARG_PARAM_: String = "param_"
-
         /**
          * Use this factory method to create a new instance of this fragment using the provided parameters.
          *
          * @return A new instance of fragment BlankFragment.
          */
-        fun newInstance(arg1: String): FirstFragment {
-            val fragment: FirstFragment = FirstFragment()
+        fun newInstance(): MoviePopularFragment {
+            val fragment: MoviePopularFragment = MoviePopularFragment()
             val bundle: Bundle = Bundle()
-            bundle.putString(ARG_PARAM_, arg1)
             fragment.arguments = bundle
 
             return fragment
@@ -41,22 +35,11 @@ class FirstFragment: BaseFragment(), FirstContract.View {
     }
 
     @Inject
-    lateinit var presenter: FirstContract.Presenter
+    lateinit var presenter: MoviePopularContract.Presenter
 
     private val tvShow by bindView<TextView>(R.id.tv_show)
-    private val btnTest by bindView<Button>(R.id.btn_test)
-
-    // The fragment initialization parameters.
-    private var arg1: String? = null
 
     //region Fragment lifecycle
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // Get the arguments from the bundle here.
-        this.arg1 = arguments?.getString(FirstFragment.ARG_PARAM_)
-    }
-
     override fun onResume() {
         super.onResume()
         this.presenter.resume()
@@ -80,7 +63,7 @@ class FirstFragment: BaseFragment(), FirstContract.View {
      * Inject this fragment and [FragmentComponent].
      */
     override fun inject() {
-        this.getComponent(FragmentComponent::class.java, null).inject(FirstFragment@ this)
+        this.getComponent(FragmentComponent::class.java, null).inject(MoviePopularFragment@ this)
     }
 
     /**
@@ -89,21 +72,19 @@ class FirstFragment: BaseFragment(), FirstContract.View {
      * @return [LayoutRes] xml layout.
      */
     @LayoutRes
-    override fun inflateView(): Int = R.layout.fragment_main
+    override fun inflateView(): Int = R.layout.fragment_movie_popular
 
     /**
      * Set the presenter initialization.
      */
     override fun initPresenter() {
-        this.presenter.init(FirstFragment@ this)
+        this.presenter.init(MoviePopularFragment@ this)
     }
 
     /**
      * Initialization of this fragment. Set the listeners or view components' attributions.
      */
     override fun init() {
-        this.btnTest.setOnClickListener { RxBus.get().post("test") }
-
         this.tvShow.text = "Hello World!!"
     }
     //endregion

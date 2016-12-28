@@ -1,4 +1,4 @@
-package taiwan.no1.app.domain;
+package taiwan.no1.app.domain.usecase;
 
 import android.support.annotation.NonNull;
 
@@ -19,14 +19,10 @@ import taiwan.no1.app.mvp.models.FakeModel;
  * @since 9/6/16
  */
 
-public class CreateFakeUseCase extends BaseUseCase<CreateFakeUseCase.Requests> {
-    private final IRepository repository;
-
-    public CreateFakeUseCase(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread,
-                             IRepository repository) {
-        super(threadExecutor, postExecutionThread);
-
-        this.repository = repository;
+public class CreateFake extends BaseUseCase<CreateFake.Requests> {
+    public CreateFake(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread,
+                      IRepository repository) {
+        super(threadExecutor, postExecutionThread, repository);
     }
 
     /**
@@ -50,7 +46,8 @@ public class CreateFakeUseCase extends BaseUseCase<CreateFakeUseCase.Requests> {
     @NonNull
     @Override
     protected Observable buildUseCaseObservable() {
-        return repository.CreateFakes(this.requestValues.fakeModel);
+        //        return repository.CreateFakes(this.requestValues.fakeModel);
+        return null;
     }
 
     /**

@@ -5,8 +5,8 @@ import android.support.annotation.NonNull;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import taiwan.no1.app.api.config.FakeConfig;
 import taiwan.no1.app.api.config.IApiConfig;
+import taiwan.no1.app.api.config.MovieDBConfig;
 
 /**
  * Factory that creates different implementations of {@link IApiConfig}.
@@ -24,7 +24,7 @@ public class RestfulApiFactory {
     }
 
     @NonNull
-    public IApiConfig createFakeConfig() {
-        return new FakeConfig();
+    public IApiConfig createMovieDBConfig() {
+        return new MovieDBConfig();
     }
 }

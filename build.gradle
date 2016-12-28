@@ -12,6 +12,7 @@ buildscript {
         dagger_2_version = '2.8'
         gson_version = '2.4'
         gilde_version = '3.7.0'
+        bottom_bar_version = '2.0.2'
     }
     repositories {
         jcenter()

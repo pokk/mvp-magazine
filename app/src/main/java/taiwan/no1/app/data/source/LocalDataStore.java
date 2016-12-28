@@ -1,11 +1,9 @@
 package taiwan.no1.app.data.source;
 
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import rx.Observable;
-import taiwan.no1.app.data.entities.FakeEntity;
-import taiwan.no1.app.mvp.models.FakeModel;
+import taiwan.no1.app.data.entities.PopularResEntity;
 
 /**
  * @author Jieyi Wu
@@ -16,7 +14,8 @@ import taiwan.no1.app.mvp.models.FakeModel;
 public class LocalDataStore implements IDataStore {
     @Nullable
     @Override
-    public Observable<FakeEntity> createEntity(@NonNull FakeModel model) {
-        return null;
+    public Observable<PopularResEntity> getPopularMovieEntities(int page) {
+        throw new Error("No-op");
     }
+
 }

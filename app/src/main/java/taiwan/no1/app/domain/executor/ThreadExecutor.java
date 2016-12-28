@@ -17,8 +17,6 @@ package taiwan.no1.app.domain.executor;
 
 import java.util.concurrent.Executor;
 
-import taiwan.no1.app.domain.BaseUseCase;
-
 /**
  * Executor implementation can be based on different frameworks or techniques of asynchronous execution,
  * but every implementation will execute the {@link BaseUseCase} out of the UI thread.

@@ -1,17 +1,16 @@
 package taiwan.no1.app.data.source;
 
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import javax.inject.Inject;
-import javax.inject.Named;
+import java.util.HashMap;
+import java.util.Map;
 
-import dagger.internal.Preconditions;
-import retrofit2.Retrofit;
+import javax.inject.Inject;
+
 import rx.Observable;
-import taiwan.no1.app.data.entities.FakeEntity;
+import taiwan.no1.app.api.service.MovieDBService;
+import taiwan.no1.app.data.entities.PopularResEntity;
 import taiwan.no1.app.internal.di.components.NetComponent;
-import taiwan.no1.app.mvp.models.FakeModel;
 
 /**
  * @author Jieyi Wu
@@ -20,7 +19,7 @@ import taiwan.no1.app.mvp.models.FakeModel;
  */
 
 public class CloudDataStore implements IDataStore {
-    @Inject @Named("FakeHttp") Retrofit retrofit;
+    @Inject MovieDBService movieDBService;
 
     @Inject
     public CloudDataStore() {
@@ -29,12 +28,11 @@ public class CloudDataStore implements IDataStore {
 
     @Nullable
     @Override
-    public Observable<FakeEntity> createEntity(@NonNull final FakeModel model) {
-        Preconditions.checkNotNull(model);
+    public Observable<PopularResEntity> getPopularMovieEntities(int page) {
+        Map<String, String> data = new HashMap<>();
+        data.put("api_key", "987b940504b25045c8c8005c7c1ceab5");
+        data.put("page", String.valueOf(1));
 
-        return Observable.create(subscriber -> {
-            subscriber.onNext(new FakeEntity("Test", 100, "F"));
-            subscriber.onCompleted();
-        });
+        return movieDBService.getPopularMovieList(data);
     }
 }

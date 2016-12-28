@@ -2,8 +2,11 @@ package taiwan.no1.app.domain.repository;
 
 import android.support.annotation.NonNull;
 
+import java.util.List;
+
 import rx.Observable;
 import taiwan.no1.app.mvp.models.FakeModel;
+import taiwan.no1.app.mvp.models.MovieModel;
 
 /**
  * Interface that represents a Repository for getting {@link FakeModel} related data.
@@ -15,8 +18,11 @@ import taiwan.no1.app.mvp.models.FakeModel;
 
 public interface IRepository {
     /**
-     * Get an {@link Observable} which will emit a {@link FakeModel}.
+     * Get an {@link Observable} which will emit a {@link List<MovieModel>}.
+     *
+     * @param page a page of popular movies.
+     * @return {@link Observable}
      */
     @NonNull
-    Observable<FakeModel> CreateFakes(@NonNull final FakeModel fakeModel);
+    Observable<List<MovieModel>> getPopularMovies(final int page);
 }

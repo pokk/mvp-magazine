@@ -1,4 +1,4 @@
-package taiwan.no1.app.domain;
+package taiwan.no1.app.domain.usecase;
 
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
@@ -18,6 +18,7 @@ import rx.Subscription;
 import rx.schedulers.Schedulers;
 import taiwan.no1.app.domain.executor.PostExecutionThread;
 import taiwan.no1.app.domain.executor.ThreadExecutor;
+import taiwan.no1.app.domain.repository.IRepository;
 import taiwan.no1.app.utilies.AppLog;
 
 /**
@@ -25,7 +26,7 @@ import taiwan.no1.app.utilies.AppLog;
  * This interface represents a execution unit for different use cases (this means any use case in the
  * application should implement this contract).
  * <p>
- * By convention each UseCase implementation will return the result using a {@link rx.Subscriber} that will
+ * By convention each UseCase implementation will return the result using a {@link Subscriber} that will
  * execute its job in a background thread and will post the result in the UI thread.
  * <p>
  * For passing a request parameters {@link RequestValues} to data layer that set a generic type for wrapping
@@ -36,14 +37,17 @@ import taiwan.no1.app.utilies.AppLog;
  * @since 12/6/16
  */
 
-public abstract class BaseUseCase<R extends BaseUseCase.RequestValues> {
-    private final ThreadExecutor threadExecutor;
-    private final PostExecutionThread postExecutionThread;
+abstract class BaseUseCase<R extends BaseUseCase.RequestValues> {
+    protected final ThreadExecutor threadExecutor;
+    protected final PostExecutionThread postExecutionThread;
+    protected final IRepository repository;
     R requestValues = null;
 
-    BaseUseCase(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
+    BaseUseCase(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread,
+                IRepository repository) {
         this.threadExecutor = threadExecutor;
         this.postExecutionThread = postExecutionThread;
+        this.repository = repository;
     }
 
     /**

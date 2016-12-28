@@ -1,11 +1,9 @@
 package taiwan.no1.app.data.source;
 
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import rx.Observable;
-import taiwan.no1.app.data.entities.FakeEntity;
-import taiwan.no1.app.mvp.models.FakeModel;
+import taiwan.no1.app.data.entities.PopularResEntity;
 
 /**
  * Interface that represents a data store from where data is retrieved.
@@ -17,8 +15,8 @@ import taiwan.no1.app.mvp.models.FakeModel;
 
 public interface IDataStore {
     /**
-     * Get an {@link rx.Observable} which will emit a List of {@link FakeEntity}.
+     * Get an {@link rx.Observable} which will emit a {@link PopularResEntity}.
      */
     @Nullable
-    Observable<FakeEntity> createEntity(@NonNull final FakeModel model);
+    Observable<PopularResEntity> getPopularMovieEntities(final int page);
 }

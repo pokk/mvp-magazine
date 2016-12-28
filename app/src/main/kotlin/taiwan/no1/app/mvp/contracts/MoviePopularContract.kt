@@ -12,7 +12,7 @@ import taiwan.no1.app.mvp.views.IView
  * @since   12/8/16
  */
 
-interface FirstContract {
+interface MoviePopularContract {
     interface Presenter: IPresenter<View>
 
     interface View: IView, IFragmentView

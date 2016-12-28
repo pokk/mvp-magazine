@@ -4,7 +4,7 @@ import dagger.Component
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.modules.FragmentModule
 import taiwan.no1.app.internal.di.modules.FragmentUseCaseModule
-import taiwan.no1.app.ui.fragments.FirstFragment
+import taiwan.no1.app.ui.fragments.MoviePopularFragment
 
 /**
  *
@@ -29,5 +29,5 @@ interface FragmentComponent {
      * After injected a fragment, the presenter of the fragment should be provided in [FragmentModule].
      */
 
-    fun inject(firstFragment: FirstFragment)
+    fun inject(moviePopularFragment: MoviePopularFragment)
 }

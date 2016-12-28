@@ -41,7 +41,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     /* For language */
-    //kotlin
+    // kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib:${kotlin_version}"
     // Kotter knife
     compile "com.jakewharton:kotterknife:${koterknife_version}"
@@ -75,9 +75,13 @@ dependencies {
     /* For json format */
     // Gson
     compile "com.google.code.gson:gson:${gson_version}"
-    
-    compile 'com.android.support:appcompat-v7:25.0.1'
-    compile 'com.android.support:support-v4:25.0.1'
+
+    compile "com.roughike:bottom-bar:${bottom_bar_version}"
+    compile 'devlight.io:navigationtabbar:1.2.5'
+    compile 'com.etsy.android.grid:library:1.0.5'
+
+    compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'com.android.support:support-v4:25.1.0'
 }
 
 repositories {
