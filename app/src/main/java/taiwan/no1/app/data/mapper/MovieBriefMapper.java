@@ -13,7 +13,7 @@ import taiwan.no1.app.domain.mapper.IBeanMapper;
 import taiwan.no1.app.mvp.models.MovieBriefModel;
 
 /**
- * Mapper class used to transform between {@link List< MovieBriefModel >} (in the kotlin layer) and
+ * Mapper class used to transform between {@link List<MovieBriefModel>} (in the kotlin layer) and
  * {@link List<PopularResEntity.MovieEntity>} (in the data layer).
  *
  * @author Jieyi
@@ -30,8 +30,8 @@ public class MovieBriefMapper implements IBeanMapper<List<MovieBriefModel>, List
 
     @NonNull
     @Override
-    public List<PopularResEntity.MovieEntity> transformFrom(@NonNull List<MovieBriefModel> model)
-            throws Error {
+    @Deprecated
+    public List<PopularResEntity.MovieEntity> transformFrom(@NonNull List<MovieBriefModel> model) {
         throw new Error("No-op");
     }
 

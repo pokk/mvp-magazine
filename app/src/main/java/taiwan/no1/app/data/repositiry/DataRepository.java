@@ -7,11 +7,15 @@ import java.util.List;
 import javax.inject.Inject;
 
 import rx.Observable;
+import taiwan.no1.app.data.mapper.CastDetailMapper;
 import taiwan.no1.app.data.mapper.MovieBriefMapper;
+import taiwan.no1.app.data.mapper.MovieCastsMapper;
 import taiwan.no1.app.data.mapper.MovieDetailMapper;
 import taiwan.no1.app.data.source.factory.DataStoreFactory;
 import taiwan.no1.app.domain.repository.IRepository;
+import taiwan.no1.app.mvp.models.CastDetailModel;
 import taiwan.no1.app.mvp.models.MovieBriefModel;
+import taiwan.no1.app.mvp.models.MovieCastsModel;
 import taiwan.no1.app.mvp.models.MovieDetailModel;
 
 /**
@@ -26,6 +30,8 @@ public class DataRepository implements IRepository {
     private final DataStoreFactory dataStoreFactory;
     @Inject MovieBriefMapper moviesMapper;
     @Inject MovieDetailMapper movieDetailMapper;
+    @Inject MovieCastsMapper movieCastsMapper;
+    @Inject CastDetailMapper castDetailMapper;
 
     @Inject
     DataRepository(DataStoreFactory dataStoreFactory) {
@@ -41,9 +47,25 @@ public class DataRepository implements IRepository {
 
     @NonNull
     @Override
-    public Observable<MovieDetailModel> detailMovie(int id) {
+    public Observable<MovieDetailModel> detailMovie(final int id) {
         return dataStoreFactory.createCloud()
                                .movieDetailEntities(id)
                                .map(entity -> this.movieDetailMapper.transformTo(entity));
+    }
+
+    @NonNull
+    @Override
+    public Observable<MovieCastsModel> movieCasts(final int id) {
+        return dataStoreFactory.createCloud()
+                               .movieCastsEntities(id)
+                               .map(entity -> this.movieCastsMapper.transformTo(entity));
+    }
+
+    @NonNull
+    @Override
+    public Observable<CastDetailModel> castDetail(final int id) {
+        return dataStoreFactory.createCloud()
+                               .castDetailEntities(id)
+                               .map(entity -> this.castDetailMapper.transformTo(entity));
     }
 }

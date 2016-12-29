@@ -30,6 +30,7 @@ public class MovieDetailMapper implements IBeanMapper<MovieDetailModel, MovieDet
 
     @NonNull
     @Override
+    @Deprecated
     public MovieDetailEntity transformFrom(@NonNull MovieDetailModel model) {
         throw new Error("No-op");
     }
@@ -90,7 +91,7 @@ public class MovieDetailMapper implements IBeanMapper<MovieDetailModel, MovieDet
                                                       productionCompaniesBeen,
                                                       productionCountriesBeen,
                                                       spokenLanguagesBeen);
-        
+
         return model;
     }
 }

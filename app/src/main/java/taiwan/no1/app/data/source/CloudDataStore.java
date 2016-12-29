@@ -11,6 +11,8 @@ import javax.inject.Inject;
 import rx.Observable;
 import taiwan.no1.app.R;
 import taiwan.no1.app.api.service.MovieDBService;
+import taiwan.no1.app.data.entities.CastDetailEntity;
+import taiwan.no1.app.data.entities.MovieCastsResEntity;
 import taiwan.no1.app.data.entities.MovieDetailEntity;
 import taiwan.no1.app.data.entities.PopularResEntity;
 import taiwan.no1.app.internal.di.components.NetComponent;
@@ -63,5 +65,34 @@ public class CloudDataStore implements IDataStore {
         }};
 
         return movieDBService.movieDetail(id, query);
+    }
+
+    /**
+     * @param id movie id.
+     * @return {@link Observable}
+     */
+    @Nullable
+    @Override
+    public Observable<MovieCastsResEntity> movieCastsEntities(final int id) {
+        Map<String, String> query = new HashMap<String, String>() {{
+            put("api_key", api_key);
+        }};
+
+        return movieDBService.movieCastsDetail(id, query);
+    }
+
+    /**
+     * @param id cast id.
+     * @return {@link Observable}
+     * @see <a href="https://developers.themoviedb.org/3/people">Get-Movie-Details</>
+     */
+    @Nullable
+    @Override
+    public Observable<CastDetailEntity> castDetailEntities(final int id) {
+        Map<String, String> query = new HashMap<String, String>() {{
+            put("api_key", api_key);
+        }};
+
+        return movieDBService.castDetail(id, query);
     }
 }

@@ -2,13 +2,11 @@ package taiwan.no1.app.mvp.models
 
 /**
  * @author Jieyi
- * *
  * @version 0.0.1
- * *
  * @since 12/29/16
  */
 
-data class CastDetalModel(
+data class CastDetailModel(
         val isAdult: Boolean = false,
         val biography: String? = null,
         val birthday: String? = null,

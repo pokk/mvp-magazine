@@ -2,16 +2,13 @@ package taiwan.no1.app.mvp.models
 
 /**
  * @author Jieyi
- * *
  * @version 0.0.1
- * *
  * @since 12/29/16
  */
 
 data class MovieCastsModel(
-        val id: Int = 0,
-        val cast: List<taiwan.no1.app.data.entities.MovieCastsEntity.CastBean>? = null,
-        val crew: List<taiwan.no1.app.data.entities.MovieCastsEntity.CrewBean>? = null) {
+        val cast: List<CastBean>? = null,
+        val crew: List<CrewBean>? = null) {
     data class CastBean(val cast_id: Int = 0,
                         val character: String? = null,
                         val credit_id: String? = null,

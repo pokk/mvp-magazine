@@ -5,6 +5,8 @@ import dagger.Provides
 import taiwan.no1.app.domain.executor.PostExecutionThread
 import taiwan.no1.app.domain.executor.ThreadExecutor
 import taiwan.no1.app.domain.repository.IRepository
+import taiwan.no1.app.domain.usecase.CastDetail
+import taiwan.no1.app.domain.usecase.MovieCasts
 import taiwan.no1.app.domain.usecase.MovieDetail
 import taiwan.no1.app.domain.usecase.PopularMovies
 import taiwan.no1.app.internal.di.annotations.PerFragment
@@ -32,4 +34,18 @@ class FragmentUseCaseModule {
                              postExecutionThread: PostExecutionThread,
                              repository: IRepository): PopularMovies
             = PopularMovies(threadExecutor, postExecutionThread, repository)
+
+    @Provides
+    @PerFragment
+    fun ProvideMovieCasts(threadExecutor: ThreadExecutor,
+                          postExecutionThread: PostExecutionThread,
+                          repository: IRepository): MovieCasts
+            = MovieCasts(threadExecutor, postExecutionThread, repository)
+
+    @Provides
+    @PerFragment
+    fun ProvideCastDetail(threadExecutor: ThreadExecutor,
+                          postExecutionThread: PostExecutionThread,
+                          repository: IRepository): CastDetail
+            = CastDetail(threadExecutor, postExecutionThread, repository)
 }

@@ -10,7 +10,7 @@ import java.util.List;
  * @since 12/29/16
  */
 
-public class MovieCastsEntity {
+public class MovieCastsResEntity {
     private int id;
     private List<CastBean> cast;
     private List<CrewBean> crew;
