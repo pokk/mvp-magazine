@@ -2,6 +2,7 @@ package taiwan.no1.app.ui.fragments
 
 import android.os.Bundle
 import android.support.annotation.LayoutRes
+import android.widget.ImageView
 import android.widget.TextView
 import butterknife.bindView
 import com.bumptech.glide.Glide
@@ -46,7 +47,8 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     @Inject
     lateinit var presenter: MovieDetailContract.Presenter
 
-    private val ivPoster by bindView<DiagonalView>(R.id.dv_poster)
+    private val ivDropPoster by bindView<DiagonalView>(R.id.dv_poster)
+    private val ivPoster by bindView<ImageView>(R.id.iv_poster)
     private val tvReleaseDate by bindView<TextView>(R.id.tv_release_date)
     private val tvTitle by bindView<TextView>(R.id.tv_title)
     private val tvOverview by bindView<TextView>(R.id.tv_overview)
@@ -112,8 +114,12 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     //endregion
 
     override fun obtainMovieDetail(movieDetailModel: MovieDetailModel) {
-        Glide.with(this.context).
+        Glide.with(this.context.applicationContext).
                 load(MovieDBConfig.BASAE_IMAGE_URL + movieDetailModel.backdrop_path).
+                diskCacheStrategy(DiskCacheStrategy.ALL).
+                into(this.ivDropPoster)
+        Glide.with(this.context.applicationContext).
+                load(MovieDBConfig.BASAE_IMAGE_URL + movieDetailModel.poster_path).
                 diskCacheStrategy(DiskCacheStrategy.ALL).
                 into(this.ivPoster)
         this.tvReleaseDate.text = movieDetailModel.release_date
