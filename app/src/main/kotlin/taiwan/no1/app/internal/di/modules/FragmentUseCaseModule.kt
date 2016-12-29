@@ -5,8 +5,8 @@ import dagger.Provides
 import taiwan.no1.app.domain.executor.PostExecutionThread
 import taiwan.no1.app.domain.executor.ThreadExecutor
 import taiwan.no1.app.domain.repository.IRepository
-import taiwan.no1.app.domain.usecase.CreateFake
-import taiwan.no1.app.domain.usecase.GetPopularMovies
+import taiwan.no1.app.domain.usecase.MovieDetail
+import taiwan.no1.app.domain.usecase.PopularMovies
 import taiwan.no1.app.internal.di.annotations.PerFragment
 
 /**
@@ -21,15 +21,15 @@ import taiwan.no1.app.internal.di.annotations.PerFragment
 class FragmentUseCaseModule {
     @Provides
     @PerFragment
-    fun ProvideFake(threadExecutor: ThreadExecutor,
-                    postExecutionThread: PostExecutionThread,
-                    repository: IRepository): CreateFake
-            = CreateFake(threadExecutor, postExecutionThread, repository)
+    fun ProvideMovieDetail(threadExecutor: ThreadExecutor,
+                           postExecutionThread: PostExecutionThread,
+                           repository: IRepository): MovieDetail
+            = MovieDetail(threadExecutor, postExecutionThread, repository)
 
     @Provides
     @PerFragment
-    fun ProvideGetPopularMovies(threadExecutor: ThreadExecutor,
-                                postExecutionThread: PostExecutionThread,
-                                repository: IRepository): GetPopularMovies
-            = GetPopularMovies(threadExecutor, postExecutionThread, repository)
+    fun ProvidePopularMovies(threadExecutor: ThreadExecutor,
+                             postExecutionThread: PostExecutionThread,
+                             repository: IRepository): PopularMovies
+            = PopularMovies(threadExecutor, postExecutionThread, repository)
 }

@@ -1,9 +1,11 @@
 package taiwan.no1.app.mvp.presenters
 
 import rx.lang.kotlin.subscriber
-import taiwan.no1.app.domain.usecase.GetPopularMovies
+import taiwan.no1.app.domain.usecase.MovieDetail
+import taiwan.no1.app.domain.usecase.PopularMovies
 import taiwan.no1.app.mvp.contracts.MoviePopularContract
-import taiwan.no1.app.mvp.models.MovieModel
+import taiwan.no1.app.mvp.models.MovieBriefModel
+import taiwan.no1.app.mvp.models.MovieDetailModel
 import taiwan.no1.app.utilies.AppLog
 
 /**
@@ -13,10 +15,19 @@ import taiwan.no1.app.utilies.AppLog
  * @since   12/6/16
  */
 
-class MoviePopularPresenter constructor(val moviesCase: GetPopularMovies):
+class MoviePopularPresenter constructor(val moviesCase: PopularMovies, val movieDetailCase: MovieDetail):
         BasePresenter<MoviePopularContract.View>(), MoviePopularContract.Presenter {
     //region Subscribers
-    private val fakeSubscriber = subscriber<List<MovieModel>>().onCompleted {
+    private val popularMovieSub = subscriber<List<MovieBriefModel>>().onCompleted {
+        AppLog.d()
+    }.onError {
+        AppLog.e(it.message)
+        AppLog.e(it)
+    }.onNext {
+        AppLog.v(it)
+    }
+
+    private val movieDetailSub = subscriber<MovieDetailModel>().onCompleted {
         AppLog.d()
     }.onError {
         AppLog.e(it.message)
@@ -30,13 +41,13 @@ class MoviePopularPresenter constructor(val moviesCase: GetPopularMovies):
     override fun init(view: MoviePopularContract.View) {
         super.init(view)
 
-//        val request = CreateFake.Requests(FakeModel("Jieyi", 19, "H"))
-//        request.fragmentLifecycle = this.view.getLifecycle()
-//        this.fakeCase.execute(request, this.fakeSubscriber)
-
-        val request = GetPopularMovies.Requests(1)
+        val request = MovieDetail.Requests(330459)
         request.fragmentLifecycle = this.view.getLifecycle()
-        this.moviesCase.execute(request, this.fakeSubscriber)
+        this.movieDetailCase.execute(request, this.movieDetailSub)
+
+//        val request = PopularMovies.Requests(1)
+//        request.fragmentLifecycle = this.view.getLifecycle()
+//        this.moviesCase.execute(request, this.popularMovieSub)
     }
     //endregion
 }

@@ -10,7 +10,7 @@ import android.support.annotation.NonNull;
  * @since 2016/12/08
  */
 
-public interface IEntityMapper<M, E> {
+public interface IBeanMapper<M, E> {
     /**
      * Interaction of transforming from kotlin layer {@link M} model data to data layer {@link E} entity data.
      *

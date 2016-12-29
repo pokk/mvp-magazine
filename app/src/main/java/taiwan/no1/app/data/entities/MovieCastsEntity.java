@@ -3,6 +3,8 @@ package taiwan.no1.app.data.entities;
 import java.util.List;
 
 /**
+ * Related the movie with the casts information. 
+ * 
  * @author Jieyi
  * @version 0.0.1
  * @since 12/29/16

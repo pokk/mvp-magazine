@@ -3,6 +3,8 @@ package taiwan.no1.app.data.entities;
 import java.util.List;
 
 /**
+ * The movie detail information.
+ * 
  * @author Jieyi
  * @version 0.0.1
  * @since 12/29/16
@@ -212,5 +214,36 @@ public class MovieDetailEntity {
         public String getName() { return name;}
 
         public void setName(String name) { this.name = name;}
+    }
+
+    @Override
+    public String toString() {
+        return "MovieDetailEntity{" +
+                "adult=" + adult +
+                ", backdrop_path='" + backdrop_path + '\'' +
+                ", belongs_to_collection=" + belongs_to_collection +
+                ", budget=" + budget +
+                ", homepage='" + homepage + '\'' +
+                ", id=" + id +
+                ", imdb_id='" + imdb_id + '\'' +
+                ", original_language='" + original_language + '\'' +
+                ", original_title='" + original_title + '\'' +
+                ", overview='" + overview + '\'' +
+                ", popularity=" + popularity +
+                ", poster_path='" + poster_path + '\'' +
+                ", release_date='" + release_date + '\'' +
+                ", revenue=" + revenue +
+                ", runtime=" + runtime +
+                ", status='" + status + '\'' +
+                ", tagline='" + tagline + '\'' +
+                ", title='" + title + '\'' +
+                ", video=" + video +
+                ", vote_average=" + vote_average +
+                ", vote_count=" + vote_count +
+                ", genres=" + genres +
+                ", production_companies=" + production_companies +
+                ", production_countries=" + production_countries +
+                ", spoken_languages=" + spoken_languages +
+                '}';
     }
 }

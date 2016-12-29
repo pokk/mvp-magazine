@@ -1,5 +1,6 @@
 package taiwan.no1.app.data.source;
 
+import android.content.Context;
 import android.support.annotation.Nullable;
 
 import java.util.HashMap;
@@ -8,7 +9,9 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import rx.Observable;
+import taiwan.no1.app.R;
 import taiwan.no1.app.api.service.MovieDBService;
+import taiwan.no1.app.data.entities.MovieDetailEntity;
 import taiwan.no1.app.data.entities.PopularResEntity;
 import taiwan.no1.app.internal.di.components.NetComponent;
 
@@ -21,18 +24,44 @@ import taiwan.no1.app.internal.di.components.NetComponent;
 public class CloudDataStore implements IDataStore {
     @Inject MovieDBService movieDBService;
 
+    private final Context context;
+    private final String api_key;
+
     @Inject
-    public CloudDataStore() {
+    public CloudDataStore(Context context) {
         NetComponent.Initializer.init().inject(CloudDataStore.this);
+        this.context = context;
+        this.api_key = this.context.getString(R.string.moviedb_api_key);
     }
 
+    /**
+     * @param page
+     * @return {@link Observable}
+     * @see <a href="https://developers.themoviedb.org/3/movies/get-popular-movies">Get-Popular-Movie</>
+     */
     @Nullable
     @Override
-    public Observable<PopularResEntity> getPopularMovieEntities(int page) {
-        Map<String, String> data = new HashMap<>();
-        data.put("api_key", "987b940504b25045c8c8005c7c1ceab5");
-        data.put("page", String.valueOf(1));
+    public Observable<PopularResEntity> popularMovieEntities(final int page) {
+        Map<String, String> query = new HashMap<String, String>() {{
+            put("api_key", api_key);
+            put("page", String.valueOf(1));
+        }};
 
-        return movieDBService.getPopularMovieList(data);
+        return movieDBService.popularMovieList(query);
+    }
+
+    /**
+     * @param id movie id.
+     * @return {@link Observable}
+     * @see <a href="https://developers.themoviedb.org/3/movies/get-movie-details">Get-Movie-Details</>
+     */
+    @Nullable
+    @Override
+    public Observable<MovieDetailEntity> movieDetailEntities(final int id) {
+        Map<String, String> query = new HashMap<String, String>() {{
+            put("api_key", api_key);
+        }};
+
+        return movieDBService.movieDetail(id, query);
     }
 }

@@ -34,6 +34,6 @@ public class DataStoreFactory {
 
     @NonNull
     public IDataStore createCloud() {
-        return new CloudDataStore();
+        return new CloudDataStore(context);
     }
 }

@@ -3,6 +3,8 @@ package taiwan.no1.app.data.entities;
 import java.util.List;
 
 /**
+ * Popular movie list result from a json file.
+ * 
  * @author Jieyi
  * @version 0.0.1
  * @since 12/28/16

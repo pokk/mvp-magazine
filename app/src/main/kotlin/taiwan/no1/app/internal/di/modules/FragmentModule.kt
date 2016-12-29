@@ -2,7 +2,8 @@ package taiwan.no1.app.internal.di.modules
 
 import dagger.Module
 import dagger.Provides
-import taiwan.no1.app.domain.usecase.GetPopularMovies
+import taiwan.no1.app.domain.usecase.MovieDetail
+import taiwan.no1.app.domain.usecase.PopularMovies
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.mvp.contracts.MoviePopularContract
 import taiwan.no1.app.mvp.presenters.MoviePopularPresenter
@@ -18,6 +19,7 @@ import taiwan.no1.app.mvp.presenters.MoviePopularPresenter
 class FragmentModule {
     @Provides
     @PerFragment
-    fun provideMoviePopularPresenter(movies: GetPopularMovies): MoviePopularContract.Presenter =
-            MoviePopularPresenter(movies)
+    fun provideMoviePopularPresenter(movies: PopularMovies,
+                                     movieDetail: MovieDetail): MoviePopularContract.Presenter =
+            MoviePopularPresenter(movies, movieDetail)
 }

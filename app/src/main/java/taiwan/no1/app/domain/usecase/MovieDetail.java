@@ -8,7 +8,6 @@ import rx.Subscription;
 import taiwan.no1.app.domain.executor.PostExecutionThread;
 import taiwan.no1.app.domain.executor.ThreadExecutor;
 import taiwan.no1.app.domain.repository.IRepository;
-import taiwan.no1.app.mvp.models.FakeModel;
 
 
 /**
@@ -19,9 +18,9 @@ import taiwan.no1.app.mvp.models.FakeModel;
  * @since 9/6/16
  */
 
-public class CreateFake extends BaseUseCase<CreateFake.Requests> {
-    public CreateFake(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread,
-                      IRepository repository) {
+public class MovieDetail extends BaseUseCase<MovieDetail.Requests> {
+    public MovieDetail(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread,
+                       IRepository repository) {
         super(threadExecutor, postExecutionThread, repository);
     }
 
@@ -46,16 +45,15 @@ public class CreateFake extends BaseUseCase<CreateFake.Requests> {
     @NonNull
     @Override
     protected Observable buildUseCaseObservable() {
-        //        return repository.CreateFakes(this.requestValues.fakeModel);
-        return null;
+        return this.repository.detailMovie(this.requestValues.movieId);
     }
 
     /**
      * Wrapping data requests for general situation.
      */
     public static final class Requests extends BaseUseCase.RequestValues {
-        @NonNull private final FakeModel fakeModel;
+        private final int movieId;
 
-        public Requests(@NonNull final FakeModel fakeModel) {this.fakeModel = fakeModel;}
+        public Requests(int movieId) {this.movieId = movieId;}
     }
 }

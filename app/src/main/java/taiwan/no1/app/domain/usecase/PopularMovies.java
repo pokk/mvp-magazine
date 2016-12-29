@@ -17,9 +17,9 @@ import taiwan.no1.app.domain.repository.IRepository;
  * @since 12/28/16
  */
 
-public class GetPopularMovies extends BaseUseCase<GetPopularMovies.Requests> {
-    public GetPopularMovies(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread,
-                            IRepository repository) {
+public class PopularMovies extends BaseUseCase<PopularMovies.Requests> {
+    public PopularMovies(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread,
+                         IRepository repository) {
         super(threadExecutor, postExecutionThread, repository);
     }
 
@@ -30,7 +30,7 @@ public class GetPopularMovies extends BaseUseCase<GetPopularMovies.Requests> {
      * @param useCaseSubscriber The guy who will be listen to the observable build with
      */
     @Override
-    public void execute(@NonNull final GetPopularMovies.Requests request,
+    public void execute(@NonNull final PopularMovies.Requests request,
                         @NonNull final Subscriber useCaseSubscriber) {
         this.requestValues = request;
 
@@ -45,7 +45,7 @@ public class GetPopularMovies extends BaseUseCase<GetPopularMovies.Requests> {
     @NonNull
     @Override
     protected Observable buildUseCaseObservable() {
-        return this.repository.getPopularMovies(this.requestValues.page);
+        return this.repository.popularMovies(this.requestValues.page);
     }
 
     /**

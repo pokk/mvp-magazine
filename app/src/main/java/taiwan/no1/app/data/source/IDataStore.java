@@ -3,6 +3,7 @@ package taiwan.no1.app.data.source;
 import android.support.annotation.Nullable;
 
 import rx.Observable;
+import taiwan.no1.app.data.entities.MovieDetailEntity;
 import taiwan.no1.app.data.entities.PopularResEntity;
 
 /**
@@ -18,5 +19,11 @@ public interface IDataStore {
      * Get an {@link rx.Observable} which will emit a {@link PopularResEntity}.
      */
     @Nullable
-    Observable<PopularResEntity> getPopularMovieEntities(final int page);
+    Observable<PopularResEntity> popularMovieEntities(final int page);
+
+    /**
+     * Get an {@link rx.Observable} which will emit a {@link MovieDetailEntity}.
+     */
+    @Nullable
+    Observable<MovieDetailEntity> movieDetailEntities(final int id);
 }
