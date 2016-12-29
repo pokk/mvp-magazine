@@ -38,6 +38,7 @@ public class MovieBriefMapper implements IBeanMapper<List<MovieBriefModel>, List
     @NonNull
     @Override
     public List<MovieBriefModel> transformTo(@NonNull List<PopularResEntity.MovieEntity> entities) {
+        // We may not use all of information, then we will remove some redundant information.
         ArrayList<MovieBriefModel> movieBriefModels = new ArrayList<>();
 
         for (PopularResEntity.MovieEntity entity : entities) {
