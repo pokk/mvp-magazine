@@ -2,14 +2,19 @@ package taiwan.no1.app.ui.fragments
 
 import android.os.Bundle
 import android.support.annotation.LayoutRes
-import android.widget.TextView
+import android.support.v7.widget.OrientationHelper
+import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.StaggeredGridLayoutManager
 import butterknife.bindView
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.contracts.MoviePopularContract
+import taiwan.no1.app.mvp.models.MovieBriefModel
 import taiwan.no1.app.ui.BaseFragment
+import taiwan.no1.app.ui.adapter.PopularMovieAdapter
 import javax.inject.Inject
+
 
 /**
  * @author Jieyi Wu
@@ -37,7 +42,7 @@ class MoviePopularFragment: BaseFragment(), MoviePopularContract.View {
     @Inject
     lateinit var presenter: MoviePopularContract.Presenter
 
-    private val tvShow by bindView<TextView>(R.id.tv_show)
+    private val rvMovies by bindView<RecyclerView>(R.id.rv_movie_list)
 
     //region Fragment lifecycle
     override fun onResume() {
@@ -85,7 +90,11 @@ class MoviePopularFragment: BaseFragment(), MoviePopularContract.View {
      * Initialization of this fragment. Set the listeners or view components' attributions.
      */
     override fun init() {
-        this.tvShow.text = "Hello World!!"
     }
     //endregion
+
+    override fun finishLoadingMovie(movieList: List<MovieBriefModel>) {
+        this.rvMovies.layoutManager = StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL)
+        this.rvMovies.adapter = PopularMovieAdapter(this.context, movieList)
+    }
 }

@@ -1,5 +1,6 @@
 package taiwan.no1.app.mvp.contracts
 
+import taiwan.no1.app.mvp.models.MovieBriefModel
 import taiwan.no1.app.mvp.presenters.IPresenter
 import taiwan.no1.app.mvp.views.IFragmentView
 import taiwan.no1.app.mvp.views.IView
@@ -15,5 +16,7 @@ import taiwan.no1.app.mvp.views.IView
 interface MoviePopularContract {
     interface Presenter: IPresenter<View>
 
-    interface View: IView, IFragmentView
+    interface View: IView, IFragmentView {
+        fun finishLoadingMovie(movieList: List<MovieBriefModel>)
+    }
 }

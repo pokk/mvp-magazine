@@ -4,7 +4,6 @@ import rx.lang.kotlin.subscriber
 import taiwan.no1.app.domain.usecase.PopularMovies
 import taiwan.no1.app.mvp.contracts.MoviePopularContract
 import taiwan.no1.app.mvp.models.MovieBriefModel
-import taiwan.no1.app.mvp.models.MovieDetailModel
 import taiwan.no1.app.utilies.AppLog
 
 /**
@@ -24,29 +23,18 @@ class MoviePopularPresenter constructor(val moviesCase: PopularMovies):
         AppLog.e(it)
     }.onNext {
         AppLog.v(it)
+        view.finishLoadingMovie(it)
     }
 
-    private val movieDetailSub = subscriber<MovieDetailModel>().onCompleted {
-        AppLog.d()
-    }.onError {
-        AppLog.e(it.message)
-        AppLog.e(it)
-    }.onNext {
-        AppLog.v(it)
-    }
     //endregion
 
     //region View implementation
     override fun init(view: MoviePopularContract.View) {
         super.init(view)
 
-//        val request = MovieDetail.Requests(330459)
-//        request.fragmentLifecycle = this.view.getLifecycle()
-//        this.movieDetailCase.execute(request, this.movieDetailSub)
-
-//        val request = PopularMovies.Requests(1)
-//        request.fragmentLifecycle = this.view.getLifecycle()
-//        this.moviesCase.execute(request, this.popularMovieSub)
+        val request = PopularMovies.Requests(1)
+        request.fragmentLifecycle = this.view.getLifecycle()
+        this.moviesCase.execute(request, this.popularMovieSub)
     }
     //endregion
 }
