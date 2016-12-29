@@ -14,12 +14,12 @@ import com.trello.rxlifecycle.components.support.RxAppCompatActivity
 import dagger.internal.Preconditions
 import rx.Observable
 import taiwan.no1.app.App
+import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.components.ActivityComponent
 import taiwan.no1.app.internal.di.components.AppComponent
 import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.views.IActivityView
 import taiwan.no1.app.mvp.views.IView
-import taiwan.no1.app.utilies.AppLog
 import javax.inject.Inject
 
 /**
@@ -36,9 +36,9 @@ abstract class BaseActivity: RxAppCompatActivity(), IView, IActivityView {
 
     // Register it in the parent class that it will be not reflected.
     protected var busEvent = object {
-        @Subscribe(tags = arrayOf(Tag(RxbusTag.NAVIGATOR)))
-        fun test(test: String) {
-            AppLog.d(test)
+        @Subscribe(tags = arrayOf(Tag(RxbusTag.FRAGMENT_NAVIGATOR)))
+        fun navigateFragment(fragment: Fragment) {
+            addFragment(R.id.fragment_container, fragment, true)
         }
     }
 
@@ -137,8 +137,8 @@ abstract class BaseActivity: RxAppCompatActivity(), IView, IActivityView {
     protected fun addFragment(containerViewId: Int,
                               fragment: Fragment,
                               needBack: Boolean,
-                              sharedElement: View?,
-                              shareElementName: String?) {
+                              sharedElement: View? = null,
+                              shareElementName: String? = null) {
         Preconditions.checkNotNull(containerViewId)
         Preconditions.checkNotNull(fragment)
         Preconditions.checkNotNull(needBack)

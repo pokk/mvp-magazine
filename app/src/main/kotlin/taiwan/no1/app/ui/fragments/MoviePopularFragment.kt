@@ -90,10 +90,12 @@ class MoviePopularFragment: BaseFragment(), MoviePopularContract.View {
      * Initialization of this fragment. Set the listeners or view components' attributions.
      */
     override fun init() {
+        // TODO: 12/29/16 This request timing maybe not good?!
+        this.presenter.requestPopularMovies()
     }
     //endregion
 
-    override fun finishLoadingMovie(movieList: List<MovieBriefModel>) {
+    override fun obtainMovieBriefList(movieList: List<MovieBriefModel>) {
         this.rvMovies.layoutManager = StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL)
         this.rvMovies.adapter = PopularMovieAdapter(this.context, movieList)
     }

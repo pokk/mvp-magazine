@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/activity_main"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:squint="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#eeffffff"
+                tools:context=".ui.activities.MainActivity">
+
+    <com.intrusoft.squint.DiagonalView
+        android:id="@+id/dv_poster"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:padding="10dp"
+        android:scaleType="centerCrop"
+        android:src="@color/lb_basic_card_content_text_color"
+        squint:angle="12"
+        squint:diagonalDirection="left_to_right"
+        squint:gravity="right"/>
+
+    <TextView
+        android:id="@+id/tv_overview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tv_title"
+        android:fontFamily="sans-serif-smallcaps"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="Harris was born in Albuquerque, New Mexico and grew up Ruidoso, New Mexico, with his elder brother and their parents, Sheila Gai and Ronald Gene Harris. His parents were lawyers and also ran a restaurant. He attended La Cueva High School in Albuquerque, graduating with high honors in 1991."
+        android:textColor="#828282"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/tv_release_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/dv_poster"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="25dp"
+        android:fontFamily="sans-serif-smallcaps"
+        android:gravity="end"
+        android:paddingRight="16dp"
+        android:text="Actor"
+        android:textColor="#828282"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/tv_release_date"
+        android:layout_marginTop="-20dp"
+        android:layout_centerVertical="true"
+        android:fontFamily="sans-serif-smallcaps"
+        android:gravity="end"
+        android:paddingRight="16dp"
+        android:text="Fantastic Beasts"
+        android:textColor="#626262"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+</RelativeLayout>

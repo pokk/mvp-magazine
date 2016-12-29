@@ -9,5 +9,5 @@ package com.touchin.constant
  */
 
 object RxbusTag {
-    const val NAVIGATOR: String = "navigator"
+    const val FRAGMENT_NAVIGATOR: String = "navigator_fragment"
 }

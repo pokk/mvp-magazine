@@ -162,6 +162,16 @@ public class MovieDetailEntity {
         public String getBackdrop_path() { return backdrop_path;}
 
         public void setBackdrop_path(String backdrop_path) { this.backdrop_path = backdrop_path;}
+
+        @Override
+        public String toString() {
+            return "BelongsToCollectionBean{" +
+                    "id=" + id +
+                    ", name='" + name + '\'' +
+                    ", poster_path='" + poster_path + '\'' +
+                    ", backdrop_path='" + backdrop_path + '\'' +
+                    '}';
+        }
     }
 
     public static class GenresBean {
@@ -175,6 +185,14 @@ public class MovieDetailEntity {
         public String getName() { return name;}
 
         public void setName(String name) { this.name = name;}
+
+        @Override
+        public String toString() {
+            return "GenresBean{" +
+                    "id=" + id +
+                    ", name='" + name + '\'' +
+                    '}';
+        }
     }
 
     public static class ProductionCompaniesBean {
@@ -188,6 +206,14 @@ public class MovieDetailEntity {
         public int getId() { return id;}
 
         public void setId(int id) { this.id = id;}
+
+        @Override
+        public String toString() {
+            return "ProductionCompaniesBean{" +
+                    "name='" + name + '\'' +
+                    ", id=" + id +
+                    '}';
+        }
     }
 
     public static class ProductionCountriesBean {
@@ -201,6 +227,14 @@ public class MovieDetailEntity {
         public String getName() { return name;}
 
         public void setName(String name) { this.name = name;}
+
+        @Override
+        public String toString() {
+            return "ProductionCountriesBean{" +
+                    "iso_3166_1='" + iso_3166_1 + '\'' +
+                    ", name='" + name + '\'' +
+                    '}';
+        }
     }
 
     public static class SpokenLanguagesBean {
@@ -214,6 +248,14 @@ public class MovieDetailEntity {
         public String getName() { return name;}
 
         public void setName(String name) { this.name = name;}
+
+        @Override
+        public String toString() {
+            return "SpokenLanguagesBean{" +
+                    "iso_639_1='" + iso_639_1 + '\'' +
+                    ", name='" + name + '\'' +
+                    '}';
+        }
     }
 
     @Override

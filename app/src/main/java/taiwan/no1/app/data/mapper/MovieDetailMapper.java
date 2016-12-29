@@ -61,14 +61,17 @@ public class MovieDetailMapper implements IBeanMapper<MovieDetailModel, MovieDet
 
         MovieDetailModel model = new MovieDetailModel(entity.isAdult(),
                                                       entity.getBackdrop_path(),
-                                                      new MovieDetailModel.BelongsToCollectionBean(entity.getBelongs_to_collection()
-                                                                                                         .getId(),
-                                                                                                   entity.getBelongs_to_collection()
-                                                                                                         .getName(),
-                                                                                                   entity.getBelongs_to_collection()
-                                                                                                         .getPoster_path(),
-                                                                                                   entity.getBelongs_to_collection()
-                                                                                                         .getBackdrop_path()),
+                                                      null != entity.getBelongs_to_collection() ?
+                                                              new MovieDetailModel.BelongsToCollectionBean(
+                                                                      entity.getBelongs_to_collection()
+                                                                            .getId(),
+                                                                      entity.getBelongs_to_collection()
+                                                                            .getName(),
+                                                                      entity.getBelongs_to_collection()
+                                                                            .getPoster_path(),
+                                                                      entity.getBelongs_to_collection()
+                                                                            .getBackdrop_path()) :
+                                                              null,
                                                       entity.getBudget(),
                                                       entity.getHomepage(),
                                                       entity.getId(),

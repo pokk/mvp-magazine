@@ -1,6 +1,6 @@
 package taiwan.no1.app.mvp.contracts
 
-import taiwan.no1.app.mvp.models.MovieBriefModel
+import taiwan.no1.app.mvp.models.MovieDetailModel
 import taiwan.no1.app.mvp.presenters.IPresenter
 import taiwan.no1.app.mvp.views.IFragmentView
 import taiwan.no1.app.mvp.views.IView
@@ -8,17 +8,17 @@ import taiwan.no1.app.mvp.views.IView
 /**
  * This specifies the contract between the [IPresenter] and the [IView].
  *
- * @author  Jieyi Wu
+ * @author  Jieyi
  * @version 0.0.1
- * @since   12/8/16
+ * @since   12/29/16
  */
 
-interface MoviePopularContract {
+interface MovieDetailContract {
     interface Presenter: IPresenter<View> {
-        fun requestPopularMovies()
+        fun requestMovieDetail(movieId: Int)
     }
 
     interface View: IView, IFragmentView {
-        fun obtainMovieBriefList(movieList: List<MovieBriefModel>)
+        fun obtainMovieDetail(movieDetailModel: MovieDetailModel)
     }
 }

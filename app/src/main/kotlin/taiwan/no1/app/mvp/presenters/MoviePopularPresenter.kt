@@ -16,25 +16,23 @@ import taiwan.no1.app.utilies.AppLog
 class MoviePopularPresenter constructor(val moviesCase: PopularMovies):
         BasePresenter<MoviePopularContract.View>(), MoviePopularContract.Presenter {
     //region Subscribers
-    private val popularMovieSub = subscriber<List<MovieBriefModel>>().onCompleted {
-        AppLog.d()
-    }.onError {
+    private val popularMovieSub = subscriber<List<MovieBriefModel>>().onError {
         AppLog.e(it.message)
-        AppLog.e(it)
     }.onNext {
         AppLog.v(it)
-        view.finishLoadingMovie(it)
+        view.obtainMovieBriefList(it)
     }
-
     //endregion
 
     //region View implementation
     override fun init(view: MoviePopularContract.View) {
         super.init(view)
+    }
+    //endregion
 
+    override fun requestPopularMovies() {
         val request = PopularMovies.Requests(1)
         request.fragmentLifecycle = this.view.getLifecycle()
         this.moviesCase.execute(request, this.popularMovieSub)
     }
-    //endregion
 }

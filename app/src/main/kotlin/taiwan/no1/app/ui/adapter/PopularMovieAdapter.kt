@@ -6,14 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import butterknife.bindView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.hwangjr.rxbus.RxBus
+import com.touchin.constant.RxbusTag
 import taiwan.no1.app.R
 import taiwan.no1.app.api.config.MovieDBConfig
 import taiwan.no1.app.mvp.models.MovieBriefModel
-import taiwan.no1.app.utilies.AppLog
+import taiwan.no1.app.ui.fragments.MovieDetailFragment
 
 /**
  *
@@ -30,12 +33,15 @@ class PopularMovieAdapter(val context: Context, val movies: List<MovieBriefModel
     }
 
     override fun onBindViewHolder(holder: MovieBriefViewHolder?, position: Int) {
-        AppLog.w(MovieDBConfig.BASAE_IMAGE_URL + this.movies[position].poster_path)
         Glide.with(this.context.applicationContext).
                 load(MovieDBConfig.BASAE_IMAGE_URL + this.movies[position].poster_path).
                 diskCacheStrategy(DiskCacheStrategy.ALL).
                 into(holder?.ivPoster)
         holder?.tvTitle?.text = this.movies[position].title
+        holder?.item?.setOnClickListener { v ->
+            RxBus.get().post(RxbusTag.FRAGMENT_NAVIGATOR,
+                    MovieDetailFragment.newInstance(this.movies[position].id.toString()))
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MovieBriefViewHolder {
@@ -44,6 +50,7 @@ class PopularMovieAdapter(val context: Context, val movies: List<MovieBriefModel
     }
 
     class MovieBriefViewHolder(view: View?): RecyclerView.ViewHolder(view) {
+        val item by bindView<RelativeLayout>(R.id.item_movie_brief)
         val ivPoster by bindView<ImageView>(R.id.iv_movie_poster)
         val tvTitle by bindView<TextView>(R.id.tv_title)
     }

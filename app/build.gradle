@@ -79,6 +79,7 @@ dependencies {
     // Bottom bar
     compile "com.roughike:bottom-bar:${bottom_bar_version}"
     compile 'devlight.io:navigationtabbar:1.2.5'
+    compile 'com.github.IntruderShanky:Squint:3.0.1'
 
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.android.support:support-v4:25.1.0'
