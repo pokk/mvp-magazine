@@ -28,31 +28,28 @@ import taiwan.no1.app.ui.fragments.MovieDetailFragment
 class PopularMovieAdapter(val context: Context, val movies: List<MovieBriefModel>):
         RecyclerView.Adapter<PopularMovieAdapter.MovieBriefViewHolder>() {
 
-    override fun getItemCount(): Int {
-        return this.movies.size
-    }
+    override fun getItemCount(): Int = this.movies.size
 
-    override fun onBindViewHolder(holder: MovieBriefViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: MovieBriefViewHolder, position: Int) {
         Glide.with(this.context.applicationContext).
                 load(MovieDBConfig.BASAE_IMAGE_URL + this.movies[position].poster_path).
                 diskCacheStrategy(DiskCacheStrategy.ALL).
-                into(holder?.ivPoster)
-        holder?.tvTitle?.text = this.movies[position].title
-        holder?.item?.setOnClickListener { v ->
+                into(holder.ivPoster)
+        holder.tvTitle.text = this.movies[position].title
+        holder.item.setOnClickListener { v ->
             RxBus.get().post(RxbusTag.FRAGMENT_NAVIGATOR,
                     MovieDetailFragment.newInstance(this.movies[position].id.toString()))
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MovieBriefViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieBriefViewHolder {
         return MovieBriefViewHolder(LayoutInflater.from(this.context).
                 inflate(R.layout.item_brief_movie, parent, false))
     }
 
-    class MovieBriefViewHolder(view: View?): RecyclerView.ViewHolder(view) {
+    class MovieBriefViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val item by bindView<RelativeLayout>(R.id.item_movie_brief)
         val ivPoster by bindView<ImageView>(R.id.iv_movie_poster)
         val tvTitle by bindView<TextView>(R.id.tv_title)
     }
-
 }

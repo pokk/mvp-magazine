@@ -2,6 +2,8 @@ package taiwan.no1.app.ui.fragments
 
 import android.os.Bundle
 import android.support.annotation.LayoutRes
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.bindView
@@ -13,9 +15,14 @@ import taiwan.no1.app.api.config.MovieDBConfig
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.contracts.MovieDetailContract
+import taiwan.no1.app.mvp.models.MovieCastsModel
 import taiwan.no1.app.mvp.models.MovieDetailModel
 import taiwan.no1.app.ui.BaseFragment
+import taiwan.no1.app.ui.adapter.MovieCastsAdapter
+import taiwan.no1.app.ui.adapter.MovieCrewsAdapter
+import taiwan.no1.app.utilies.AppLog
 import javax.inject.Inject
+
 
 /**
  *
@@ -52,6 +59,8 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     private val tvReleaseDate by bindView<TextView>(R.id.tv_release_date)
     private val tvTitle by bindView<TextView>(R.id.tv_title)
     private val tvOverview by bindView<TextView>(R.id.tv_overview)
+    private val rvCasts by bindView<RecyclerView>(R.id.rv_casts)
+    private val rvCrews by bindView<RecyclerView>(R.id.rv_crews)
 
     // The fragment initialization parameters.
     private var argMovieId: String? = null
@@ -109,7 +118,10 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
      * Initialization of this fragment. Set the listeners or view components' attributions.
      */
     override fun init() {
-        argMovieId?.toInt()?.let { this.presenter.requestMovieDetail(it) }
+        this.argMovieId?.toInt()?.let {
+            this.presenter.requestMovieDetail(it)
+            this.presenter.requestMovieCasts(it)
+        }
     }
     //endregion
 
@@ -125,5 +137,16 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         this.tvReleaseDate.text = movieDetailModel.release_date
         this.tvTitle.text = movieDetailModel.title
         this.tvOverview.text = movieDetailModel.overview
+    }
+
+    override fun obtainMovieCasts(castList: List<MovieCastsModel.CastBean>) {
+        AppLog.w(castList)
+        this.rvCasts.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, true)
+        this.rvCasts.adapter = MovieCastsAdapter(this.context, castList)
+    }
+
+    override fun obtainMovieCrews(crewList: List<MovieCastsModel.CrewBean>) {
+        this.rvCrews.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, true)
+        this.rvCrews.adapter = MovieCrewsAdapter(this.context, crewList)
     }
 }
