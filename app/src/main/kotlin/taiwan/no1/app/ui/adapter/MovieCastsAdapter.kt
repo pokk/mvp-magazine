@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import android.widget.TextView
+import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
 import butterknife.bindView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -28,6 +31,13 @@ class MovieCastsAdapter(val context: Context, val casts: List<MovieCastsModel.Ca
                 load(MovieDBConfig.BASAE_IMAGE_URL + this.casts[position].profile_path).
                 diskCacheStrategy(DiskCacheStrategy.ALL).
                 into(holder.ivCast)
+        holder.tvCharacter.text = this.casts[position].character
+        holder.tvName.text = this.casts[position].name
+        holder.item.setOnClickListener {
+            Toast.makeText(this.context.applicationContext,
+                    position.toString(),
+                    LENGTH_SHORT).show()
+        }
     }
 
     override fun getItemCount(): Int = this.casts.size
@@ -40,5 +50,7 @@ class MovieCastsAdapter(val context: Context, val casts: List<MovieCastsModel.Ca
     class MovieCastsViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val item by bindView<RelativeLayout>(R.id.item_cast)
         val ivCast by bindView<ImageView>(R.id.iv_cast)
+        val tvCharacter by bindView<TextView>(R.id.tv_character)
+        val tvName by bindView<TextView>(R.id.tv_name)
     }
 }

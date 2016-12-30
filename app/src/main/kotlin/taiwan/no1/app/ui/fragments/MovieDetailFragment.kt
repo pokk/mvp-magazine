@@ -20,7 +20,7 @@ import taiwan.no1.app.mvp.models.MovieDetailModel
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.MovieCastsAdapter
 import taiwan.no1.app.ui.adapter.MovieCrewsAdapter
-import taiwan.no1.app.utilies.AppLog
+import taiwan.no1.app.ui.itemdecorator.MovieHorizontalItemDecorator
 import javax.inject.Inject
 
 
@@ -140,13 +140,13 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     }
 
     override fun obtainMovieCasts(castList: List<MovieCastsModel.CastBean>) {
-        AppLog.w(castList)
-        this.rvCasts.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, true)
+        this.rvCasts.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         this.rvCasts.adapter = MovieCastsAdapter(this.context, castList)
+        this.rvCasts.addItemDecoration(MovieHorizontalItemDecorator())
     }
 
     override fun obtainMovieCrews(crewList: List<MovieCastsModel.CrewBean>) {
-        this.rvCrews.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, true)
+        this.rvCrews.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         this.rvCrews.adapter = MovieCrewsAdapter(this.context, crewList)
     }
 }

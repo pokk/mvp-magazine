@@ -85,12 +85,12 @@
                 android:layout_marginBottom="10dp"
                 android:id="@+id/rv_casts"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"/>
+                android:layout_height="150dp"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_crews"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"/>
+                android:layout_height="150dp"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </RelativeLayout>
