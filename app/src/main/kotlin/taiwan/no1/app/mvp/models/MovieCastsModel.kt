@@ -6,9 +6,8 @@ package taiwan.no1.app.mvp.models
  * @since 12/29/16
  */
 
-data class MovieCastsModel(
-        val cast: List<CastBean>? = null,
-        val crew: List<CrewBean>? = null) {
+data class MovieCastsModel(val cast: List<CastBean>? = null,
+                           val crew: List<CrewBean>? = null) {
     data class CastBean(val cast_id: Int = 0,
                         val character: String? = null,
                         val credit_id: String? = null,

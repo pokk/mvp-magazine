@@ -59,42 +59,39 @@ public class MovieDetailMapper implements IBeanMapper<MovieDetailModel, MovieDet
                                                                              bean.getName()));
         }
 
-        MovieDetailModel model = new MovieDetailModel(entity.isAdult(),
-                                                      entity.getBackdrop_path(),
-                                                      null != entity.getBelongs_to_collection() ?
-                                                              new MovieDetailModel.BelongsToCollectionBean(
-                                                                      entity.getBelongs_to_collection()
-                                                                            .getId(),
-                                                                      entity.getBelongs_to_collection()
-                                                                            .getName(),
-                                                                      entity.getBelongs_to_collection()
-                                                                            .getPoster_path(),
-                                                                      entity.getBelongs_to_collection()
-                                                                            .getBackdrop_path()) :
-                                                              null,
-                                                      entity.getBudget(),
-                                                      entity.getHomepage(),
-                                                      entity.getId(),
-                                                      entity.getImdb_id(),
-                                                      entity.getOriginal_language(),
-                                                      entity.getOriginal_title(),
-                                                      entity.getOverview(),
-                                                      entity.getPopularity(),
-                                                      entity.getPoster_path(),
-                                                      entity.getRelease_date(),
-                                                      entity.getRevenue(),
-                                                      entity.getRuntime(),
-                                                      entity.getStatus(),
-                                                      entity.getTagline(),
-                                                      entity.getTitle(),
-                                                      entity.isVideo(),
-                                                      entity.getVote_average(),
-                                                      entity.getVote_count(),
-                                                      genresBeen,
-                                                      productionCompaniesBeen,
-                                                      productionCountriesBeen,
-                                                      spokenLanguagesBeen);
-
-        return model;
+        return new MovieDetailModel(entity.isAdult(),
+                                    entity.getBackdrop_path(),
+                                    null != entity.getBelongs_to_collection() ?
+                                            new MovieDetailModel.BelongsToCollectionBean(entity.getBelongs_to_collection()
+                                                                                               .getId(),
+                                                                                         entity.getBelongs_to_collection()
+                                                                                               .getName(),
+                                                                                         entity.getBelongs_to_collection()
+                                                                                               .getPoster_path(),
+                                                                                         entity.getBelongs_to_collection()
+                                                                                               .getBackdrop_path()) :
+                                            null,
+                                    entity.getBudget(),
+                                    entity.getHomepage(),
+                                    entity.getId(),
+                                    entity.getImdb_id(),
+                                    entity.getOriginal_language(),
+                                    entity.getOriginal_title(),
+                                    entity.getOverview(),
+                                    entity.getPopularity(),
+                                    entity.getPoster_path(),
+                                    entity.getRelease_date(),
+                                    entity.getRevenue(),
+                                    entity.getRuntime(),
+                                    entity.getStatus(),
+                                    entity.getTagline(),
+                                    entity.getTitle(),
+                                    entity.isVideo(),
+                                    entity.getVote_average(),
+                                    entity.getVote_count(),
+                                    genresBeen,
+                                    productionCompaniesBeen,
+                                    productionCountriesBeen,
+                                    spokenLanguagesBeen);
     }
 }

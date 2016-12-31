@@ -10,14 +10,9 @@ import java.util.List;
  * @since 12/29/16
  */
 
-public class MovieCastsResEntity {
-    private int id;
+public class MovieCastsEntity {
     private List<CastBean> cast;
     private List<CrewBean> crew;
-
-    public int getId() { return id;}
-
-    public void setId(int id) { this.id = id;}
 
     public List<CastBean> getCast() { return cast;}
 
@@ -63,6 +58,19 @@ public class MovieCastsResEntity {
         public String getProfile_path() { return profile_path;}
 
         public void setProfile_path(String profile_path) { this.profile_path = profile_path;}
+
+        @Override
+        public String toString() {
+            return "CastBean{" +
+                    "cast_id=" + cast_id +
+                    ", character='" + character + '\'' +
+                    ", credit_id='" + credit_id + '\'' +
+                    ", id=" + id +
+                    ", name='" + name + '\'' +
+                    ", order=" + order +
+                    ", profile_path='" + profile_path + '\'' +
+                    '}';
+        }
     }
 
     public static class CrewBean {
@@ -96,5 +104,25 @@ public class MovieCastsResEntity {
         public String getProfile_path() { return profile_path;}
 
         public void setProfile_path(String profile_path) { this.profile_path = profile_path;}
+
+        @Override
+        public String toString() {
+            return "CrewBean{" +
+                    "credit_id='" + credit_id + '\'' +
+                    ", department='" + department + '\'' +
+                    ", id=" + id +
+                    ", job='" + job + '\'' +
+                    ", name='" + name + '\'' +
+                    ", profile_path='" + profile_path + '\'' +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "MovieCastsEntity{" +
+                "cast=" + cast +
+                ", crew=" + crew +
+                '}';
     }
 }

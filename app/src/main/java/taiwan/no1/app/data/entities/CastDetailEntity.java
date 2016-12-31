@@ -76,4 +76,23 @@ public class CastDetailEntity {
     public List<String> getAlso_known_as() { return also_known_as;}
 
     public void setAlso_known_as(List<String> also_known_as) { this.also_known_as = also_known_as;}
+
+    @Override
+    public String toString() {
+        return "CastDetailEntity{" +
+                "adult=" + adult +
+                ", biography='" + biography + '\'' +
+                ", birthday='" + birthday + '\'' +
+                ", deathday='" + deathday + '\'' +
+                ", gender=" + gender +
+                ", homepage='" + homepage + '\'' +
+                ", id=" + id +
+                ", imdb_id='" + imdb_id + '\'' +
+                ", name='" + name + '\'' +
+                ", place_of_birth='" + place_of_birth + '\'' +
+                ", popularity=" + popularity +
+                ", profile_path='" + profile_path + '\'' +
+                ", also_known_as=" + also_known_as +
+                '}';
+    }
 }

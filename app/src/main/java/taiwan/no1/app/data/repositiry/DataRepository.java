@@ -41,8 +41,9 @@ public class DataRepository implements IRepository {
     @NonNull
     @Override
     public Observable<List<MovieBriefModel>> popularMovies(final int page) {
-        return dataStoreFactory.createCloud().popularMovieEntities(page)
-                               .map(entity -> this.moviesMapper.transformTo(entity.getMovieEntities()));
+        //        return dataStoreFactory.createCloud().popularMovieEntities(page)
+        //                               .map(entity -> this.moviesMapper.transformTo(entity.getMovieEntities()));
+        return null;
     }
 
     @NonNull

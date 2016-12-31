@@ -4,9 +4,9 @@ import android.support.annotation.Nullable;
 
 import rx.Observable;
 import taiwan.no1.app.data.entities.CastDetailEntity;
-import taiwan.no1.app.data.entities.MovieCastsResEntity;
+import taiwan.no1.app.data.entities.MovieCastsEntity;
 import taiwan.no1.app.data.entities.MovieDetailEntity;
-import taiwan.no1.app.data.entities.PopularResEntity;
+import taiwan.no1.app.data.entities.MovieListResEntity;
 
 /**
  * @author Jieyi Wu
@@ -17,7 +17,7 @@ import taiwan.no1.app.data.entities.PopularResEntity;
 public class LocalDataStore implements IDataStore {
     @Nullable
     @Override
-    public Observable<PopularResEntity> popularMovieEntities(final int page) {
+    public Observable<MovieListResEntity> popularMovieEntities(final int page) {
         throw new Error("No-op");
     }
 
@@ -29,7 +29,7 @@ public class LocalDataStore implements IDataStore {
 
     @Nullable
     @Override
-    public Observable<MovieCastsResEntity> movieCastsEntities(final int id) {
+    public Observable<MovieCastsEntity> movieCastsEntities(final int id) {
         throw new Error("No-op");
     }
 

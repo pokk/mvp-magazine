@@ -2,9 +2,12 @@ package taiwan.no1.app.data.entities;
 
 import java.util.List;
 
+import taiwan.no1.app.mvp.models.MovieCastsModel;
+import taiwan.no1.app.mvp.models.MovieListResModel;
+
 /**
  * The movie detail information.
- * 
+ *
  * @author Jieyi
  * @version 0.0.1
  * @since 12/29/16
@@ -32,6 +35,10 @@ public class MovieDetailEntity {
     private boolean video;
     private double vote_average;
     private int vote_count;
+    private VideosBean videos;
+    private MovieImagesEntity images;
+    private MovieListResModel similar;
+    private MovieCastsModel casts;
     private List<GenresBean> genres;
     private List<ProductionCompaniesBean> production_companies;
     private List<ProductionCountriesBean> production_countries;
@@ -258,6 +265,14 @@ public class MovieDetailEntity {
         }
     }
 
+    public static class VideosBean {
+        private List<MovieVideosEntity> results;
+
+        public List<MovieVideosEntity> getResults() { return results;}
+
+        public void setResults(List<MovieVideosEntity> results) { this.results = results;}
+    }
+
     @Override
     public String toString() {
         return "MovieDetailEntity{" +
@@ -282,6 +297,10 @@ public class MovieDetailEntity {
                 ", video=" + video +
                 ", vote_average=" + vote_average +
                 ", vote_count=" + vote_count +
+                ", videos=" + videos +
+                ", images=" + images +
+                ", similar=" + similar +
+                ", casts=" + casts +
                 ", genres=" + genres +
                 ", production_companies=" + production_companies +
                 ", production_countries=" + production_countries +

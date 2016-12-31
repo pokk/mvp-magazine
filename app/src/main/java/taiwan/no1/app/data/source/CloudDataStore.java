@@ -12,9 +12,9 @@ import rx.Observable;
 import taiwan.no1.app.R;
 import taiwan.no1.app.api.service.MovieDBService;
 import taiwan.no1.app.data.entities.CastDetailEntity;
-import taiwan.no1.app.data.entities.MovieCastsResEntity;
+import taiwan.no1.app.data.entities.MovieCastsEntity;
 import taiwan.no1.app.data.entities.MovieDetailEntity;
-import taiwan.no1.app.data.entities.PopularResEntity;
+import taiwan.no1.app.data.entities.MovieListResEntity;
 import taiwan.no1.app.internal.di.components.NetComponent;
 
 /**
@@ -43,7 +43,7 @@ public class CloudDataStore implements IDataStore {
      */
     @Nullable
     @Override
-    public Observable<PopularResEntity> popularMovieEntities(final int page) {
+    public Observable<MovieListResEntity> popularMovieEntities(final int page) {
         Map<String, String> query = new HashMap<String, String>() {{
             put("api_key", api_key);
             put("page", String.valueOf(1));
@@ -73,7 +73,7 @@ public class CloudDataStore implements IDataStore {
      */
     @Nullable
     @Override
-    public Observable<MovieCastsResEntity> movieCastsEntities(final int id) {
+    public Observable<MovieCastsEntity> movieCastsEntities(final int id) {
         Map<String, String> query = new HashMap<String, String>() {{
             put("api_key", api_key);
         }};

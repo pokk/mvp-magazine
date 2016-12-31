@@ -4,9 +4,9 @@ import android.support.annotation.Nullable;
 
 import rx.Observable;
 import taiwan.no1.app.data.entities.CastDetailEntity;
-import taiwan.no1.app.data.entities.MovieCastsResEntity;
+import taiwan.no1.app.data.entities.MovieCastsEntity;
 import taiwan.no1.app.data.entities.MovieDetailEntity;
-import taiwan.no1.app.data.entities.PopularResEntity;
+import taiwan.no1.app.data.entities.MovieListResEntity;
 
 /**
  * Interface that represents a data store from where data is retrieved.
@@ -18,10 +18,10 @@ import taiwan.no1.app.data.entities.PopularResEntity;
 
 public interface IDataStore {
     /**
-     * Get an {@link rx.Observable} which will emit a {@link PopularResEntity}.
+     * Get an {@link rx.Observable} which will emit a {@link MovieListResEntity}.
      */
     @Nullable
-    Observable<PopularResEntity> popularMovieEntities(final int page);
+    Observable<MovieListResEntity> popularMovieEntities(final int page);
 
     /**
      * Get an {@link rx.Observable} which will emit a {@link MovieDetailEntity}.
@@ -30,10 +30,10 @@ public interface IDataStore {
     Observable<MovieDetailEntity> movieDetailEntities(final int id);
 
     /**
-     * Get an {@link rx.Observable} which will emit a {@link MovieCastsResEntity}.
+     * Get an {@link rx.Observable} which will emit a {@link MovieCastsEntity}.
      */
     @Nullable
-    Observable<MovieCastsResEntity> movieCastsEntities(final int id);
+    Observable<MovieCastsEntity> movieCastsEntities(final int id);
 
     /**
      * Get an {@link rx.Observable} which will emit a {@link CastDetailEntity}.
