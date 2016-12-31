@@ -59,9 +59,15 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     private val ivPoster by bindView<ImageView>(R.id.iv_poster)
     private val tvReleaseDate by bindView<TextView>(R.id.tv_release_date)
     private val tvTitle by bindView<TextView>(R.id.tv_title)
-    private val tvOverview by bindView<TextView>(R.id.tv_overview)
+    private val stubIntro by bindView<ViewStub>(R.id.stub_introduction)
     private val stubCasts by bindView<ViewStub>(R.id.stub_casts)
     private val stubCrews by bindView<ViewStub>(R.id.stub_crews)
+    private val tvOverview by bindView<TextView>(R.id.tv_overview)
+    private val tvStatus by bindView<TextView>(R.id.tv_status)
+    private val tvRunTime by bindView<TextView>(R.id.tv_run_time)
+    private val tvLanguage by bindView<TextView>(R.id.tv_language)
+    private val tvProduction by bindView<TextView>(R.id.tv_productions)
+    private val tvVote by bindView<TextView>(R.id.tv_vote)
     private val rvCasts by bindView<RecyclerView>(R.id.rv_casts)
     private val rvCrews by bindView<RecyclerView>(R.id.rv_crews)
 
@@ -129,6 +135,8 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     //endregion
 
     override fun obtainMovieDetail(movieDetailModel: MovieDetailModel) {
+        this.stubIntro.inflate()
+
         Glide.with(this.context.applicationContext).
                 load(MovieDBConfig.BASAE_IMAGE_URL + movieDetailModel.backdrop_path).
                 diskCacheStrategy(DiskCacheStrategy.ALL).
@@ -140,23 +148,31 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         this.tvReleaseDate.text = movieDetailModel.release_date
         this.tvTitle.text = movieDetailModel.title
         this.tvOverview.text = movieDetailModel.overview
+        this.tvStatus.text = movieDetailModel.status
+        this.tvRunTime.text = movieDetailModel.runtime.toString()
+        this.tvLanguage.text = movieDetailModel.original_language
+        movieDetailModel.production_countries?.let {
+            var productions = ""
+            for (production in it)
+                productions += production.name
+            this.tvProduction.text = productions
+        }
+        this.tvVote.text = movieDetailModel.vote_average.toString()
     }
 
     override fun obtainMovieCasts(castList: List<MovieCastsModel.CastBean>) {
-        stubCasts.inflate()
-
         val castListNonPic: List<MovieCastsModel.CastBean> = castList.filter { null != it.profile_path }
-        
+        this.stubCasts.inflate()
+
         this.rvCasts.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         this.rvCasts.adapter = MovieCastsAdapter(this.context, castListNonPic)
         this.rvCasts.addItemDecoration(MovieHorizontalItemDecorator(20))
     }
 
     override fun obtainMovieCrews(crewList: List<MovieCastsModel.CrewBean>) {
-        stubCrews.inflate()
-
         val crewListNonPic: List<MovieCastsModel.CrewBean> = crewList.filter { null != it.profile_path }
-        
+        this.stubCrews.inflate()
+
         this.rvCrews.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         this.rvCrews.adapter = MovieCrewsAdapter(this.context, crewListNonPic)
         this.rvCrews.addItemDecoration(MovieHorizontalItemDecorator(20))

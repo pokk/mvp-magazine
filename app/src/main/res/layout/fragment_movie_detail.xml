@@ -89,17 +89,11 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_overview"
+            <ViewStub
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="sans-serif-smallcaps"
-                android:gravity="center"
-                android:lineSpacingExtra="3dp"
-                android:padding="16dp"
-                android:text="@string/lorem"
-                android:textColor="#828282"
-                android:textSize="16sp"/>
+                android:layout_height="wrap_content"
+                android:id="@+id/stub_introduction"
+                android:layout="@layout/layout_movie_intro"/>
 
             <ViewStub
                 android:id="@+id/stub_casts"
