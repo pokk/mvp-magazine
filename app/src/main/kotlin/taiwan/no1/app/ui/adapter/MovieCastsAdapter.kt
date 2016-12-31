@@ -1,12 +1,12 @@
 package taiwan.no1.app.ui.adapter
 
 import android.content.Context
+import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
@@ -48,7 +48,7 @@ class MovieCastsAdapter(val context: Context, val casts: List<MovieCastsModel.Ca
     }
 
     class MovieCastsViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        val item by bindView<RelativeLayout>(R.id.item_cast)
+        val item by bindView<CardView>(R.id.item_cast)
         val ivCast by bindView<ImageView>(R.id.iv_cast)
         val tvCharacter by bindView<TextView>(R.id.tv_character)
         val tvName by bindView<TextView>(R.id.tv_name)

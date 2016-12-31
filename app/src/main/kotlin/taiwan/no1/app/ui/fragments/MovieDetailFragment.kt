@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.ViewStub
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.bindView
@@ -59,6 +60,8 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     private val tvReleaseDate by bindView<TextView>(R.id.tv_release_date)
     private val tvTitle by bindView<TextView>(R.id.tv_title)
     private val tvOverview by bindView<TextView>(R.id.tv_overview)
+    private val stubCasts by bindView<ViewStub>(R.id.stub_casts)
+    private val stubCrews by bindView<ViewStub>(R.id.stub_crews)
     private val rvCasts by bindView<RecyclerView>(R.id.rv_casts)
     private val rvCrews by bindView<RecyclerView>(R.id.rv_crews)
 
@@ -140,13 +143,22 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     }
 
     override fun obtainMovieCasts(castList: List<MovieCastsModel.CastBean>) {
+        stubCasts.inflate()
+
+        val castListNonPic: List<MovieCastsModel.CastBean> = castList.filter { null != it.profile_path }
+        
         this.rvCasts.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-        this.rvCasts.adapter = MovieCastsAdapter(this.context, castList)
-        this.rvCasts.addItemDecoration(MovieHorizontalItemDecorator())
+        this.rvCasts.adapter = MovieCastsAdapter(this.context, castListNonPic)
+        this.rvCasts.addItemDecoration(MovieHorizontalItemDecorator(20))
     }
 
     override fun obtainMovieCrews(crewList: List<MovieCastsModel.CrewBean>) {
+        stubCrews.inflate()
+
+        val crewListNonPic: List<MovieCastsModel.CrewBean> = crewList.filter { null != it.profile_path }
+        
         this.rvCrews.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-        this.rvCrews.adapter = MovieCrewsAdapter(this.context, crewList)
+        this.rvCrews.adapter = MovieCrewsAdapter(this.context, crewListNonPic)
+        this.rvCrews.addItemDecoration(MovieHorizontalItemDecorator(20))
     }
 }

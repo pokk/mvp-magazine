@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:id="@+id/item_cast"
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+<android.support.v7.widget.CardView
+    android:id="@+id/item_cast"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/iv_cast"
@@ -12,23 +13,26 @@
         android:layout_height="match_parent"
         app:srcCompat="@color/lb_basic_card_content_text_color"/>
 
-    <TextView
-        android:id="@+id/tv_character"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/tv_name"
-        android:layout_alignParentEnd="true"
-        android:foreground="#ddddddee"
-        android:gravity="center"
-        android:text="character"/>
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/iv_cast"
-        android:foreground="#ddddddee"
-        android:gravity="center"
-        android:text="Name"/>
-</RelativeLayout>
+        <TextView
+            android:id="@+id/tv_character"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:foreground="#ddddddee"
+            android:gravity="center"
+            android:text="Character"/>
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:foreground="#ddddddee"
+            android:gravity="center"
+            android:text="Name"/>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

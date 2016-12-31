@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.RelativeLayout
+import android.widget.LinearLayout
 import android.widget.TextView
 import butterknife.bindView
 import com.bumptech.glide.Glide
@@ -36,7 +36,7 @@ class PopularMovieAdapter(val context: Context, val movies: List<MovieBriefModel
                 diskCacheStrategy(DiskCacheStrategy.ALL).
                 into(holder.ivPoster)
         holder.tvTitle.text = this.movies[position].title
-        holder.item.setOnClickListener { v ->
+        holder.item.setOnClickListener {
             RxBus.get().post(RxbusTag.FRAGMENT_NAVIGATOR,
                     MovieDetailFragment.newInstance(this.movies[position].id.toString()))
         }
@@ -48,7 +48,7 @@ class PopularMovieAdapter(val context: Context, val movies: List<MovieBriefModel
     }
 
     class MovieBriefViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        val item by bindView<RelativeLayout>(R.id.item_movie_brief)
+        val item by bindView<LinearLayout>(R.id.item_movie_brief)
         val ivPoster by bindView<ImageView>(R.id.iv_movie_poster)
         val tvTitle by bindView<TextView>(R.id.tv_title)
     }
