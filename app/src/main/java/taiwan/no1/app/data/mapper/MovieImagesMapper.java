@@ -8,8 +8,10 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import taiwan.no1.app.data.entities.ImageInfoEntity;
 import taiwan.no1.app.data.entities.MovieImagesEntity;
 import taiwan.no1.app.domain.mapper.IBeanMapper;
+import taiwan.no1.app.mvp.models.ImageInfoModel;
 import taiwan.no1.app.mvp.models.MovieImagesModel;
 
 /**
@@ -20,6 +22,7 @@ import taiwan.no1.app.mvp.models.MovieImagesModel;
 
 @Singleton
 public class MovieImagesMapper implements IBeanMapper<MovieImagesModel, MovieImagesEntity> {
+    @Inject ImageInfoMapper imageInfoMapper;
 
     @Inject
     public MovieImagesMapper() {
@@ -35,27 +38,14 @@ public class MovieImagesMapper implements IBeanMapper<MovieImagesModel, MovieIma
     @NonNull
     @Override
     public MovieImagesModel transformTo(@NonNull MovieImagesEntity entity) {
-        List<MovieImagesModel.BackdropsBean> backdropsBeen = new ArrayList<>();
-        for (MovieImagesEntity.BackdropsBean bean : entity.getBackdrops()) {
-            backdropsBeen.add(new MovieImagesModel.BackdropsBean(bean.getAspect_ratio(),
-                                                                 bean.getFile_path(),
-                                                                 bean.getHeight(),
-                                                                 bean.getIso_639_1(),
-                                                                 bean.getVote_average(),
-                                                                 bean.getVote_count(),
-                                                                 bean.getWidth()));
+        List<ImageInfoModel> backdrops = new ArrayList<>();
+        for (ImageInfoEntity infoEntity : entity.getBackdrops()) {
+            backdrops.add(this.imageInfoMapper.transformTo(infoEntity));
         }
-        List<MovieImagesModel.PostersBean> postersBeen = new ArrayList<>();
-        for (MovieImagesEntity.PostersBean bean : entity.getPosters()) {
-            postersBeen.add(new MovieImagesModel.PostersBean(bean.getAspect_ratio(),
-                                                             bean.getFile_path(),
-                                                             bean.getHeight(),
-                                                             bean.getIso_639_1(),
-                                                             bean.getVote_average(),
-                                                             bean.getVote_count(),
-                                                             bean.getWidth()));
+        List<ImageInfoModel> posters = new ArrayList<>();
+        for (ImageInfoEntity infoEntity : entity.getPosters()) {
+            posters.add(this.imageInfoMapper.transformTo(infoEntity));
         }
-
-        return new MovieImagesModel(backdropsBeen, postersBeen);
+        return new MovieImagesModel(backdrops, posters);
     }
 }

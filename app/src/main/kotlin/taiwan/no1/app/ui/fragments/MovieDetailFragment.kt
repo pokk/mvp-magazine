@@ -129,7 +129,6 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     override fun init() {
         this.argMovieId?.toInt()?.let {
             this.presenter.requestMovieDetail(it)
-//            this.presenter.requestMovieCasts(it)
         }
     }
     //endregion

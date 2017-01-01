@@ -4,9 +4,9 @@ import android.support.annotation.Nullable;
 
 import rx.Observable;
 import taiwan.no1.app.data.entities.CastDetailEntity;
-import taiwan.no1.app.data.entities.MovieCastsEntity;
 import taiwan.no1.app.data.entities.MovieDetailEntity;
 import taiwan.no1.app.data.entities.MovieListResEntity;
+import taiwan.no1.app.data.entities.MovieListWithDateResEntity;
 
 /**
  * @author Jieyi Wu
@@ -25,14 +25,28 @@ public class LocalDataStore implements IDataStore {
     @Nullable
     @Override
     @Deprecated
-    public Observable<MovieDetailEntity> movieDetailEntities(final int id) {
+    public Observable<MovieListResEntity> topRatedMovieEntities(int page) {
         throw new Error("No-op");
     }
 
     @Nullable
     @Override
     @Deprecated
-    public Observable<MovieCastsEntity> movieCastsEntities(final int id) {
+    public Observable<MovieListWithDateResEntity> nowPlayingMovieEntities(int page) {
+        throw new Error("No-op");
+    }
+
+    @Nullable
+    @Override
+    @Deprecated
+    public Observable<MovieListWithDateResEntity> upComingMovieEntities(int page) {
+        throw new Error("No-op");
+    }
+
+    @Nullable
+    @Override
+    @Deprecated
+    public Observable<MovieDetailEntity> movieDetailEntities(final int id) {
         throw new Error("No-op");
     }
 

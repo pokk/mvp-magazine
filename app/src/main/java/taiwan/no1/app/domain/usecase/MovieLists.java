@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
+import taiwan.no1.app.data.repositiry.DataRepository;
 import taiwan.no1.app.domain.executor.PostExecutionThread;
 import taiwan.no1.app.domain.executor.ThreadExecutor;
 import taiwan.no1.app.domain.repository.IRepository;
@@ -17,9 +18,9 @@ import taiwan.no1.app.domain.repository.IRepository;
  * @since 12/29/16
  */
 
-public class PopularMovies extends BaseUseCase<PopularMovies.Requests> {
-    public PopularMovies(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread,
-                         IRepository repository) {
+public class MovieLists extends BaseUseCase<MovieLists.Requests> {
+    public MovieLists(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread,
+                      IRepository repository) {
         super(threadExecutor, postExecutionThread, repository);
     }
 
@@ -30,7 +31,7 @@ public class PopularMovies extends BaseUseCase<PopularMovies.Requests> {
      * @param useCaseSubscriber The guy who will be listen to the observable build with
      */
     @Override
-    public void execute(@NonNull final PopularMovies.Requests request,
+    public void execute(@NonNull final MovieLists.Requests request,
                         @NonNull final Subscriber useCaseSubscriber) {
         this.requestValues = request;
 
@@ -45,15 +46,19 @@ public class PopularMovies extends BaseUseCase<PopularMovies.Requests> {
     @NonNull
     @Override
     protected Observable buildUseCaseObservable() {
-        return this.repository.popularMovies(this.requestValues.page);
+        return this.repository.movies(this.requestValues.category, this.requestValues.page);
     }
 
     /**
      * {@inheritDoc}
      */
     public static final class Requests extends BaseUseCase.RequestValues {
+        private final DataRepository.Movies category;
         private final int page;
 
-        public Requests(int page) { this.page = page; }
+        public Requests(DataRepository.Movies category, int page) {
+            this.category = category;
+            this.page = page;
+        }
     }
 }

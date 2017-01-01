@@ -1,7 +1,8 @@
 package taiwan.no1.app.mvp.presenters
 
 import rx.lang.kotlin.subscriber
-import taiwan.no1.app.domain.usecase.PopularMovies
+import taiwan.no1.app.data.repositiry.DataRepository
+import taiwan.no1.app.domain.usecase.MovieLists
 import taiwan.no1.app.mvp.contracts.MoviePopularContract
 import taiwan.no1.app.mvp.models.MovieBriefModel
 import taiwan.no1.app.utilies.AppLog
@@ -13,7 +14,7 @@ import taiwan.no1.app.utilies.AppLog
  * @since   12/6/16
  */
 
-class MoviePopularPresenter constructor(val moviesCase: PopularMovies):
+class MoviePopularPresenter constructor(val moviesCase: MovieLists):
         BasePresenter<MoviePopularContract.View>(), MoviePopularContract.Presenter {
     //region Subscribers
     private val popularMovieSub = subscriber<List<MovieBriefModel>>().onError {
@@ -31,7 +32,7 @@ class MoviePopularPresenter constructor(val moviesCase: PopularMovies):
     //endregion
 
     override fun requestPopularMovies() {
-        val request = PopularMovies.Requests(1)
+        val request = MovieLists.Requests(DataRepository.Movies.POPULAR, 1)
         request.fragmentLifecycle = this.view.getLifecycle()
         this.moviesCase.execute(request, this.popularMovieSub)
     }

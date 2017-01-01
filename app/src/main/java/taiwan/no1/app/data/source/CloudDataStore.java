@@ -12,9 +12,9 @@ import rx.Observable;
 import taiwan.no1.app.R;
 import taiwan.no1.app.api.service.MovieDBService;
 import taiwan.no1.app.data.entities.CastDetailEntity;
-import taiwan.no1.app.data.entities.MovieCastsEntity;
 import taiwan.no1.app.data.entities.MovieDetailEntity;
 import taiwan.no1.app.data.entities.MovieListResEntity;
+import taiwan.no1.app.data.entities.MovieListWithDateResEntity;
 import taiwan.no1.app.internal.di.components.NetComponent;
 
 /**
@@ -46,10 +46,43 @@ public class CloudDataStore implements IDataStore {
     public Observable<MovieListResEntity> popularMovieEntities(final int page) {
         Map<String, String> query = new HashMap<String, String>() {{
             put("api_key", api_key);
-            put("page", String.valueOf(1));
+            put("page", String.valueOf(page));
         }};
 
-        return movieDBService.popularMovieList(query);
+        return this.movieDBService.popularMovieList(query);
+    }
+
+    @Nullable
+    @Override
+    public Observable<MovieListResEntity> topRatedMovieEntities(final int page) {
+        Map<String, String> query = new HashMap<String, String>() {{
+            put("api_key", api_key);
+            put("page", String.valueOf(page));
+        }};
+
+        return this.movieDBService.topRatedMovieList(query);
+    }
+
+    @Nullable
+    @Override
+    public Observable<MovieListWithDateResEntity> nowPlayingMovieEntities(final int page) {
+        Map<String, String> query = new HashMap<String, String>() {{
+            put("api_key", api_key);
+            put("page", String.valueOf(page));
+        }};
+
+        return this.movieDBService.nowPlayingMovieList(query);
+    }
+
+    @Nullable
+    @Override
+    public Observable<MovieListWithDateResEntity> upComingMovieEntities(final int page) {
+        Map<String, String> query = new HashMap<String, String>() {{
+            put("api_key", api_key);
+            put("page", String.valueOf(page));
+        }};
+
+        return this.movieDBService.upComingMovieList(query);
     }
 
     /**
@@ -65,21 +98,7 @@ public class CloudDataStore implements IDataStore {
             put("append_to_response", "videos,images,similar,casts");
         }};
 
-        return movieDBService.movieDetail(id, query);
-    }
-
-    /**
-     * @param id movie id.
-     * @return {@link Observable}
-     */
-    @Nullable
-    @Override
-    public Observable<MovieCastsEntity> movieCastsEntities(final int id) {
-        Map<String, String> query = new HashMap<String, String>() {{
-            put("api_key", api_key);
-        }};
-
-        return movieDBService.movieCastsDetail(id, query);
+        return this.movieDBService.movieDetail(id, query);
     }
 
     /**
@@ -94,6 +113,6 @@ public class CloudDataStore implements IDataStore {
             put("api_key", api_key);
         }};
 
-        return movieDBService.castDetail(id, query);
+        return this.movieDBService.castDetail(id, query);
     }
 }

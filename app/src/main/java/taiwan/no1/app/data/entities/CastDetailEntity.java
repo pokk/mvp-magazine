@@ -24,6 +24,7 @@ public class CastDetailEntity {
     private double popularity;
     private String profile_path;
     private List<String> also_known_as;
+    private CastImagesEntity images;
 
     public boolean isAdult() { return adult;}
 
@@ -77,6 +78,14 @@ public class CastDetailEntity {
 
     public void setAlso_known_as(List<String> also_known_as) { this.also_known_as = also_known_as;}
 
+    public CastImagesEntity getImages() {
+        return images;
+    }
+
+    public void setImages(CastImagesEntity images) {
+        this.images = images;
+    }
+
     @Override
     public String toString() {
         return "CastDetailEntity{" +
@@ -93,6 +102,7 @@ public class CastDetailEntity {
                 ", popularity=" + popularity +
                 ", profile_path='" + profile_path + '\'' +
                 ", also_known_as=" + also_known_as +
+                ", images=" + images +
                 '}';
     }
 }

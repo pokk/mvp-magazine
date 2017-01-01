@@ -5,9 +5,9 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 import rx.Observable;
+import taiwan.no1.app.data.repositiry.DataRepository;
 import taiwan.no1.app.mvp.models.CastDetailModel;
 import taiwan.no1.app.mvp.models.MovieBriefModel;
-import taiwan.no1.app.mvp.models.MovieCastsModel;
 import taiwan.no1.app.mvp.models.MovieDetailModel;
 
 /**
@@ -26,7 +26,7 @@ public interface IRepository {
      * @return {@link Observable}
      */
     @NonNull
-    Observable<List<MovieBriefModel>> popularMovies(final int page);
+    Observable<List<MovieBriefModel>> movies(final DataRepository.Movies category, final int page);
 
     /**
      * Get an {@link Observable} which will emit a {@link MovieDetailModel}.
@@ -36,16 +36,6 @@ public interface IRepository {
      */
     @NonNull
     Observable<MovieDetailModel> detailMovie(final int id);
-
-
-    /**
-     * Get an {@link Observable} which will emit a {@link MovieCastsModel}.
-     *
-     * @param id a movie id.
-     * @return {@link Observable}
-     */
-    @NonNull
-    Observable<MovieCastsModel> movieCasts(final int id);
 
     /**
      * Get an {@link Observable} which will emit a {@link CastDetailModel}.

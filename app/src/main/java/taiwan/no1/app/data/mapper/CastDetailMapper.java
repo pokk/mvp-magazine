@@ -2,12 +2,18 @@ package taiwan.no1.app.data.mapper;
 
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import taiwan.no1.app.data.entities.CastDetailEntity;
+import taiwan.no1.app.data.entities.ImageInfoEntity;
 import taiwan.no1.app.domain.mapper.IBeanMapper;
 import taiwan.no1.app.mvp.models.CastDetailModel;
+import taiwan.no1.app.mvp.models.CastImagesModel;
+import taiwan.no1.app.mvp.models.ImageInfoModel;
 
 /**
  * Mapper class used to transform between {@link CastDetailModel} (in the kotlin layer) and
@@ -20,6 +26,7 @@ import taiwan.no1.app.mvp.models.CastDetailModel;
 
 @Singleton
 public class CastDetailMapper implements IBeanMapper<CastDetailModel, CastDetailEntity> {
+    @Inject ImageInfoMapper mapper;
 
     @Inject
     public CastDetailMapper() {
@@ -35,6 +42,11 @@ public class CastDetailMapper implements IBeanMapper<CastDetailModel, CastDetail
     @NonNull
     @Override
     public CastDetailModel transformTo(@NonNull CastDetailEntity entity) {
+        List<ImageInfoModel> models = new ArrayList<>();
+        for (ImageInfoEntity infoEntity : entity.getImages().getProfiles()) {
+            models.add(this.mapper.transformTo(infoEntity));
+        }
+
         return new CastDetailModel(entity.isAdult(),
                                    entity.getBiography(),
                                    entity.getBirthday(),
@@ -47,6 +59,7 @@ public class CastDetailMapper implements IBeanMapper<CastDetailModel, CastDetail
                                    entity.getPlace_of_birth(),
                                    entity.getPopularity(),
                                    entity.getProfile_path(),
-                                   entity.getAlso_known_as());
+                                   entity.getAlso_known_as(),
+                                   new CastImagesModel(models));
     }
 }
