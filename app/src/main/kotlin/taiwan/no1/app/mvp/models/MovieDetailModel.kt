@@ -28,6 +28,10 @@ data class MovieDetailModel(val isAdult: Boolean = false,
                             val isVideo: Boolean = false,
                             val vote_average: Double = 0.toDouble(),
                             val vote_count: Int = 0,
+                            val videos: VideosBean? = null,
+                            val images: MovieImagesModel? = null,
+                            val similar: MovieListResModel? = null,
+                            val casts: MovieCastsModel? = null,
                             val genres: List<GenresBean>? = null,
                             val production_companies: List<ProductionCompaniesBean>? = null,
                             val production_countries: List<ProductionCountriesBean>? = null,
@@ -49,4 +53,6 @@ data class MovieDetailModel(val isAdult: Boolean = false,
 
     data class SpokenLanguagesBean(val iso_639_1: String? = null,
                                    val name: String? = null)
+
+    data class VideosBean(val results: List<MovieVideosModel>? = null)
 }

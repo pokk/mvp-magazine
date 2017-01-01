@@ -9,8 +9,13 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import taiwan.no1.app.data.entities.MovieDetailEntity;
+import taiwan.no1.app.data.entities.MovieVideosEntity;
 import taiwan.no1.app.domain.mapper.IBeanMapper;
+import taiwan.no1.app.mvp.models.MovieCastsModel;
 import taiwan.no1.app.mvp.models.MovieDetailModel;
+import taiwan.no1.app.mvp.models.MovieImagesModel;
+import taiwan.no1.app.mvp.models.MovieListResModel;
+import taiwan.no1.app.mvp.models.MovieVideosModel;
 
 /**
  * Mapper class used to transform between {@link MovieDetailModel} (in the kotlin layer) an
@@ -23,6 +28,10 @@ import taiwan.no1.app.mvp.models.MovieDetailModel;
 
 @Singleton
 public class MovieDetailMapper implements IBeanMapper<MovieDetailModel, MovieDetailEntity> {
+    @Inject MovieVideosMapper movieVideosMapper;
+    @Inject MovieListResMapper movieListResMapper;
+    @Inject MovieCastsMapper movieCastsMapper;
+    @Inject MovieImagesMapper movieImagesMapper;
 
     @Inject
     public MovieDetailMapper() {
@@ -58,6 +67,13 @@ public class MovieDetailMapper implements IBeanMapper<MovieDetailModel, MovieDet
             spokenLanguagesBeen.add(new MovieDetailModel.SpokenLanguagesBean(bean.getIso_639_1(),
                                                                              bean.getName()));
         }
+        List<MovieVideosModel> movieVideosModels = new ArrayList<>();
+        for (MovieVideosEntity movieVideosEntity : entity.getVideos().getResults()) {
+            movieVideosModels.add(this.movieVideosMapper.transformTo(movieVideosEntity));
+        }
+        MovieListResModel movieListResModel = this.movieListResMapper.transformTo(entity.getSimilar());
+        MovieCastsModel movieCastsModel = this.movieCastsMapper.transformTo(entity.getCasts());
+        MovieImagesModel movieImagesModel = this.movieImagesMapper.transformTo(entity.getImages());
 
         return new MovieDetailModel(entity.isAdult(),
                                     entity.getBackdrop_path(),
@@ -89,6 +105,10 @@ public class MovieDetailMapper implements IBeanMapper<MovieDetailModel, MovieDet
                                     entity.isVideo(),
                                     entity.getVote_average(),
                                     entity.getVote_count(),
+                                    new MovieDetailModel.VideosBean(movieVideosModels),
+                                    movieImagesModel,
+                                    movieListResModel,
+                                    movieCastsModel,
                                     genresBeen,
                                     productionCompaniesBeen,
                                     productionCountriesBeen,

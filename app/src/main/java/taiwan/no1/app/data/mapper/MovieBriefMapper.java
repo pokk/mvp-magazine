@@ -36,7 +36,6 @@ public class MovieBriefMapper implements IBeanMapper<MovieBriefModel, MovieBrief
     @Override
     public MovieBriefModel transformTo(@NonNull MovieBriefEntity entity) {
         // We may not use all of information, then we will remove some redundant information.
-
         return new MovieBriefModel(entity.getPoster_path(),
                                    entity.isAdult(),
                                    entity.getOverview(),

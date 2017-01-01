@@ -1,6 +1,5 @@
 package taiwan.no1.app.mvp.contracts
 
-import taiwan.no1.app.mvp.models.MovieCastsModel
 import taiwan.no1.app.mvp.models.MovieDetailModel
 import taiwan.no1.app.mvp.presenters.IPresenter
 import taiwan.no1.app.mvp.views.IFragmentView
@@ -17,12 +16,9 @@ import taiwan.no1.app.mvp.views.IView
 interface MovieDetailContract {
     interface Presenter: IPresenter<View> {
         fun requestMovieDetail(movieId: Int)
-        fun requestMovieCasts(movieId: Int)
     }
 
     interface View: IView, IFragmentView {
-        fun obtainMovieDetail(movieDetailModel: MovieDetailModel)
-        fun obtainMovieCasts(castList: List<MovieCastsModel.CastBean>)
-        fun obtainMovieCrews(crewList: List<MovieCastsModel.CrewBean>)
+        fun showMovieDetail(movieDetailModel: MovieDetailModel)
     }
 }

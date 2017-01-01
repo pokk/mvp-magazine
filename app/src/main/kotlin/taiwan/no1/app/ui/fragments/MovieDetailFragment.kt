@@ -129,12 +129,12 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     override fun init() {
         this.argMovieId?.toInt()?.let {
             this.presenter.requestMovieDetail(it)
-            this.presenter.requestMovieCasts(it)
+//            this.presenter.requestMovieCasts(it)
         }
     }
     //endregion
 
-    override fun obtainMovieDetail(movieDetailModel: MovieDetailModel) {
+    override fun showMovieDetail(movieDetailModel: MovieDetailModel) {
         this.stubIntro.inflate()
 
         Glide.with(this.context.applicationContext).
@@ -153,26 +153,29 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         this.tvLanguage.text = movieDetailModel.original_language
         movieDetailModel.production_countries?.let {
             var productions = ""
-            for (production in it)
-                productions += production.name
+            for ((iso, name) in it)
+                productions += name
             this.tvProduction.text = productions
         }
         this.tvVote.text = movieDetailModel.vote_average.toString()
+
+        movieDetailModel.casts?.cast?.let { this.showMovieCasts(it) }
+        movieDetailModel.casts?.crew?.let { this.showMovieCrews(it) }
     }
 
-    override fun obtainMovieCasts(castList: List<MovieCastsModel.CastBean>) {
+    private fun showMovieCasts(castList: List<MovieCastsModel.CastBean>) {
         val castListNonPic: List<MovieCastsModel.CastBean> = castList.filter { null != it.profile_path }
-        this.stubCasts.inflate()
 
+        this.stubCasts.inflate()
         this.rvCasts.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         this.rvCasts.adapter = MovieCastsAdapter(this.context, castListNonPic)
         this.rvCasts.addItemDecoration(MovieHorizontalItemDecorator(20))
     }
 
-    override fun obtainMovieCrews(crewList: List<MovieCastsModel.CrewBean>) {
+    private fun showMovieCrews(crewList: List<MovieCastsModel.CrewBean>) {
         val crewListNonPic: List<MovieCastsModel.CrewBean> = crewList.filter { null != it.profile_path }
-        this.stubCrews.inflate()
 
+        this.stubCrews.inflate()
         this.rvCrews.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         this.rvCrews.adapter = MovieCrewsAdapter(this.context, crewListNonPic)
         this.rvCrews.addItemDecoration(MovieHorizontalItemDecorator(20))

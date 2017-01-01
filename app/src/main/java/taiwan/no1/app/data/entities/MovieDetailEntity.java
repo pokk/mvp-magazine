@@ -2,9 +2,6 @@ package taiwan.no1.app.data.entities;
 
 import java.util.List;
 
-import taiwan.no1.app.mvp.models.MovieCastsModel;
-import taiwan.no1.app.mvp.models.MovieListResModel;
-
 /**
  * The movie detail information.
  *
@@ -37,8 +34,8 @@ public class MovieDetailEntity {
     private int vote_count;
     private VideosBean videos;
     private MovieImagesEntity images;
-    private MovieListResModel similar;
-    private MovieCastsModel casts;
+    private MovieListResEntity similar;
+    private MovieCastsEntity casts;
     private List<GenresBean> genres;
     private List<ProductionCompaniesBean> production_companies;
     private List<ProductionCountriesBean> production_countries;
@@ -147,6 +144,38 @@ public class MovieDetailEntity {
 
     public void setSpoken_languages(
             List<SpokenLanguagesBean> spoken_languages) { this.spoken_languages = spoken_languages;}
+
+    public VideosBean getVideos() {
+        return this.videos;
+    }
+
+    public void setVideos(VideosBean videos) {
+        this.videos = videos;
+    }
+
+    public MovieImagesEntity getImages() {
+        return this.images;
+    }
+
+    public void setImages(MovieImagesEntity images) {
+        this.images = images;
+    }
+
+    public MovieListResEntity getSimilar() {
+        return this.similar;
+    }
+
+    public void setSimilar(MovieListResEntity similar) {
+        this.similar = similar;
+    }
+
+    public MovieCastsEntity getCasts() {
+        return this.casts;
+    }
+
+    public void setCasts(MovieCastsEntity casts) {
+        this.casts = casts;
+    }
 
     public static class BelongsToCollectionBean {
         private int id;
@@ -271,6 +300,13 @@ public class MovieDetailEntity {
         public List<MovieVideosEntity> getResults() { return results;}
 
         public void setResults(List<MovieVideosEntity> results) { this.results = results;}
+
+        @Override
+        public String toString() {
+            return "VideosBean{" +
+                    "results=" + results +
+                    '}';
+        }
     }
 
     @Override

@@ -2,11 +2,13 @@ package taiwan.no1.app.data.repositiry;
 
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import rx.Observable;
+import taiwan.no1.app.data.entities.MovieBriefEntity;
 import taiwan.no1.app.data.mapper.CastDetailMapper;
 import taiwan.no1.app.data.mapper.MovieBriefMapper;
 import taiwan.no1.app.data.mapper.MovieCastsMapper;
@@ -41,9 +43,13 @@ public class DataRepository implements IRepository {
     @NonNull
     @Override
     public Observable<List<MovieBriefModel>> popularMovies(final int page) {
-        //        return dataStoreFactory.createCloud().popularMovieEntities(page)
-        //                               .map(entity -> this.moviesMapper.transformTo(entity.getMovieEntities()));
-        return null;
+        return dataStoreFactory.createCloud().popularMovieEntities(page).map(entity -> {
+            List<MovieBriefModel> models = new ArrayList<>();
+            for (MovieBriefEntity movieBriefEntity : entity.getMovieEntities()) {
+                models.add(this.moviesMapper.transformTo(movieBriefEntity));
+            }
+            return models;
+        });
     }
 
     @NonNull

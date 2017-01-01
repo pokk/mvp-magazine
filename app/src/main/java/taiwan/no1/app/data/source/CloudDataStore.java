@@ -37,7 +37,7 @@ public class CloudDataStore implements IDataStore {
     }
 
     /**
-     * @param page
+     * @param page page number.
      * @return {@link Observable}
      * @see <a href="https://developers.themoviedb.org/3/movies/get-popular-movies">Get-Popular-Movie</>
      */
@@ -62,6 +62,7 @@ public class CloudDataStore implements IDataStore {
     public Observable<MovieDetailEntity> movieDetailEntities(final int id) {
         Map<String, String> query = new HashMap<String, String>() {{
             put("api_key", api_key);
+            put("append_to_response", "videos,images,similar,casts");
         }};
 
         return movieDBService.movieDetail(id, query);

@@ -12,8 +12,8 @@ import java.util.List;
 // TODO: 12/31/16  
 public class MovieListResEntity {
     private int page;
-    private int total_results;
     private int total_pages;
+    private int total_results;
     private List<MovieBriefEntity> results;
 
     public int getPage() { return page;}
