@@ -37,6 +37,6 @@ public interface MovieDBService {
     @GET("movie/{id}/casts")
     Observable<MovieCastsEntity> movieCastsDetail(@Path("id") int id, @QueryMap Map<String, String> queries);
 
-    @GET("people/{id}")
+    @GET("person/{id}")
     Observable<CastDetailEntity> castDetail(@Path("id") int id, @QueryMap Map<String, String> queries);
 }

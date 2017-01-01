@@ -22,6 +22,7 @@ import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.MovieCastsAdapter
 import taiwan.no1.app.ui.adapter.MovieCrewsAdapter
 import taiwan.no1.app.ui.itemdecorator.MovieHorizontalItemDecorator
+import taiwan.no1.app.utilies.AppLog
 import javax.inject.Inject
 
 
@@ -90,6 +91,9 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     override fun onPause() {
         super.onPause()
         this.presenter.pause()
+//        this.stubIntro.inflate()
+//        this.stubCasts.inflate()
+//        this.stubCrews.inflate()
     }
 
     override fun onDestroy() {
@@ -132,7 +136,6 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         }
     }
     //endregion
-
     override fun showMovieDetail(movieDetailModel: MovieDetailModel) {
         this.stubIntro.inflate()
 
@@ -174,6 +177,8 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     private fun showMovieCrews(crewList: List<MovieCastsModel.CrewBean>) {
         val crewListNonPic: List<MovieCastsModel.CrewBean> = crewList.filter { null != it.profile_path }
 
+        AppLog.w(this.stubCrews.isShown)
+        
         this.stubCrews.inflate()
         this.rvCrews.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         this.rvCrews.adapter = MovieCrewsAdapter(this.context, crewListNonPic)

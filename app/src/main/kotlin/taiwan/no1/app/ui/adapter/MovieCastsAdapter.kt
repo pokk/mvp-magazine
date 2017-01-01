@@ -8,14 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
-import android.widget.Toast.LENGTH_SHORT
 import butterknife.bindView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.hwangjr.rxbus.RxBus
+import com.touchin.constant.RxbusTag
 import taiwan.no1.app.R
 import taiwan.no1.app.api.config.MovieDBConfig
 import taiwan.no1.app.mvp.models.MovieCastsModel
+import taiwan.no1.app.ui.fragments.CastDetailFragment
 
 /**
  *
@@ -34,9 +35,8 @@ class MovieCastsAdapter(val context: Context, val casts: List<MovieCastsModel.Ca
         holder.tvCharacter.text = this.casts[position].character
         holder.tvName.text = this.casts[position].name
         holder.item.setOnClickListener {
-            Toast.makeText(this.context.applicationContext,
-                    position.toString(),
-                    LENGTH_SHORT).show()
+            RxBus.get().post(RxbusTag.FRAGMENT_NAVIGATOR,
+                    CastDetailFragment.newInstance(this.casts[position].id.toString()))
         }
     }
 
