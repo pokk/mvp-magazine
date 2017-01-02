@@ -8,17 +8,17 @@ package taiwan.no1.app.mvp.models
  * @since   12/28/16
  */
 
-data class MovieBriefModel(val poster_path: String,
-                           val isAdult: Boolean,
-                           val overview: String,
-                           val release_date: String,
-                           val id: Int,
-                           val original_title: String,
-                           val original_language: String,
-                           val title: String,
-                           val backdrop_path: String,
-                           val popularity: Double,
-                           val vote_count: Int,
-                           val isVideo: Boolean,
-                           val vote_average: Double,
-                           val genre_ids: List<Int>)
+data class MovieBriefModel(val poster_path: String? = null,
+                           val isAdult: Boolean = false,
+                           val overview: String? = null,
+                           val release_date: String? = null,
+                           val id: Int = 0,
+                           val original_title: String? = null,
+                           val original_language: String? = null,
+                           val title: String? = null,
+                           val backdrop_path: String? = null,
+                           val popularity: Double = 0.toDouble(),
+                           val vote_count: Int = 0,
+                           val isVideo: Boolean = false,
+                           val vote_average: Double = 0.toDouble(),
+                           val genre_ids: List<Int>? = null)

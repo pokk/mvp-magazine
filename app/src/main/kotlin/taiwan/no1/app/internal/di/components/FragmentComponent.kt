@@ -6,6 +6,7 @@ import taiwan.no1.app.internal.di.modules.FragmentModule
 import taiwan.no1.app.internal.di.modules.FragmentUseCaseModule
 import taiwan.no1.app.ui.fragments.CastDetailFragment
 import taiwan.no1.app.ui.fragments.MovieDetailFragment
+import taiwan.no1.app.ui.fragments.MovieGalleryFragment
 import taiwan.no1.app.ui.fragments.MoviePopularFragment
 
 /**
@@ -34,6 +35,8 @@ interface FragmentComponent {
     fun inject(moviePopularFragment: MoviePopularFragment)
 
     fun inject(movieDetailFragment: MovieDetailFragment)
+
+    fun inject(movieGalleryFragment: MovieGalleryFragment)
 
     fun inject(castDetailFragment: CastDetailFragment)
 }

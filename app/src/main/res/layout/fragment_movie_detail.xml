@@ -76,7 +76,7 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <taiwan.no1.app.ui.customize.RollingNestedScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
@@ -106,7 +106,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout="@layout/horizontal_content_crew"/>
+
+            <ViewStub
+                android:id="@+id/stub_related"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout="@layout/horizontal_content_related"/>
         </LinearLayout>
-    </taiwan.no1.app.ui.customize.RollingNestedScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
 </android.support.design.widget.CoordinatorLayout>

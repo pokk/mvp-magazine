@@ -9,12 +9,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:text="Crews"
+        android:text="Related Movies"
         android:textSize="25sp"/>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_crews"
-        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/rv_related"
         android:layout_width="match_parent"
         android:layout_height="250dp"/>
 </LinearLayout>
