@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:paddingStart="16dp"
+        android:paddingTop="5dp"
+        android:text="Biography"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tv_bio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-smallcaps"
+        android:lineSpacingExtra="3dp"
+        android:padding="16dp"
+        android:text=""
+        android:textColor="#828282"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:paddingStart="16dp"
+        android:paddingTop="5dp"
+        android:text="Birthday"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tv_birthday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-smallcaps"
+        android:lineSpacingExtra="3dp"
+        android:padding="16dp"
+        android:text=""
+        android:textColor="#828282"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:paddingStart="16dp"
+        android:paddingTop="5dp"
+        android:text="Bron"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tv_place_of_birth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-smallcaps"
+        android:lineSpacingExtra="3dp"
+        android:padding="16dp"
+        android:text=""
+        android:textColor="#828282"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:paddingStart="16dp"
+        android:paddingTop="5dp"
+        android:text="Homepage"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tv_homepage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-smallcaps"
+        android:lineSpacingExtra="3dp"
+        android:padding="16dp"
+        android:text=""
+        android:textColor="#828282"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/tv_title_deathday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:paddingStart="16dp"
+        android:paddingTop="5dp"
+        android:text="Deathday"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tv_deathday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-smallcaps"
+        android:lineSpacingExtra="3dp"
+        android:padding="16dp"
+        android:text=""
+        android:textColor="#828282"
+        android:textSize="16sp"/>
+</LinearLayout>

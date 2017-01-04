@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.View
 import android.view.ViewStub
 import android.widget.ImageView
+import android.widget.TextView
 import butterknife.bindView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -23,6 +25,7 @@ import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CastRelatedMovieAdapter
 import taiwan.no1.app.ui.itemdecorator.MovieHorizontalItemDecorator
 import javax.inject.Inject
+import kotlin.comparisons.compareBy
 
 /**
  *
@@ -57,6 +60,15 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
 
     private val ivDropPoster by bindView<DiagonalView>(R.id.dv_poster)
     private val ivPersonPoster by bindView<ImageView>(R.id.iv_person)
+    private val tvName by bindView<TextView>(R.id.tv_name)
+    private val tvRealName by bindView<TextView>(R.id.tv_real_name)
+    private val tvBio by bindView<TextView>(R.id.tv_bio)
+    private val tvBirthday by bindView<TextView>(R.id.tv_birthday)
+    private val tvBron by bindView<TextView>(R.id.tv_place_of_birth)
+    private val tvHomepage by bindView<TextView>(R.id.tv_homepage)
+    private val tvDeathdayOfTitle by bindView<TextView>(R.id.tv_title_deathday)
+    private val tvDeathday by bindView<TextView>(R.id.tv_deathday)
+    private val stubIntro by bindView<ViewStub>(R.id.stub_introduction)
     private val stubRelated by bindView<ViewStub>(R.id.stub_related)
     private val rvRelated by bindView<RecyclerView>(R.id.rv_related)
 
@@ -121,17 +133,35 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
     //endregion
 
     override fun showCastDetail(castDetailModel: CastDetailModel) {
-        Glide.with(this.context.applicationContext).
-                load(MovieDBConfig.BASAE_IMAGE_URL + castDetailModel.profile_path).
-                fitCenter().
-                diskCacheStrategy(DiskCacheStrategy.ALL).
-                into(this.ivPersonPoster)
-        Glide.with(this.context.applicationContext).
-                load(MovieDBConfig.BASAE_IMAGE_URL + castDetailModel.images?.profiles!![1].file_path).
-                fitCenter().
-                diskCacheStrategy(DiskCacheStrategy.ALL).
-                into(this.dv_poster)
-        // Inflate the crew section.
+        // Inflate the introduction section.
+        if (null != stubIntro.parent) {
+            stubIntro.inflate()
+            Glide.with(this.context.applicationContext).
+                    load(MovieDBConfig.BASAE_IMAGE_URL + castDetailModel.profile_path).
+                    fitCenter().
+                    diskCacheStrategy(DiskCacheStrategy.ALL).
+                    into(this.ivPersonPoster)
+            Glide.with(this.context.applicationContext).
+                    load(MovieDBConfig.BASAE_IMAGE_URL + castDetailModel.images?.profiles!![1].file_path).
+                    fitCenter().
+                    diskCacheStrategy(DiskCacheStrategy.ALL).
+                    into(this.dv_poster)
+            this.tvName.text = castDetailModel.name
+            this.tvBio.text = castDetailModel.biography
+            this.tvBirthday.text = castDetailModel.birthday
+            this.tvBron.text = castDetailModel.place_of_birth
+            this.tvHomepage.text = castDetailModel.homepage
+            if (TextUtils.isEmpty(castDetailModel.deathday) || null == castDetailModel.deathday) {
+                this.tvDeathdayOfTitle.visibility = View.GONE
+                this.tvDeathday.visibility = View.GONE
+            }
+            else
+                this.tvDeathday.text = castDetailModel.deathday
+        }
+        else
+            stubIntro.visibility = View.VISIBLE
+
+        // Inflate the related movie section.
         if (null != stubRelated.parent)
             castDetailModel.combined_credits?.cast?.let {
                 stubRelated.inflate()
@@ -145,7 +175,10 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
         this.rvRelated.layoutManager = LinearLayoutManager(this.context,
                 LinearLayoutManager.HORIZONTAL,
                 false)
-        this.rvRelated.adapter = CastRelatedMovieAdapter(this.context, creditsMovieList)
+        this.rvRelated.adapter = CastRelatedMovieAdapter(this.context,
+                creditsMovieList.filter { it.media_type == "movie" }.
+                        sortedWith(compareBy({ it.release_date })).
+                        reversed())
         this.rvRelated.addItemDecoration(MovieHorizontalItemDecorator(20))
     }
 }

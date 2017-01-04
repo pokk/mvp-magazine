@@ -21,60 +21,65 @@
             android:layout_height="match_parent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
-            <com.intrusoft.squint.DiagonalView
-                android:id="@+id/dv_poster"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:padding="10dp"
-                android:scaleType="centerCrop"
-                android:src="#dddddd"
-                app:angle="15"
-                app:diagonalDirection="right_to_left"
-                app:gravity="right"
-                app:layout_collapseMode="parallax"/>
+                android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/iv_person"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_alignBottom="@+id/dv_poster"
-                android:layout_alignParentStart="true"
-                android:layout_gravity="bottom"
-                android:layout_marginStart="10dp"
-                android:src="@color/lb_basic_card_content_text_color"
-                app:layout_collapseMode="parallax"/>
+                <com.intrusoft.squint.DiagonalView
+                    android:id="@+id/dv_poster"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:padding="10dp"
+                    android:scaleType="centerCrop"
+                    android:src="#dddddd"
+                    app:angle="15"
+                    app:diagonalDirection="right_to_left"
+                    app:gravity="right"
+                    app:layout_collapseMode="parallax"/>
 
-            <TextView
-                android:id="@+id/tv_release_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="25dp"
-                android:fontFamily="sans-serif-smallcaps"
-                android:gravity="end"
-                android:paddingEnd="16dp"
-                android:text="Actor"
-                android:textColor="#828282"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_collapseMode="parallax"
-                app:layout_scrollFlags="scroll|snap"/>
+                <ImageView
+                    android:id="@+id/iv_person"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_alignBottom="@+id/dv_poster"
+                    android:layout_marginStart="10dp"
+                    android:src="@color/lb_basic_card_content_text_color"
+                    app:layout_collapseMode="parallax"/>
 
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:fontFamily="sans-serif-smallcaps"
-                android:gravity="end"
-                android:paddingEnd="16dp"
-                android:text="Fantastic Beasts"
-                android:textColor="#626262"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_collapseMode="parallax"/>
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/dv_poster"
+                    android:layout_toEndOf="@+id/iv_person"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:gravity="end"
+                    android:paddingEnd="16dp"
+                    android:text="吳玠儀"
+                    android:textColor="#626262"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_collapseMode="parallax"/>
+
+                <TextView
+                    android:id="@+id/tv_real_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/iv_person"
+                    android:layout_above="@id/tv_name"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:gravity="end"
+                    android:paddingEnd="16dp"
+                    android:text="Jieyi"
+                    android:textColor="#828282"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_collapseMode="parallax"
+                    app:layout_scrollFlags="scroll|snap"/>
+            </RelativeLayout>
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -88,11 +93,11 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <!--<ViewStub-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:id="@+id/stub_introduction"-->
-            <!--android:layout="@layout/layout_movie_intro"/>-->
+            <ViewStub
+                android:id="@+id/stub_introduction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout="@layout/layout_cast_intro"/>
 
             <!--<ViewStub-->
             <!--android:id="@+id/stub_casts"-->

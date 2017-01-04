@@ -29,8 +29,8 @@ class CastRelatedMovieAdapter(val context: Context, val movies: List<CreditsMode
                 load(MovieDBConfig.BASAE_IMAGE_URL + this.movies[position].poster_path).
                 diskCacheStrategy(DiskCacheStrategy.ALL).
                 into(holder.ivPoster)
-        holder.tvCharacter.text = this.movies[position].title
-        holder.tvName.text = this.movies[position].original_title
+        holder.tvCharacter.text = this.movies[position].release_date
+        holder.tvName.text = this.movies[position].title
 //        holder.item.setOnClickListener {
 //            RxBus.get().post(RxbusTag.FRAGMENT_NAVIGATOR,
 //                    MovieDetailFragment.newInstance(this.movies[position].id.toString()))

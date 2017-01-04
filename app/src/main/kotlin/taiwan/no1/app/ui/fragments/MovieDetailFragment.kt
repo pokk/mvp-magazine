@@ -210,22 +210,18 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     }
 
     private fun showMovieCasts(castList: List<MovieCastsModel.CastBean>) {
-        val castListNonPic: List<MovieCastsModel.CastBean> = castList.filter { null != it.profile_path }
-
         this.rvCasts.layoutManager = LinearLayoutManager(this.context,
                 LinearLayoutManager.HORIZONTAL,
                 false)
-        this.rvCasts.adapter = MovieCastsAdapter(this.context, castListNonPic)
+        this.rvCasts.adapter = MovieCastsAdapter(this.context, castList.filter { null != it.profile_path })
         this.rvCasts.addItemDecoration(MovieHorizontalItemDecorator(20))
     }
 
     private fun showMovieCrews(crewList: List<MovieCastsModel.CrewBean>) {
-        val crewListNonPic: List<MovieCastsModel.CrewBean> = crewList.filter { null != it.profile_path }
-
         this.rvCrews.layoutManager = LinearLayoutManager(this.context,
                 LinearLayoutManager.HORIZONTAL,
                 false)
-        this.rvCrews.adapter = MovieCrewsAdapter(this.context, crewListNonPic)
+        this.rvCrews.adapter = MovieCrewsAdapter(this.context, crewList.filter { null != it.profile_path })
         this.rvCrews.addItemDecoration(MovieHorizontalItemDecorator(20))
     }
 
