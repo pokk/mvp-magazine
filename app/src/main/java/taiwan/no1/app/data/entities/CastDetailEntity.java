@@ -25,6 +25,7 @@ public class CastDetailEntity {
     private String profile_path;
     private List<String> also_known_as;
     private CastImagesEntity images;
+    private CreditsEntity combined_credits;
 
     public boolean isAdult() { return adult;}
 
@@ -86,6 +87,14 @@ public class CastDetailEntity {
         this.images = images;
     }
 
+    public CreditsEntity getCombined_credits() {
+        return combined_credits;
+    }
+
+    public void setCombined_credits(CreditsEntity combined_credits) {
+        this.combined_credits = combined_credits;
+    }
+
     @Override
     public String toString() {
         return "CastDetailEntity{" +
@@ -103,6 +112,7 @@ public class CastDetailEntity {
                 ", profile_path='" + profile_path + '\'' +
                 ", also_known_as=" + also_known_as +
                 ", images=" + images +
+                ", combined_credits=" + combined_credits +
                 '}';
     }
 }

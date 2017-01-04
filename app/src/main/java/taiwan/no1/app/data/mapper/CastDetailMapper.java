@@ -13,6 +13,7 @@ import taiwan.no1.app.data.entities.ImageInfoEntity;
 import taiwan.no1.app.domain.mapper.IBeanMapper;
 import taiwan.no1.app.mvp.models.CastDetailModel;
 import taiwan.no1.app.mvp.models.CastImagesModel;
+import taiwan.no1.app.mvp.models.CreditsModel;
 import taiwan.no1.app.mvp.models.ImageInfoModel;
 
 /**
@@ -26,7 +27,8 @@ import taiwan.no1.app.mvp.models.ImageInfoModel;
 
 @Singleton
 public class CastDetailMapper implements IBeanMapper<CastDetailModel, CastDetailEntity> {
-    @Inject ImageInfoMapper mapper;
+    @Inject ImageInfoMapper imageInfoMapper;
+    @Inject CreditsMapper creditsMapper;
 
     @Inject
     public CastDetailMapper() {
@@ -44,8 +46,9 @@ public class CastDetailMapper implements IBeanMapper<CastDetailModel, CastDetail
     public CastDetailModel transformTo(@NonNull CastDetailEntity entity) {
         List<ImageInfoModel> models = new ArrayList<>();
         for (ImageInfoEntity infoEntity : entity.getImages().getProfiles()) {
-            models.add(this.mapper.transformTo(infoEntity));
+            models.add(this.imageInfoMapper.transformTo(infoEntity));
         }
+        CreditsModel creditsModels = this.creditsMapper.transformTo(entity.getCombined_credits());
 
         return new CastDetailModel(entity.isAdult(),
                                    entity.getBiography(),
@@ -59,7 +62,6 @@ public class CastDetailMapper implements IBeanMapper<CastDetailModel, CastDetail
                                    entity.getPlace_of_birth(),
                                    entity.getPopularity(),
                                    entity.getProfile_path(),
-                                   entity.getAlso_known_as(),
-                                   new CastImagesModel(models));
+                                   entity.getAlso_known_as(), new CastImagesModel(models), creditsModels);
     }
 }

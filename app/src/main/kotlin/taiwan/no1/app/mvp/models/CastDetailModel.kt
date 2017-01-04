@@ -19,4 +19,5 @@ data class CastDetailModel(val isAdult: Boolean = false,
                            val popularity: Double = 0.toDouble(),
                            val profile_path: String? = null,
                            val also_known_as: List<String>? = null,
-                           val images: CastImagesModel? = null)
+                           val images: CastImagesModel? = null,
+                           val combined_credits: CreditsModel? = null)
