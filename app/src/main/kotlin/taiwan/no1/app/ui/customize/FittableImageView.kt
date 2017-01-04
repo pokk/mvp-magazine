@@ -3,7 +3,6 @@ package taiwan.no1.app.ui.customize
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.ImageView
-import taiwan.no1.app.utilies.AppLog
 
 /**
  *
@@ -25,9 +24,6 @@ class FittableImageView: ImageView {
 
         val width: Int = MeasureSpec.getSize(widthMeasureSpec) - paddingLeft - paddingRight
         val height: Int = MeasureSpec.getSize(heightMeasureSpec) - paddingTop - paddingBottom
-
-        AppLog.w(width, height)
-        AppLog.w(widthMode, heightMode)
 
         if (MeasureSpec.EXACTLY == widthMode) {
 

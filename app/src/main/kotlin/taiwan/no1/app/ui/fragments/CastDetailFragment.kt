@@ -138,7 +138,7 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
             stubIntro.inflate()
             Glide.with(this.context.applicationContext).
                     load(MovieDBConfig.BASAE_IMAGE_URL + castDetailModel.profile_path).
-                    fitCenter().
+                    centerCrop().
                     diskCacheStrategy(DiskCacheStrategy.ALL).
                     into(this.ivPersonPoster)
             Glide.with(this.context.applicationContext).
