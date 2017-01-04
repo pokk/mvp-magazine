@@ -11,6 +11,7 @@ import butterknife.bindView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.intrusoft.squint.DiagonalView
+import kotlinx.android.synthetic.main.fragment_cast_detail.*
 import taiwan.no1.app.R
 import taiwan.no1.app.api.config.MovieDBConfig
 import taiwan.no1.app.internal.di.annotations.PerFragment
@@ -125,7 +126,11 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
                 fitCenter().
                 diskCacheStrategy(DiskCacheStrategy.ALL).
                 into(this.ivPersonPoster)
-
+        Glide.with(this.context.applicationContext).
+                load(MovieDBConfig.BASAE_IMAGE_URL + castDetailModel.images?.profiles!![1].file_path).
+                fitCenter().
+                diskCacheStrategy(DiskCacheStrategy.ALL).
+                into(this.dv_poster)
         // Inflate the crew section.
         if (null != stubRelated.parent)
             castDetailModel.combined_credits?.cast?.let {
