@@ -1,5 +1,6 @@
 package taiwan.no1.app.mvp.contracts
 
+import taiwan.no1.app.mvp.models.CastDetailModel
 import taiwan.no1.app.mvp.presenters.IPresenter
 import taiwan.no1.app.mvp.views.IFragmentView
 import taiwan.no1.app.mvp.views.IView
@@ -17,5 +18,7 @@ interface CastDetailContract {
         fun requestCastDetail(castId: Int)
     }
 
-    interface View: IView, IFragmentView
+    interface View: IView, IFragmentView {
+        fun showCastDetail(castDetailModel: CastDetailModel)
+    }
 }
