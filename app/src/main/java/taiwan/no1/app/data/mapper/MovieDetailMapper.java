@@ -2,17 +2,21 @@ package taiwan.no1.app.data.mapper;
 
 import android.support.annotation.NonNull;
 
-import java.util.ArrayList;
+import com.innahema.collections.query.queriables.Queryable;
+
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import taiwan.no1.app.data.entities.MovieDetailEntity;
-import taiwan.no1.app.data.entities.MovieVideosEntity;
 import taiwan.no1.app.domain.mapper.IBeanMapper;
 import taiwan.no1.app.mvp.models.MovieCastsModel;
 import taiwan.no1.app.mvp.models.MovieDetailModel;
+import taiwan.no1.app.mvp.models.MovieDetailModel.GenresBean;
+import taiwan.no1.app.mvp.models.MovieDetailModel.ProductionCompaniesBean;
+import taiwan.no1.app.mvp.models.MovieDetailModel.ProductionCountriesBean;
+import taiwan.no1.app.mvp.models.MovieDetailModel.SpokenLanguagesBean;
 import taiwan.no1.app.mvp.models.MovieImagesModel;
 import taiwan.no1.app.mvp.models.MovieListResModel;
 import taiwan.no1.app.mvp.models.MovieVideosModel;
@@ -48,29 +52,29 @@ public class MovieDetailMapper implements IBeanMapper<MovieDetailModel, MovieDet
     @Override
     public MovieDetailModel transformTo(@NonNull MovieDetailEntity entity) {
         // We may not use all of information, then we will remove some redundant information.
-        List<MovieDetailModel.GenresBean> genresBeen = new ArrayList<>();
-        for (MovieDetailEntity.GenresBean bean : entity.getGenres()) {
-            genresBeen.add(new MovieDetailModel.GenresBean(bean.getId(), bean.getName()));
-        }
-        List<MovieDetailModel.ProductionCompaniesBean> productionCompaniesBeen = new ArrayList<>();
-        for (MovieDetailEntity.ProductionCompaniesBean bean : entity.getProduction_companies()) {
-            productionCompaniesBeen.add(new MovieDetailModel.ProductionCompaniesBean(bean.getName(),
-                                                                                     bean.getId()));
-        }
-        List<MovieDetailModel.ProductionCountriesBean> productionCountriesBeen = new ArrayList<>();
-        for (MovieDetailEntity.ProductionCountriesBean bean : entity.getProduction_countries()) {
-            productionCountriesBeen.add(new MovieDetailModel.ProductionCountriesBean(bean.getIso_3166_1(),
-                                                                                     bean.getName()));
-        }
-        List<MovieDetailModel.SpokenLanguagesBean> spokenLanguagesBeen = new ArrayList<>();
-        for (MovieDetailEntity.SpokenLanguagesBean bean : entity.getSpoken_languages()) {
-            spokenLanguagesBeen.add(new MovieDetailModel.SpokenLanguagesBean(bean.getIso_639_1(),
-                                                                             bean.getName()));
-        }
-        List<MovieVideosModel> movieVideosModels = new ArrayList<>();
-        for (MovieVideosEntity movieVideosEntity : entity.getVideos().getResults()) {
-            movieVideosModels.add(this.movieVideosMapper.transformTo(movieVideosEntity));
-        }
+        List<GenresBean> genresBeen = Queryable.from(entity.getGenres())
+                                               .map(data -> new MovieDetailModel.GenresBean(data.getId(),
+                                                                                            data.getName()))
+                                               .toList();
+        List<ProductionCompaniesBean> productionCompaniesBeen = Queryable.from(entity.getProduction_companies())
+                                                                         .map(data -> new MovieDetailModel.ProductionCompaniesBean(
+                                                                                 data.getName(),
+                                                                                 data.getId()))
+                                                                         .toList();
+        List<ProductionCountriesBean> productionCountriesBeen = Queryable.from(entity.getProduction_countries())
+                                                                         .map(data -> new MovieDetailModel.ProductionCountriesBean(
+                                                                                 data.getIso_3166_1(),
+                                                                                 data.getName()))
+                                                                         .toList();
+
+        List<SpokenLanguagesBean> spokenLanguagesBeen = Queryable.from(entity.getSpoken_languages())
+                                                                 .map(data -> new MovieDetailModel.SpokenLanguagesBean(
+                                                                         data.getIso_639_1(),
+                                                                         data.getName()))
+                                                                 .toList();
+        List<MovieVideosModel> movieVideosModels = Queryable.from(entity.getVideos().getResults())
+                                                            .map(this.movieVideosMapper::transformTo)
+                                                            .toList();
         MovieListResModel movieListResModel = this.movieListResMapper.transformTo(entity.getSimilar());
         MovieCastsModel movieCastsModel = this.movieCastsMapper.transformTo(entity.getCasts());
         MovieImagesModel movieImagesModel = this.movieImagesMapper.transformTo(entity.getImages());

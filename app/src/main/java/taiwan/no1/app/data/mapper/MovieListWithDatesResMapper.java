@@ -2,13 +2,13 @@ package taiwan.no1.app.data.mapper;
 
 import android.support.annotation.NonNull;
 
-import java.util.ArrayList;
+import com.innahema.collections.query.queriables.Queryable;
+
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import taiwan.no1.app.data.entities.MovieBriefEntity;
 import taiwan.no1.app.data.entities.MovieListWithDateResEntity;
 import taiwan.no1.app.domain.mapper.IBeanMapper;
 import taiwan.no1.app.mvp.models.MovieBriefModel;
@@ -23,8 +23,7 @@ import taiwan.no1.app.mvp.models.MovieListWithDateResModel;
 
 @Singleton
 public class MovieListWithDatesResMapper implements IBeanMapper<MovieListWithDateResModel, MovieListWithDateResEntity> {
-
-    @Inject MovieBriefMapper mapper;
+    @Inject MovieBriefMapper movieBriefMapper;
 
     @Inject
     public MovieListWithDatesResMapper() {
@@ -40,10 +39,9 @@ public class MovieListWithDatesResMapper implements IBeanMapper<MovieListWithDat
     @NonNull
     @Override
     public MovieListWithDateResModel transformTo(@NonNull MovieListWithDateResEntity entity) {
-        List<MovieBriefModel> movieBriefModel = new ArrayList<>();
-        for (MovieBriefEntity movieBriefEntity : entity.getMovieEntities()) {
-            movieBriefModel.add(this.mapper.transformTo(movieBriefEntity));
-        }
+        List<MovieBriefModel> movieBriefModel = Queryable.from(entity.getMovieEntities())
+                                                         .map(this.movieBriefMapper::transformTo)
+                                                         .toList();
 
         return new MovieListWithDateResModel(entity.getPage(),
                                              entity.getTotal_results(),

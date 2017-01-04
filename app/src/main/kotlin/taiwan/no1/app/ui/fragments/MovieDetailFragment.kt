@@ -36,6 +36,7 @@ import javax.inject.Inject
  * @version 0.0.1
  * @since   12/29/16
  */
+
 @PerFragment
 class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     companion object Factory {
@@ -61,7 +62,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     lateinit var presenter: MovieDetailContract.Presenter
 
     private val ivDropPoster by bindView<DiagonalView>(R.id.dv_poster)
-    private val ivPoster by bindView<ImageView>(R.id.iv_poster)
+    private val ivMoviePoster by bindView<ImageView>(R.id.iv_movie_poster)
     private val tvReleaseDate by bindView<TextView>(R.id.tv_release_date)
     private val tvTitle by bindView<TextView>(R.id.tv_title)
     private val stubIntro by bindView<ViewStub>(R.id.stub_introduction)
@@ -161,7 +162,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
                     load(MovieDBConfig.BASAE_IMAGE_URL + movieDetailModel.poster_path).
                     fitCenter().
                     diskCacheStrategy(DiskCacheStrategy.ALL).
-                    into(this.ivPoster)
+                    into(this.ivMoviePoster)
             this.tvReleaseDate.text = movieDetailModel.release_date
             this.tvTitle.text = movieDetailModel.title
             this.tvOverview.text = movieDetailModel.overview

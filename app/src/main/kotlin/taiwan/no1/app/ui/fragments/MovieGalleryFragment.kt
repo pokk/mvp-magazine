@@ -14,6 +14,7 @@ import javax.inject.Inject
  * @version 0.0.1
  * @since   1/1/17
  */
+
 @PerFragment
 class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
     companion object Factory {

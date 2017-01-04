@@ -2,7 +2,8 @@ package taiwan.no1.app.data.mapper;
 
 import android.support.annotation.NonNull;
 
-import java.util.ArrayList;
+import com.innahema.collections.query.queriables.Queryable;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -11,6 +12,8 @@ import javax.inject.Singleton;
 import taiwan.no1.app.data.entities.MovieCastsEntity;
 import taiwan.no1.app.domain.mapper.IBeanMapper;
 import taiwan.no1.app.mvp.models.MovieCastsModel;
+import taiwan.no1.app.mvp.models.MovieCastsModel.CastBean;
+import taiwan.no1.app.mvp.models.MovieCastsModel.CrewBean;
 
 /**
  * Mapper class used to transform between {@link MovieCastsModel} (in the kotlin layer) and
@@ -38,25 +41,24 @@ public class MovieCastsMapper implements IBeanMapper<MovieCastsModel, MovieCasts
     @NonNull
     @Override
     public MovieCastsModel transformTo(@NonNull MovieCastsEntity entity) {
-        List<MovieCastsModel.CastBean> castBeen = new ArrayList<>();
-        for (MovieCastsEntity.CastBean bean : entity.getCast()) {
-            castBeen.add(new MovieCastsModel.CastBean(bean.getCast_id(),
-                                                      bean.getCharacter(),
-                                                      bean.getCredit_id(),
-                                                      bean.getId(),
-                                                      bean.getName(),
-                                                      bean.getOrder(),
-                                                      bean.getProfile_path()));
-        }
-        List<MovieCastsModel.CrewBean> crewBeen = new ArrayList<>();
-        for (MovieCastsEntity.CrewBean bean : entity.getCrew()) {
-            crewBeen.add(new MovieCastsModel.CrewBean(bean.getCredit_id(),
-                                                      bean.getDepartment(),
-                                                      bean.getId(),
-                                                      bean.getJob(),
-                                                      bean.getName(),
-                                                      bean.getProfile_path()));
-        }
+        List<CastBean> castBeen = Queryable.from(entity.getCast())
+                                           .map(data -> new MovieCastsModel.CastBean(data.getCast_id(),
+                                                                                     data.getCharacter(),
+                                                                                     data.getCredit_id(),
+                                                                                     data.getId(),
+                                                                                     data.getName(),
+                                                                                     data.getOrder(),
+                                                                                     data.getProfile_path()))
+                                           .toList();
+
+        List<CrewBean> crewBeen = Queryable.from(entity.getCrew())
+                                           .map(data -> new MovieCastsModel.CrewBean(data.getCredit_id(),
+                                                                                     data.getDepartment(),
+                                                                                     data.getId(),
+                                                                                     data.getJob(),
+                                                                                     data.getName(),
+                                                                                     data.getProfile_path()))
+                                           .toList();
 
         return new MovieCastsModel(castBeen, crewBeen);
     }

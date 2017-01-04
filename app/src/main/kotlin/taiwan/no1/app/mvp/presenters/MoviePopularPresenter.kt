@@ -19,6 +19,7 @@ class MoviePopularPresenter constructor(val moviesCase: MovieLists):
     //region Subscribers
     private val popularMovieSub = subscriber<List<MovieBriefModel>>().onError {
         AppLog.e(it.message)
+        AppLog.e(it)
     }.onNext {
         AppLog.v(it)
         view.obtainMovieBriefList(it)

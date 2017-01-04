@@ -2,14 +2,14 @@ package taiwan.no1.app.data.mapper;
 
 import android.support.annotation.NonNull;
 
-import java.util.ArrayList;
+import com.innahema.collections.query.queriables.Queryable;
+
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import taiwan.no1.app.data.entities.CastDetailEntity;
-import taiwan.no1.app.data.entities.ImageInfoEntity;
 import taiwan.no1.app.domain.mapper.IBeanMapper;
 import taiwan.no1.app.mvp.models.CastDetailModel;
 import taiwan.no1.app.mvp.models.CastImagesModel;
@@ -44,10 +44,9 @@ public class CastDetailMapper implements IBeanMapper<CastDetailModel, CastDetail
     @NonNull
     @Override
     public CastDetailModel transformTo(@NonNull CastDetailEntity entity) {
-        List<ImageInfoModel> models = new ArrayList<>();
-        for (ImageInfoEntity infoEntity : entity.getImages().getProfiles()) {
-            models.add(this.imageInfoMapper.transformTo(infoEntity));
-        }
+        List<ImageInfoModel> imageInfoModels = Queryable.from(entity.getImages().getProfiles())
+                                                        .map(this.imageInfoMapper::transformTo)
+                                                        .toList();
         CreditsModel creditsModels = this.creditsMapper.transformTo(entity.getCombined_credits());
 
         return new CastDetailModel(entity.isAdult(),
@@ -62,6 +61,8 @@ public class CastDetailMapper implements IBeanMapper<CastDetailModel, CastDetail
                                    entity.getPlace_of_birth(),
                                    entity.getPopularity(),
                                    entity.getProfile_path(),
-                                   entity.getAlso_known_as(), new CastImagesModel(models), creditsModels);
+                                   entity.getAlso_known_as(),
+                                   new CastImagesModel(imageInfoModels),
+                                   creditsModels);
     }
 }

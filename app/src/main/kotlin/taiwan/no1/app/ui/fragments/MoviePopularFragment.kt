@@ -99,7 +99,6 @@ class MoviePopularFragment: BaseFragment(), MoviePopularContract.View {
     override fun obtainMovieBriefList(movieList: List<MovieBriefModel>) {
         this.rvMovies.layoutManager = StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL)
         this.rvMovies.adapter = PopularMovieAdapter(this.context, movieList)
-//        this.rvMovies.setHasFixedSize(true)
         this.rvMovies.addItemDecoration(GridSpacingItemDecorator(2, 10, false))
     }
 }

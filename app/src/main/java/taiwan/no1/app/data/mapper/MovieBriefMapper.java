@@ -2,6 +2,8 @@ package taiwan.no1.app.data.mapper;
 
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -48,7 +50,6 @@ public class MovieBriefMapper implements IBeanMapper<MovieBriefModel, MovieBrief
                                    entity.getPopularity(),
                                    entity.getVote_count(),
                                    entity.isVideo(),
-                                   entity.getVote_average(),
-                                   entity.getGenre_ids());
+                                   entity.getVote_average(), new ArrayList<>(entity.getGenre_ids()));
     }
 }
