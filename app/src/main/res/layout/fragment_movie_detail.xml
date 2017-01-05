@@ -112,6 +112,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout="@layout/horizontal_content_related"/>
+
+            <ViewStub
+                android:id="@+id/stub_trailer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout="@layout/horizontal_content_trailer"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

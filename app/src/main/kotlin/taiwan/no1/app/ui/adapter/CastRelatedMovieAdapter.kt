@@ -33,7 +33,7 @@ class CastRelatedMovieAdapter(val context: Context, val movies: List<CreditsMode
         holder.tvName.text = this.movies[position].title
 //        holder.item.setOnClickListener {
 //            RxBus.get().post(RxbusTag.FRAGMENT_NAVIGATOR,
-//                    MovieDetailFragment.newInstance(this.movies[position].id.toString()))
+//                    MovieDetailFragment.newInstance(this.videoLists[position].id.toString()))
 //        }
     }
 

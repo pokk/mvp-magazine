@@ -22,7 +22,7 @@ public interface IRepository {
     /**
      * Get an {@link Observable} which will emit a {@link List<MovieBriefModel>}.
      *
-     * @param page a page of popular movies.
+     * @param page a page of popular videoLists.
      * @return {@link Observable}
      */
     @NonNull

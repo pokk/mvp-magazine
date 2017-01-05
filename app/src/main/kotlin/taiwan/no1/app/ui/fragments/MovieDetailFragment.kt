@@ -22,10 +22,12 @@ import taiwan.no1.app.mvp.contracts.MovieDetailContract
 import taiwan.no1.app.mvp.models.MovieBriefModel
 import taiwan.no1.app.mvp.models.MovieCastsModel
 import taiwan.no1.app.mvp.models.MovieDetailModel
+import taiwan.no1.app.mvp.models.MovieVideosModel
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.MovieCastsAdapter
 import taiwan.no1.app.ui.adapter.MovieCrewsAdapter
 import taiwan.no1.app.ui.adapter.MovieRelatedAdapter
+import taiwan.no1.app.ui.adapter.MovieTrailerAdapter
 import taiwan.no1.app.ui.itemdecorator.MovieHorizontalItemDecorator
 import javax.inject.Inject
 
@@ -69,6 +71,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     private val stubCasts by bindView<ViewStub>(R.id.stub_casts)
     private val stubCrews by bindView<ViewStub>(R.id.stub_crews)
     private val stubRelated by bindView<ViewStub>(R.id.stub_related)
+    private val stubTrailer by bindView<ViewStub>(R.id.stub_trailer)
     private val tvOverview by bindView<TextView>(R.id.tv_overview)
     private val tvStatus by bindView<TextView>(R.id.tv_status)
     private val tvRunTime by bindView<TextView>(R.id.tv_run_time)
@@ -78,6 +81,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     private val rvCasts by bindView<RecyclerView>(R.id.rv_casts)
     private val rvCrews by bindView<RecyclerView>(R.id.rv_crews)
     private val rvRelated by bindView<RecyclerView>(R.id.rv_related)
+    private val rvTrailer by bindView<RecyclerView>(R.id.rv_trailer)
 
     // The fragment initialization parameters.
     private var argMovieId: String? = null
@@ -199,7 +203,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
             stubCrews.visibility = View.VISIBLE
 
 
-        // Inflate the crew section.
+        // Inflate the related movies section.
         if (null != stubRelated.parent)
             movieDetailModel.similar?.movieBriefModel?.let {
                 stubRelated.inflate()
@@ -207,6 +211,15 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
             }
         else
             stubRelated.visibility = View.VISIBLE
+
+        // Inflate the trailer movies section.
+        if (null != stubTrailer.parent)
+            movieDetailModel.videos?.results?.let {
+                stubTrailer.inflate()
+                this.showTrailerMovies(it)
+            }
+        else
+            stubTrailer.visibility = View.VISIBLE
     }
 
     private fun showMovieCasts(castList: List<MovieCastsModel.CastBean>) {
@@ -231,5 +244,13 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
                 false)
         this.rvRelated.adapter = MovieRelatedAdapter(this.context, similarMovieList)
         this.rvRelated.addItemDecoration(MovieHorizontalItemDecorator(20))
+    }
+
+    private fun showTrailerMovies(videoMovieList: List<MovieVideosModel>) {
+        this.rvTrailer.layoutManager = LinearLayoutManager(this.context,
+                LinearLayoutManager.HORIZONTAL,
+                false)
+        this.rvTrailer.adapter = MovieTrailerAdapter(this.context, videoMovieList)
+        this.rvTrailer.addItemDecoration(MovieHorizontalItemDecorator(20))
     }
 }
