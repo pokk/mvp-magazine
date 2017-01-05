@@ -9,7 +9,7 @@ import java.util.List;
  * @version 0.0.1
  * @since 12/28/16
  */
-// TODO: 12/31/16  
+
 public class MovieListResEntity {
     private int page;
     private int total_pages;

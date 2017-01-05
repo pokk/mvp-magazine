@@ -5,7 +5,7 @@ package taiwan.no1.app.data.entities;
  * @version 0.0.1
  * @since 12/31/16
  */
-// TODO: 12/31/16  
+
 public class MovieListWithDateResEntity extends MovieListResEntity {
     private MovieDatesEntity dates;
 
