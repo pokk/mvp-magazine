@@ -4,10 +4,7 @@ import dagger.Component
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.modules.FragmentModule
 import taiwan.no1.app.internal.di.modules.FragmentUseCaseModule
-import taiwan.no1.app.ui.fragments.CastDetailFragment
-import taiwan.no1.app.ui.fragments.MovieDetailFragment
-import taiwan.no1.app.ui.fragments.MovieGalleryFragment
-import taiwan.no1.app.ui.fragments.MoviePopularFragment
+import taiwan.no1.app.ui.fragments.*
 
 /**
  *
@@ -33,6 +30,12 @@ interface FragmentComponent {
      */
 
     fun inject(moviePopularFragment: MoviePopularFragment)
+
+    fun inject(topRatedFragment: MovieTopRatedFragment)
+
+    fun inject(nowPlayingFragment: MovieNowPlayingFragment)
+
+    fun inject(upComingFragment: MovieUpComingFragment)
 
     fun inject(movieDetailFragment: MovieDetailFragment)
 

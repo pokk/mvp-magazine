@@ -2,7 +2,8 @@ package taiwan.no1.app.data.repositiry;
 
 import android.support.annotation.NonNull;
 
-import java.util.ArrayList;
+import com.innahema.collections.query.queriables.Queryable;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -66,12 +67,9 @@ public class DataRepository implements IRepository {
         throw new Error("Movies doesn't have this type!");
     }
 
-    private List<MovieBriefModel> transition(List<MovieBriefEntity> entities) {
-        List<MovieBriefModel> models = new ArrayList<>();
-        for (MovieBriefEntity movieBriefEntity : entities) {
-            models.add(this.moviesMapper.transformTo(movieBriefEntity));
-        }
-        return models;
+    @NonNull
+    private List<MovieBriefModel> transition(@NonNull final List<MovieBriefEntity> entities) {
+        return Queryable.from(entities).map(this.moviesMapper::transformTo).toList();
     }
 
     @NonNull

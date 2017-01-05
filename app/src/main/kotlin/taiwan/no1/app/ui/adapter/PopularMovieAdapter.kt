@@ -34,7 +34,7 @@ class PopularMovieAdapter(val context: Context, val movies: List<MovieBriefModel
                 load(MovieDBConfig.BASAE_IMAGE_URL + this.movies[position].poster_path).
                 diskCacheStrategy(DiskCacheStrategy.ALL).
                 into(holder.ivPoster)
-        holder.tvTitle.text = this.movies[position].title
+        holder.tvTitle.text = (this.movies[position].release_date + "\n" + this.movies[position].title)
         holder.item.setOnClickListener {
             RxBus.get().post(RxbusTag.FRAGMENT_NAVIGATOR,
                     MovieDetailFragment.newInstance(this.movies[position].id.toString()))
