@@ -14,7 +14,6 @@ import com.trello.rxlifecycle.components.support.RxAppCompatActivity
 import dagger.internal.Preconditions
 import rx.Observable
 import taiwan.no1.app.App
-import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.components.ActivityComponent
 import taiwan.no1.app.internal.di.components.AppComponent
 import taiwan.no1.app.internal.di.components.FragmentComponent
@@ -38,7 +37,7 @@ abstract class BaseActivity: RxAppCompatActivity(), IView, IActivityView {
     protected var busEvent = object {
         @Subscribe(tags = arrayOf(Tag(RxbusTag.FRAGMENT_NAVIGATOR)))
         fun navigateFragment(fragment: Fragment) {
-            addFragment(R.id.fragment_container, fragment, true)
+//            addFragment(R.id.fragment_container, fragment, true)
         }
     }
 

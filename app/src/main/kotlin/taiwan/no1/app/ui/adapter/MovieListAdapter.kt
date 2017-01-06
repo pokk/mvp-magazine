@@ -25,8 +25,8 @@ import taiwan.no1.app.ui.fragments.MovieDetailFragment
  * @since   12/29/16
  */
 
-class PopularMovieAdapter(val context: Context, val movies: List<MovieBriefModel>):
-        RecyclerView.Adapter<PopularMovieAdapter.MovieBriefViewHolder>() {
+class MovieListAdapter(val context: Context, val movies: List<MovieBriefModel>):
+        RecyclerView.Adapter<MovieListAdapter.MovieBriefViewHolder>() {
     override fun getItemCount(): Int = this.movies.size
 
     override fun onBindViewHolder(holder: MovieBriefViewHolder, position: Int) {

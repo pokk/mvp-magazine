@@ -2,12 +2,18 @@ package taiwan.no1.app.ui.fragments
 
 import android.os.Bundle
 import android.support.annotation.LayoutRes
+import android.support.v7.widget.OrientationHelper
+import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.StaggeredGridLayoutManager
+import butterknife.bindView
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.contracts.MovieUpComingContract
 import taiwan.no1.app.mvp.models.MovieBriefModel
 import taiwan.no1.app.ui.BaseFragment
+import taiwan.no1.app.ui.adapter.MovieListAdapter
+import taiwan.no1.app.ui.itemdecorator.GridSpacingItemDecorator
 import javax.inject.Inject
 
 /**
@@ -35,6 +41,8 @@ class MovieUpComingFragment: BaseFragment(), MovieUpComingContract.View {
 
     @Inject
     lateinit var presenter: MovieUpComingContract.Presenter
+
+    private val rvMovies by bindView<RecyclerView>(R.id.rv_movie_list)
 
     //region Fragment lifecycle
     override fun onResume() {
@@ -87,5 +95,8 @@ class MovieUpComingFragment: BaseFragment(), MovieUpComingContract.View {
     //endregion
 
     override fun obtainMovieBriefList(movieList: List<MovieBriefModel>) {
+        this.rvMovies.layoutManager = StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL)
+        this.rvMovies.adapter = MovieListAdapter(this.context, movieList)
+        this.rvMovies.addItemDecoration(GridSpacingItemDecorator(2, 10, false))
     }
 }

@@ -21,6 +21,7 @@ class MovieNowPlayingPresenter constructor(val moviesCase: MovieLists):
         AppLog.e(it)
     }.onNext {
         AppLog.v(it)
+        this.view.obtainMovieBriefList(it)
     }
     //endregion
 

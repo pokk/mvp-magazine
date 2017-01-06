@@ -12,7 +12,7 @@ import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.contracts.MoviePopularContract
 import taiwan.no1.app.mvp.models.MovieBriefModel
 import taiwan.no1.app.ui.BaseFragment
-import taiwan.no1.app.ui.adapter.PopularMovieAdapter
+import taiwan.no1.app.ui.adapter.MovieListAdapter
 import taiwan.no1.app.ui.itemdecorator.GridSpacingItemDecorator
 import javax.inject.Inject
 
@@ -98,7 +98,7 @@ class MoviePopularFragment: BaseFragment(), MoviePopularContract.View {
 
     override fun obtainMovieBriefList(movieList: List<MovieBriefModel>) {
         this.rvMovies.layoutManager = StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL)
-        this.rvMovies.adapter = PopularMovieAdapter(this.context, movieList)
+        this.rvMovies.adapter = MovieListAdapter(this.context, movieList)
         this.rvMovies.addItemDecoration(GridSpacingItemDecorator(2, 10, false))
     }
 }

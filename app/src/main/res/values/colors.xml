@@ -3,4 +3,11 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!-- View Pager -->
+    <color name="viewPageBackground">#ff252e39</color>
+    <color name="viewPageSlideBackground">#182128</color>
+    <color name="viewPageSlideSpotBackground">#3cdedd</color>
+    <color name="viewPageActiveText">#fff</color>
+    <color name="viewPageText">#81ffffff</color>
 </resources>
