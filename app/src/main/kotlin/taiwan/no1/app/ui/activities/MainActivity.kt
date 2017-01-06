@@ -9,7 +9,6 @@ import taiwan.no1.app.internal.di.annotations.PerActivity
 import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.contracts.MainContract
 import taiwan.no1.app.ui.BaseActivity
-import taiwan.no1.app.ui.fragments.MoviePopularFragment
 import javax.inject.Inject
 
 /**
@@ -41,7 +40,7 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
         //apply background bitmap if we have one
 
         if (savedInstanceState == null) {
-            addFragment(R.id.fragment_container, MoviePopularFragment.newInstance(), false, null, null)
+//            addFragment(R.id.fragment_container, MoviePopularFragment.newInstance(), false, null, null)
         }
     }
 }

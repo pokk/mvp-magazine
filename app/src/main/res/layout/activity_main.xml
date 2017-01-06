@@ -8,11 +8,9 @@
     android:orientation="vertical"
     tools:context=".ui.activities.MainActivity">
 
-    <FrameLayout
-        android:id="@+id/fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/bb_menu"/>
+    <include
+        android:id="@+id/include_container"
+        layout="@layout/fragment_movies"/>
 
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bb_menu"

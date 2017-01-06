@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="titles">
-        <item>Movie</item>
-        <item>TV Show</item>
-        <item>News</item>
+    <string-array name="movie_titles">
+        <item>Popular</item>
+        <item>Now Playing</item>
+        <item>Top Rated</item>
+        <item>Up Coming</item>
     </string-array>
 
 </resources>

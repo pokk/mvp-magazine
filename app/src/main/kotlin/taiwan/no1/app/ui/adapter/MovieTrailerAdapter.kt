@@ -1,7 +1,6 @@
 package taiwan.no1.app.ui.adapter
 
 import android.content.Context
-import android.net.Uri
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -11,7 +10,6 @@ import android.widget.VideoView
 import butterknife.bindView
 import taiwan.no1.app.R
 import taiwan.no1.app.mvp.models.MovieVideosModel
-import taiwan.no1.app.utilies.AppLog
 
 /**
  *
@@ -25,11 +23,6 @@ class MovieTrailerAdapter(val context: Context, val videoLists: List<MovieVideos
 
     override fun onBindViewHolder(holder: MovieTrailerViewHolder, position: Int) {
         // TODO: 1/6/17 Set the video preview and play the video from youtube uri.
-        holder.vvTrailer.setVideoURI(Uri.parse("https://www.youtube.com/watch?v=" + this.videoLists[position].key))
-        holder.item.setOnClickListener {
-            AppLog.v()
-            holder.vvTrailer.start()
-        }
     }
 
     override fun getItemCount(): Int = videoLists.size

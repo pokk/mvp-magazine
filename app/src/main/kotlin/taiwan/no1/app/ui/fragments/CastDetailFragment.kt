@@ -13,7 +13,6 @@ import butterknife.bindView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.intrusoft.squint.DiagonalView
-import kotlinx.android.synthetic.main.fragment_cast_detail.*
 import taiwan.no1.app.R
 import taiwan.no1.app.api.config.MovieDBConfig
 import taiwan.no1.app.internal.di.annotations.PerFragment
@@ -61,10 +60,11 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
     private val ivDropPoster by bindView<DiagonalView>(R.id.dv_poster)
     private val ivPersonPoster by bindView<ImageView>(R.id.iv_person)
     private val tvName by bindView<TextView>(R.id.tv_name)
-    private val tvRealName by bindView<TextView>(R.id.tv_real_name)
+    private val tvJob by bindView<TextView>(R.id.tv_job)
     private val tvBio by bindView<TextView>(R.id.tv_bio)
     private val tvBirthday by bindView<TextView>(R.id.tv_birthday)
     private val tvBron by bindView<TextView>(R.id.tv_place_of_birth)
+    private val tvHomepageOfTitle by bindView<TextView>(R.id.tv_title_homepage)
     private val tvHomepage by bindView<TextView>(R.id.tv_homepage)
     private val tvDeathdayOfTitle by bindView<TextView>(R.id.tv_title_deathday)
     private val tvDeathday by bindView<TextView>(R.id.tv_deathday)
@@ -145,12 +145,18 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
                     load(MovieDBConfig.BASAE_IMAGE_URL + castDetailModel.images?.profiles!![1].file_path).
                     fitCenter().
                     diskCacheStrategy(DiskCacheStrategy.ALL).
-                    into(this.dv_poster)
+                    into(this.ivDropPoster)
+            this.tvJob.text = if (1 == castDetailModel.gender) "Actress" else "Actor"
             this.tvName.text = castDetailModel.name
             this.tvBio.text = castDetailModel.biography
             this.tvBirthday.text = castDetailModel.birthday
             this.tvBron.text = castDetailModel.place_of_birth
-            this.tvHomepage.text = castDetailModel.homepage
+            if (TextUtils.isEmpty(castDetailModel.homepage) || null == castDetailModel.homepage) {
+                this.tvHomepageOfTitle.visibility = View.GONE
+                this.tvHomepage.visibility = View.GONE
+            }
+            else
+                this.tvHomepage.text = castDetailModel.homepage
             if (TextUtils.isEmpty(castDetailModel.deathday) || null == castDetailModel.deathday) {
                 this.tvDeathdayOfTitle.visibility = View.GONE
                 this.tvDeathday.visibility = View.GONE

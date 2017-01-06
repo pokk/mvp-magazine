@@ -194,16 +194,17 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
             stubCasts.visibility = View.VISIBLE
 
         // Inflate the crew section.
-        if (null != stubCrews.parent)
-            movieDetailModel.casts?.crew?.let {
+        if (null != stubCrews.parent) {
+            if (null != movieDetailModel.casts?.crew && movieDetailModel.casts?.crew.isNotEmpty()) {
                 stubCrews.inflate()
-                this.showMovieCrews(it)
+                this.showMovieCrews(movieDetailModel.casts?.crew)
             }
+        }
         else
             stubCrews.visibility = View.VISIBLE
 
 
-        // Inflate the related movies section.
+        // Inflate the related movieList section.
         if (null != stubRelated.parent)
             movieDetailModel.similar?.movieBriefModel?.let {
                 stubRelated.inflate()
@@ -212,14 +213,14 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         else
             stubRelated.visibility = View.VISIBLE
 
-        // Inflate the trailer movies section.
-        if (null != stubTrailer.parent)
-            movieDetailModel.videos?.results?.let {
-                stubTrailer.inflate()
-                this.showTrailerMovies(it)
-            }
-        else
-            stubTrailer.visibility = View.VISIBLE
+        // Inflate the trailer movieList section.
+//        if (null != stubTrailer.parent)
+//            movieDetailModel.videos?.results?.let {
+//                stubTrailer.inflate()
+//                this.showTrailerMovies(it)
+//            }
+//        else
+//            stubTrailer.visibility = View.VISIBLE
     }
 
     private fun showMovieCasts(castList: List<MovieCastsModel.CastBean>) {
