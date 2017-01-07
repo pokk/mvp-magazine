@@ -16,7 +16,6 @@ import taiwan.no1.app.mvp.models.MovieBriefModel;
  * {@link MovieBriefEntity} (in the data layer).
  *
  * @author Jieyi
-
  * @since 12/28/16
  */
 
@@ -50,6 +49,7 @@ public class MovieBriefMapper implements IBeanMapper<MovieBriefModel, MovieBrief
                                    entity.getPopularity(),
                                    entity.getVote_count(),
                                    entity.isVideo(),
-                                   entity.getVote_average(), new ArrayList<>(entity.getGenre_ids()));
+                                   entity.getVote_average(),
+                                   new ArrayList<>(entity.getGenre_ids()));
     }
 }

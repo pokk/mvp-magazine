@@ -1,5 +1,6 @@
 package taiwan.no1.app.mvp.contracts
 
+import taiwan.no1.app.data.repositiry.DataRepository
 import taiwan.no1.app.mvp.models.MovieBriefModel
 import taiwan.no1.app.mvp.presenters.IPresenter
 import taiwan.no1.app.mvp.views.IFragmentView
@@ -14,7 +15,7 @@ import taiwan.no1.app.mvp.views.IView
 
 interface MoviePopularContract {
     interface Presenter: IPresenter<View> {
-        fun requestPopularMovies()
+        fun requestPopularMovies(category: DataRepository.Movies)
     }
 
     interface View: IView, IFragmentView {

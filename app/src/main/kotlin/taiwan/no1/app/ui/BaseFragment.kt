@@ -49,7 +49,7 @@ abstract class BaseFragment: RxFragment(), IView, IFragmentView {
     override final fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        this.init()
+        this.init(savedInstanceState)
     }
     //endregion
 
@@ -87,8 +87,10 @@ abstract class BaseFragment: RxFragment(), IView, IFragmentView {
 
     /**
      * Initialize the fragment method.
+     *
+     * @param savedInstanceState before status.
      */
-    abstract protected fun init()
+    abstract protected fun init(savedInstanceState: Bundle?)
 
     /**
      * Injected the presenter and the fragment use case.

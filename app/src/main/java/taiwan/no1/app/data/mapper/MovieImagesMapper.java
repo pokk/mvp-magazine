@@ -16,7 +16,6 @@ import taiwan.no1.app.mvp.models.MovieImagesModel;
 
 /**
  * @author Jieyi
-
  * @since 12/31/16
  */
 

@@ -56,6 +56,7 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
     @Inject
     lateinit var presenter: CastDetailContract.Presenter
 
+    //region View variables
     private val ivDropPoster by bindView<DiagonalView>(R.id.dv_poster)
     private val ivPersonPoster by bindView<ImageView>(R.id.iv_person)
     private val tvName by bindView<TextView>(R.id.tv_name)
@@ -70,6 +71,7 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
     private val stubIntro by bindView<ViewStub>(R.id.stub_introduction)
     private val stubRelated by bindView<ViewStub>(R.id.stub_related)
     private val rvRelated by bindView<RecyclerView>(R.id.rv_related)
+    //endregion
 
     // The fragment initialization parameters.
     private var argId: String? = null
@@ -125,8 +127,10 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
 
     /**
      * Initialization of this fragment. Set the listeners or view components' attributions.
+     *
+     * @param savedInstanceState the previous fragment data status after the system calls [onPause].
      */
-    override fun init() {
+    override fun init(savedInstanceState: Bundle?) {
         this.presenter.requestCastDetail(this.argId!!.toInt())
     }
     //endregion

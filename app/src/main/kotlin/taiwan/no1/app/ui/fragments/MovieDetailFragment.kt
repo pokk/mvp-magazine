@@ -59,6 +59,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     @Inject
     lateinit var presenter: MovieDetailContract.Presenter
 
+    //region View variables
     private val ivDropPoster by bindView<DiagonalView>(R.id.dv_poster)
     private val ivMoviePoster by bindView<ImageView>(R.id.iv_movie_poster)
     private val tvReleaseDate by bindView<TextView>(R.id.tv_release_date)
@@ -78,6 +79,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     private val rvCrews by bindView<RecyclerView>(R.id.rv_crews)
     private val rvRelated by bindView<RecyclerView>(R.id.rv_related)
     private val rvTrailer by bindView<RecyclerView>(R.id.rv_trailer)
+    //endregion
 
     // The fragment initialization parameters.
     private var argMovieId: String? = null
@@ -136,8 +138,10 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
 
     /**
      * Initialization of this fragment. Set the listeners or view components' attributions.
+     *
+     * @param savedInstanceState the previous fragment data status after the system calls [onPause].
      */
-    override fun init() {
+    override fun init(savedInstanceState: Bundle?) {
         this.argMovieId?.toInt()?.let {
             this.presenter.requestMovieDetail(it)
         }

@@ -33,7 +33,6 @@ import taiwan.no1.app.utilies.AppLog;
  * vary data.
  *
  * @author Jieyi
- 
  * @since 12/6/16
  */
 

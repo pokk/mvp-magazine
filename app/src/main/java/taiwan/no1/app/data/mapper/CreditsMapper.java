@@ -17,7 +17,6 @@ import taiwan.no1.app.mvp.models.CreditsModel.CrewBean;
 
 /**
  * @author Jieyi
- 
  * @since 2017/01/04
  */
 

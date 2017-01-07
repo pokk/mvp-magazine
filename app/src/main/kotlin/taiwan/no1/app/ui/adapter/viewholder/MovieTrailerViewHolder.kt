@@ -9,7 +9,6 @@ import taiwan.no1.app.mvp.models.MovieVideosModel
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 
 /**
- *
  * @author  Jieyi
  * @since   1/7/17
  */

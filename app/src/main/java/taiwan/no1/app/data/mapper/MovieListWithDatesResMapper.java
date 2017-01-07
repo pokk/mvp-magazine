@@ -17,7 +17,6 @@ import taiwan.no1.app.mvp.models.MovieListWithDateResModel;
 
 /**
  * @author Jieyi
-
  * @since 1/1/17
  */
 

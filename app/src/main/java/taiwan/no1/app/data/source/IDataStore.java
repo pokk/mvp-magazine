@@ -12,7 +12,6 @@ import taiwan.no1.app.data.entities.MovieListWithDateResEntity;
  * Interface that represents a data store from where data is retrieved.
  *
  * @author Jieyi
- 
  * @since 12/6/16
  */
 

@@ -2,7 +2,6 @@ package taiwan.no1.app.data.entities;
 
 /**
  * @author Jieyi
-
  * @since 12/31/16
  */
 

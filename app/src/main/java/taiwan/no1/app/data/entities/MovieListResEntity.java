@@ -6,7 +6,6 @@ import java.util.List;
  * Popular movie list result from a json file.
  *
  * @author Jieyi
-
  * @since 12/28/16
  */
 

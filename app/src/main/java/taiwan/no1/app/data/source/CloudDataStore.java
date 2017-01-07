@@ -19,7 +19,6 @@ import taiwan.no1.app.internal.di.components.NetComponent;
 
 /**
  * @author Jieyi
- 
  * @since 12/6/16
  */
 

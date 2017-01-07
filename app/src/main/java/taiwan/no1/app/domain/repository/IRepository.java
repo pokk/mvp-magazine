@@ -14,7 +14,6 @@ import taiwan.no1.app.mvp.models.MovieDetailModel;
  * Interface that represents a Repository for getting a movie related data.
  *
  * @author Jieyi
- 
  * @since 5/29/16
  */
 

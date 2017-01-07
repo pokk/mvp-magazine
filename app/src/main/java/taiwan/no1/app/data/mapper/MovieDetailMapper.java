@@ -26,7 +26,6 @@ import taiwan.no1.app.mvp.models.MovieVideosModel;
  * {@link MovieDetailEntity} (in the data layer).
  *
  * @author Jieyi
-
  * @since 12/29/16
  */
 

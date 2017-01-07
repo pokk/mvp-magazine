@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
  * {@inheritDoc}
  *
  * @author Jieyi
- 
  * @since 12/10/16
  */
 

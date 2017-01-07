@@ -25,7 +25,6 @@ import taiwan.no1.app.mvp.models.MovieDetailModel;
  * Low layer pure entity convert to kotlin layer data model from the repositories.
  *
  * @author Jieyi
- 
  * @since 12/6/16
  */
 

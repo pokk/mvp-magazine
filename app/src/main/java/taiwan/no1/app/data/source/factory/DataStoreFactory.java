@@ -14,7 +14,6 @@ import taiwan.no1.app.data.source.LocalDataStore;
  * Factory that creates different implementations of {@link IDataStore}.
  *
  * @author Jieyi
- 
  * @since 12/6/16
  */
 

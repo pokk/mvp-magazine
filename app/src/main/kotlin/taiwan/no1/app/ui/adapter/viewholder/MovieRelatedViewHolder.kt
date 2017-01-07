@@ -16,7 +16,6 @@ import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.fragments.MovieDetailFragment
 
 /**
- *
  * @author  Jieyi
  * @since   1/7/17
  */

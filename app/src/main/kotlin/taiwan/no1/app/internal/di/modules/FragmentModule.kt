@@ -6,8 +6,14 @@ import taiwan.no1.app.domain.usecase.CastDetail
 import taiwan.no1.app.domain.usecase.MovieDetail
 import taiwan.no1.app.domain.usecase.MovieLists
 import taiwan.no1.app.internal.di.annotations.PerFragment
-import taiwan.no1.app.mvp.contracts.*
-import taiwan.no1.app.mvp.presenters.*
+import taiwan.no1.app.mvp.contracts.CastDetailContract
+import taiwan.no1.app.mvp.contracts.MovieDetailContract
+import taiwan.no1.app.mvp.contracts.MovieGalleryContract
+import taiwan.no1.app.mvp.contracts.MoviePopularContract
+import taiwan.no1.app.mvp.presenters.CastDetailPresenter
+import taiwan.no1.app.mvp.presenters.MovieDetailPresenter
+import taiwan.no1.app.mvp.presenters.MovieGalleryPresenter
+import taiwan.no1.app.mvp.presenters.MoviePopularPresenter
 
 /**
  *
@@ -21,21 +27,6 @@ class FragmentModule {
     @PerFragment
     fun provideMoviePopularPresenter(movies: MovieLists): MoviePopularContract.Presenter =
             MoviePopularPresenter(movies)
-
-    @Provides
-    @PerFragment
-    fun provideMovieTopRatedPresenter(movies: MovieLists): MovieTopRatedContract.Presenter =
-            MovieTopRatedPresenter(movies)
-
-    @Provides
-    @PerFragment
-    fun provideMovieNowPlayingPresenter(movies: MovieLists): MovieNowPlayingContract.Presenter =
-            MovieNowPlayingPresenter(movies)
-
-    @Provides
-    @PerFragment
-    fun provideMovieUpComingPresenter(movies: MovieLists): MovieUpComingContract.Presenter =
-            MovieUpComingPresenter(movies)
 
     @Provides
     @PerFragment

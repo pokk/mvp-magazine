@@ -4,9 +4,8 @@ import java.util.List;
 
 /**
  * Movie cast detail information.
- * 
+ *
  * @author Jieyi
-
  * @since 12/29/16
  */
 

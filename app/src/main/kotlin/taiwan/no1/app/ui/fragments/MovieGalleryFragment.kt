@@ -92,8 +92,10 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
 
     /**
      * Initialization of this fragment. Set the listeners or view components' attributions.
+     *
+     * @param savedInstanceState the previous fragment data status after the system calls [onPause].
      */
-    override fun init() {
+    override fun init(savedInstanceState: Bundle?) {
     }
     //endregion
 }
