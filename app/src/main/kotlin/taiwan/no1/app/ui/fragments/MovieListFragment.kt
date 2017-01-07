@@ -94,7 +94,7 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
         // After super.onDestroy() is executed, the presenter will be destroy. So the presenter should be
         // executed before super.onDestroy().
         RxBus.get().unregister(this)
-        
+
         this.presenter.destroy()
         super.onDestroy()
     }
@@ -131,20 +131,29 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
     override fun init(savedInstanceState: Bundle?) {
         savedInstanceState?.let {
             this.movieList = savedInstanceState.getParcelableArrayList(ARG_PARAM_INSTANCE_MOVIES)
+
+            this.movieList?.let { (this.rvMovies.adapter as CommonRecyclerAdapter).models = it }
         }
 
-        if (null == this.movieList)
+        if (null == this.movieList) {
+            this.rvMovies.layoutManager = StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL)
+            this.rvMovies.setHasFixedSize(true)
+            this.rvMovies.addItemDecoration(GridSpacingItemDecorator(2, 10, false))
+            // Just give a empty adapter.
+            this.rvMovies.adapter = CommonRecyclerAdapter(ArrayList<MovieBriefModel>(), this.hashCode())
+
+            // Request the movie data.
             this.argMovieCategory?.let { this.presenter.requestListMovies(it) }
+        }
     }
     //endregion
 
     //region View implementations
     override fun obtainMovieBriefList(movieList: List<MovieBriefModel>) {
         this.movieList = ArrayList(movieList)
-
-        this.rvMovies.layoutManager = StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL)
-        this.rvMovies.adapter = CommonRecyclerAdapter(movieList, this.hashCode())
-        this.rvMovies.addItemDecoration(GridSpacingItemDecorator(2, 10, false))
+        // Because the view pager will load the fragment first, if we just set the data directly, views won't
+        // be showed. To avoid it, the adapter will be reset.
+        this.movieList?.let { this.rvMovies.adapter = CommonRecyclerAdapter(it, this.hashCode()) }
     }
     //endregion
 

@@ -15,7 +15,7 @@ import taiwan.no1.app.ui.adapter.viewtype.ViewTypeFactory
  * @since   1/7/17
  */
 
-class CommonRecyclerAdapter(val models: List<IVisitable>, val fragmentTag: Int = -1):
+class CommonRecyclerAdapter(var models: List<IVisitable>, val fragmentTag: Int = -1):
         RecyclerView.Adapter<BaseViewHolder>() {
     private val typeFactory: IViewTypeFactory = ViewTypeFactory()
 

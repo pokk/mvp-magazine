@@ -202,9 +202,9 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
 
         // Inflate the crew section.
         if (null != stubCrews.parent) {
-            if (null != movieDetailModel.casts?.crew && movieDetailModel.casts.crew.isNotEmpty()) {
+            movieDetailModel.casts?.crew?.let {
                 stubCrews.inflate()
-                this.showMovieCrews(movieDetailModel.casts.crew)
+                this.showMovieCrews(it)
             }
         }
         else
