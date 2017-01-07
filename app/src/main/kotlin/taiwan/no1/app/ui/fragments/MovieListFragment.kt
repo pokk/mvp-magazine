@@ -2,20 +2,24 @@ package taiwan.no1.app.ui.fragments
 
 import android.os.Bundle
 import android.support.annotation.LayoutRes
+import android.support.v4.app.Fragment
 import android.support.v7.widget.OrientationHelper
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import butterknife.bindView
+import com.hwangjr.rxbus.RxBus
+import com.hwangjr.rxbus.annotation.Subscribe
+import com.hwangjr.rxbus.annotation.Tag
+import com.touchin.constant.RxbusTag
 import taiwan.no1.app.R
 import taiwan.no1.app.data.repositiry.DataRepository
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
-import taiwan.no1.app.mvp.contracts.MoviePopularContract
+import taiwan.no1.app.mvp.contracts.MovieListContract
 import taiwan.no1.app.mvp.models.MovieBriefModel
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.adapter.itemdecorator.GridSpacingItemDecorator
-import taiwan.no1.app.utilies.AppLog
 import java.util.*
 import javax.inject.Inject
 
@@ -25,8 +29,11 @@ import javax.inject.Inject
  */
 
 @PerFragment
-class MoviePopularFragment: BaseFragment(), MoviePopularContract.View {
+class MovieListFragment: BaseFragment(), MovieListContract.View {
     companion object Factory {
+        // For navigating the fragment's arguments. 
+        val NAVIGATOR_ARG_FRAGMENT = "fragment"
+        val NAVIGATOR_ARG_TAG = "tag"
         // The key name of the fragment initialization parameters.
         private val ARG_PARAM_CATEGORY: String = "param_movie_category"
         // The key name of the fragment restore the status parameters. 
@@ -37,8 +44,8 @@ class MoviePopularFragment: BaseFragment(), MoviePopularContract.View {
          *
          * @return A new instance of fragment BlankFragment.
          */
-        fun newInstance(category: DataRepository.Movies): MoviePopularFragment {
-            val fragment: MoviePopularFragment = MoviePopularFragment()
+        fun newInstance(category: DataRepository.Movies): MovieListFragment {
+            val fragment: MovieListFragment = MovieListFragment()
             val bundle: Bundle = Bundle()
             bundle.putSerializable(this.ARG_PARAM_CATEGORY, category)
             fragment.arguments = bundle
@@ -48,7 +55,7 @@ class MoviePopularFragment: BaseFragment(), MoviePopularContract.View {
     }
 
     @Inject
-    lateinit var presenter: MoviePopularContract.Presenter
+    lateinit var presenter: MovieListContract.Presenter
 
     //region View variables
     private val rvMovies by bindView<RecyclerView>(R.id.rv_movie_list)
@@ -64,6 +71,7 @@ class MoviePopularFragment: BaseFragment(), MoviePopularContract.View {
 
         // Get the arguments from the bundle here.
         this.argMovieCategory = arguments?.getSerializable(ARG_PARAM_CATEGORY) as DataRepository.Movies
+        RxBus.get().register(this)
     }
 
     override fun onResume() {
@@ -85,7 +93,8 @@ class MoviePopularFragment: BaseFragment(), MoviePopularContract.View {
     override fun onDestroy() {
         // After super.onDestroy() is executed, the presenter will be destroy. So the presenter should be
         // executed before super.onDestroy().
-        AppLog.v()
+        RxBus.get().unregister(this)
+        
         this.presenter.destroy()
         super.onDestroy()
     }
@@ -105,7 +114,7 @@ class MoviePopularFragment: BaseFragment(), MoviePopularContract.View {
      * @return [LayoutRes] xml layout.
      */
     @LayoutRes
-    override fun inflateView(): Int = R.layout.fragment_movie_popular
+    override fun inflateView(): Int = R.layout.fragment_movie_list
 
     /**
      * Set the presenter initialization.
@@ -132,10 +141,30 @@ class MoviePopularFragment: BaseFragment(), MoviePopularContract.View {
     //region View implementations
     override fun obtainMovieBriefList(movieList: List<MovieBriefModel>) {
         this.movieList = ArrayList(movieList)
-        
+
         this.rvMovies.layoutManager = StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL)
-        this.rvMovies.adapter = CommonRecyclerAdapter(movieList)
+        this.rvMovies.adapter = CommonRecyclerAdapter(movieList, this.hashCode())
         this.rvMovies.addItemDecoration(GridSpacingItemDecorator(2, 10, false))
     }
     //endregion
+
+    @Subscribe(tags = arrayOf(Tag(RxbusTag.FRAGMENT_CHILD_NAVIGATOR)))
+    fun navigateFragment(mapArgs: HashMap<String, Any>) {
+        val fragment: Fragment = mapArgs[NAVIGATOR_ARG_FRAGMENT] as Fragment
+        val tag: Int = mapArgs[NAVIGATOR_ARG_TAG] as Int
+
+        // To avoid the same fragment but different hash code's fragment add the fragment.
+        if (tag == this.hashCode()) {
+            this.childFragmentManager.beginTransaction().
+                    replace(R.id.main_container, fragment, fragment.javaClass.name).
+                    addToBackStack(fragment.javaClass.name).
+                    commit()
+        }
+    }
+
+    private fun clearChildFragments() {
+        for (index in 0..this.childFragmentManager.backStackEntryCount - 1) {
+            this.childFragmentManager.popBackStackImmediate()
+        }
+    }
 }

@@ -3,7 +3,7 @@ package taiwan.no1.app.mvp.presenters
 import rx.lang.kotlin.subscriber
 import taiwan.no1.app.data.repositiry.DataRepository
 import taiwan.no1.app.domain.usecase.MovieLists
-import taiwan.no1.app.mvp.contracts.MoviePopularContract
+import taiwan.no1.app.mvp.contracts.MovieListContract
 import taiwan.no1.app.mvp.models.MovieBriefModel
 import taiwan.no1.app.utilies.AppLog
 
@@ -13,20 +13,19 @@ import taiwan.no1.app.utilies.AppLog
  * @since   12/6/16
  */
 
-class MoviePopularPresenter constructor(val moviesCase: MovieLists):
-        BasePresenter<MoviePopularContract.View>(), MoviePopularContract.Presenter {
+class MovieListPresenter constructor(val moviesCase: MovieLists):
+        BasePresenter<MovieListContract.View>(), MovieListContract.Presenter {
     //region Subscribers
     private val popularMovieSub = subscriber<List<MovieBriefModel>>().onError {
         AppLog.e(it.message)
         AppLog.e(it)
     }.onNext {
-        AppLog.v(it)
         view.obtainMovieBriefList(it)
     }
     //endregion
 
     //region View implementation
-    override fun init(view: MoviePopularContract.View) {
+    override fun init(view: MovieListContract.View) {
         super.init(view)
     }
     //endregion

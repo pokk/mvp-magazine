@@ -2,6 +2,7 @@ package taiwan.no1.app.ui.activities
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
 import android.support.v4.view.ViewPager
 import butterknife.bindView
 import com.gigamole.navigationtabstrip.NavigationTabStrip
@@ -14,7 +15,7 @@ import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.contracts.MainContract
 import taiwan.no1.app.ui.BaseActivity
 import taiwan.no1.app.ui.adapter.MovieViewPager
-import taiwan.no1.app.ui.fragments.MoviePopularFragment
+import taiwan.no1.app.ui.fragments.MovieListFragment
 import java.util.*
 import javax.inject.Inject
 
@@ -34,6 +35,12 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
     private val ntsTabMenu by bindView<NavigationTabStrip>(R.id.nts_center)
     //endregion
 
+    private val fragmentList: List<Fragment> = ArrayList(arrayListOf(
+            MovieListFragment.newInstance(DataRepository.Movies.POPULAR),
+            MovieListFragment.newInstance(DataRepository.Movies.NOW_PLAYING),
+            MovieListFragment.newInstance(DataRepository.Movies.TOP_RATED),
+            MovieListFragment.newInstance(DataRepository.Movies.UP_COMING)))
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -52,13 +59,22 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
         if (savedInstanceState == null) {
 //            addFragment(R.id.fragment_container, MoviePopularFragment.newInstance(), false, null, null)
         }
-        val fragmentList: List<Fragment> = ArrayList(arrayListOf(
-                MoviePopularFragment.newInstance(DataRepository.Movies.POPULAR),
-                MoviePopularFragment.newInstance(DataRepository.Movies.NOW_PLAYING),
-                MoviePopularFragment.newInstance(DataRepository.Movies.TOP_RATED),
-                MoviePopularFragment.newInstance(DataRepository.Movies.UP_COMING)))
 
-        this.vpContainer.adapter = MovieViewPager(this.context(), this.supportFragmentManager, fragmentList)
+        this.vpContainer.adapter = MovieViewPager(this.context(),
+                this.supportFragmentManager,
+                this.fragmentList)
         this.ntsTabMenu.setViewPager(this.vpContainer, 0)
+    }
+
+    override fun onBackPressed() {
+        val currentFragment: Fragment = this.fragmentList[this.vpContainer.currentItem]
+        val currentChildFragmentManager: FragmentManager = currentFragment.childFragmentManager
+
+        // Pop back from current presenter fragment.
+        if (0 < currentChildFragmentManager.backStackEntryCount) {
+            currentChildFragmentManager.popBackStack()
+        }
+        else
+            super.onBackPressed()
     }
 }

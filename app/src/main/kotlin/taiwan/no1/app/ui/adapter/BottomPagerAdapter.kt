@@ -29,7 +29,7 @@ class BottomPagerAdapter(val context: Context): PagerAdapter() {
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val view = LayoutInflater.from(this.context).inflate(R.layout.fragment_movie_upcoming, null, false)
+        val view = LayoutInflater.from(this.context).inflate(R.layout.fragment_movie_list, null, false)
 
         container.addView(view)
         return view

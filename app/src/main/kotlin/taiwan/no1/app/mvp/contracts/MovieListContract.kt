@@ -13,7 +13,7 @@ import taiwan.no1.app.mvp.views.IView
  * @since   12/8/16
  */
 
-interface MoviePopularContract {
+interface MovieListContract {
     interface Presenter: IPresenter<View> {
         fun requestPopularMovies(category: DataRepository.Movies)
     }

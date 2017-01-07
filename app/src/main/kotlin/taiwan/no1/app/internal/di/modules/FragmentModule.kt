@@ -9,11 +9,11 @@ import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.mvp.contracts.CastDetailContract
 import taiwan.no1.app.mvp.contracts.MovieDetailContract
 import taiwan.no1.app.mvp.contracts.MovieGalleryContract
-import taiwan.no1.app.mvp.contracts.MoviePopularContract
+import taiwan.no1.app.mvp.contracts.MovieListContract
 import taiwan.no1.app.mvp.presenters.CastDetailPresenter
 import taiwan.no1.app.mvp.presenters.MovieDetailPresenter
 import taiwan.no1.app.mvp.presenters.MovieGalleryPresenter
-import taiwan.no1.app.mvp.presenters.MoviePopularPresenter
+import taiwan.no1.app.mvp.presenters.MovieListPresenter
 
 /**
  *
@@ -25,8 +25,8 @@ import taiwan.no1.app.mvp.presenters.MoviePopularPresenter
 class FragmentModule {
     @Provides
     @PerFragment
-    fun provideMoviePopularPresenter(movies: MovieLists): MoviePopularContract.Presenter =
-            MoviePopularPresenter(movies)
+    fun provideMovieListPresenter(movies: MovieLists): MovieListContract.Presenter =
+            MovieListPresenter(movies)
 
     @Provides
     @PerFragment

@@ -14,6 +14,7 @@ import taiwan.no1.app.api.config.MovieDBConfig
 import taiwan.no1.app.mvp.models.CreditsModel
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.fragments.MovieDetailFragment
+import taiwan.no1.app.ui.fragments.MovieListFragment
 
 /**
  * @author  Jieyi
@@ -36,8 +37,10 @@ class MovieCastRelatedViewHolder(view: View): BaseViewHolder(view) {
         this.tvReleaseDate.text = model.release_date
         this.tvMovieTitle.text = model.title
         this.item.setOnClickListener {
-            RxBus.get().post(RxbusTag.FRAGMENT_NAVIGATOR,
-                    MovieDetailFragment.newInstance(model.id.toString()))
+            RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
+                    Pair(MovieListFragment.NAVIGATOR_ARG_FRAGMENT,
+                            MovieDetailFragment.newInstance(model.id.toString(), adapter.fragmentTag)),
+                    Pair(MovieListFragment.NAVIGATOR_ARG_TAG, adapter.fragmentTag)))
         }
     }
 }

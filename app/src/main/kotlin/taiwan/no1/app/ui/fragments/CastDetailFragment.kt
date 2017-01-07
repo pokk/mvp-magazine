@@ -36,17 +36,19 @@ import kotlin.comparisons.compareBy
 class CastDetailFragment: BaseFragment(), CastDetailContract.View {
     companion object Factory {
         // The key name of the fragment initialization parameters.
-        private val ARG_PARAM_ID: String = "param_cast_id"
+        private val ARG_PARAM_CAST_ID: String = "param_cast_id"
+        private val ARG_PARAM_FROM_ID: String = "param_movie_from_fragment"
 
         /**
          * Use this factory method to create a new instance of this fragment using the provided parameters.
          *
          * @return A new instance of [fragment] CastDetailFragment.
          */
-        fun newInstance(id: String): CastDetailFragment {
+        fun newInstance(id: String, from: Int): CastDetailFragment {
             val fragment: CastDetailFragment = CastDetailFragment()
             val bundle: Bundle = Bundle()
-            bundle.putString(ARG_PARAM_ID, id)
+            bundle.putString(this.ARG_PARAM_CAST_ID, id)
+            bundle.putInt(this.ARG_PARAM_FROM_ID, from)
             fragment.arguments = bundle
 
             return fragment
@@ -75,13 +77,15 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
 
     // The fragment initialization parameters.
     private var argId: String? = null
+    private var argFromFragment: Int? = null
 
     //region Fragment lifecycle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // Get the arguments from the bundle here.
-        this.argId = arguments?.getString(CastDetailFragment.ARG_PARAM_ID)
+        this.argId = arguments?.getString(ARG_PARAM_CAST_ID)
+        this.argFromFragment = arguments?.getInt(ARG_PARAM_FROM_ID)
     }
 
     override fun onResume() {
@@ -186,7 +190,7 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
                 false)
         this.rvRelated.adapter = CommonRecyclerAdapter(creditsMovieList.filter { it.media_type == "movie" }.
                 sortedWith(compareBy({ it.release_date })).
-                reversed())
+                reversed(), this.argFromFragment ?: -1)
         this.rvRelated.addItemDecoration(MovieHorizontalItemDecorator(20))
     }
 }

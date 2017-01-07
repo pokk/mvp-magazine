@@ -7,7 +7,7 @@ import taiwan.no1.app.internal.di.modules.FragmentUseCaseModule
 import taiwan.no1.app.ui.fragments.CastDetailFragment
 import taiwan.no1.app.ui.fragments.MovieDetailFragment
 import taiwan.no1.app.ui.fragments.MovieGalleryFragment
-import taiwan.no1.app.ui.fragments.MoviePopularFragment
+import taiwan.no1.app.ui.fragments.MovieListFragment
 
 /**
  *
@@ -31,7 +31,7 @@ interface FragmentComponent {
      * After injected a fragment, the presenter of the fragment should be provided in [FragmentModule].
      */
 
-    fun inject(moviePopularFragment: MoviePopularFragment)
+    fun inject(movieListFragment: MovieListFragment)
 
     fun inject(movieDetailFragment: MovieDetailFragment)
 

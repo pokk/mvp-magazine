@@ -40,16 +40,18 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     companion object Factory {
         // The key name of the fragment initialization parameters.
         private val ARG_PARAM_MOVIE_ID: String = "param_movie_id"
+        private val ARG_PARAM_FROM_ID: String = "param_movie_from_fragment"
 
         /**
          * Use this factory method to create a new instance of this fragment using the provided parameters.
          *
          * @return A new instance of [fragment] MovieDetailFragment.
          */
-        fun newInstance(id: String): MovieDetailFragment {
+        fun newInstance(id: String, from: Int): MovieDetailFragment {
             val fragment: MovieDetailFragment = MovieDetailFragment()
             val bundle: Bundle = Bundle()
-            bundle.putString(ARG_PARAM_MOVIE_ID, id)
+            bundle.putString(this.ARG_PARAM_MOVIE_ID, id)
+            bundle.putInt(this.ARG_PARAM_FROM_ID, from)
             fragment.arguments = bundle
 
             return fragment
@@ -83,6 +85,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
 
     // The fragment initialization parameters.
     private var argMovieId: String? = null
+    private var argFromFragment: Int? = null
 
     //region Fragment lifecycle
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,6 +93,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
 
         // Get the arguments from the bundle here.
         this.argMovieId = arguments?.getString(MovieDetailFragment.ARG_PARAM_MOVIE_ID)
+        this.argFromFragment = arguments?.getInt(MovieDetailFragment.ARG_PARAM_FROM_ID)
     }
 
     override fun onResume() {
@@ -227,7 +231,8 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         this.rvCasts.layoutManager = LinearLayoutManager(this.context,
                 LinearLayoutManager.HORIZONTAL,
                 false)
-        this.rvCasts.adapter = CommonRecyclerAdapter(castList.filter { null != it.profile_path })
+        this.rvCasts.adapter = CommonRecyclerAdapter(castList.filter { null != it.profile_path },
+                this.argFromFragment ?: -1)
         this.rvCasts.addItemDecoration(MovieHorizontalItemDecorator(20))
     }
 
@@ -235,7 +240,8 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         this.rvCrews.layoutManager = LinearLayoutManager(this.context,
                 LinearLayoutManager.HORIZONTAL,
                 false)
-        this.rvCrews.adapter = CommonRecyclerAdapter(crewList.filter { null != it.profile_path })
+        this.rvCrews.adapter = CommonRecyclerAdapter(crewList.filter { null != it.profile_path },
+                this.argFromFragment ?: -1)
         this.rvCrews.addItemDecoration(MovieHorizontalItemDecorator(20))
     }
 
@@ -243,7 +249,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         this.rvRelated.layoutManager = LinearLayoutManager(this.context,
                 LinearLayoutManager.HORIZONTAL,
                 false)
-        this.rvRelated.adapter = CommonRecyclerAdapter(similarMovieList)
+        this.rvRelated.adapter = CommonRecyclerAdapter(similarMovieList, this.argFromFragment ?: -1)
         this.rvRelated.addItemDecoration(MovieHorizontalItemDecorator(20))
     }
 
@@ -251,7 +257,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         this.rvTrailer.layoutManager = LinearLayoutManager(this.context,
                 LinearLayoutManager.HORIZONTAL,
                 false)
-        this.rvTrailer.adapter = CommonRecyclerAdapter(videoMovieList)
+        this.rvTrailer.adapter = CommonRecyclerAdapter(videoMovieList, this.argFromFragment ?: -1)
         this.rvTrailer.addItemDecoration(MovieHorizontalItemDecorator(20))
     }
 }
