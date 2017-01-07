@@ -13,7 +13,7 @@ import taiwan.no1.app.R
 import taiwan.no1.app.api.config.MovieDBConfig
 import taiwan.no1.app.mvp.models.MovieCastsModel
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
-import taiwan.no1.app.ui.fragments.MovieDetailFragment
+import taiwan.no1.app.ui.fragments.CastDetailFragment
 import taiwan.no1.app.ui.fragments.MovieListFragment
 
 /**
@@ -39,7 +39,7 @@ class MovieCastViewHolder(view: View): BaseViewHolder(view) {
         this.item.setOnClickListener {
             RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
                     Pair(MovieListFragment.NAVIGATOR_ARG_FRAGMENT,
-                            MovieDetailFragment.newInstance(model.id.toString(), adapter.fragmentTag)),
+                            CastDetailFragment.newInstance(model.id.toString(), adapter.fragmentTag)),
                     Pair(MovieListFragment.NAVIGATOR_ARG_TAG, adapter.fragmentTag)))
         }
     }

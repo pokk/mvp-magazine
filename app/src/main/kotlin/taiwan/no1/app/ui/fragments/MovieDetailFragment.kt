@@ -1,5 +1,6 @@
 package taiwan.no1.app.ui.fragments
 
+import android.graphics.Color
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.LinearLayoutManager
@@ -171,7 +172,9 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
                     fitCenter().
                     diskCacheStrategy(DiskCacheStrategy.ALL).
                     into(this.ivMoviePoster)
+            this.tvReleaseDate.setBackgroundColor(Color.TRANSPARENT)
             this.tvReleaseDate.text = movieDetailModel.release_date
+            this.tvTitle.setBackgroundColor(Color.TRANSPARENT)
             this.tvTitle.text = movieDetailModel.title
             this.tvOverview.text = movieDetailModel.overview
             this.tvStatus.text = movieDetailModel.status

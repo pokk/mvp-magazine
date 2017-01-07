@@ -1,5 +1,6 @@
 package taiwan.no1.app.ui.fragments
 
+import android.graphics.Color
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.LinearLayoutManager
@@ -149,11 +150,17 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
                     diskCacheStrategy(DiskCacheStrategy.ALL).
                     into(this.ivPersonPoster)
             Glide.with(this.context.applicationContext).
-                    load(MovieDBConfig.BASAE_IMAGE_URL + castDetailModel.images?.profiles!![1].file_path).
+                    load(MovieDBConfig.BASAE_IMAGE_URL + if (castDetailModel.images?.profiles?.size!! > 1)
+                        castDetailModel.images.profiles[1].file_path
+                    else
+                        castDetailModel.images.profiles[0].file_path).
                     fitCenter().
                     diskCacheStrategy(DiskCacheStrategy.ALL).
                     into(this.ivDropPoster)
+
+            this.tvJob.setBackgroundColor(Color.TRANSPARENT)
             this.tvJob.text = if (1 == castDetailModel.gender) "Actress" else "Actor"
+            this.tvName.setBackgroundColor(Color.TRANSPARENT)
             this.tvName.text = castDetailModel.name
             this.tvBio.text = castDetailModel.biography
             this.tvBirthday.text = castDetailModel.birthday

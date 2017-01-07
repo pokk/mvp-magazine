@@ -5,9 +5,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="#fff"
+    android:fitsSystemWindows="true"
     tools:context=".ui.activities.MainActivity">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/tv_title"
+        android:layout_centerHorizontal="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ViewStub
+                android:id="@+id/stub_introduction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout="@layout/layout_cast_intro"/>
+
+            <!--<ViewStub-->
+            <!--android:id="@+id/stub_casts"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout="@layout/horizontal_content_cast"/>-->
+
+            <!--<ViewStub-->
+            <!--android:id="@+id/stub_crews"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout="@layout/horizontal_content_crew"/>-->
+
+            <ViewStub
+                android:id="@+id/stub_related"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout="@layout/horizontal_content_related"/>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar_main"
@@ -52,11 +91,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/dv_poster"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="2dp"
                     android:layout_toEndOf="@+id/iv_person"
+                    android:background="#22000000"
                     android:fontFamily="sans-serif-smallcaps"
                     android:gravity="start"
-                    android:paddingStart="16dp"
-                    android:text="Jieyi"
                     android:textColor="#626262"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -66,12 +107,13 @@
                     android:id="@+id/tv_job"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/iv_person"
                     android:layout_above="@id/tv_name"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_toEndOf="@+id/iv_person"
+                    android:background="#22000000"
                     android:fontFamily="sans-serif-smallcaps"
                     android:gravity="start"
-                    android:paddingStart="16dp"
-                    android:text="Actor"
                     android:textColor="#828282"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -80,43 +122,4 @@
             </RelativeLayout>
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
-
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/tv_title"
-        android:layout_centerHorizontal="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ViewStub
-                android:id="@+id/stub_introduction"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout="@layout/layout_cast_intro"/>
-
-            <!--<ViewStub-->
-            <!--android:id="@+id/stub_casts"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout="@layout/horizontal_content_cast"/>-->
-
-            <!--<ViewStub-->
-            <!--android:id="@+id/stub_crews"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout="@layout/horizontal_content_crew"/>-->
-
-            <ViewStub
-                android:id="@+id/stub_related"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout="@layout/horizontal_content_related"/>
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>
