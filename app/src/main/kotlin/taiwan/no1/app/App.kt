@@ -5,10 +5,9 @@ import android.content.Context
 import taiwan.no1.app.internal.di.components.AppComponent
 
 /**
- * Android Main Application
+ * Android Main Application.
  *
- * @author  Jieyi Wu
- * @version 0.0.1
+ * @author  Jieyi
  * @since   12/6/16
  */
 

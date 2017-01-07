@@ -9,7 +9,6 @@ import taiwan.no1.app.utilies.AppLog
 /**
  *
  * @author  Jieyi
- * @version 0.0.1
  * @since   1/1/17
  */
 class CastDetailPresenter constructor(val castDetailCase: CastDetail):

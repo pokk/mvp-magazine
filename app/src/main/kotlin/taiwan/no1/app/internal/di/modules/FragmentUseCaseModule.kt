@@ -14,7 +14,6 @@ import taiwan.no1.app.internal.di.annotations.PerFragment
  * Dagger use case module that provides user related collaborators.
  *
  * @author  Jieyi
- * @version 0.0.1
  * @since   12/21/16
  */
 

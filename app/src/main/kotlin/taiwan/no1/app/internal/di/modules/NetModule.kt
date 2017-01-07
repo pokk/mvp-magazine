@@ -18,8 +18,7 @@ import javax.inject.Singleton
 
 /**
  *
- * @author  jieyi
- * @version 0.0.1
+ * @author  Jieyi
  * @since   2016/12/06
  */
 

@@ -6,7 +6,7 @@ import java.util.List;
  * The movie detail information.
  *
  * @author Jieyi
- * @version 0.0.1
+
  * @since 12/29/16
  */
 

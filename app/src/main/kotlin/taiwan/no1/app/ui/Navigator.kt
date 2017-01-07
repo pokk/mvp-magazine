@@ -5,8 +5,7 @@ import android.content.Context
 /**
  * Class used to navigate between activities through the application.
  *
- * @author  Jieyi Wu
- * @version 0.0.1
+ * @author  Jieyi
  * @since   12/6/16
  */
 

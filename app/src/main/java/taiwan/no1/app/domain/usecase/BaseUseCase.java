@@ -32,8 +32,8 @@ import taiwan.no1.app.utilies.AppLog;
  * For passing a request parameters {@link RequestValues} to data layer that set a generic type for wrapping
  * vary data.
  *
- * @author Jieyi Wu
- * @version 0.0.1
+ * @author Jieyi
+ 
  * @since 12/6/16
  */
 

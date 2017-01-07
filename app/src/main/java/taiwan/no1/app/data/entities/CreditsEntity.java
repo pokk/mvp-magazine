@@ -3,8 +3,7 @@ package taiwan.no1.app.data.entities;
 import java.util.List;
 
 /**
- * @author jieyi
- * @version 0.0.1
+ * @author Jieyi
  * @since 2017/01/04
  */
 

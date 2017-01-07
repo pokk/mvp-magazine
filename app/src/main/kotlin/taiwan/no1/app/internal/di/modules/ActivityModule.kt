@@ -11,8 +11,7 @@ import taiwan.no1.app.ui.Navigator
  * A base component upon which fragment's components may depend.
  * Activity-level components should extend this component.
  *
- * @author  Jieyi Wu
- * @version 0.0.1
+ * @author  Jieyi
  * @since   5/29/16
  */
 

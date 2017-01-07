@@ -24,18 +24,14 @@ import taiwan.no1.app.mvp.models.MovieCastsModel
 import taiwan.no1.app.mvp.models.MovieDetailModel
 import taiwan.no1.app.mvp.models.MovieVideosModel
 import taiwan.no1.app.ui.BaseFragment
-import taiwan.no1.app.ui.adapter.MovieCastsAdapter
-import taiwan.no1.app.ui.adapter.MovieCrewsAdapter
-import taiwan.no1.app.ui.adapter.MovieRelatedAdapter
-import taiwan.no1.app.ui.adapter.MovieTrailerAdapter
-import taiwan.no1.app.ui.itemdecorator.MovieHorizontalItemDecorator
+import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
+import taiwan.no1.app.ui.adapter.itemdecorator.MovieHorizontalItemDecorator
 import javax.inject.Inject
 
 
 /**
  *
  * @author  Jieyi
- * @version 0.0.1
  * @since   12/29/16
  */
 
@@ -195,9 +191,9 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
 
         // Inflate the crew section.
         if (null != stubCrews.parent) {
-            if (null != movieDetailModel.casts?.crew && movieDetailModel.casts?.crew.isNotEmpty()) {
+            if (null != movieDetailModel.casts?.crew && movieDetailModel.casts.crew.isNotEmpty()) {
                 stubCrews.inflate()
-                this.showMovieCrews(movieDetailModel.casts?.crew)
+                this.showMovieCrews(movieDetailModel.casts.crew)
             }
         }
         else
@@ -227,7 +223,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         this.rvCasts.layoutManager = LinearLayoutManager(this.context,
                 LinearLayoutManager.HORIZONTAL,
                 false)
-        this.rvCasts.adapter = MovieCastsAdapter(this.context, castList.filter { null != it.profile_path })
+        this.rvCasts.adapter = CommonRecyclerAdapter(castList.filter { null != it.profile_path })
         this.rvCasts.addItemDecoration(MovieHorizontalItemDecorator(20))
     }
 
@@ -235,7 +231,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         this.rvCrews.layoutManager = LinearLayoutManager(this.context,
                 LinearLayoutManager.HORIZONTAL,
                 false)
-        this.rvCrews.adapter = MovieCrewsAdapter(this.context, crewList.filter { null != it.profile_path })
+        this.rvCrews.adapter = CommonRecyclerAdapter(crewList.filter { null != it.profile_path })
         this.rvCrews.addItemDecoration(MovieHorizontalItemDecorator(20))
     }
 
@@ -243,7 +239,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         this.rvRelated.layoutManager = LinearLayoutManager(this.context,
                 LinearLayoutManager.HORIZONTAL,
                 false)
-        this.rvRelated.adapter = MovieRelatedAdapter(this.context, similarMovieList)
+        this.rvRelated.adapter = CommonRecyclerAdapter(similarMovieList)
         this.rvRelated.addItemDecoration(MovieHorizontalItemDecorator(20))
     }
 
@@ -251,7 +247,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         this.rvTrailer.layoutManager = LinearLayoutManager(this.context,
                 LinearLayoutManager.HORIZONTAL,
                 false)
-        this.rvTrailer.adapter = MovieTrailerAdapter(this.context, videoMovieList)
+        this.rvTrailer.adapter = CommonRecyclerAdapter(videoMovieList)
         this.rvTrailer.addItemDecoration(MovieHorizontalItemDecorator(20))
     }
 }

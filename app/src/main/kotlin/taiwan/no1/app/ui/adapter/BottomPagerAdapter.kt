@@ -11,7 +11,6 @@ import taiwan.no1.app.R
 /**
  *
  * @author  Jieyi
- * @version 0.0.1
  * @since   12/28/16
  */
 

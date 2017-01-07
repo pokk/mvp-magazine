@@ -18,8 +18,7 @@ import taiwan.no1.app.mvp.views.IView
 /**
  * Base presenter for collecting common methods here.
  *
- * @author  Jieyi Wu
- * @version 0.0.1
+ * @author  Jieyi
  * @since   12/5/16
  */
 

@@ -7,7 +7,6 @@ import android.widget.ImageView
 /**
  *
  * @author  Jieyi
- * @version 0.0.1
  * @since   1/2/17
  */
 

@@ -5,7 +5,7 @@ import android.util.Log
 /**
  * Log Module
  *
- * @author Jieyi Wu
+ * @author Jieyi
  * @version 1.1.0
  * @since 2015/08/01
  */

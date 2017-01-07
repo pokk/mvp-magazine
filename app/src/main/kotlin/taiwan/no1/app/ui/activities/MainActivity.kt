@@ -21,8 +21,7 @@ import java.util.*
 import javax.inject.Inject
 
 /**
- * @author Jieyi Wu
- * @version 0.0.1
+ * @author Jieyi
  * @since 12/6/16
  */
 

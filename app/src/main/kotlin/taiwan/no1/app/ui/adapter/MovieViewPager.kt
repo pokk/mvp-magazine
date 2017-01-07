@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentStatePagerAdapter
 /**
  *
  * @author  Jieyi
- * @version 0.0.1
  * @since   1/6/17
  */
 

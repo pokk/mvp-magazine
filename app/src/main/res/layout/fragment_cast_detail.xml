@@ -55,7 +55,7 @@
                     android:fontFamily="sans-serif-smallcaps"
                     android:gravity="start"
                     android:paddingStart="16dp"
-                    android:text="Jieyi Wu"
+                    android:text="Jieyi"
                     android:textColor="#626262"
                     android:textSize="20sp"
                     android:textStyle="bold"

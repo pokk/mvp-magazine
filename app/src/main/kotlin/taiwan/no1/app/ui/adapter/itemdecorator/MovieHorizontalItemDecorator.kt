@@ -1,4 +1,4 @@
-package taiwan.no1.app.ui.itemdecorator
+package taiwan.no1.app.ui.adapter.itemdecorator
 
 import android.graphics.Rect
 import android.support.v7.widget.RecyclerView
@@ -7,7 +7,6 @@ import android.view.View
 /**
  *
  * @author  Jieyi
- * @version 0.0.1
  * @since   12/30/16
  */
 

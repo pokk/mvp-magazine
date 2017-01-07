@@ -11,8 +11,7 @@ import taiwan.no1.app.api.config.MovieDBConfig;
 /**
  * Factory that creates different implementations of {@link IApiConfig}.
  *
- * @author Jieyi Wu
- * @version 0.0.1
+ * @author Jieyi
  * @since 12/10/16
  */
 

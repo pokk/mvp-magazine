@@ -9,8 +9,8 @@ import taiwan.no1.app.data.entities.MovieListResEntity;
 import taiwan.no1.app.data.entities.MovieListWithDateResEntity;
 
 /**
- * @author Jieyi Wu
- * @version 0.0.1
+ * @author Jieyi
+ 
  * @since 12/6/16
  */
 

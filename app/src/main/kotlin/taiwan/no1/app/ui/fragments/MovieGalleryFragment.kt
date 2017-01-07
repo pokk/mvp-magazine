@@ -11,7 +11,6 @@ import javax.inject.Inject
 /**
  *
  * @author  Jieyi
- * @version 0.0.1
  * @since   1/1/17
  */
 

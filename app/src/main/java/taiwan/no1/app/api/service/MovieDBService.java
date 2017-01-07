@@ -14,7 +14,7 @@ import taiwan.no1.app.data.entities.MovieListWithDateResEntity;
 
 /**
  * @author Jieyi
- * @version 0.0.1
+
  * @since 12/29/16
  */
 

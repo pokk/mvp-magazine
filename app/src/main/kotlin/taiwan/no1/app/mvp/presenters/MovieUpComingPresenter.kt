@@ -10,7 +10,6 @@ import taiwan.no1.app.utilies.AppLog
 /**
  *
  * @author  Jieyi
- * @version 0.0.1
  * @since   1/5/17
  */
 class MovieUpComingPresenter constructor(val moviesCase: MovieLists):

@@ -8,8 +8,7 @@ import taiwan.no1.app.ui.fragments.*
 
 /**
  *
- * @author  jieyi
- * @version 0.0.1
+ * @author  Jieyi
  * @since   2016/12/20
  */
 

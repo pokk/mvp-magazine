@@ -9,8 +9,7 @@ import taiwan.no1.app.utilies.AppLog
 
 /**
  *
- * @author  Jieyi Wu
- * @version 0.0.1
+ * @author  Jieyi
  * @since   12/6/16
  */
 

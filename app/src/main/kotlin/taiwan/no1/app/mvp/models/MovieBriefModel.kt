@@ -1,10 +1,11 @@
 package taiwan.no1.app.mvp.models
 
+import taiwan.no1.app.ui.adapter.viewtype.IViewTypeFactory
+
 /**
  * A movie brief information.
  *
  * @author  Jieyi
- * @version 0.0.1
  * @since   12/28/16
  */
 
@@ -21,4 +22,6 @@ data class MovieBriefModel(val poster_path: String? = null,
                            val vote_count: Int = 0,
                            val isVideo: Boolean = false,
                            val vote_average: Double = 0.toDouble(),
-                           val genre_ids: List<Int>? = null)
+                           val genre_ids: List<Int>? = null): IVisitable {
+    override fun type(typeFactory: IViewTypeFactory): Int = typeFactory.type(MovieBriefModel@ this)
+}

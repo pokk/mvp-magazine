@@ -2,8 +2,7 @@ package taiwan.no1.app.mvp.models
 
 /**
  *
- * @author  Jieyi Wu
- * @version 0.0.1
+ * @author  Jieyi
  * @since   12/6/16
  */
 

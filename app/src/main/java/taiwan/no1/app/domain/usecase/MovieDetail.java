@@ -13,8 +13,8 @@ import taiwan.no1.app.domain.repository.IRepository;
 /**
  * This class is an implementation of {@link BaseUseCase} that represents a use case for an example.
  *
- * @author Jieyi Wu
- * @version 0.0.1
+ * @author Jieyi
+ 
  * @since 9/6/16
  */
 

@@ -21,15 +21,14 @@ import taiwan.no1.app.mvp.contracts.CastDetailContract
 import taiwan.no1.app.mvp.models.CastDetailModel
 import taiwan.no1.app.mvp.models.CreditsModel
 import taiwan.no1.app.ui.BaseFragment
-import taiwan.no1.app.ui.adapter.CastRelatedMovieAdapter
-import taiwan.no1.app.ui.itemdecorator.MovieHorizontalItemDecorator
+import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
+import taiwan.no1.app.ui.adapter.itemdecorator.MovieHorizontalItemDecorator
 import javax.inject.Inject
 import kotlin.comparisons.compareBy
 
 /**
  *
  * @author  Jieyi
- * @version 0.0.1
  * @since   1/1/17
  */
 
@@ -181,10 +180,9 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
         this.rvRelated.layoutManager = LinearLayoutManager(this.context,
                 LinearLayoutManager.HORIZONTAL,
                 false)
-        this.rvRelated.adapter = CastRelatedMovieAdapter(this.context,
-                creditsMovieList.filter { it.media_type == "movie" }.
-                        sortedWith(compareBy({ it.release_date })).
-                        reversed())
+        this.rvRelated.adapter = CommonRecyclerAdapter(creditsMovieList.filter { it.media_type == "movie" }.
+                sortedWith(compareBy({ it.release_date })).
+                reversed())
         this.rvRelated.addItemDecoration(MovieHorizontalItemDecorator(20))
     }
 }

@@ -8,8 +8,7 @@ import taiwan.no1.app.ui.BaseActivity
 import taiwan.no1.app.ui.activities.MainActivity
 
 /**
- * @author  Jieyi Wu
- * @version 0.0.1
+ * @author  Jieyi
  * @since   5/29/16
  */
 

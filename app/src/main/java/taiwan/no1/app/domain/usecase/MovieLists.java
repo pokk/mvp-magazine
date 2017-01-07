@@ -14,7 +14,7 @@ import taiwan.no1.app.domain.repository.IRepository;
  * {@inheritDoc}
  *
  * @author Jieyi
- * @version 0.0.1
+
  * @since 12/29/16
  */
 

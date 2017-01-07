@@ -16,8 +16,8 @@ import taiwan.no1.app.mvp.models.CreditsModel.CastBean;
 import taiwan.no1.app.mvp.models.CreditsModel.CrewBean;
 
 /**
- * @author jieyi
- * @version 0.0.1
+ * @author Jieyi
+ 
  * @since 2017/01/04
  */
 

@@ -5,8 +5,7 @@ import taiwan.no1.app.mvp.views.IView
 /**
  * Interface representing a Presenter in a model view presenter (MVP) pattern.
  *
- * @author  Jieyi Wu
- * @version 0.0.1
+ * @author  Jieyi
  * @since   12/6/16
  */
 

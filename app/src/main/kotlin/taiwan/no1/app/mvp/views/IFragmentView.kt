@@ -6,8 +6,7 @@ import rx.Observable
 /**
  * This specifies [IFragmentView].
  *
- * @author  Jieyi Wu
- * @version 0.0.1
+ * @author  Jieyi
  * @since   12/9/16
  */
 

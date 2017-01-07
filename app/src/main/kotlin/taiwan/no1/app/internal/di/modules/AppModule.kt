@@ -17,8 +17,7 @@ import javax.inject.Singleton
 /**
  * Dagger module that provides objects which will live during the application lifecycle.
  *
- * @author  Jieyi Wu
- * @version 0.0.1
+ * @author  Jieyi
  * @since   12/6/16
  */
 

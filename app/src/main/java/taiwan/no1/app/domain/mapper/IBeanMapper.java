@@ -5,8 +5,8 @@ import android.support.annotation.NonNull;
 /**
  * Interface that transform between data layer and kotlin layer.
  *
- * @author jieyi
- * @version 0.0.1
+ * @author Jieyi
+ 
  * @since 2016/12/08
  */
 

@@ -7,8 +7,7 @@ import taiwan.no1.app.mvp.views.IView
 /**
  * Base fragment for collecting common methods here.
  *
- * @author  jieyi
- * @version 0.0.1
+ * @author  Jieyi
  * @since   2016/12/20
  */
 

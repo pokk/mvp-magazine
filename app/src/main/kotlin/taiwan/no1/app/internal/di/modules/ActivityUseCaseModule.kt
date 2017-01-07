@@ -5,8 +5,7 @@ import dagger.Module
 /**
  * Dagger use case module that provides user related collaborators.
  *
- * @author  Jieyi Wu
- * @version 0.0.1
+ * @author  Jieyi
  * @since   5/29/16
  */
 
