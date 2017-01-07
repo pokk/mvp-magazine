@@ -4,10 +4,7 @@ import dagger.Component
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.modules.FragmentModule
 import taiwan.no1.app.internal.di.modules.FragmentUseCaseModule
-import taiwan.no1.app.ui.fragments.CastDetailFragment
-import taiwan.no1.app.ui.fragments.MovieDetailFragment
-import taiwan.no1.app.ui.fragments.MovieGalleryFragment
-import taiwan.no1.app.ui.fragments.MovieListFragment
+import taiwan.no1.app.ui.fragments.*
 
 /**
  *
@@ -38,4 +35,6 @@ interface FragmentComponent {
     fun inject(movieGalleryFragment: MovieGalleryFragment)
 
     fun inject(castDetailFragment: CastDetailFragment)
+
+    fun inject(tvListFragment: TVListFragment)
 }

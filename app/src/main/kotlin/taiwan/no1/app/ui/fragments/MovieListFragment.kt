@@ -134,7 +134,7 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
         }
 
         if (null == this.movieList)
-            this.argMovieCategory?.let { this.presenter.requestPopularMovies(it) }
+            this.argMovieCategory?.let { this.presenter.requestListMovies(it) }
     }
     //endregion
 

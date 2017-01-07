@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.view.ViewPager
+import android.view.View
 import butterknife.bindView
 import com.gigamole.navigationtabstrip.NavigationTabStrip
 import com.roughike.bottombar.BottomBar
@@ -31,6 +32,7 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
 
     //region View variables
     private val bottombarMenu by bindView<BottomBar>(R.id.bb_menu)
+    private val includeContainer by bindView<View>(R.id.include_container)
     private val vpContainer by bindView<ViewPager>(R.id.vp_container)
     private val ntsTabMenu by bindView<NavigationTabStrip>(R.id.nts_center)
     //endregion

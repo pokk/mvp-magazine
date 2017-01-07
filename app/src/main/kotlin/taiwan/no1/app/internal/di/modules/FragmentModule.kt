@@ -6,14 +6,8 @@ import taiwan.no1.app.domain.usecase.CastDetail
 import taiwan.no1.app.domain.usecase.MovieDetail
 import taiwan.no1.app.domain.usecase.MovieLists
 import taiwan.no1.app.internal.di.annotations.PerFragment
-import taiwan.no1.app.mvp.contracts.CastDetailContract
-import taiwan.no1.app.mvp.contracts.MovieDetailContract
-import taiwan.no1.app.mvp.contracts.MovieGalleryContract
-import taiwan.no1.app.mvp.contracts.MovieListContract
-import taiwan.no1.app.mvp.presenters.CastDetailPresenter
-import taiwan.no1.app.mvp.presenters.MovieDetailPresenter
-import taiwan.no1.app.mvp.presenters.MovieGalleryPresenter
-import taiwan.no1.app.mvp.presenters.MovieListPresenter
+import taiwan.no1.app.mvp.contracts.*
+import taiwan.no1.app.mvp.presenters.*
 
 /**
  *
@@ -42,4 +36,9 @@ class FragmentModule {
     @PerFragment
     fun provideCaseDetailPresenter(castDetail: CastDetail): CastDetailContract.Presenter =
             CastDetailPresenter(castDetail)
+
+    @Provides
+    @PerFragment
+    fun provideTvListPresenter(): TVListContract.Presenter =
+            TVListPresenter()
 }

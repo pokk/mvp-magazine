@@ -15,7 +15,7 @@ import taiwan.no1.app.mvp.views.IView
 
 interface MovieListContract {
     interface Presenter: IPresenter<View> {
-        fun requestPopularMovies(category: DataRepository.Movies)
+        fun requestListMovies(category: DataRepository.Movies)
     }
 
     interface View: IView, IFragmentView {

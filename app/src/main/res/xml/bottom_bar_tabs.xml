@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <tabs>
     <tab
-        icon="@drawable/movie"
+        icon="@drawable/movie_24"
         id="@+id/tab_recents"
         title="Movie"/>
     <tab
-        icon="@drawable/tv"
+        icon="@drawable/tv_24"
         id="@+id/tab_favorites"
         title="TV Show"/>
     <tab
-        icon="@drawable/news"
-        id="@+id/tab_nearby"
-        title="News"/>
+        icon="@drawable/people_24"
+        id="@+id/people"
+        title="People"/>
 </tabs>
