@@ -101,7 +101,8 @@
                     android:textColor="#626262"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    app:layout_collapseMode="parallax"/>
+                    app:layout_collapseMode="parallax"
+                    tools:text="Jieyi Wu"/>
 
                 <TextView
                     android:id="@+id/tv_job"
@@ -118,7 +119,8 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_collapseMode="parallax"
-                    app:layout_scrollFlags="scroll|snap"/>
+                    app:layout_scrollFlags="scroll|snap"
+                    tools:text="Actor"/>
             </RelativeLayout>
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>

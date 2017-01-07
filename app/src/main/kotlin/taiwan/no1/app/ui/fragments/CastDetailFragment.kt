@@ -151,9 +151,9 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
                     into(this.ivPersonPoster)
             Glide.with(this.context.applicationContext).
                     load(MovieDBConfig.BASAE_IMAGE_URL + if (castDetailModel.images?.profiles?.size!! > 1)
-                        castDetailModel.images.profiles[1].file_path
+                        castDetailModel.images?.profiles!![1].file_path
                     else
-                        castDetailModel.images.profiles[0].file_path).
+                        castDetailModel.images?.profiles!![0].file_path).
                     fitCenter().
                     diskCacheStrategy(DiskCacheStrategy.ALL).
                     into(this.ivDropPoster)
