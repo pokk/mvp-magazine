@@ -53,10 +53,6 @@ data class MovieBriefModel(val poster_path: String? = null,
             source.readDouble(),
             arrayListOf<Int>().apply { source.readList(this, Int::class.java.classLoader) })
 
-    override fun describeContents(): Int {
-        return 0
-    }
-
     override fun writeToParcel(dest: Parcel, flags: Int) {
         dest.writeString(this.poster_path)
         dest.writeByte(if (this.isAdult) 1.toByte() else 0.toByte())
@@ -72,6 +68,10 @@ data class MovieBriefModel(val poster_path: String? = null,
         dest.writeByte(if (this.isVideo) 1.toByte() else 0.toByte())
         dest.writeDouble(this.vote_average)
         dest.writeList(this.genre_ids)
+    }
+
+    override fun describeContents(): Int {
+        return 0
     }
 
     override fun type(typeFactory: IViewTypeFactory): Int = typeFactory.type(MovieBriefModel@ this)

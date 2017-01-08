@@ -32,7 +32,7 @@ class MovieCastViewHolder(view: View): BaseViewHolder(view) {
 
         Glide.with(this.context.applicationContext).
                 load(MovieDBConfig.BASAE_IMAGE_URL + model.profile_path).
-                diskCacheStrategy(DiskCacheStrategy.ALL).
+                diskCacheStrategy(DiskCacheStrategy.SOURCE).
                 into(this.ivCast)
         this.tvCharacter.text = model.character
         this.tvName.text = model.name

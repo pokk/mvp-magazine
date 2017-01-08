@@ -32,7 +32,7 @@ class MovieCastRelatedViewHolder(view: View): BaseViewHolder(view) {
 
         Glide.with(this.context.applicationContext).
                 load(MovieDBConfig.BASAE_IMAGE_URL + model.poster_path).
-                diskCacheStrategy(DiskCacheStrategy.ALL).
+                diskCacheStrategy(DiskCacheStrategy.SOURCE).
                 into(this.ivPoster)
         this.tvReleaseDate.text = model.release_date
         this.tvMovieTitle.text = model.title

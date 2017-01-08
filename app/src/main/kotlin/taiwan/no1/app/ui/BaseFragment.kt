@@ -23,7 +23,6 @@ import taiwan.no1.app.mvp.views.IView
  */
 
 abstract class BaseFragment: RxFragment(), IView, IFragmentView {
-
     protected var rootView: View? = null
 
     //region Fragment lifecycle.

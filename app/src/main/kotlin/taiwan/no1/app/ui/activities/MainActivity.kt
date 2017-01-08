@@ -66,6 +66,19 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
                 this.supportFragmentManager,
                 this.fragmentList)
         this.ntsTabMenu.setViewPager(this.vpContainer, 0)
+//        this.vpContainer.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
+//            override fun onPageScrollStateChanged(state: Int) {
+//                AppLog.w(state)
+//            }
+//
+//            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+//                AppLog.w(position)
+//            }
+//
+//            override fun onPageSelected(position: Int) {
+//                AppLog.w(position)
+//            }
+//        })
     }
 
     override fun onBackPressed() {

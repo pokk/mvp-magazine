@@ -32,7 +32,8 @@ class MovieRelatedViewHolder(view: View): BaseViewHolder(view) {
 
         Glide.with(this.context.applicationContext).
                 load(MovieDBConfig.BASAE_IMAGE_URL + model.poster_path).
-                diskCacheStrategy(DiskCacheStrategy.ALL).
+                crossFade().
+                diskCacheStrategy(DiskCacheStrategy.SOURCE).
                 into(this.ivPoster)
         this.tvCharacter.text = model.original_title
         this.tvName.text = model.title

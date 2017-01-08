@@ -20,10 +20,7 @@ import taiwan.no1.app.api.config.MovieDBConfig
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.contracts.MovieDetailContract
-import taiwan.no1.app.mvp.models.MovieBriefModel
-import taiwan.no1.app.mvp.models.MovieCastsModel
-import taiwan.no1.app.mvp.models.MovieDetailModel
-import taiwan.no1.app.mvp.models.MovieVideosModel
+import taiwan.no1.app.mvp.models.*
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.adapter.itemdecorator.MovieHorizontalItemDecorator
@@ -40,22 +37,19 @@ import javax.inject.Inject
 class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     companion object Factory {
         // The key name of the fragment initialization parameters.
-        private val ARG_PARAM_MOVIE_ID: String = "param_movie_id"
-        private val ARG_PARAM_FROM_ID: String = "param_movie_from_fragment"
+        private const val ARG_PARAM_MOVIE_ID: String = "param_movie_id"
+        private const val ARG_PARAM_FROM_ID: String = "param_movie_from_fragment"
 
         /**
          * Use this factory method to create a new instance of this fragment using the provided parameters.
          *
          * @return A new instance of [fragment] MovieDetailFragment.
          */
-        fun newInstance(id: String, from: Int): MovieDetailFragment {
-            val fragment: MovieDetailFragment = MovieDetailFragment()
-            val bundle: Bundle = Bundle()
-            bundle.putString(this.ARG_PARAM_MOVIE_ID, id)
-            bundle.putInt(this.ARG_PARAM_FROM_ID, from)
-            fragment.arguments = bundle
-
-            return fragment
+        fun newInstance(id: String, from: Int): MovieDetailFragment = MovieDetailFragment().apply {
+            this.arguments = Bundle().apply {
+                this.putString(ARG_PARAM_MOVIE_ID, id)
+                this.putInt(ARG_PARAM_FROM_ID, from)
+            }
         }
     }
 
@@ -84,19 +78,12 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     private val rvTrailer by bindView<RecyclerView>(R.id.rv_trailer)
     //endregion
 
-    // The fragment initialization parameters.
-    private var argMovieId: String? = null
-    private var argFromFragment: Int? = null
+    private var movieDetail: MovieDetailModel? = null
+    // Get the arguments from the bundle here.
+    private val argMovieId: String by lazy { this.arguments.getString(ARG_PARAM_MOVIE_ID) }
+    private val argFromFragment: Int by lazy { this.arguments.getInt(ARG_PARAM_FROM_ID) }
 
     //region Fragment lifecycle
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // Get the arguments from the bundle here.
-        this.argMovieId = arguments?.getString(MovieDetailFragment.ARG_PARAM_MOVIE_ID)
-        this.argFromFragment = arguments?.getInt(MovieDetailFragment.ARG_PARAM_FROM_ID)
-    }
-
     override fun onResume() {
         super.onResume()
         this.presenter.resume()
@@ -116,7 +103,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         this.presenter.destroy()
         super.onDestroy()
     }
-    //endregion
+//endregion
 
     //region Initialization's order
     /**
@@ -147,30 +134,34 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
      * @param savedInstanceState the previous fragment data status after the system calls [onPause].
      */
     override fun init(savedInstanceState: Bundle?) {
-        this.argMovieId?.toInt()?.let {
+        this.argMovieId.toInt().let {
             this.presenter.requestMovieDetail(it)
         }
         this.ivDropPoster.setOnClickListener {
-            RxBus.get().post(RxbusTag.FRAGMENT_NAVIGATOR,
-                    MovieGalleryFragment.newInstance(""))
+            RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
+                    Pair(MovieListFragment.NAVIGATOR_ARG_FRAGMENT,
+                            MovieGalleryFragment.newInstance(this.movieDetail?.images ?: MovieImagesModel())),
+                    Pair(MovieListFragment.NAVIGATOR_ARG_TAG, argFromFragment)))
         }
     }
-
     //endregion
 
     override fun showMovieDetail(movieDetailModel: MovieDetailModel) {
+        // TODO: 1/8/17 Here may happen memory leak!? We need to use deep copy.
+        this.movieDetail = movieDetailModel
+
         // Inflate the introduction section.
         if (null != stubIntro.parent) {
             stubIntro.inflate()
             Glide.with(this.context.applicationContext).
                     load(MovieDBConfig.BASAE_IMAGE_URL + movieDetailModel.backdrop_path).
                     fitCenter().
-                    diskCacheStrategy(DiskCacheStrategy.ALL).
+                    diskCacheStrategy(DiskCacheStrategy.SOURCE).
                     into(this.ivDropPoster)
             Glide.with(this.context.applicationContext).
                     load(MovieDBConfig.BASAE_IMAGE_URL + movieDetailModel.poster_path).
                     fitCenter().
-                    diskCacheStrategy(DiskCacheStrategy.ALL).
+                    diskCacheStrategy(DiskCacheStrategy.SOURCE).
                     into(this.ivMoviePoster)
             this.tvReleaseDate.setBackgroundColor(Color.TRANSPARENT)
             this.tvReleaseDate.text = movieDetailModel.release_date
@@ -235,7 +226,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
                 LinearLayoutManager.HORIZONTAL,
                 false)
         this.rvCasts.adapter = CommonRecyclerAdapter(castList.filter { null != it.profile_path },
-                this.argFromFragment ?: -1)
+                this.argFromFragment)
         this.rvCasts.addItemDecoration(MovieHorizontalItemDecorator(20))
     }
 
@@ -244,7 +235,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
                 LinearLayoutManager.HORIZONTAL,
                 false)
         this.rvCrews.adapter = CommonRecyclerAdapter(crewList.filter { null != it.profile_path },
-                this.argFromFragment ?: -1)
+                this.argFromFragment)
         this.rvCrews.addItemDecoration(MovieHorizontalItemDecorator(20))
     }
 
@@ -252,7 +243,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         this.rvRelated.layoutManager = LinearLayoutManager(this.context,
                 LinearLayoutManager.HORIZONTAL,
                 false)
-        this.rvRelated.adapter = CommonRecyclerAdapter(similarMovieList, this.argFromFragment ?: -1)
+        this.rvRelated.adapter = CommonRecyclerAdapter(similarMovieList, this.argFromFragment)
         this.rvRelated.addItemDecoration(MovieHorizontalItemDecorator(20))
     }
 
@@ -260,7 +251,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         this.rvTrailer.layoutManager = LinearLayoutManager(this.context,
                 LinearLayoutManager.HORIZONTAL,
                 false)
-        this.rvTrailer.adapter = CommonRecyclerAdapter(videoMovieList, this.argFromFragment ?: -1)
+        this.rvTrailer.adapter = CommonRecyclerAdapter(videoMovieList, this.argFromFragment)
         this.rvTrailer.addItemDecoration(MovieHorizontalItemDecorator(20))
     }
 }

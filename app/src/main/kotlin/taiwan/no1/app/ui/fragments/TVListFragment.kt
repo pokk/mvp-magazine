@@ -25,30 +25,20 @@ class TVListFragment: BaseFragment(), TVListContract.View {
          *
          * @return A new instance of [fragment] TVListFragment.
          */
-        fun newInstance(arg1: String): TVListFragment {
-            val fragment: TVListFragment = TVListFragment()
-            val bundle: Bundle = Bundle()
-            bundle.putString(ARG_PARAM_, arg1)
-            fragment.arguments = bundle
-
-            return fragment
+        fun newInstance(arg1: String): TVListFragment = TVListFragment().apply {
+            this.arguments = Bundle().apply {
+                this.putString(ARG_PARAM_, arg1)
+            }
         }
     }
 
     @Inject
     lateinit var presenter: TVListContract.Presenter
 
-    // The fragment initialization parameters.
-    private var arg1: String? = null
+    // Get the arguments from the bundle here.
+    private val arg1: String by lazy { this.arguments.getString(TVListFragment.ARG_PARAM_) }
 
     //region Fragment lifecycle
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // Get the arguments from the bundle here.
-        this.arg1 = arguments?.getString(TVListFragment.ARG_PARAM_)
-    }
-
     override fun onResume() {
         super.onResume()
         this.presenter.resume()

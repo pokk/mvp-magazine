@@ -45,14 +45,11 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
          *
          * @return A new instance of [fragment] CastDetailFragment.
          */
-        fun newInstance(id: String, from: Int): CastDetailFragment {
-            val fragment: CastDetailFragment = CastDetailFragment()
-            val bundle: Bundle = Bundle()
-            bundle.putString(this.ARG_PARAM_CAST_ID, id)
-            bundle.putInt(this.ARG_PARAM_FROM_ID, from)
-            fragment.arguments = bundle
-
-            return fragment
+        fun newInstance(id: String, from: Int): CastDetailFragment = CastDetailFragment().apply {
+            this.arguments = Bundle().apply {
+                this.putString(ARG_PARAM_CAST_ID, id)
+                this.putInt(ARG_PARAM_FROM_ID, from)
+            }
         }
     }
 
@@ -76,19 +73,11 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
     private val rvRelated by bindView<RecyclerView>(R.id.rv_related)
     //endregion
 
-    // The fragment initialization parameters.
-    private var argId: String? = null
-    private var argFromFragment: Int? = null
+    // Get the arguments from the bundle here.
+    private val argId: String by lazy { this.arguments.getString(ARG_PARAM_CAST_ID) }
+    private val argFromFragment: Int by lazy { this.arguments.getInt(ARG_PARAM_FROM_ID) }
 
     //region Fragment lifecycle
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // Get the arguments from the bundle here.
-        this.argId = arguments?.getString(ARG_PARAM_CAST_ID)
-        this.argFromFragment = arguments?.getInt(ARG_PARAM_FROM_ID)
-    }
-
     override fun onResume() {
         super.onResume()
         this.presenter.resume()
@@ -136,7 +125,7 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
      * @param savedInstanceState the previous fragment data status after the system calls [onPause].
      */
     override fun init(savedInstanceState: Bundle?) {
-        this.presenter.requestCastDetail(this.argId!!.toInt())
+        this.presenter.requestCastDetail(this.argId.toInt())
     }
     //endregion
 
@@ -147,15 +136,15 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
             Glide.with(this.context.applicationContext).
                     load(MovieDBConfig.BASAE_IMAGE_URL + castDetailModel.profile_path).
                     centerCrop().
-                    diskCacheStrategy(DiskCacheStrategy.ALL).
+                    diskCacheStrategy(DiskCacheStrategy.SOURCE).
                     into(this.ivPersonPoster)
             Glide.with(this.context.applicationContext).
                     load(MovieDBConfig.BASAE_IMAGE_URL + if (castDetailModel.images?.profiles?.size!! > 1)
-                        castDetailModel.images?.profiles!![1].file_path
+                        castDetailModel.images.profiles[1].file_path
                     else
-                        castDetailModel.images?.profiles!![0].file_path).
+                        castDetailModel.images.profiles[0].file_path).
                     fitCenter().
-                    diskCacheStrategy(DiskCacheStrategy.ALL).
+                    diskCacheStrategy(DiskCacheStrategy.SOURCE).
                     into(this.ivDropPoster)
 
             this.tvJob.setBackgroundColor(Color.TRANSPARENT)
@@ -197,7 +186,7 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
                 false)
         this.rvRelated.adapter = CommonRecyclerAdapter(creditsMovieList.filter { it.media_type == "movie" }.
                 sortedWith(compareBy({ it.release_date })).
-                reversed(), this.argFromFragment ?: -1)
+                reversed(), this.argFromFragment)
         this.rvRelated.addItemDecoration(MovieHorizontalItemDecorator(20))
     }
 }

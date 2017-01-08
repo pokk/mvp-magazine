@@ -32,25 +32,22 @@ import javax.inject.Inject
 class MovieListFragment: BaseFragment(), MovieListContract.View {
     companion object Factory {
         // For navigating the fragment's arguments. 
-        val NAVIGATOR_ARG_FRAGMENT = "fragment"
-        val NAVIGATOR_ARG_TAG = "tag"
+        const val NAVIGATOR_ARG_FRAGMENT = "fragment"
+        const val NAVIGATOR_ARG_TAG = "tag"
         // The key name of the fragment initialization parameters.
-        private val ARG_PARAM_CATEGORY: String = "param_movie_category"
+        private const val ARG_PARAM_CATEGORY: String = "param_movie_category"
         // The key name of the fragment restore the status parameters. 
-        private val ARG_PARAM_INSTANCE_MOVIES: String = "param_instance_movies"
+        private const val ARG_PARAM_INSTANCE_MOVIES: String = "param_instance_movies"
 
         /**
          * Use this factory method to create a new instance of this fragment using the provided parameters.
          *
          * @return A new instance of fragment BlankFragment.
          */
-        fun newInstance(category: DataRepository.Movies): MovieListFragment {
-            val fragment: MovieListFragment = MovieListFragment()
-            val bundle: Bundle = Bundle()
-            bundle.putSerializable(this.ARG_PARAM_CATEGORY, category)
-            fragment.arguments = bundle
-
-            return fragment
+        fun newInstance(category: DataRepository.Movies): MovieListFragment = MovieListFragment().apply {
+            this.arguments = Bundle().apply {
+                this.putSerializable(ARG_PARAM_CATEGORY, category)
+            }
         }
     }
 
@@ -62,15 +59,14 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
     //endregion
 
     private var movieList: ArrayList<MovieBriefModel>? = null
-    // The fragment initialization parameters.
-    private var argMovieCategory: DataRepository.Movies? = null
+    // Get the arguments from the bundle here.
+    private val argMovieCategory: DataRepository.Movies by lazy {
+        this.arguments.getSerializable(ARG_PARAM_CATEGORY) as DataRepository.Movies
+    }
 
     //region Fragment lifecycle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Get the arguments from the bundle here.
-        this.argMovieCategory = arguments?.getSerializable(ARG_PARAM_CATEGORY) as DataRepository.Movies
         RxBus.get().register(this)
     }
 
@@ -143,7 +139,7 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
             this.rvMovies.adapter = CommonRecyclerAdapter(ArrayList<MovieBriefModel>(), this.hashCode())
 
             // Request the movie data.
-            this.argMovieCategory?.let { this.presenter.requestListMovies(it) }
+            this.argMovieCategory.let { this.presenter.requestListMovies(it) }
         }
     }
     //endregion

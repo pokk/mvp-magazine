@@ -9,7 +9,7 @@ public class ImageInfoEntity {
     private double aspect_ratio;
     private String file_path;
     private int height;
-    private Object iso_639_1;
+    private String iso_639_1;
     private double vote_average;
     private int vote_count;
     private int width;
@@ -26,9 +26,9 @@ public class ImageInfoEntity {
 
     public void setHeight(int height) { this.height = height;}
 
-    public Object getIso_639_1() { return iso_639_1;}
+    public String getIso_639_1() { return iso_639_1;}
 
-    public void setIso_639_1(Object iso_639_1) { this.iso_639_1 = iso_639_1;}
+    public void setIso_639_1(String iso_639_1) { this.iso_639_1 = iso_639_1;}
 
     public double getVote_average() { return vote_average;}
 

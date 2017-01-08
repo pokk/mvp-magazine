@@ -2,10 +2,13 @@ package taiwan.no1.app.ui.fragments
 
 import android.os.Bundle
 import android.support.annotation.LayoutRes
+import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.contracts.MovieGalleryContract
+import taiwan.no1.app.mvp.models.MovieImagesModel
 import taiwan.no1.app.ui.BaseFragment
+import taiwan.no1.app.utilies.AppLog
 import javax.inject.Inject
 
 /**
@@ -18,37 +21,29 @@ import javax.inject.Inject
 class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
     companion object Factory {
         // The key name of the fragment initialization parameters.
-        private val ARG_PARAM_: String = "param_"
+        private val ARG_PARAM_IMAGES: String = "param_images"
 
         /**
          * Use this factory method to create a new instance of this fragment using the provided parameters.
          *
          * @return A new instance of [fragment] MovieGalleryFragment.
          */
-        fun newInstance(arg1: String): MovieGalleryFragment {
-            val fragment: MovieGalleryFragment = MovieGalleryFragment()
-            val bundle: Bundle = Bundle()
-            bundle.putString(ARG_PARAM_, arg1)
-            fragment.arguments = bundle
-
-            return fragment
+        fun newInstance(images: MovieImagesModel?): MovieGalleryFragment = MovieGalleryFragment().apply {
+            this.arguments = Bundle().apply {
+                this.putParcelable(ARG_PARAM_IMAGES, images)
+            }
         }
     }
 
     @Inject
     lateinit var presenter: MovieGalleryContract.Presenter
 
-    // The fragment initialization parameters.
-    private var arg1: String? = null
-
-    //region Fragment lifecycle
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // Get the arguments from the bundle here.
-        this.arg1 = arguments?.getString(MovieGalleryFragment.ARG_PARAM_)
+    // Get the arguments from the bundle here.
+    private val argImages: MovieImagesModel by lazy {
+        this.arguments.getParcelable<MovieImagesModel>(ARG_PARAM_IMAGES)
     }
 
+    //region Fragment lifecycle
     override fun onResume() {
         super.onResume()
         this.presenter.resume()
@@ -81,7 +76,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
      * @return [LayoutRes] xml layout.
      */
     @LayoutRes
-    override fun inflateView(): Int = -1
+    override fun inflateView(): Int = R.layout.fragment_gallery
 
     /**
      * Set the presenter initialization.
@@ -96,6 +91,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
      * @param savedInstanceState the previous fragment data status after the system calls [onPause].
      */
     override fun init(savedInstanceState: Bundle?) {
+        AppLog.v(this.argImages)
     }
     //endregion
 }
