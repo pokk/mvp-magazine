@@ -42,7 +42,7 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
         /**
          * Use this factory method to create a new instance of this fragment using the provided parameters.
          *
-         * @return A new instance of fragment BlankFragment.
+         * @return A new instance of [fragment] MovieListFragment.
          */
         fun newInstance(category: DataRepository.Movies): MovieListFragment = MovieListFragment().apply {
             this.arguments = Bundle().apply {

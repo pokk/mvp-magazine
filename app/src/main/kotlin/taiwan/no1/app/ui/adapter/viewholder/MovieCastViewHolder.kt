@@ -28,19 +28,19 @@ class MovieCastViewHolder(view: View): BaseViewHolder(view) {
     val tvName by bindView<TextView>(R.id.tv_name)
 
     override fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
-        model as MovieCastsModel.CastBean
-
-        Glide.with(this.context.applicationContext).
-                load(MovieDBConfig.BASAE_IMAGE_URL + model.profile_path).
-                diskCacheStrategy(DiskCacheStrategy.SOURCE).
-                into(this.ivCast)
-        this.tvCharacter.text = model.character
-        this.tvName.text = model.name
-        this.item.setOnClickListener {
-            RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
-                    Pair(MovieListFragment.NAVIGATOR_ARG_FRAGMENT,
-                            CastDetailFragment.newInstance(model.id.toString(), adapter.fragmentTag)),
-                    Pair(MovieListFragment.NAVIGATOR_ARG_TAG, adapter.fragmentTag)))
+        (model as MovieCastsModel.CastBean).let {
+            Glide.with(this.context.applicationContext).
+                    load(MovieDBConfig.BASE_IMAGE_URL + it.profile_path).
+                    diskCacheStrategy(DiskCacheStrategy.SOURCE).
+                    into(this.ivCast)
+            this.tvCharacter.text = it.character
+            this.tvName.text = it.name
+            this.item.setOnClickListener {
+                RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
+                        Pair(MovieListFragment.NAVIGATOR_ARG_FRAGMENT,
+                                CastDetailFragment.newInstance(model.id.toString(), adapter.fragmentTag)),
+                        Pair(MovieListFragment.NAVIGATOR_ARG_TAG, adapter.fragmentTag)))
+            }
         }
     }
 }

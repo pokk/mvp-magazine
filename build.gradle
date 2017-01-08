@@ -10,9 +10,11 @@ buildscript {
         rx_bus_version = '1.0.5'
         retrofit_2_version = '2.1.0'
         dagger_2_version = '2.8'
+        collection_query_version = '0.2.9'
         gson_version = '2.4'
         gilde_version = '3.7.0'
         bottom_bar_version = '2.0.2'
+        squint_version = '3.0.1'
     }
     repositories {
         jcenter()

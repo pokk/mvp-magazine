@@ -28,18 +28,18 @@ class MovieListViewHolder(view: View): BaseViewHolder(view) {
 
     override fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
         // Cast the model data type to MovieBriefModel.
-        model as MovieBriefModel
-
-        Glide.with(this.context.applicationContext).
-                load(MovieDBConfig.BASAE_IMAGE_URL + model.poster_path).
-                diskCacheStrategy(DiskCacheStrategy.SOURCE).
-                into(this.ivPoster)
-        this.tvTitle.text = (model.release_date + "\n" + model.title)
-        this.item.setOnClickListener {
-            RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
-                    Pair(MovieListFragment.NAVIGATOR_ARG_FRAGMENT,
-                            MovieDetailFragment.newInstance(model.id.toString(), adapter.fragmentTag)),
-                    Pair(MovieListFragment.NAVIGATOR_ARG_TAG, adapter.fragmentTag)))
+        (model as MovieBriefModel).let {
+            Glide.with(this.context.applicationContext).
+                    load(MovieDBConfig.BASE_IMAGE_URL + it.poster_path).
+                    diskCacheStrategy(DiskCacheStrategy.SOURCE).
+                    into(this.ivPoster)
+            this.tvTitle.text = (it.release_date + "\n" + it.title)
+            this.item.setOnClickListener {
+                RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
+                        Pair(MovieListFragment.NAVIGATOR_ARG_FRAGMENT,
+                                MovieDetailFragment.newInstance(model.id.toString(), adapter.fragmentTag)),
+                        Pair(MovieListFragment.NAVIGATOR_ARG_TAG, adapter.fragmentTag)))
+            }
         }
     }
 }

@@ -154,12 +154,12 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         if (null != stubIntro.parent) {
             stubIntro.inflate()
             Glide.with(this.context.applicationContext).
-                    load(MovieDBConfig.BASAE_IMAGE_URL + movieDetailModel.backdrop_path).
+                    load(MovieDBConfig.BASE_IMAGE_URL + movieDetailModel.backdrop_path).
                     fitCenter().
                     diskCacheStrategy(DiskCacheStrategy.SOURCE).
                     into(this.ivDropPoster)
             Glide.with(this.context.applicationContext).
-                    load(MovieDBConfig.BASAE_IMAGE_URL + movieDetailModel.poster_path).
+                    load(MovieDBConfig.BASE_IMAGE_URL + movieDetailModel.poster_path).
                     fitCenter().
                     diskCacheStrategy(DiskCacheStrategy.SOURCE).
                     into(this.ivMoviePoster)

@@ -24,13 +24,13 @@ class MovieCrewViewHolder(view: View): BaseViewHolder(view) {
     val tvName by bindView<TextView>(R.id.tv_name)
 
     override fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
-        model as MovieCastsModel.CrewBean
-
-        Glide.with(this.context.applicationContext).
-                load(MovieDBConfig.BASAE_IMAGE_URL + model.profile_path).
-                diskCacheStrategy(DiskCacheStrategy.SOURCE).
-                into(this.ivCast)
-        this.tvCharacter.text = model.job
-        this.tvName.text = model.name
+        (model as MovieCastsModel.CrewBean).let {
+            Glide.with(this.context.applicationContext).
+                    load(MovieDBConfig.BASE_IMAGE_URL + it.profile_path).
+                    diskCacheStrategy(DiskCacheStrategy.SOURCE).
+                    into(this.ivCast)
+            this.tvCharacter.text = it.job
+            this.tvName.text = it.name
+        }
     }
 }

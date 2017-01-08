@@ -10,7 +10,7 @@ import android.support.annotation.NonNull;
  */
 
 public class MovieDBConfig implements IApiConfig {
-    public final static String BASAE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
+    public final static String BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
     private final static String BASE_URL = "https://api.themoviedb.org/3/";
 
     @NonNull

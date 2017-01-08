@@ -18,6 +18,6 @@ class MovieTrailerViewHolder(view: View): BaseViewHolder(view) {
     private val vvTrailer by bindView<VideoView>(R.id.vv_trailer)
 
     override fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
-        model as MovieVideosModel
+        (model as MovieVideosModel)
     }
 }

@@ -21,9 +21,10 @@ class ViewTypeFactory: IViewTypeFactory {
         MOVIE_LIST(R.layout.item_brief_movie),
         MOVIE_CAST(R.layout.item_movie_casts_crews),
         MOVIE_CREW(R.layout.item_movie_casts_crews),
+        MOVIE_RELATED(R.layout.item_movie_casts_crews),
         MOVIE_VIDEO(R.layout.item_movie_trailers),
         CAST(R.layout.item_movie_casts_crews),
-        CREW(R.layout.item_movie_casts_crews), ;
+        CREW(R.layout.item_movie_casts_crews),
     }
 
     override fun type(movieBriefModel: MovieBriefModel): Int = TypeResource.MOVIE_LIST.ordinal
@@ -38,14 +39,13 @@ class ViewTypeFactory: IViewTypeFactory {
 
     override fun type(movieVideosModel: MovieVideosModel): Int = TypeResource.MOVIE_VIDEO.ordinal
 
-    override fun createViewHolder(type: Int, itemView: View): BaseViewHolder {
-        return when (type) {
-            TypeResource.MOVIE_LIST.ordinal -> MovieListViewHolder(itemView)
-            TypeResource.MOVIE_CAST.ordinal -> MovieCastViewHolder(itemView)
-            TypeResource.MOVIE_CREW.ordinal -> MovieCrewViewHolder(itemView)
-            TypeResource.MOVIE_VIDEO.ordinal -> MovieTrailerViewHolder(itemView)
-            TypeResource.CAST.ordinal -> MovieCastRelatedViewHolder(itemView)
-            else -> throw error("Illegal type")
-        }
+    override fun createViewHolder(type: Int, itemView: View): BaseViewHolder = when (type) {
+        TypeResource.MOVIE_LIST.ordinal -> MovieListViewHolder(itemView)
+        TypeResource.MOVIE_CAST.ordinal -> MovieCastViewHolder(itemView)
+        TypeResource.MOVIE_CREW.ordinal -> MovieCrewViewHolder(itemView)
+        TypeResource.MOVIE_RELATED.ordinal -> MovieRelatedViewHolder(itemView)
+        TypeResource.MOVIE_VIDEO.ordinal -> MovieTrailerViewHolder(itemView)
+        TypeResource.CAST.ordinal -> MovieCastRelatedViewHolder(itemView)
+        else -> throw error("Illegal type")
     }
 }

@@ -134,12 +134,12 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
         if (null != stubIntro.parent) {
             stubIntro.inflate()
             Glide.with(this.context.applicationContext).
-                    load(MovieDBConfig.BASAE_IMAGE_URL + castDetailModel.profile_path).
+                    load(MovieDBConfig.BASE_IMAGE_URL + castDetailModel.profile_path).
                     centerCrop().
                     diskCacheStrategy(DiskCacheStrategy.SOURCE).
                     into(this.ivPersonPoster)
             Glide.with(this.context.applicationContext).
-                    load(MovieDBConfig.BASAE_IMAGE_URL + if (castDetailModel.images?.profiles?.size!! > 1)
+                    load(MovieDBConfig.BASE_IMAGE_URL + if (castDetailModel.images?.profiles?.size!! > 1)
                         castDetailModel.images.profiles[1].file_path
                     else
                         castDetailModel.images.profiles[0].file_path).
