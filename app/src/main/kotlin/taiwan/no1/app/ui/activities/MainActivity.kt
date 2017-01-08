@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.view.ViewPager
-import android.view.View
 import butterknife.bindView
 import com.gigamole.navigationtabstrip.NavigationTabStrip
-import com.roughike.bottombar.BottomBar
 import taiwan.no1.app.R
 import taiwan.no1.app.data.repositiry.DataRepository
 import taiwan.no1.app.internal.di.HasComponent
@@ -31,8 +29,7 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
     lateinit var presenter: MainContract.Presenter
 
     //region View variables
-    private val bottombarMenu by bindView<BottomBar>(R.id.bb_menu)
-    private val includeContainer by bindView<View>(R.id.include_container)
+//    private val bottombarMenu by bindView<BottomBar>(R.id.bb_menu)
     private val vpContainer by bindView<ViewPager>(R.id.vp_container)
     private val ntsTabMenu by bindView<NavigationTabStrip>(R.id.nts_center)
     //endregion
@@ -66,19 +63,6 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
                 this.supportFragmentManager,
                 this.fragmentList)
         this.ntsTabMenu.setViewPager(this.vpContainer, 0)
-//        this.vpContainer.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
-//            override fun onPageScrollStateChanged(state: Int) {
-//                AppLog.w(state)
-//            }
-//
-//            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-//                AppLog.w(position)
-//            }
-//
-//            override fun onPageSelected(position: Int) {
-//                AppLog.w(position)
-//            }
-//        })
     }
 
     override fun onBackPressed() {

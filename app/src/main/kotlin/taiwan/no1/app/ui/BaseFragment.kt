@@ -1,11 +1,16 @@
 package taiwan.no1.app.ui
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.load.resource.drawable.GlideDrawable
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
+import com.intrusoft.squint.DiagonalView
 import com.trello.rxlifecycle.android.FragmentEvent
 import com.trello.rxlifecycle.components.support.RxFragment
 import dagger.internal.Preconditions
@@ -45,7 +50,7 @@ abstract class BaseFragment: RxFragment(), IView, IFragmentView {
         return rootView
     }
 
-    override final fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override final fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         this.init(savedInstanceState)
@@ -118,4 +123,21 @@ abstract class BaseFragment: RxFragment(), IView, IFragmentView {
      */
     protected fun <C> getComponent(componentType: Class<C>, obj: Any?): C =
             componentType.cast((activity as HasComponent<*>).getFragmentComponent(obj))
+
+    protected fun clearDiagonalViewListener(dvBackgroundPoster: DiagonalView): RequestListener<String, GlideDrawable> =
+            object: RequestListener<String, GlideDrawable> {
+                override fun onException(e: Exception,
+                                         model: String,
+                                         target: Target<GlideDrawable>,
+                                         isFirstResource: Boolean): Boolean = false
+
+                override fun onResourceReady(resource: GlideDrawable,
+                                             model: String,
+                                             target: Target<GlideDrawable>,
+                                             isFromMemoryCache: Boolean,
+                                             isFirstResource: Boolean): Boolean = let {
+                    dvBackgroundPoster.solidColor = Color.TRANSPARENT
+                    false
+                }
+            }
 }

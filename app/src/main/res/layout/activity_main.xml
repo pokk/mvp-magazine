@@ -8,14 +8,49 @@
     android:orientation="vertical"
     tools:context=".ui.activities.MainActivity">
 
-    <include
-        android:id="@+id/include_container"
-        layout="@layout/fragment_movies"/>
-
-    <com.roughike.bottombar.BottomBar
-        android:id="@+id/bb_menu"
+    <FrameLayout
+        android:id="@+id/fl_top_menu"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_alignParentBottom="true"
-        app:bb_tabXmlResource="@xml/bottom_bar_tabs"/>
+        android:layout_height="wrap_content"
+        android:background="@color/viewPageBackground">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_gravity="center|bottom"
+            android:layout_marginTop="18dp"
+            android:background="@color/viewPageSlideBackground"/>
+
+        <com.gigamole.navigationtabstrip.NavigationTabStrip
+            android:id="@+id/nts_center"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            app:nts_active_color="@color/viewPageActiveText"
+            app:nts_color="@color/viewPageSlideSpotBackground"
+            app:nts_corners_radius="3.5dp"
+            app:nts_factor="0.8"
+            app:nts_gravity="bottom"
+            app:nts_inactive_color="@color/viewPageText"
+            app:nts_titles="@array/movie_titles"
+            app:nts_type="point"
+            app:nts_weight="7dp"/>
+    </FrameLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/fl_top_menu">
+    </android.support.v4.view.ViewPager>
+
+    <!--<com.roughike.bottombar.BottomBar-->
+    <!--android:id="@+id/bb_menu"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="56dp"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--app:bb_showShadow="true"-->
+    <!--app:bb_tabXmlResource="@xml/bottom_bar_tabs"/>-->
 </RelativeLayout>

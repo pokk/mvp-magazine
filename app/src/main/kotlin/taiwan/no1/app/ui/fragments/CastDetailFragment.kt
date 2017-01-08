@@ -133,19 +133,19 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
         // Inflate the introduction section.
         if (null != stubIntro.parent) {
             stubIntro.inflate()
+            val imageUrl = castDetailModel.images?.let { it.profiles?.let { if (it.size > 1) it[1].file_path else it[0].file_path } }
+
+            Glide.with(this.context.applicationContext).
+                    load(MovieDBConfig.BASE_IMAGE_URL + imageUrl).
+                    fitCenter().
+                    diskCacheStrategy(DiskCacheStrategy.SOURCE).
+                    listener(this.clearDiagonalViewListener(this.ivDropPoster)).
+                    into(this.ivDropPoster)
             Glide.with(this.context.applicationContext).
                     load(MovieDBConfig.BASE_IMAGE_URL + castDetailModel.profile_path).
                     centerCrop().
                     diskCacheStrategy(DiskCacheStrategy.SOURCE).
                     into(this.ivPersonPoster)
-            Glide.with(this.context.applicationContext).
-                    load(MovieDBConfig.BASE_IMAGE_URL + if (castDetailModel.images?.profiles?.size!! > 1)
-                        castDetailModel.images.profiles[1].file_path
-                    else
-                        castDetailModel.images.profiles[0].file_path).
-                    fitCenter().
-                    diskCacheStrategy(DiskCacheStrategy.SOURCE).
-                    into(this.ivDropPoster)
 
             this.tvJob.setBackgroundColor(Color.TRANSPARENT)
             this.tvJob.text = if (1 == castDetailModel.gender) "Actress" else "Actor"

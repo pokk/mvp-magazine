@@ -157,6 +157,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
                     load(MovieDBConfig.BASE_IMAGE_URL + movieDetailModel.backdrop_path).
                     fitCenter().
                     diskCacheStrategy(DiskCacheStrategy.SOURCE).
+                    listener(this.clearDiagonalViewListener(this.ivDropPoster)).
                     into(this.ivDropPoster)
             Glide.with(this.context.applicationContext).
                     load(MovieDBConfig.BASE_IMAGE_URL + movieDetailModel.poster_path).
