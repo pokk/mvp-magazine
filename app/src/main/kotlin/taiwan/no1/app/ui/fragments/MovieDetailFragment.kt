@@ -151,23 +151,24 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         this.movieDetail = movieDetailModel
 
         // Inflate the introduction section.
+        Glide.with(this.context.applicationContext).
+                load(MovieDBConfig.BASE_IMAGE_URL + movieDetailModel.backdrop_path).
+                fitCenter().
+                diskCacheStrategy(DiskCacheStrategy.SOURCE).
+                listener(this.clearDiagonalViewListener(this.ivDropPoster)).
+                into(this.ivDropPoster)
+        Glide.with(this.context.applicationContext).
+                load(MovieDBConfig.BASE_IMAGE_URL + movieDetailModel.poster_path).
+                fitCenter().
+                diskCacheStrategy(DiskCacheStrategy.SOURCE).
+                into(this.ivMoviePoster)
+        this.tvReleaseDate.setBackgroundColor(Color.TRANSPARENT)
+        this.tvReleaseDate.text = movieDetailModel.release_date
+        this.tvTitle.setBackgroundColor(Color.TRANSPARENT)
+        this.tvTitle.text = movieDetailModel.title
+        
         if (null != stubIntro.parent) {
             stubIntro.inflate()
-            Glide.with(this.context.applicationContext).
-                    load(MovieDBConfig.BASE_IMAGE_URL + movieDetailModel.backdrop_path).
-                    fitCenter().
-                    diskCacheStrategy(DiskCacheStrategy.SOURCE).
-                    listener(this.clearDiagonalViewListener(this.ivDropPoster)).
-                    into(this.ivDropPoster)
-            Glide.with(this.context.applicationContext).
-                    load(MovieDBConfig.BASE_IMAGE_URL + movieDetailModel.poster_path).
-                    fitCenter().
-                    diskCacheStrategy(DiskCacheStrategy.SOURCE).
-                    into(this.ivMoviePoster)
-            this.tvReleaseDate.setBackgroundColor(Color.TRANSPARENT)
-            this.tvReleaseDate.text = movieDetailModel.release_date
-            this.tvTitle.setBackgroundColor(Color.TRANSPARENT)
-            this.tvTitle.text = movieDetailModel.title
             this.tvOverview.text = movieDetailModel.overview
             this.tvStatus.text = movieDetailModel.status
             this.tvRunTime.text = movieDetailModel.runtime.toString()
