@@ -1,5 +1,8 @@
 # Description
 
+We provide movies and TV information by [TMDB](https://www.themoviedb.org/?language=en). You can use this app
+to know movies' overview or TV overview, see action stills and actors & actresses picture.
+
 This application is based on an architecture called __*MVP*__
 architecture. Actually we don't only practice developing an application
 simply, but also create a base MVP architecture for other projects, too.
@@ -46,9 +49,13 @@ We're using a lot of Rx family libraries.
 Our architecture may not enough convenient for start-up project. If you
 have any good idea, please tell us.
 
-- [ ] Decouple between UseCases.
+- [x] Decouple between UseCases.
 - [x] Decouple the injection of library component.
 
+
+### App
+
+- [ ] Checking movie and TV trailers.
 
 # License
 
