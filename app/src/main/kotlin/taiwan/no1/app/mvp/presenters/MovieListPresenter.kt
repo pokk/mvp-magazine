@@ -30,8 +30,8 @@ class MovieListPresenter constructor(val moviesCase: MovieLists):
     }
     //endregion
 
-    override fun requestListMovies(category: DataRepository.Movies) {
-        val request = MovieLists.Requests(category, 1)
+    override fun requestListMovies(category: DataRepository.Movies, page: Int) {
+        val request = MovieLists.Requests(category, page)
         request.fragmentLifecycle = this.view.getLifecycle()
         this.moviesCase.execute(request, this.popularMovieSub)
     }

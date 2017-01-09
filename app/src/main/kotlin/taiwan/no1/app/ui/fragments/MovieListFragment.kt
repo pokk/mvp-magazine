@@ -148,7 +148,11 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
 
     //region View implementations
     override fun obtainMovieBriefList(movieList: List<MovieBriefModel>) {
-        this.movieList = ArrayList(movieList)
+        this.movieList = ArrayList(if (null == this.movieList || 0 == this.movieList?.size)
+            movieList
+        else
+            this.movieList!! + movieList)
+        // TODO: 1/10/17 Add the updating action.
         // Because the view pager will load the fragment first, if we just set the data directly, views won't
         // be showed. To avoid it, the adapter will be reset.
         this.movieList?.let { this.rvMovies.adapter = CommonRecyclerAdapter(it, this.hashCode()) }
