@@ -18,12 +18,12 @@
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_main"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <com.intrusoft.squint.DiagonalView
                     android:id="@+id/dv_poster"
@@ -83,44 +83,44 @@
                     tools:text="Actor"/>
             </RelativeLayout>
         </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
 
-        <android.support.v4.widget.NestedScrollView
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/tv_title"
+        android:layout_centerHorizontal="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_below="@+id/tv_title"
-            android:layout_centerHorizontal="true"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:orientation="vertical">
 
-            <LinearLayout
+            <ViewStub
+                android:id="@+id/stub_introduction"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout="@layout/layout_cast_intro"/>
 
-                <ViewStub
-                    android:id="@+id/stub_introduction"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout="@layout/layout_cast_intro"/>
+            <!--<ViewStub-->
+            <!--android:id="@+id/stub_casts"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout="@layout/horizontal_content_cast"/>-->
 
-                <!--<ViewStub-->
-                <!--android:id="@+id/stub_casts"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout="@layout/horizontal_content_cast"/>-->
+            <!--<ViewStub-->
+            <!--android:id="@+id/stub_crews"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout="@layout/horizontal_content_crew"/>-->
 
-                <!--<ViewStub-->
-                <!--android:id="@+id/stub_crews"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout="@layout/horizontal_content_crew"/>-->
-
-                <ViewStub
-                    android:id="@+id/stub_related"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout="@layout/horizontal_content_related"/>
-            </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
-    </android.support.design.widget.AppBarLayout>
+            <ViewStub
+                android:id="@+id/stub_related"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout="@layout/horizontal_content_related"/>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

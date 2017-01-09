@@ -18,7 +18,6 @@ class CastDetailPresenter constructor(val castDetailCase: CastDetail):
         AppLog.e(it.message)
         AppLog.e(it)
     }.onNext {
-        AppLog.w(it)
         this.view.showCastDetail(it)
     }
     //endregion

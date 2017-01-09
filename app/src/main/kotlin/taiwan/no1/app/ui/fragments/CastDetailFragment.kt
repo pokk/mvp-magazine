@@ -133,26 +133,27 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
 
     override fun showCastDetail(castDetailModel: CastDetailModel) {
         // Inflate the introduction section.
+        val imageUrl = castDetailModel.images?.let { it.profiles?.let { if (it.size > 1) it[1].file_path else it[0].file_path } }
+
+        Glide.with(this.context.applicationContext).
+                load(MovieDBConfig.BASE_IMAGE_URL + imageUrl).
+                fitCenter().
+                diskCacheStrategy(DiskCacheStrategy.SOURCE).
+                listener(this.clearDiagonalViewListener(this.ivDropPoster)).
+                into(this.ivDropPoster)
+        Glide.with(this.context.applicationContext).
+                load(MovieDBConfig.BASE_IMAGE_URL + castDetailModel.profile_path).
+                centerCrop().
+                diskCacheStrategy(DiskCacheStrategy.SOURCE).
+                into(this.ivPersonPoster)
+
+        this.tvJob.setBackgroundColor(Color.TRANSPARENT)
+        this.tvJob.text = if (1 == castDetailModel.gender) "Actress" else "Actor"
+        this.tvName.setBackgroundColor(Color.TRANSPARENT)
+        this.tvName.text = castDetailModel.name
+
         if (null != stubIntro.parent) {
             stubIntro.inflate()
-            val imageUrl = castDetailModel.images?.let { it.profiles?.let { if (it.size > 1) it[1].file_path else it[0].file_path } }
-
-            Glide.with(this.context.applicationContext).
-                    load(MovieDBConfig.BASE_IMAGE_URL + imageUrl).
-                    fitCenter().
-                    diskCacheStrategy(DiskCacheStrategy.SOURCE).
-                    listener(this.clearDiagonalViewListener(this.ivDropPoster)).
-                    into(this.ivDropPoster)
-            Glide.with(this.context.applicationContext).
-                    load(MovieDBConfig.BASE_IMAGE_URL + castDetailModel.profile_path).
-                    centerCrop().
-                    diskCacheStrategy(DiskCacheStrategy.SOURCE).
-                    into(this.ivPersonPoster)
-
-            this.tvJob.setBackgroundColor(Color.TRANSPARENT)
-            this.tvJob.text = if (1 == castDetailModel.gender) "Actress" else "Actor"
-            this.tvName.setBackgroundColor(Color.TRANSPARENT)
-            this.tvName.text = castDetailModel.name
             this.tvBio.text = castDetailModel.biography
             this.tvBirthday.text = castDetailModel.birthday
             this.tvBron.text = castDetailModel.place_of_birth

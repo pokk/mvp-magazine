@@ -22,7 +22,6 @@
         android:fontFamily="sans-serif-smallcaps"
         android:lineSpacingExtra="3dp"
         android:padding="16dp"
-        android:text=""
         android:textColor="#828282"
         android:textSize="16sp"/>
 
@@ -43,7 +42,6 @@
         android:fontFamily="sans-serif-smallcaps"
         android:lineSpacingExtra="3dp"
         android:padding="16dp"
-        android:text=""
         android:textColor="#828282"
         android:textSize="16sp"/>
 
@@ -64,7 +62,6 @@
         android:fontFamily="sans-serif-smallcaps"
         android:lineSpacingExtra="3dp"
         android:padding="16dp"
-        android:text=""
         android:textColor="#828282"
         android:textSize="16sp"/>
     
@@ -85,7 +82,6 @@
         android:fontFamily="sans-serif-smallcaps"
         android:lineSpacingExtra="3dp"
         android:padding="16dp"
-        android:text=""
         android:textColor="#828282"
         android:textSize="16sp"/>
 
@@ -106,7 +102,6 @@
         android:fontFamily="sans-serif-smallcaps"
         android:lineSpacingExtra="3dp"
         android:padding="16dp"
-        android:text=""
         android:textColor="#828282"
         android:textSize="16sp"/>
 
@@ -127,7 +122,6 @@
         android:fontFamily="sans-serif-smallcaps"
         android:lineSpacingExtra="3dp"
         android:padding="16dp"
-        android:text=""
         android:textColor="#828282"
         android:textSize="16sp"/>
 </LinearLayout>
