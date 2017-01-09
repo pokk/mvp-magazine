@@ -35,6 +35,7 @@ import javax.inject.Inject
 
 @PerFragment
 class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
+    //region Static initialization
     companion object Factory {
         // The key name of the fragment initialization parameters.
         private const val ARG_PARAM_MOVIE_ID: String = "param_movie_id"
@@ -52,6 +53,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
             }
         }
     }
+    //endregion
 
     @Inject
     lateinit var presenter: MovieDetailContract.Presenter

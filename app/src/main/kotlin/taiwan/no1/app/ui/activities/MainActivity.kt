@@ -4,8 +4,12 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.view.ViewPager
+import android.support.v4.view.ViewPager.SCROLL_STATE_IDLE
+import android.support.v4.view.ViewPager.SCROLL_STATE_SETTLING
 import butterknife.bindView
 import com.gigamole.navigationtabstrip.NavigationTabStrip
+import com.jakewharton.rxbinding.support.v4.view.pageScrollStateChanges
+import com.jakewharton.rxbinding.support.v4.view.pageSelections
 import taiwan.no1.app.R
 import taiwan.no1.app.data.repositiry.DataRepository
 import taiwan.no1.app.internal.di.HasComponent
@@ -34,6 +38,9 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
     private val ntsTabMenu by bindView<NavigationTabStrip>(R.id.nts_center)
     //endregion
 
+    private var prevItemPos: Int = -1
+    private var currItemPos: Int = -1
+
     private val fragmentList: List<Fragment> = ArrayList(arrayListOf(
             MovieListFragment.newInstance(DataRepository.Movies.POPULAR),
             MovieListFragment.newInstance(DataRepository.Movies.NOW_PLAYING),
@@ -59,10 +66,30 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
 //            addFragment(R.id.fragment_container, MoviePopularFragment.newInstance(), false, null, null)
         }
 
-        this.vpContainer.adapter = MovieViewPager(this.context(),
-                this.supportFragmentManager,
-                this.fragmentList)
-        this.ntsTabMenu.setViewPager(this.vpContainer, 0)
+        this.ntsTabMenu.setViewPager(this.vpContainer.apply {
+            var flagClearPrevFragment: Boolean = false
+            
+            this.adapter = MovieViewPager(context(), supportFragmentManager, fragmentList)
+            // Initial the position.
+            currItemPos = this.currentItem
+            prevItemPos = this.currentItem
+            // View pager's listener.
+            this.pageSelections().compose(bindToLifecycle<Int>()).subscribe {
+                currItemPos = it
+                // After change the page, the flag will be opened for clearing the previous stack fragments.
+                flagClearPrevFragment = true
+            }
+            this.pageScrollStateChanges().subscribe {
+                // This is a trigger of changing views.
+                if (SCROLL_STATE_SETTLING == it)
+                    flagClearPrevFragment = false
+                // Finished the view changed completely, the previous stack fragments will be cleared.
+                else if (SCROLL_STATE_IDLE == it && flagClearPrevFragment) {
+                    clearChildFragments(prevItemPos)
+                    prevItemPos = currItemPos
+                }
+            }
+        }, 0)
     }
 
     override fun onBackPressed() {
@@ -75,5 +102,12 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
         }
         else
             super.onBackPressed()
+    }
+
+    private fun clearChildFragments(index: Int) {
+        for (i in 0..this.fragmentList[index].childFragmentManager.backStackEntryCount - 1) {
+            this.fragmentList[index].childFragmentManager.popBackStack(null,
+                    FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        }
     }
 }

@@ -19,6 +19,7 @@ import javax.inject.Inject
 
 @PerFragment
 class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
+    //region Static initialization
     companion object Factory {
         // The key name of the fragment initialization parameters.
         private val ARG_PARAM_IMAGES: String = "param_images"
@@ -34,6 +35,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
             }
         }
     }
+    //endregion
 
     @Inject
     lateinit var presenter: MovieGalleryContract.Presenter

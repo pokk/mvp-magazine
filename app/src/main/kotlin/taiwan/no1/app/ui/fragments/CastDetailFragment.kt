@@ -35,6 +35,7 @@ import kotlin.comparisons.compareBy
 
 @PerFragment
 class CastDetailFragment: BaseFragment(), CastDetailContract.View {
+    //region Static initialization
     companion object Factory {
         // The key name of the fragment initialization parameters.
         private val ARG_PARAM_CAST_ID: String = "param_cast_id"
@@ -52,6 +53,7 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
             }
         }
     }
+    //endregion
 
     @Inject
     lateinit var presenter: CastDetailContract.Presenter

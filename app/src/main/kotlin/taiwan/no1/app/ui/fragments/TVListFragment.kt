@@ -16,6 +16,7 @@ import javax.inject.Inject
  */
 @PerFragment
 class TVListFragment: BaseFragment(), TVListContract.View {
+    //region Static initialization
     companion object Factory {
         // The key name of the fragment initialization parameters.
         private val ARG_PARAM_: String = "param_"
@@ -31,12 +32,13 @@ class TVListFragment: BaseFragment(), TVListContract.View {
             }
         }
     }
+    //endregion
 
     @Inject
     lateinit var presenter: TVListContract.Presenter
 
     // Get the arguments from the bundle here.
-    private val arg1: String by lazy { this.arguments.getString(TVListFragment.ARG_PARAM_) }
+    private val arg1: String by lazy { this.arguments.getString(ARG_PARAM_) }
 
     //region Fragment lifecycle
     override fun onResume() {

@@ -17,10 +17,10 @@ class App: Application() {
 
         @JvmStatic fun appComponent(): AppComponent = (context as App).appComponent
         // Provide the global application context.
-        @JvmStatic fun getAppContext(): Context = context 
+        @JvmStatic fun getAppContext(): Context = context
     }
 
-    private val appComponent: AppComponent by lazy { AppComponent.Initializer.init(this) }
+    private val appComponent: AppComponent by lazy { AppComponent.Initializer.init(App@ this) }
 
     override fun onCreate() {
         super.onCreate()

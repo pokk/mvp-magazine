@@ -30,6 +30,7 @@ import javax.inject.Inject
 
 @PerFragment
 class MovieListFragment: BaseFragment(), MovieListContract.View {
+    //region Static initialization
     companion object Factory {
         // For navigating the fragment's arguments. 
         const val NAVIGATOR_ARG_FRAGMENT = "fragment"
@@ -50,6 +51,7 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
             }
         }
     }
+    //endregion
 
     @Inject
     lateinit var presenter: MovieListContract.Presenter
@@ -67,7 +69,7 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
     //region Fragment lifecycle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        RxBus.get().register(this)
+        RxBus.get().register(MovieListFragment@ this)
     }
 
     override fun onResume() {
@@ -89,7 +91,7 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
     override fun onDestroy() {
         // After super.onDestroy() is executed, the presenter will be destroy. So the presenter should be
         // executed before super.onDestroy().
-        RxBus.get().unregister(this)
+        RxBus.get().unregister(MovieListFragment@ this)
 
         this.presenter.destroy()
         super.onDestroy()
@@ -164,12 +166,6 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
                     replace(R.id.main_container, fragment, fragment.javaClass.name).
                     addToBackStack(fragment.javaClass.name).
                     commit()
-        }
-    }
-
-    private fun clearChildFragments() {
-        for (index in 0..this.childFragmentManager.backStackEntryCount - 1) {
-            this.childFragmentManager.popBackStackImmediate()
         }
     }
 }
