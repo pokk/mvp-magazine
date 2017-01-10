@@ -68,7 +68,7 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
 
         this.ntsTabMenu.setViewPager(this.vpContainer.apply {
             var flagClearPrevFragment: Boolean = false
-            
+
             this.adapter = MovieViewPager(context(), supportFragmentManager, fragmentList)
             // Initial the position.
             currItemPos = this.currentItem
@@ -79,7 +79,7 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
                 // After change the page, the flag will be opened for clearing the previous stack fragments.
                 flagClearPrevFragment = true
             }
-            this.pageScrollStateChanges().subscribe {
+            this.pageScrollStateChanges().compose(bindToLifecycle<Int>()).subscribe {
                 // This is a trigger of changing views.
                 if (SCROLL_STATE_SETTLING == it)
                     flagClearPrevFragment = false

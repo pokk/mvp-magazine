@@ -21,7 +21,6 @@ import taiwan.no1.app.mvp.models.MovieBriefModel
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.adapter.itemdecorator.GridSpacingItemDecorator
-import taiwan.no1.app.utilies.AppLog
 import java.util.*
 import javax.inject.Inject
 
@@ -134,10 +133,12 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
     override fun init(savedInstanceState: Bundle?) {
         savedInstanceState?.let {
             this.movieList = savedInstanceState.getParcelableArrayList(ARG_PARAM_INSTANCE_MOVIES)
-            this.movieList?.let { (this.rvMovies.adapter as CommonRecyclerAdapter).models = it }
         }
 
-        if (null == this.movieList) {
+        if (null != this.movieList) {
+            (this.rvMovies.adapter as CommonRecyclerAdapter).models = this.movieList!!
+        }
+        else {
             this.rvMovies.layoutManager = StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL).apply {
                 rvMovies.scrollEvents().subscribe {
                     if (0 < it.dy()) {
@@ -145,17 +146,10 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
                         val totalItemCount: Int = this.itemCount
                         val pastVisibleItems: Int = this.findFirstVisibleItemPositions(null)[0]
 
-                        if (loading) {
-                            AppLog.w(visibleItemCount,
-                                    pastVisibleItems,
-                                    totalItemCount,
-                                    visibleItemCount + pastVisibleItems >= totalItemCount,
-                                    0 < totalItemCount)
-                            if (visibleItemCount + pastVisibleItems >= totalItemCount && 0 < totalItemCount) {
-                                loading = false
-                                // TODO: 2017/01/10 Limit the max page. 
-                                presenter.requestListMovies(argMovieCategory, pageIndex++)
-                            }
+                        if (loading && visibleItemCount + pastVisibleItems >= totalItemCount && 0 < totalItemCount) {
+                            loading = false
+                            // TODO: 2017/01/10 Limit the max page. 
+                            presenter.requestListMovies(argMovieCategory, pageIndex++)
                         }
                     }
                 }
@@ -177,7 +171,7 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
             movieList
         else
             this.movieList!! + movieList)
-        
+
         // Because the view pager will load the fragment first, if we just set the data directly, views won't
         // be showed. To avoid it, the adapter will be reset.
         this.movieList?.let { (this.rvMovies.adapter as CommonRecyclerAdapter).addItem(it) }
