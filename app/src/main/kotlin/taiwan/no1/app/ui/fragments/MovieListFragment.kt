@@ -177,7 +177,7 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
             movieList
         else
             this.movieList!! + movieList)
-        // TODO: 1/10/17 Add the updating action.
+        
         // Because the view pager will load the fragment first, if we just set the data directly, views won't
         // be showed. To avoid it, the adapter will be reset.
         this.movieList?.let { (this.rvMovies.adapter as CommonRecyclerAdapter).addItem(it) }
