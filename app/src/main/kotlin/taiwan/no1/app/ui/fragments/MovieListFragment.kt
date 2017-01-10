@@ -10,6 +10,7 @@ import butterknife.bindView
 import com.hwangjr.rxbus.RxBus
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.annotation.Tag
+import com.jakewharton.rxbinding.support.v7.widget.scrollEvents
 import com.touchin.constant.RxbusTag
 import taiwan.no1.app.R
 import taiwan.no1.app.data.repositiry.DataRepository
@@ -20,6 +21,7 @@ import taiwan.no1.app.mvp.models.MovieBriefModel
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.adapter.itemdecorator.GridSpacingItemDecorator
+import taiwan.no1.app.utilies.AppLog
 import java.util.*
 import javax.inject.Inject
 
@@ -65,6 +67,9 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
     private val argMovieCategory: DataRepository.Movies by lazy {
         this.arguments.getSerializable(ARG_PARAM_CATEGORY) as DataRepository.Movies
     }
+    private var maxPageIndex: Int = 1
+    private var pageIndex: Int = 1
+    private var loading: Boolean = true
 
     //region Fragment lifecycle
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -129,19 +134,39 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
     override fun init(savedInstanceState: Bundle?) {
         savedInstanceState?.let {
             this.movieList = savedInstanceState.getParcelableArrayList(ARG_PARAM_INSTANCE_MOVIES)
-
             this.movieList?.let { (this.rvMovies.adapter as CommonRecyclerAdapter).models = it }
         }
 
         if (null == this.movieList) {
-            this.rvMovies.layoutManager = StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL)
+            this.rvMovies.layoutManager = StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL).apply {
+                rvMovies.scrollEvents().subscribe {
+                    if (0 < it.dy()) {
+                        val visibleItemCount: Int = this.childCount
+                        val totalItemCount: Int = this.itemCount
+                        val pastVisibleItems: Int = this.findFirstVisibleItemPositions(null)[0]
+
+                        if (loading) {
+                            AppLog.w(visibleItemCount,
+                                    pastVisibleItems,
+                                    totalItemCount,
+                                    visibleItemCount + pastVisibleItems >= totalItemCount,
+                                    0 < totalItemCount)
+                            if (visibleItemCount + pastVisibleItems >= totalItemCount && 0 < totalItemCount) {
+                                loading = false
+                                // TODO: 2017/01/10 Limit the max page. 
+                                presenter.requestListMovies(argMovieCategory, pageIndex++)
+                            }
+                        }
+                    }
+                }
+            }
             this.rvMovies.setHasFixedSize(true)
             this.rvMovies.addItemDecoration(GridSpacingItemDecorator(2, 10, false))
             // Just give a empty adapter.
             this.rvMovies.adapter = CommonRecyclerAdapter(ArrayList<MovieBriefModel>(), this.hashCode())
 
             // Request the movie data.
-            this.argMovieCategory.let { this.presenter.requestListMovies(it) }
+            this.argMovieCategory.let { this.presenter.requestListMovies(it, pageIndex++) }
         }
     }
     //endregion
@@ -155,7 +180,9 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
         // TODO: 1/10/17 Add the updating action.
         // Because the view pager will load the fragment first, if we just set the data directly, views won't
         // be showed. To avoid it, the adapter will be reset.
-        this.movieList?.let { this.rvMovies.adapter = CommonRecyclerAdapter(it, this.hashCode()) }
+        this.movieList?.let { (this.rvMovies.adapter as CommonRecyclerAdapter).addItem(it) }
+        // Switch on loading new movie page.
+        this.loading = true
     }
     //endregion
 

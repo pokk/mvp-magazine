@@ -15,14 +15,6 @@ import taiwan.no1.app.utilies.AppLog
 
 class MovieListPresenter constructor(val moviesCase: MovieLists):
         BasePresenter<MovieListContract.View>(), MovieListContract.Presenter {
-    //region Subscribers
-    private val popularMovieSub = subscriber<List<MovieBriefModel>>().onError {
-        AppLog.e(it.message)
-        AppLog.e(it)
-    }.onNext {
-        view.obtainMovieBriefList(it)
-    }
-    //endregion
 
     //region View implementation
     override fun init(view: MovieListContract.View) {
@@ -33,6 +25,12 @@ class MovieListPresenter constructor(val moviesCase: MovieLists):
     override fun requestListMovies(category: DataRepository.Movies, page: Int) {
         val request = MovieLists.Requests(category, page)
         request.fragmentLifecycle = this.view.getLifecycle()
-        this.moviesCase.execute(request, this.popularMovieSub)
+        // If declaring [subscriber] as a variable, it won't be used again.
+        this.moviesCase.execute(request, subscriber<List<MovieBriefModel>>().onError {
+            AppLog.e(it.message)
+            AppLog.e(it)
+        }.onNext {
+            view.obtainMovieBriefList(it)
+        })
     }
 }
