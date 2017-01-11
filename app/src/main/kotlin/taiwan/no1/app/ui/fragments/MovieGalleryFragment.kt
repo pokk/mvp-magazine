@@ -49,7 +49,9 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
     @Inject
     lateinit var presenter: MovieGalleryContract.Presenter
 
+    //region View variables
     private val hicvpGallery by bindView<HorizontalInfiniteCycleViewPager>(R.id.hicvp_gallery)
+    //endregion
 
     // Get the arguments from the bundle here.
     private val argMovieImages: MovieImagesModel? by lazy {
@@ -95,7 +97,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
     override fun inflateView(): Int = R.layout.fragment_gallery
 
     /**
-     * Set the presenter initialization.
+     * Set the presenter initialization in [onCreateView].
      */
     override fun initPresenter() {
         this.presenter.init(MovieGalleryFragment@ this)

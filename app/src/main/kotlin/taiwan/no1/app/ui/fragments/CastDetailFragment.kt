@@ -58,8 +58,7 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
     }
     //endregion
 
-    @Inject
-    lateinit var presenter: CastDetailContract.Presenter
+    @Inject lateinit var presenter: CastDetailContract.Presenter
 
     //region View variables
     private val ivDropPoster by bindView<DiagonalView>(R.id.dv_poster)
@@ -118,7 +117,7 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
     override fun inflateView(): Int = R.layout.fragment_cast_detail
 
     /**
-     * Set the presenter initialization.
+     * Set the presenter initialization in [onCreateView].
      */
     override fun initPresenter() {
         this.presenter.init(CastDetailFragment@ this)
@@ -134,6 +133,7 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
     }
     //endregion
 
+    //region View implementations
     override fun showCastDetail(castDetailModel: CastDetailModel) {
         // Inflate the introduction section.
         val imageUrl = castDetailModel.images?.let { it.profiles?.let { if (it.size > 1) it[1].file_path else it[0].file_path } }
@@ -191,6 +191,7 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
         else
             stubRelated.visibility = View.VISIBLE
     }
+    //endregion
 
     private fun showCreditsMovies(creditsMovieList: List<CreditsModel.CastBean>) {
         this.rvRelated.layoutManager = LinearLayoutManager(this.context,

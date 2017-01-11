@@ -47,11 +47,11 @@
         android:layout_height="match_parent">
     </android.support.v4.view.ViewPager>
 
-    <com.roughike.bottombar.BottomBar
-        android:id="@+id/bb_menu"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_alignParentBottom="true"
-        app:bb_showShadow="true"
-        app:bb_tabXmlResource="@xml/bottom_bar_tabs"/>
+    <!--<com.roughike.bottombar.BottomBar-->
+    <!--android:id="@+id/bb_menu"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="56dp"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--app:bb_showShadow="true"-->
+    <!--app:bb_tabXmlResource="@xml/bottom_bar_tabs"/>-->
 </RelativeLayout>

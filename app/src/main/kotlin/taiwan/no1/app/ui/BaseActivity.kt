@@ -30,8 +30,7 @@ import javax.inject.Inject
  */
 
 abstract class BaseActivity: RxAppCompatActivity(), IView, IActivityView {
-    @Inject
-    lateinit var navigator: Navigator
+    @Inject lateinit var navigator: Navigator
 
     // Register it in the parent class that it will be not reflected.
     protected var busEvent = object {

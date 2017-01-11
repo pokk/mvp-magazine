@@ -28,6 +28,7 @@ import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.adapter.itemdecorator.MovieHorizontalItemDecorator
 import javax.inject.Inject
+import kotlin.reflect.KClass
 
 
 /**
@@ -127,7 +128,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     override fun inflateView(): Int = R.layout.fragment_movie_detail
 
     /**
-     * Set the presenter initialization.
+     * Set the presenter initialization in [onCreateView].
      */
     override fun initPresenter() {
         this.presenter.init(MovieDetailFragment@ this)
@@ -145,6 +146,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     }
     //endregion
 
+    //region View implementations
     override fun showMovieDetail(movieDetailModel: MovieDetailModel) {
         // TODO: 1/8/17 Here may happen memory leak!? We need to use deep copy.
         this.movieDetail = movieDetailModel
@@ -226,6 +228,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
 //        else
 //            stubTrailer.visibility = View.VISIBLE
     }
+    //endregion
 
     private fun showMovieCasts(castList: List<MovieCastsModel.CastBean>) {
         this.rvCasts.layoutManager = LinearLayoutManager(this.context,
@@ -259,5 +262,13 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
                 false)
         this.rvTrailer.adapter = CommonRecyclerAdapter(videoMovieList, this.argFromFragment)
         this.rvTrailer.addItemDecoration(MovieHorizontalItemDecorator(20))
+    }
+
+    private fun showMovies(recyclerView: RecyclerView, list: List<MovieBriefModel>, type: KClass<*>) {
+        with(recyclerView) {
+            this.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+            this.adapter = CommonRecyclerAdapter(list, argFromFragment)
+            this.addItemDecoration(MovieHorizontalItemDecorator(20))
+        }
     }
 }

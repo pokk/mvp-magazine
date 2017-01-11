@@ -76,7 +76,7 @@ class TVListFragment: BaseFragment(), TVListContract.View {
     override fun inflateView(): Int = R.layout.fragment_tvs
 
     /**
-     * Set the presenter initialization.
+     * Set the presenter initialization in [onCreateView].
      */
     override fun initPresenter() {
         this.presenter.init(TVListFragment@ this)
@@ -89,5 +89,8 @@ class TVListFragment: BaseFragment(), TVListContract.View {
      */
     override fun init(savedInstanceState: Bundle?) {
     }
+    //endregion
+
+    //region View implementations
     //endregion
 }

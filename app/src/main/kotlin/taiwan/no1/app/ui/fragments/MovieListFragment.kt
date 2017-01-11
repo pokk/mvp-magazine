@@ -119,7 +119,7 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
     override fun inflateView(): Int = R.layout.fragment_movie_list
 
     /**
-     * Set the presenter initialization.
+     * Set the presenter initialization in [onCreateView].
      */
     override fun initPresenter() {
         this.presenter.init(MoviePopularFragment@ this)

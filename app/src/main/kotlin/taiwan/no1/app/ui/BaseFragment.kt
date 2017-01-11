@@ -89,6 +89,7 @@ abstract class BaseFragment: RxFragment(), IView, IFragmentView {
     override fun getLifecycle(): Observable<FragmentEvent> = this.lifecycle()
     //endregion
 
+    //region Initialization's order
     /**
      * Initialize the fragment method.
      *
@@ -110,7 +111,7 @@ abstract class BaseFragment: RxFragment(), IView, IFragmentView {
     abstract protected fun inflateView(): Int
 
     /**
-     * Initialize the presenter.
+     * Initialize the presenter in [onCreateView].
      */
     abstract protected fun initPresenter()
 
@@ -124,6 +125,12 @@ abstract class BaseFragment: RxFragment(), IView, IFragmentView {
     protected fun <C> getComponent(componentType: Class<C>, obj: Any?): C =
             componentType.cast((activity as HasComponent<*>).getFragmentComponent(obj))
 
+    /**
+     * A listener for clearing the [DiagonalView]'s foreground color after loading the img from http uri.
+     *
+     * @param dvBackgroundPoster [DiagonalView]'s image.
+     * @return [RequestListener].
+     */
     protected fun clearDiagonalViewListener(dvBackgroundPoster: DiagonalView): RequestListener<String, GlideDrawable> =
             object: RequestListener<String, GlideDrawable> {
                 override fun onException(e: Exception,
@@ -140,4 +147,5 @@ abstract class BaseFragment: RxFragment(), IView, IFragmentView {
                     false
                 }
             }
+    //endregion
 }
