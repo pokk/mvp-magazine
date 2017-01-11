@@ -13,9 +13,12 @@ import android.widget.TextView
 import butterknife.bindView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.hwangjr.rxbus.RxBus
 import com.intrusoft.squint.DiagonalView
+import com.touchin.constant.RxbusTag
 import taiwan.no1.app.R
 import taiwan.no1.app.api.config.MovieDBConfig
+import taiwan.no1.app.constant.Constant
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.contracts.CastDetailContract
@@ -146,9 +149,15 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
                 centerCrop().
                 diskCacheStrategy(DiskCacheStrategy.SOURCE).
                 into(this.ivPersonPoster)
+        this.ivDropPoster.setOnClickListener {
+            RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
+                    Pair(MovieListFragment.NAVIGATOR_ARG_FRAGMENT,
+                            MovieGalleryFragment.newInstance(null, castDetailModel.images)),
+                    Pair(MovieListFragment.NAVIGATOR_ARG_TAG, argFromFragment)))
+        }
 
         this.tvJob.setBackgroundColor(Color.TRANSPARENT)
-        this.tvJob.text = if (1 == castDetailModel.gender) "Actress" else "Actor"
+        this.tvJob.text = Constant.Gender.values()[castDetailModel.gender].jobName
         this.tvName.setBackgroundColor(Color.TRANSPARENT)
         this.tvName.text = castDetailModel.name
 

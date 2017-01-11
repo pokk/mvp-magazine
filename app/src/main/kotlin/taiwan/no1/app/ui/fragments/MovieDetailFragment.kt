@@ -20,7 +20,10 @@ import taiwan.no1.app.api.config.MovieDBConfig
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.contracts.MovieDetailContract
-import taiwan.no1.app.mvp.models.*
+import taiwan.no1.app.mvp.models.MovieBriefModel
+import taiwan.no1.app.mvp.models.MovieCastsModel
+import taiwan.no1.app.mvp.models.MovieDetailModel
+import taiwan.no1.app.mvp.models.MovieVideosModel
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.adapter.itemdecorator.MovieHorizontalItemDecorator
@@ -139,12 +142,6 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         this.argMovieId.toInt().let {
             this.presenter.requestMovieDetail(it)
         }
-        this.ivDropPoster.setOnClickListener {
-            RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
-                    Pair(MovieListFragment.NAVIGATOR_ARG_FRAGMENT,
-                            MovieGalleryFragment.newInstance(this.movieDetail?.images ?: MovieImagesModel())),
-                    Pair(MovieListFragment.NAVIGATOR_ARG_TAG, argFromFragment)))
-        }
     }
     //endregion
 
@@ -168,7 +165,13 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         this.tvReleaseDate.text = movieDetailModel.release_date
         this.tvTitle.setBackgroundColor(Color.TRANSPARENT)
         this.tvTitle.text = movieDetailModel.title
-        
+        this.ivDropPoster.setOnClickListener {
+            RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
+                    Pair(MovieListFragment.NAVIGATOR_ARG_FRAGMENT,
+                            MovieGalleryFragment.newInstance(this.movieDetail?.images)),
+                    Pair(MovieListFragment.NAVIGATOR_ARG_TAG, argFromFragment)))
+        }
+
         if (null != stubIntro.parent) {
             stubIntro.inflate()
             this.tvOverview.text = movieDetailModel.overview
@@ -204,7 +207,6 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         }
         else
             stubCrews.visibility = View.VISIBLE
-
 
         // Inflate the related movieList section.
         if (null != stubRelated.parent)
