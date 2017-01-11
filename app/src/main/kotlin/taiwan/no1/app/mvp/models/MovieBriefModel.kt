@@ -3,6 +3,7 @@ package taiwan.no1.app.mvp.models
 import android.os.Parcel
 import android.os.Parcelable
 import taiwan.no1.app.ui.adapter.viewtype.IViewTypeFactory
+import java.util.*
 
 /**
  * A movie brief information.
@@ -25,21 +26,17 @@ data class MovieBriefModel(val poster_path: String? = null,
                            val isVideo: Boolean = false,
                            val vote_average: Double = 0.toDouble(),
                            val genre_ids: List<Int>? = null): IVisitable, Parcelable {
+    override fun type(typeFactory: IViewTypeFactory): Int = typeFactory.type(MovieBriefModel@ this)
+
     companion object {
         @JvmField val CREATOR: Parcelable.Creator<MovieBriefModel> = object: Parcelable.Creator<MovieBriefModel> {
-            override fun createFromParcel(source: Parcel): MovieBriefModel {
-                return MovieBriefModel(source)
-            }
-
-            override fun newArray(size: Int): Array<MovieBriefModel?> {
-                return arrayOfNulls(size)
-            }
+            override fun createFromParcel(source: Parcel): MovieBriefModel = MovieBriefModel(source)
+            override fun newArray(size: Int): Array<MovieBriefModel?> = arrayOfNulls(size)
         }
     }
 
-    constructor(source: Parcel): this(
-            source.readString(),
-            source.readByte().toInt() != 0,
+    constructor(source: Parcel): this(source.readString(),
+            1 == source.readInt(),
             source.readString(),
             source.readString(),
             source.readInt(),
@@ -49,30 +46,26 @@ data class MovieBriefModel(val poster_path: String? = null,
             source.readString(),
             source.readDouble(),
             source.readInt(),
-            source.readByte().toInt() != 0,
+            1 == source.readInt(),
             source.readDouble(),
-            arrayListOf<Int>().apply { source.readList(this, Int::class.java.classLoader) })
+            ArrayList<Int>().apply { source.readList(this, Int::class.java.classLoader) })
 
-    override fun writeToParcel(dest: Parcel, flags: Int) {
-        dest.writeString(this.poster_path)
-        dest.writeByte(if (this.isAdult) 1.toByte() else 0.toByte())
-        dest.writeString(this.overview)
-        dest.writeString(this.release_date)
-        dest.writeInt(this.id)
-        dest.writeString(this.original_title)
-        dest.writeString(this.original_language)
-        dest.writeString(this.title)
-        dest.writeString(this.backdrop_path)
-        dest.writeDouble(this.popularity)
-        dest.writeInt(this.vote_count)
-        dest.writeByte(if (this.isVideo) 1.toByte() else 0.toByte())
-        dest.writeDouble(this.vote_average)
-        dest.writeList(this.genre_ids)
+    override fun describeContents() = 0
+
+    override fun writeToParcel(dest: Parcel?, flags: Int) {
+        dest?.writeString(poster_path)
+        dest?.writeInt((if (isAdult) 1 else 0))
+        dest?.writeString(overview)
+        dest?.writeString(release_date)
+        dest?.writeInt(id)
+        dest?.writeString(original_title)
+        dest?.writeString(original_language)
+        dest?.writeString(title)
+        dest?.writeString(backdrop_path)
+        dest?.writeDouble(popularity)
+        dest?.writeInt(vote_count)
+        dest?.writeInt((if (isVideo) 1 else 0))
+        dest?.writeDouble(vote_average)
+        dest?.writeList(genre_ids)
     }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    override fun type(typeFactory: IViewTypeFactory): Int = typeFactory.type(MovieBriefModel@ this)
 }

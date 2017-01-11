@@ -1,5 +1,7 @@
 package taiwan.no1.app.mvp.models
 
+import android.os.Parcel
+import android.os.Parcelable
 import taiwan.no1.app.ui.adapter.viewtype.IViewTypeFactory
 
 /**
@@ -15,6 +17,35 @@ data class MovieVideosModel(val id: String? = null,
                             val name: String? = null,
                             val site: String? = null,
                             val size: Int = 0,
-                            val type: String? = null): IVisitable {
+                            val type: String? = null): IVisitable, Parcelable {
     override fun type(typeFactory: IViewTypeFactory): Int = typeFactory.type(this)
+
+    companion object {
+        @JvmField val CREATOR: Parcelable.Creator<MovieVideosModel> = object: Parcelable.Creator<MovieVideosModel> {
+            override fun createFromParcel(source: Parcel): MovieVideosModel = MovieVideosModel(source)
+            override fun newArray(size: Int): Array<MovieVideosModel?> = arrayOfNulls(size)
+        }
+    }
+
+    constructor(source: Parcel): this(source.readString(),
+            source.readString(),
+            source.readString(),
+            source.readString(),
+            source.readString(),
+            source.readString(),
+            source.readInt(),
+            source.readString())
+
+    override fun describeContents() = 0
+
+    override fun writeToParcel(dest: Parcel?, flags: Int) {
+        dest?.writeString(id)
+        dest?.writeString(iso_639_1)
+        dest?.writeString(iso_3166_1)
+        dest?.writeString(key)
+        dest?.writeString(name)
+        dest?.writeString(site)
+        dest?.writeInt(size)
+        dest?.writeString(type)
+    }
 }

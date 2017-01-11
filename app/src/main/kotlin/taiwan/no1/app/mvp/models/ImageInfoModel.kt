@@ -18,13 +18,8 @@ data class ImageInfoModel(val aspect_ratio: Double = 0.toDouble(),
                           val width: Int = 0): Parcelable {
     companion object {
         @JvmField val CREATOR: Parcelable.Creator<ImageInfoModel> = object: Parcelable.Creator<ImageInfoModel> {
-            override fun createFromParcel(source: Parcel): ImageInfoModel {
-                return ImageInfoModel(source)
-            }
-
-            override fun newArray(size: Int): Array<ImageInfoModel?> {
-                return arrayOfNulls(size)
-            }
+            override fun createFromParcel(source: Parcel): ImageInfoModel = ImageInfoModel(source)
+            override fun newArray(size: Int): Array<ImageInfoModel?> = arrayOfNulls(size)
         }
     }
 
@@ -36,17 +31,15 @@ data class ImageInfoModel(val aspect_ratio: Double = 0.toDouble(),
             source.readInt(),
             source.readInt())
 
-    override fun writeToParcel(dest: Parcel, flags: Int) {
-        dest.writeDouble(this.aspect_ratio)
-        dest.writeString(this.file_path)
-        dest.writeInt(this.height)
-        dest.writeString(this.iso_639_1)
-        dest.writeDouble(this.vote_average)
-        dest.writeInt(this.vote_count)
-        dest.writeInt(this.width)
-    }
+    override fun describeContents() = 0
 
-    override fun describeContents(): Int {
-        return 0
+    override fun writeToParcel(dest: Parcel, flags: Int) {
+        dest.writeDouble(aspect_ratio)
+        dest.writeString(file_path)
+        dest.writeInt(height)
+        dest.writeString(iso_639_1)
+        dest.writeDouble(vote_average)
+        dest.writeInt(vote_count)
+        dest.writeInt(width)
     }
 }

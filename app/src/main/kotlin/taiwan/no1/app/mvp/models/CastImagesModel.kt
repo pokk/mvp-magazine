@@ -2,7 +2,6 @@ package taiwan.no1.app.mvp.models
 
 import android.os.Parcel
 import android.os.Parcelable
-import taiwan.no1.app.data.entities.ImageInfoEntity
 
 /**
  *
@@ -12,28 +11,17 @@ import taiwan.no1.app.data.entities.ImageInfoEntity
 
 data class CastImagesModel(val profiles: List<ImageInfoModel>? = null): Parcelable {
     companion object {
-        @JvmStatic val CREATOR: Parcelable.Creator<CastImagesModel> = object: Parcelable.Creator<CastImagesModel> {
-            override fun createFromParcel(source: Parcel): CastImagesModel {
-                return CastImagesModel(source)
-            }
-
-            override fun newArray(size: Int): Array<CastImagesModel?> {
-                return arrayOfNulls(size)
-            }
+        @JvmField val CREATOR: Parcelable.Creator<CastImagesModel> = object: Parcelable.Creator<CastImagesModel> {
+            override fun createFromParcel(source: Parcel): CastImagesModel = CastImagesModel(source)
+            override fun newArray(size: Int): Array<CastImagesModel?> = arrayOfNulls(size)
         }
     }
 
-    constructor(source: Parcel): this(
-            arrayListOf<ImageInfoModel>().apply {
-                source.readList(this, ImageInfoEntity::class.java.classLoader)
-            }
-    )
+    constructor(source: Parcel): this(source.createTypedArrayList(ImageInfoModel.CREATOR))
 
-    override fun writeToParcel(dest: Parcel, flags: Int) {
-        dest.writeList(this.profiles)
-    }
+    override fun describeContents() = 0
 
-    override fun describeContents(): Int {
-        return 0
+    override fun writeToParcel(dest: Parcel?, flags: Int) {
+        dest?.writeTypedList(profiles)
     }
 }
