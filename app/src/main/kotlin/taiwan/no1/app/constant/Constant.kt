@@ -11,5 +11,6 @@ object Constant {
     enum class Gender(val jobName: String) {
         Male("Actor"),
         Female("Actress"),
+        Unknown("Unknown"),
     }
 }

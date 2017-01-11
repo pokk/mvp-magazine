@@ -113,7 +113,7 @@ public class CreditsEntity {
         private int id;
         private String job;
         private String original_title;
-        private Object poster_path;
+        private String poster_path;
         private String release_date;
         private String title;
         private String media_type;
@@ -142,9 +142,9 @@ public class CreditsEntity {
 
         public void setOriginal_title(String original_title) { this.original_title = original_title;}
 
-        public Object getPoster_path() { return poster_path;}
+        public String getPoster_path() { return poster_path;}
 
-        public void setPoster_path(Object poster_path) { this.poster_path = poster_path;}
+        public void setPoster_path(String poster_path) { this.poster_path = poster_path;}
 
         public String getRelease_date() { return release_date;}
 
