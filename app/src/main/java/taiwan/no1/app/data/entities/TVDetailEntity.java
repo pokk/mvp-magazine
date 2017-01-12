@@ -8,35 +8,6 @@ import java.util.List;
 
 public class TVDetailEntity {
 
-    /**
-     * backdrop_path : /mUkuc2wyV9dHLG0D0Loaw5pO2s8.jpg
-     * created_by : [{"id":9813,"name":"David Benioff","profile_path":"/8CuuNIKMzMUL1NKOPv9AqEwM7og.jpg"},{"id":228068,"name":"D. B. Weiss","profile_path":"/caUAtilEe06OwOjoQY3B7BgpARi.jpg"}]
-     * episode_run_time : [60]
-     * first_air_date : 2011-04-17
-     * genres : [{"id":10765,"name":"Sci-Fi & Fantasy"},{"id":10759,"name":"Action & Adventure"},{"id":18,"name":"Drama"}]
-     * homepage : http://www.hbo.com/game-of-thrones
-     * id : 1399
-     * in_production : true
-     * languages : ["es","en","de"]
-     * last_air_date : 2016-06-26
-     * name : Game of Thrones
-     * networks : [{"id":49,"name":"HBO"}]
-     * number_of_episodes : 51
-     * number_of_seasons : 6
-     * origin_country : ["US"]
-     * original_language : en
-     * original_name : Game of Thrones
-     * overview : Seven noble families fight for control of the mythical land of Westeros. Friction between the houses leads to full-scale war. All while a very ancient evil awakens in the farthest north. Amidst the war, a neglected military order of misfits, the Night's Watch, is all that stands between the realms of men and icy horrors beyond.
-     * popularity : 28.780826
-     * poster_path : /jIhL6mlT7AblhbHJgEoiBIOUVl1.jpg
-     * production_companies : [{"name":"Home Box Office (HBO)","id":3268},{"name":"Generator Entertainment","id":5820},{"name":"Television 360","id":12525},{"name":"Bighead Littlehead","id":12526},{"name":"Revolution Sun Studios","id":76043}]
-     * seasons : [{"air_date":"2010-12-05","episode_count":13,"id":3627,"poster_path":"/kMTcwNRfFKCZ0O2OaBZS0nZ2AIe.jpg","season_number":0},{"air_date":"2011-04-17","episode_count":10,"id":3624,"poster_path":"/olJ6ivXxCMq3cfujo1IRw30OrsQ.jpg","season_number":1},{"air_date":"2012-04-01","episode_count":10,"id":3625,"poster_path":"/3U8IVLqitMHMuEAgkuz8qReguHd.jpg","season_number":2},{"air_date":"2013-03-31","episode_count":10,"id":3626,"poster_path":"/eVWAat0GqF6s5LLThrI7ClpKr96.jpg","season_number":3},{"air_date":"2014-04-06","episode_count":10,"id":3628,"poster_path":"/dniQ7zw3mbLJkd1U0gdFEh4b24O.jpg","season_number":4},{"air_date":"2015-04-12","episode_count":10,"id":62090,"poster_path":"/yKOltUHsp9X7dXWIm0hNGcIQa4G.jpg","season_number":5},{"air_date":"2016-04-24","episode_count":10,"id":71881,"poster_path":"/zvYrzLMfPIenxoq2jFY4eExbRv8.jpg","season_number":6}]
-     * status : Returning Series
-     * type : Scripted
-     * vote_average : 7.9
-     * vote_count : 1174
-     */
-
     private String backdrop_path;
     private String first_air_date;
     private String homepage;
@@ -55,6 +26,9 @@ public class TVDetailEntity {
     private String type;
     private double vote_average;
     private int vote_count;
+    private MovieDetailEntity.VideosBean videos;
+    private MovieImagesEntity images;
+    private MovieListResEntity similar;
     private List<CreatedByBean> created_by;
     private List<Integer> episode_run_time;
     private List<GenresBean> genres;
@@ -208,6 +182,30 @@ public class TVDetailEntity {
         this.vote_count = vote_count;
     }
 
+    public MovieDetailEntity.VideosBean getVideos() {
+        return videos;
+    }
+
+    public void setVideos(MovieDetailEntity.VideosBean videos) {
+        this.videos = videos;
+    }
+
+    public MovieImagesEntity getImages() {
+        return images;
+    }
+
+    public void setImages(MovieImagesEntity images) {
+        this.images = images;
+    }
+
+    public MovieListResEntity getSimilar() {
+        return similar;
+    }
+
+    public void setSimilar(MovieListResEntity similar) {
+        this.similar = similar;
+    }
+
     public List<CreatedByBean> getCreated_by() {
         return created_by;
     }
@@ -274,9 +272,9 @@ public class TVDetailEntity {
 
     public static class CreatedByBean {
         /**
-         * id : 9813
-         * name : David Benioff
-         * profile_path : /8CuuNIKMzMUL1NKOPv9AqEwM7og.jpg
+         * id : 37631
+         * name : Michael Hirst
+         * profile_path : /pV1GW5TiYgkjaXF4ZdRZHXwmh5W.jpg
          */
 
         private int id;
@@ -310,8 +308,8 @@ public class TVDetailEntity {
 
     public static class GenresBean {
         /**
-         * id : 10765
-         * name : Sci-Fi & Fantasy
+         * id : 18
+         * name : Drama
          */
 
         private int id;
@@ -336,8 +334,8 @@ public class TVDetailEntity {
 
     public static class NetworksBean {
         /**
-         * id : 49
-         * name : HBO
+         * id : 238
+         * name : History
          */
 
         private int id;
@@ -362,8 +360,8 @@ public class TVDetailEntity {
 
     public static class ProductionCompaniesBean {
         /**
-         * name : Home Box Office (HBO)
-         * id : 3268
+         * name : Shaw Media
+         * id : 7224
          */
 
         private String name;
@@ -388,10 +386,10 @@ public class TVDetailEntity {
 
     public static class SeasonsBean {
         /**
-         * air_date : 2010-12-05
-         * episode_count : 13
-         * id : 3627
-         * poster_path : /kMTcwNRfFKCZ0O2OaBZS0nZ2AIe.jpg
+         * air_date : 2013-02-25
+         * episode_count : 2
+         * id : 53335
+         * poster_path : /woP1jNltcWMLqK6pcFqPJq6pyJ6.jpg
          * season_number : 0
          */
 
