@@ -27,12 +27,14 @@ class HorizontalPagerAdapter(val context: Context,
 
     private val layoutInflater: LayoutInflater by lazy { LayoutInflater.from(this.context) }
 
+    override fun isViewFromObject(view: View, `object`: Any): Boolean = view == `object`
+
     override fun getCount(): Int = if (isTwoWay) 6 else this.imageLists.size
 
     override fun getItemPosition(`object`: Any?): Int = PagerAdapter.POSITION_NONE
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val view: View = layoutInflater.inflate(R.layout.item_gallery, container, false)
+        val view: View = this.layoutInflater.inflate(R.layout.item_gallery, container, false)
         val ivPoster: ImageView = view.findViewById(R.id.img_item) as ImageView
         val cvFrame: CardView = view.findViewById(R.id.cv_frame) as CardView
         //        if (isTwoWay) {
@@ -79,8 +81,6 @@ class HorizontalPagerAdapter(val context: Context,
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
         container.removeView(`object` as View)
     }
-
-    override fun isViewFromObject(view: View, `object`: Any): Boolean = view == `object`
 
     private fun resizeImageView(cardView: CardView, height: Int, width: Int) {
         val layoutParams = cardView.layoutParams

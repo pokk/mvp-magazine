@@ -15,21 +15,18 @@ import taiwan.no1.app.R
  */
 
 class BottomPagerAdapter(val context: Context): PagerAdapter() {
+    private val layoutInflater: LayoutInflater by lazy { LayoutInflater.from(this.context) }
 
-    override fun isViewFromObject(view: View?, `object`: Any?): Boolean {
-        return view == `object`
-    }
+    override fun isViewFromObject(view: View?, `object`: Any?): Boolean = view == `object`
 
-    override fun getCount(): Int {
-        return 3
-    }
+    override fun getCount(): Int = 3
 
     override fun destroyItem(container: View?, position: Int, `object`: Any?) {
         (container as ViewPager).removeView(`object` as View?)
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val view = LayoutInflater.from(this.context).inflate(R.layout.fragment_movie_list, null, false)
+        val view = this.layoutInflater.inflate(R.layout.fragment_movie_list, null, false)
 
         container.addView(view)
         return view

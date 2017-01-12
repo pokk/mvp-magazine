@@ -61,7 +61,7 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
     @Inject lateinit var presenter: CastDetailContract.Presenter
 
     //region View variables
-    private val ivDropPoster by bindView<DiagonalView>(R.id.dv_poster)
+    private val ivDropPoster by bindView<DiagonalView>(R.id.dv_drop_poster)
     private val ivPersonPoster by bindView<ImageView>(R.id.iv_person)
     private val tvName by bindView<TextView>(R.id.tv_name)
     private val tvJob by bindView<TextView>(R.id.tv_job)

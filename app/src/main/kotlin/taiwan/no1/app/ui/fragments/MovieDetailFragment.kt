@@ -3,6 +3,7 @@ package taiwan.no1.app.ui.fragments
 import android.graphics.Color
 import android.os.Bundle
 import android.support.annotation.LayoutRes
+import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -12,9 +13,7 @@ import android.widget.TextView
 import butterknife.bindView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.hwangjr.rxbus.RxBus
 import com.intrusoft.squint.DiagonalView
-import com.touchin.constant.RxbusTag
 import taiwan.no1.app.R
 import taiwan.no1.app.api.config.MovieDBConfig
 import taiwan.no1.app.internal.di.annotations.PerFragment
@@ -26,6 +25,7 @@ import taiwan.no1.app.mvp.models.MovieDetailModel
 import taiwan.no1.app.mvp.models.MovieVideosModel
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
+import taiwan.no1.app.ui.adapter.DropMoviePagerAdapter
 import taiwan.no1.app.ui.adapter.itemdecorator.MovieHorizontalItemDecorator
 import javax.inject.Inject
 import kotlin.reflect.KClass
@@ -63,7 +63,8 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     lateinit var presenter: MovieDetailContract.Presenter
 
     //region View variables
-    private val ivDropPoster by bindView<DiagonalView>(R.id.dv_poster)
+    private val ivDropPoster by bindView<DiagonalView>(R.id.dv_drop_poster)
+    private val vpDropPoster by bindView<ViewPager>(R.id.vp_drop_poster)
     private val ivMoviePoster by bindView<ImageView>(R.id.iv_movie_poster)
     private val tvReleaseDate by bindView<TextView>(R.id.tv_release_date)
     private val tvTitle by bindView<TextView>(R.id.tv_title)
@@ -152,12 +153,12 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         this.movieDetail = movieDetailModel
 
         // Inflate the introduction section.
-        Glide.with(this.context.applicationContext).
-                load(MovieDBConfig.BASE_IMAGE_URL + movieDetailModel.backdrop_path).
-                fitCenter().
-                diskCacheStrategy(DiskCacheStrategy.SOURCE).
-                listener(this.clearDiagonalViewListener(this.ivDropPoster)).
-                into(this.ivDropPoster)
+//        Glide.with(this.context.applicationContext).
+//                load(MovieDBConfig.BASE_IMAGE_URL + movieDetailModel.backdrop_path).
+//                fitCenter().
+//                diskCacheStrategy(DiskCacheStrategy.SOURCE).
+//                listener(this.clearDiagonalViewListener(this.ivDropPoster)).
+//                into(this.ivDropPoster)
         Glide.with(this.context.applicationContext).
                 load(MovieDBConfig.BASE_IMAGE_URL + movieDetailModel.poster_path).
                 fitCenter().
@@ -167,11 +168,15 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         this.tvReleaseDate.text = movieDetailModel.release_date
         this.tvTitle.setBackgroundColor(Color.TRANSPARENT)
         this.tvTitle.text = movieDetailModel.title
-        this.ivDropPoster.setOnClickListener {
-            RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
-                    Pair(MovieListFragment.NAVIGATOR_ARG_FRAGMENT,
-                            MovieGalleryFragment.newInstance(this.movieDetail?.images)),
-                    Pair(MovieListFragment.NAVIGATOR_ARG_TAG, argFromFragment)))
+
+//        this.ivDropPoster.setOnClickListener {
+//            RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
+//                    Pair(MovieListFragment.NAVIGATOR_ARG_FRAGMENT,
+//                            MovieGalleryFragment.newInstance(this.movieDetail?.images)),
+//                    Pair(MovieListFragment.NAVIGATOR_ARG_TAG, argFromFragment)))
+//        }
+        this.vpDropPoster.adapter = movieDetailModel.images?.backdrops?.let {
+            DropMoviePagerAdapter(this.context, it)
         }
 
         if (null != stubIntro.parent) {

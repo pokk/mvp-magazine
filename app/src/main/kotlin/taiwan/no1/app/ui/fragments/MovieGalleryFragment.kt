@@ -110,10 +110,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
      */
     override fun init(savedInstanceState: Bundle?) {
         AppLog.v(this.argMovieImages)
-        val lists: List<ImageInfoModel> = (this.argMovieImages?.let {
-            (it.posters?.filter { it.iso_639_1 == "en" } ?: ArrayList()) + (it.backdrops ?: ArrayList())
-        } ?: this.argCastImages?.let(CastImagesModel::profiles))
-                ?: ArrayList()
+        val lists: List<ImageInfoModel> = this.argMovieImages?.posters?.filter { it.iso_639_1 == "en" } ?: ArrayList()
 
         // TODO: 2017/01/12 Make the card frame to fit the image size.
         this.hicvpGallery.viewTreeObserver.addOnGlobalLayoutListener {
