@@ -115,7 +115,15 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
         } ?: this.argCastImages?.let(CastImagesModel::profiles))
                 ?: ArrayList()
 
+        // TODO: 2017/01/12 Make the card frame to fit the image size.
+        this.hicvpGallery.viewTreeObserver.addOnGlobalLayoutListener {
+            AppLog.w(this.hicvpGallery.height, this.hicvpGallery.width)
+            (this.hicvpGallery.adapter as HorizontalPagerAdapter).itemHeight = this.hicvpGallery.height
+            (this.hicvpGallery.adapter as HorizontalPagerAdapter).itemWidth = this.hicvpGallery.width
+        }
         this.hicvpGallery.adapter = HorizontalPagerAdapter(this.context, false, lists)
+        (this.hicvpGallery.adapter as HorizontalPagerAdapter).itemHeight = this.hicvpGallery.height
+        (this.hicvpGallery.adapter as HorizontalPagerAdapter).itemWidth = this.hicvpGallery.width
     }
     //endregion
 }

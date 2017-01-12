@@ -2,6 +2,7 @@ package taiwan.no1.app.ui.adapter
 
 import android.content.Context
 import android.support.v4.view.PagerAdapter
+import android.support.v7.widget.CardView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import taiwan.no1.app.R
 import taiwan.no1.app.api.config.MovieDBConfig
 import taiwan.no1.app.mvp.models.ImageInfoModel
 
+
 /**
  * @author Jieyi
  * @since 11/1/17
@@ -20,16 +22,21 @@ import taiwan.no1.app.mvp.models.ImageInfoModel
 class HorizontalPagerAdapter(val context: Context,
                              val isTwoWay: Boolean,
                              val imageLists: List<ImageInfoModel>): PagerAdapter() {
-    private val mLayoutInflater: LayoutInflater by lazy { LayoutInflater.from(this.context) }
+    var itemHeight: Int = 0
+    var itemWidth: Int = 0
+
+    private val layoutInflater: LayoutInflater by lazy { LayoutInflater.from(this.context) }
 
     override fun getCount(): Int = if (isTwoWay) 6 else this.imageLists.size
 
     override fun getItemPosition(`object`: Any?): Int = PagerAdapter.POSITION_NONE
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val view: View = mLayoutInflater.inflate(R.layout.item_gallery, container, false)
+        val view: View = layoutInflater.inflate(R.layout.item_gallery, container, false)
+        val ivPoster: ImageView = view.findViewById(R.id.img_item) as ImageView
+        val cvFrame: CardView = view.findViewById(R.id.cv_frame) as CardView
         //        if (isTwoWay) {
-        //            view = mLayoutInflater.inflate(R.layout.two_way_item, container, false);
+        //            view = layoutInflater.inflate(R.layout.two_way_item, container, false);
         //
         //            final VerticalInfiniteCycleViewPager verticalInfiniteCycleViewPager =
         //                    (VerticalInfiniteCycleViewPager) view.findViewById(R.id.vicvp);
@@ -41,7 +48,25 @@ class HorizontalPagerAdapter(val context: Context,
         //            setupItem(view, LIBRARIES[position]);
         //        }
 
-        val ivPoster: ImageView = view.findViewById(R.id.img_item) as ImageView
+//        var newHeight: Int = 0
+//        var newWidth: Int = 0
+//        var rate: Float = 0f
+//
+//        AppLog.w(view.height, view.width, position)
+//
+//        if (this.imageLists[position].height > this.imageLists[position].width) {
+//            newHeight = Math.min(cvFrame.layoutParams.height, this.imageLists[position].height)
+//            rate = (this.imageLists[position].height / newHeight).toFloat()
+//            newWidth = (this.imageLists[position].width * rate).toInt()
+//        }
+//        else {
+//            newWidth = Math.min(cvFrame.layoutParams.width, this.imageLists[position].width)
+//            rate = (this.imageLists[position].width / newWidth).toFloat()
+//            newHeight = (this.imageLists[position].width * rate).toInt()
+//        }
+//        AppLog.w(newHeight, newWidth)
+//        resizeImageView(cvFrame, newHeight, newWidth)
+
         Glide.with(this.context.applicationContext).
                 load(MovieDBConfig.BASE_IMAGE_URL + this.imageLists[position].file_path).
                 fitCenter().
@@ -56,4 +81,11 @@ class HorizontalPagerAdapter(val context: Context,
     }
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean = view == `object`
+
+    private fun resizeImageView(cardView: CardView, height: Int, width: Int) {
+        val layoutParams = cardView.layoutParams
+        layoutParams.height = height
+        layoutParams.width = width
+        cardView.layoutParams = layoutParams
+    }
 }

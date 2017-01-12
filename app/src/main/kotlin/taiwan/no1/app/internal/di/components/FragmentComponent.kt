@@ -13,8 +13,8 @@ import taiwan.no1.app.ui.fragments.*
  */
 
 @PerFragment
-@Component(dependencies = arrayOf(AppComponent::class)
-        , modules = arrayOf(FragmentModule::class, FragmentUseCaseModule::class))
+@Component(dependencies = arrayOf(AppComponent::class),
+        modules = arrayOf(FragmentModule::class, FragmentUseCaseModule::class))
 interface FragmentComponent {
     object Initializer {
         fun init(appComponent: AppComponent): FragmentComponent = DaggerFragmentComponent.builder()
@@ -27,6 +27,8 @@ interface FragmentComponent {
     /**
      * After injected a fragment, the presenter of the fragment should be provided in [FragmentModule].
      */
+
+    fun inject(movieMainFragment: MovieMainFragment)
 
     fun inject(movieListFragment: MovieListFragment)
 

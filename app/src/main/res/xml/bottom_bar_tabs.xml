@@ -2,14 +2,14 @@
 <tabs>
     <tab
         icon="@drawable/movie_24"
-        id="@+id/tab_recents"
+        id="@+id/tab_movies"
         title="Movie"/>
     <tab
         icon="@drawable/tv_24"
-        id="@+id/tab_favorites"
+        id="@+id/tab_tv_dramas"
         title="TV Show"/>
     <tab
         icon="@drawable/people_24"
-        id="@+id/people"
+        id="@+id/tab_people"
         title="People"/>
 </tabs>

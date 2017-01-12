@@ -19,6 +19,10 @@ import taiwan.no1.app.mvp.presenters.*
 class FragmentModule {
     @Provides
     @PerFragment
+    fun provideMovieMainPresenter(): MovieMainContract.Presenter = MovieMainPresenter()
+
+    @Provides
+    @PerFragment
     fun provideMovieListPresenter(movies: MovieLists): MovieListContract.Presenter =
             MovieListPresenter(movies)
 
