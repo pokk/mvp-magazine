@@ -12,7 +12,7 @@ import taiwan.no1.app.mvp.views.IView
  * @since   1/7/17
  */
 
-interface TVListContract {
+interface TvListContract {
     interface Presenter: IPresenter<View>
 
     interface View: IView, IFragmentView

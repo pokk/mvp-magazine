@@ -5,7 +5,7 @@ import javax.inject.Inject
 
 /**
  *
- * @author  jieyi
+ * @author  Jieyi
  * @version 0.0.1
  * @since   2017/01/12
  */

@@ -9,10 +9,10 @@ import taiwan.no1.app.mvp.views.IView
  *
  * @author  Jieyi
  * @version 0.0.1
- * @since   2017/01/12
+ * @since   1/12/17
  */
 
-interface MovieMainContract {
+interface ActressMainContract {
     interface Presenter: IPresenter<View>
 
     interface View: IView, IFragmentView

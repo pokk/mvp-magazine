@@ -5,17 +5,17 @@ import android.support.annotation.LayoutRes
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
-import taiwan.no1.app.mvp.contracts.TvListContract
+import taiwan.no1.app.mvp.contracts.ActressMainContract
 import taiwan.no1.app.ui.BaseFragment
 import javax.inject.Inject
 
 /**
  *
  * @author  Jieyi
- * @since   1/7/17
+ * @since   1/12/17
  */
 @PerFragment
-class TvListFragment: BaseFragment(), TvListContract.View {
+class ActressMainFragment: BaseFragment(), ActressMainContract.View {
     //region Static initialization
     companion object Factory {
         // The key name of the fragment initialization parameters.
@@ -23,16 +23,16 @@ class TvListFragment: BaseFragment(), TvListContract.View {
         /**
          * Use this factory method to create a new instance of this fragment using the provided parameters.
          *
-         * @return A new instance of [fragment] TVListFragment.
+         * @return A new instance of [fragment] ActressMainFragment.
          */
-        fun newInstance(): TvListFragment = TvListFragment().apply {
+        fun newInstance(): ActressMainFragment = ActressMainFragment().apply {
             this.arguments = Bundle().apply {}
         }
     }
     //endregion
 
     @Inject
-    lateinit var presenter: TvListContract.Presenter
+    lateinit var presenter: ActressMainContract.Presenter
 
     // Get the arguments from the bundle here.
 
@@ -60,7 +60,7 @@ class TvListFragment: BaseFragment(), TvListContract.View {
      * Inject this fragment and [FragmentComponent].
      */
     override fun inject() {
-        this.getComponent(FragmentComponent::class.java, null).inject(TVListFragment@ this)
+        this.getComponent(FragmentComponent::class.java, null).inject(ActressMainFragment@ this)
     }
 
     /**
@@ -69,13 +69,13 @@ class TvListFragment: BaseFragment(), TvListContract.View {
      * @return [LayoutRes] xml layout.
      */
     @LayoutRes
-    override fun inflateView(): Int = R.layout.fragment_tvs
+    override fun inflateView(): Int = R.layout.fragment_actresses
 
     /**
      * Set the presenter initialization in [onCreateView].
      */
     override fun initPresenter() {
-        this.presenter.init(TVListFragment@ this)
+        this.presenter.init(ActressMainFragment@ this)
     }
 
     /**
@@ -85,8 +85,5 @@ class TvListFragment: BaseFragment(), TvListContract.View {
      */
     override fun init(savedInstanceState: Bundle?) {
     }
-    //endregion
-
-    //region View implementations
     //endregion
 }

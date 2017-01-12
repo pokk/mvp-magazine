@@ -2,7 +2,7 @@ package taiwan.no1.app.constant
 
 /**
  *
- * @author  jieyi
+ * @author  Jieyi
  * @version 0.0.1
  * @since   2017/01/11
  */

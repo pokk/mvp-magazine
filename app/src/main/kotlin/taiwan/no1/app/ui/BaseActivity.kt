@@ -173,7 +173,9 @@ abstract class BaseActivity: RxAppCompatActivity(), IView, IActivityView {
         this.supportFragmentManager.popBackStack()
     }
 
-    // TODO: 2017/01/12 Add a comment. 
+    /**
+     * Clear all [Fragment] in the stack.
+     */
     protected fun popAllFragment() {
         for (index in 0..this.supportFragmentManager.backStackEntryCount - 1)
             this.popFragment()
