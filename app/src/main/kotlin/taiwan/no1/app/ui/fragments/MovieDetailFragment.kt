@@ -13,7 +13,6 @@ import android.widget.TextView
 import butterknife.bindView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.intrusoft.squint.DiagonalView
 import taiwan.no1.app.R
 import taiwan.no1.app.api.config.MovieDBConfig
 import taiwan.no1.app.internal.di.annotations.PerFragment
@@ -63,7 +62,6 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     lateinit var presenter: MovieDetailContract.Presenter
 
     //region View variables
-    private val ivDropPoster by bindView<DiagonalView>(R.id.dv_drop_poster)
     private val vpDropPoster by bindView<ViewPager>(R.id.vp_drop_poster)
     private val ivMoviePoster by bindView<ImageView>(R.id.iv_movie_poster)
     private val tvReleaseDate by bindView<TextView>(R.id.tv_release_date)
@@ -153,12 +151,15 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         this.movieDetail = movieDetailModel
 
         // Inflate the introduction section.
-//        Glide.with(this.context.applicationContext).
-//                load(MovieDBConfig.BASE_IMAGE_URL + movieDetailModel.backdrop_path).
-//                fitCenter().
-//                diskCacheStrategy(DiskCacheStrategy.SOURCE).
-//                listener(this.clearDiagonalViewListener(this.ivDropPoster)).
-//                into(this.ivDropPoster)
+        this.vpDropPoster.adapter = movieDetailModel.images?.let {
+            if (null != it.backdrops && null != it.posters)
+                DropMoviePagerAdapter(this.context,
+                        it.backdrops,
+                        it.posters.filter { "en" == it.iso_639_1 },
+                        argFromFragment)
+            else
+                null
+        }
         Glide.with(this.context.applicationContext).
                 load(MovieDBConfig.BASE_IMAGE_URL + movieDetailModel.poster_path).
                 fitCenter().
@@ -169,15 +170,6 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         this.tvTitle.setBackgroundColor(Color.TRANSPARENT)
         this.tvTitle.text = movieDetailModel.title
 
-//        this.ivDropPoster.setOnClickListener {
-//            RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
-//                    Pair(MovieListFragment.NAVIGATOR_ARG_FRAGMENT,
-//                            MovieGalleryFragment.newInstance(this.movieDetail?.images)),
-//                    Pair(MovieListFragment.NAVIGATOR_ARG_TAG, argFromFragment)))
-//        }
-        this.vpDropPoster.adapter = movieDetailModel.images?.backdrops?.let {
-            DropMoviePagerAdapter(this.context, it)
-        }
 
         if (null != stubIntro.parent) {
             stubIntro.inflate()

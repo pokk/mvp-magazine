@@ -2,19 +2,17 @@ package taiwan.no1.app.ui.fragments
 
 import android.os.Bundle
 import android.support.annotation.LayoutRes
+import android.widget.ImageView
 import butterknife.bindView
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.contracts.MovieGalleryContract
-import taiwan.no1.app.mvp.models.CastImagesModel
 import taiwan.no1.app.mvp.models.ImageInfoModel
-import taiwan.no1.app.mvp.models.MovieImagesModel
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.HorizontalPagerAdapter
 import taiwan.no1.app.utilies.AppLog
-import java.util.*
 import javax.inject.Inject
 
 /**
@@ -28,19 +26,17 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
     //region Static initialization
     companion object Factory {
         // The key name of the fragment initialization parameters.
-        private val ARG_PARAM_MOVIE_IMAGES: String = "param_movie_images"
-        private val ARG_PARAM_CAST_IMAGES: String = "param_cast_images"
+        private val ARG_PARAM_IMAGES: String = "param_images"
 
         /**
          * Use this factory method to create a new instance of this fragment using the provided parameters.
          *
          * @return A new instance of [fragment] MovieGalleryFragment.
          */
-        fun newInstance(movies: MovieImagesModel? = null, casts: CastImagesModel? = null):
+        fun newInstance(movies: List<ImageInfoModel>? = null):
                 MovieGalleryFragment = MovieGalleryFragment().apply {
             this.arguments = Bundle().apply {
-                this.putParcelable(ARG_PARAM_MOVIE_IMAGES, movies)
-                this.putParcelable(ARG_PARAM_CAST_IMAGES, casts)
+                this.putParcelableArray(ARG_PARAM_IMAGES, movies?.toTypedArray())
             }
         }
     }
@@ -51,14 +47,12 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
 
     //region View variables
     private val hicvpGallery by bindView<HorizontalInfiniteCycleViewPager>(R.id.hicvp_gallery)
+    private val ivBackground by bindView<ImageView>(R.id.iv_gallery_background)
     //endregion
 
     // Get the arguments from the bundle here.
-    private val argMovieImages: MovieImagesModel? by lazy {
-        this.arguments.getParcelable<MovieImagesModel>(ARG_PARAM_MOVIE_IMAGES)
-    }
-    private val argCastImages: CastImagesModel? by lazy {
-        this.arguments.getParcelable<CastImagesModel>(ARG_PARAM_CAST_IMAGES)
+    private val argMovieImages: List<ImageInfoModel>? by lazy {
+        this.arguments.getParcelableArray(ARG_PARAM_IMAGES).toList() as List<ImageInfoModel>
     }
 
     //region Fragment lifecycle
@@ -110,16 +104,16 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
      */
     override fun init(savedInstanceState: Bundle?) {
         AppLog.v(this.argMovieImages)
-        val lists: List<ImageInfoModel> = this.argMovieImages?.posters?.filter { it.iso_639_1 == "en" } ?: ArrayList()
-
         // TODO: 2017/01/12 Make the card frame to fit the image size.
-        this.hicvpGallery.viewTreeObserver.addOnGlobalLayoutListener {
-            (this.hicvpGallery.adapter as HorizontalPagerAdapter).itemHeight = this.hicvpGallery.height
-            (this.hicvpGallery.adapter as HorizontalPagerAdapter).itemWidth = this.hicvpGallery.width
+//        this.hicvpGallery.viewTreeObserver.addOnGlobalLayoutListener {
+//            (this.hicvpGallery.adapter as HorizontalPagerAdapter).itemHeight = this.hicvpGallery.height
+//            (this.hicvpGallery.adapter as HorizontalPagerAdapter).itemWidth = this.hicvpGallery.width
+//        }
+        this.hicvpGallery.adapter = argMovieImages?.let {
+            HorizontalPagerAdapter(this.context, false, this.ivBackground, it)
         }
-        this.hicvpGallery.adapter = HorizontalPagerAdapter(this.context, false, lists)
-        (this.hicvpGallery.adapter as HorizontalPagerAdapter).itemHeight = this.hicvpGallery.height
-        (this.hicvpGallery.adapter as HorizontalPagerAdapter).itemWidth = this.hicvpGallery.width
+//        (this.hicvpGallery.adapter as HorizontalPagerAdapter).itemHeight = this.hicvpGallery.height
+//        (this.hicvpGallery.adapter as HorizontalPagerAdapter).itemWidth = this.hicvpGallery.width
     }
     //endregion
 }

@@ -135,7 +135,6 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
 
     //region View implementations
     override fun showCastDetail(castDetailModel: CastDetailModel) {
-        // Inflate the introduction section.
         val imageUrl = castDetailModel.images?.let { it.profiles?.let { if (it.size > 1) it[1].file_path else it[0].file_path } }
 
         Glide.with(this.context.applicationContext).
@@ -152,15 +151,19 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
         this.ivDropPoster.setOnClickListener {
             RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
                     Pair(MovieListFragment.NAVIGATOR_ARG_FRAGMENT,
-                            MovieGalleryFragment.newInstance(null, castDetailModel.images)),
+                            MovieGalleryFragment.newInstance(castDetailModel.images?.profiles)),
                     Pair(MovieListFragment.NAVIGATOR_ARG_TAG, argFromFragment)))
         }
+        this.tvJob.apply {
+            this.setBackgroundColor(Color.TRANSPARENT)
+            this.text = Constant.Gender.values()[castDetailModel.gender].jobName
+        }
+        this.tvName.apply {
+            this.setBackgroundColor(Color.TRANSPARENT)
+            this.text = castDetailModel.name
+        }
 
-        this.tvJob.setBackgroundColor(Color.TRANSPARENT)
-        this.tvJob.text = Constant.Gender.values()[castDetailModel.gender].jobName
-        this.tvName.setBackgroundColor(Color.TRANSPARENT)
-        this.tvName.text = castDetailModel.name
-
+        // Inflate the introduction section.
         if (null != stubIntro.parent) {
             stubIntro.inflate()
             this.tvBio.text = castDetailModel.biography
