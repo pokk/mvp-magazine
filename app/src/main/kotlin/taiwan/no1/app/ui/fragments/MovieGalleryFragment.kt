@@ -1,10 +1,15 @@
 package taiwan.no1.app.ui.fragments
 
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.support.annotation.LayoutRes
+import android.support.v4.view.ViewPager.SCROLL_STATE_IDLE
+import android.view.ViewGroup
 import android.widget.ImageView
 import butterknife.bindView
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
+import com.jakewharton.rxbinding.support.v4.view.pageScrollStateChanges
+import jp.wasabeef.blurry.Blurry
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
@@ -12,7 +17,6 @@ import taiwan.no1.app.mvp.contracts.MovieGalleryContract
 import taiwan.no1.app.mvp.models.ImageInfoModel
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.HorizontalPagerAdapter
-import taiwan.no1.app.utilies.AppLog
 import javax.inject.Inject
 
 /**
@@ -103,14 +107,41 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
      * @param savedInstanceState the previous fragment data status after the system calls [onPause].
      */
     override fun init(savedInstanceState: Bundle?) {
-        AppLog.v(this.argMovieImages)
-        // TODO: 2017/01/12 Make the card frame to fit the image size.
+        var currPosition: Int = 0
+        var prevPosition: Int = -1
+
+        // FIXME: 2017/01/12 Make the card frame to fit the image size.
 //        this.hicvpGallery.viewTreeObserver.addOnGlobalLayoutListener {
 //            (this.hicvpGallery.adapter as HorizontalPagerAdapter).itemHeight = this.hicvpGallery.height
 //            (this.hicvpGallery.adapter as HorizontalPagerAdapter).itemWidth = this.hicvpGallery.width
 //        }
-        this.hicvpGallery.adapter = argMovieImages?.let {
-            HorizontalPagerAdapter(this.context, false, this.ivBackground, it)
+        this.hicvpGallery.apply {
+            this.adapter = argMovieImages?.let {
+                HorizontalPagerAdapter(this.context, false, ivBackground, it)
+            }
+            // Set the current blur image in viewpager's background.
+            this.pageScrollStateChanges().subscribe {
+                when (it) {
+                    SCROLL_STATE_IDLE -> {
+                        // Avoiding to slide at the same page then setting the same image many times. So keeping
+                        // the previous position and the current position.
+                        currPosition = hicvpGallery.currentItem
+                        if (currPosition != prevPosition) {
+                            ((hicvpGallery.getChildAt(hicvpGallery.childCount - 1) as ViewGroup).
+                                    findViewById(R.id.img_item) as ImageView).let {
+                                // FIXME: 2017/01/13 The first image won't be showed.
+                                it.drawable?.let {
+                                    Blurry.with(this.context).
+                                            radius(25).
+                                            from((it as BitmapDrawable).bitmap).
+                                            into(ivBackground)
+                                }
+                            }
+                        }
+                        prevPosition = currPosition
+                    }
+                }
+            }
         }
 //        (this.hicvpGallery.adapter as HorizontalPagerAdapter).itemHeight = this.hicvpGallery.height
 //        (this.hicvpGallery.adapter as HorizontalPagerAdapter).itemWidth = this.hicvpGallery.width

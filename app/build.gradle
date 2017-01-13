@@ -13,8 +13,6 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        renderscriptTargetApi 19
-        renderscriptSupportModeEnabled true
     }
     sourceSets {
         main.java.srcDirs += 'src/main/java'
@@ -83,9 +81,11 @@ dependencies {
     // Bottom bar
     compile "com.roughike:bottom-bar:${bottom_bar_version}"
     compile "com.github.IntruderShanky:Squint:${squint_version}"
-    compile 'com.github.devlight.navigationtabstrip:navigationtabstrip:1.0.4'
-    compile 'com.github.devlight:infinitecycleviewpager:1.0.2'
-    compile 'com.github.jrvansuita:GaussianBlur:v1.0.2'
+    compile "com.github.devlight.navigationtabstrip:navigationtabstrip:${navigation_tabstrip_version}"
+    // Infinite view pager
+    compile "com.github.devlight:infinitecycleviewpager:${infinite_viewpager_version}"
+    // Blurry image
+    compile "jp.wasabeef:blurry:${blurry_version}"
 
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.android.support:support-v4:25.1.0'

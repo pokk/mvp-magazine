@@ -1,7 +1,6 @@
 package taiwan.no1.app.ui.adapter
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.support.v4.view.PagerAdapter
 import android.support.v7.widget.CardView
 import android.view.LayoutInflater
@@ -10,12 +9,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.animation.GlideAnimation
-import com.bumptech.glide.request.target.SimpleTarget
 import taiwan.no1.app.R
 import taiwan.no1.app.api.config.MovieDBConfig
 import taiwan.no1.app.mvp.models.ImageInfoModel
-import taiwan.no1.app.utilies.AppLog
 
 
 /**
@@ -39,7 +35,6 @@ class HorizontalPagerAdapter(val context: Context,
     override fun getItemPosition(`object`: Any?): Int = PagerAdapter.POSITION_NONE
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        AppLog.w(container)
         val view: View = this.layoutInflater.inflate(R.layout.item_gallery, container, false)
         val ivPoster: ImageView = view.findViewById(R.id.img_item) as ImageView
         val cvFrame: CardView = view.findViewById(R.id.cv_frame) as CardView
@@ -81,13 +76,7 @@ class HorizontalPagerAdapter(val context: Context,
                 asBitmap().
                 fitCenter().
                 diskCacheStrategy(DiskCacheStrategy.SOURCE).
-                into(object: SimpleTarget<Bitmap>() {
-                    override fun onResourceReady(resource: Bitmap,
-                                                 glideAnimation: GlideAnimation<in Bitmap>) {
-                        ivPoster.setImageBitmap(resource)
-                        pager.setImageBitmap(resource)
-                    }
-                })
+                into(ivPoster)
         container.addView(view)
         return view
     }
