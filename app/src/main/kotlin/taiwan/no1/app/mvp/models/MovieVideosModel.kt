@@ -2,7 +2,7 @@ package taiwan.no1.app.mvp.models
 
 import android.os.Parcel
 import android.os.Parcelable
-import taiwan.no1.app.ui.adapter.viewtype.IViewTypeFactory
+import taiwan.no1.app.ui.adapter.viewholder.viewtype.IViewTypeFactory
 
 /**
  *

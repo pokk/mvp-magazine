@@ -5,14 +5,13 @@ import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.text.TextUtils
 import android.view.View
 import android.view.ViewStub
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.bindView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.GlideDrawable
+import com.bumptech.glide.request.target.Target
 import com.hwangjr.rxbus.RxBus
 import com.intrusoft.squint.DiagonalView
 import com.touchin.constant.RxbusTag
@@ -27,6 +26,8 @@ import taiwan.no1.app.mvp.models.CreditsModel
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.adapter.itemdecorator.MovieHorizontalItemDecorator
+import taiwan.no1.app.ui.listeners.GlideCustomRequestListener
+import taiwan.no1.app.utilies.ViewUtils
 import javax.inject.Inject
 import kotlin.comparisons.compareBy
 
@@ -65,8 +66,11 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
     private val ivPersonPoster by bindView<ImageView>(R.id.iv_person)
     private val tvName by bindView<TextView>(R.id.tv_name)
     private val tvJob by bindView<TextView>(R.id.tv_job)
+    private val tvBioOfTitle by bindView<TextView>(R.id.tv_title_bio)
     private val tvBio by bindView<TextView>(R.id.tv_bio)
+    private val tvBirthdayOfTitle by bindView<TextView>(R.id.tv_title_birthday)
     private val tvBirthday by bindView<TextView>(R.id.tv_birthday)
+    private val tvBronOfTitle by bindView<TextView>(R.id.tv_title_place_of_birth)
     private val tvBron by bindView<TextView>(R.id.tv_place_of_birth)
     private val tvHomepageOfTitle by bindView<TextView>(R.id.tv_title_homepage)
     private val tvHomepage by bindView<TextView>(R.id.tv_homepage)
@@ -137,17 +141,21 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
     override fun showCastDetail(castDetailModel: CastDetailModel) {
         val imageUrl = castDetailModel.images?.let { it.profiles?.let { if (it.size > 1) it[1].file_path else it[0].file_path } }
 
-        Glide.with(this.context.applicationContext).
-                load(MovieDBConfig.BASE_IMAGE_URL + imageUrl).
-                fitCenter().
-                diskCacheStrategy(DiskCacheStrategy.SOURCE).
-                listener(this.clearDiagonalViewListener(this.ivDropPoster)).
-                into(this.ivDropPoster)
-        Glide.with(this.context.applicationContext).
-                load(MovieDBConfig.BASE_IMAGE_URL + castDetailModel.profile_path).
-                centerCrop().
-                diskCacheStrategy(DiskCacheStrategy.SOURCE).
-                into(this.ivPersonPoster)
+        ViewUtils.loadImageToView(this.context.applicationContext,
+                MovieDBConfig.BASE_IMAGE_URL + imageUrl,
+                this.ivDropPoster, object: GlideCustomRequestListener() {
+            override fun onResourceReady(resource: GlideDrawable,
+                                         model: String,
+                                         target: Target<GlideDrawable>,
+                                         isFromMemoryCache: Boolean,
+                                         isFirstResource: Boolean): Boolean {
+                ivDropPoster.solidColor = Color.TRANSPARENT
+                return false
+            }
+        })
+        ViewUtils.loadImageToView(this.context.applicationContext,
+                MovieDBConfig.BASE_IMAGE_URL + castDetailModel.profile_path,
+                this.ivPersonPoster, null, false)
         this.ivDropPoster.setOnClickListener {
             RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
                     Pair(MovieListFragment.NAVIGATOR_ARG_FRAGMENT,
@@ -166,21 +174,11 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
         // Inflate the introduction section.
         if (null != stubIntro.parent) {
             stubIntro.inflate()
-            this.tvBio.text = castDetailModel.biography
-            this.tvBirthday.text = castDetailModel.birthday
-            this.tvBron.text = castDetailModel.place_of_birth
-            if (TextUtils.isEmpty(castDetailModel.homepage) || null == castDetailModel.homepage) {
-                this.tvHomepageOfTitle.visibility = View.GONE
-                this.tvHomepage.visibility = View.GONE
-            }
-            else
-                this.tvHomepage.text = castDetailModel.homepage
-            if (TextUtils.isEmpty(castDetailModel.deathday) || null == castDetailModel.deathday) {
-                this.tvDeathdayOfTitle.visibility = View.GONE
-                this.tvDeathday.visibility = View.GONE
-            }
-            else
-                this.tvDeathday.text = castDetailModel.deathday
+            this.showInfo(castDetailModel.biography, this.tvBioOfTitle, this.tvBio)
+            this.showInfo(castDetailModel.birthday, this.tvBirthdayOfTitle, this.tvBirthday)
+            this.showInfo(castDetailModel.place_of_birth, this.tvBronOfTitle, this.tvBron)
+            this.showInfo(castDetailModel.homepage, this.tvHomepageOfTitle, this.tvHomepage)
+            this.showInfo(castDetailModel.deathday, this.tvDeathdayOfTitle, this.tvDeathday)
         }
         else
             stubIntro.visibility = View.VISIBLE
@@ -204,5 +202,14 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
                 sortedWith(compareBy({ it.release_date })).
                 reversed(), this.argFromFragment)
         this.rvRelated.addItemDecoration(MovieHorizontalItemDecorator(20))
+    }
+
+    private fun showInfo(info: String?, title: TextView, content: TextView) {
+        if (info.isNullOrEmpty()) {
+            title.visibility = View.GONE
+            content.visibility = View.GONE
+        }
+        else
+            content.text = info
     }
 }

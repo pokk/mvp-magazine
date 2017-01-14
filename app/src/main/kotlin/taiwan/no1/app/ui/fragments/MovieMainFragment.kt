@@ -152,7 +152,7 @@ class MovieMainFragment: BaseFragment(), MovieMainContract.View {
      * @param index index of the array fragment.
      */
     private fun clearAllChildrenFragment(index: Int) {
-        for (i in 0..this.fragmentList[index].childFragmentManager.backStackEntryCount - 1) {
+        (0..this.fragmentList[index].childFragmentManager.backStackEntryCount - 1).forEach {
             this.fragmentList[index].childFragmentManager.popBackStack(null,
                     FragmentManager.POP_BACK_STACK_INCLUSIVE)
         }

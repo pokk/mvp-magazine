@@ -1,4 +1,4 @@
-package taiwan.no1.app.ui.adapter.viewtype
+package taiwan.no1.app.ui.adapter.viewholder.viewtype
 
 import android.view.View
 import taiwan.no1.app.R

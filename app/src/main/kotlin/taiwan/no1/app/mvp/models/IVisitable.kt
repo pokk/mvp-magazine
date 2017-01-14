@@ -1,6 +1,6 @@
 package taiwan.no1.app.mvp.models
 
-import taiwan.no1.app.ui.adapter.viewtype.IViewTypeFactory
+import taiwan.no1.app.ui.adapter.viewholder.viewtype.IViewTypeFactory
 
 
 /**

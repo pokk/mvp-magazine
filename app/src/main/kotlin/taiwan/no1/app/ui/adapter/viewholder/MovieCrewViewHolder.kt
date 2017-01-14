@@ -5,12 +5,12 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.bindView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import taiwan.no1.app.R
 import taiwan.no1.app.api.config.MovieDBConfig
 import taiwan.no1.app.mvp.models.MovieCastsModel
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
+import taiwan.no1.app.ui.listeners.GlideResizeRequestListener
+import taiwan.no1.app.utilies.ViewUtils
 
 /**
  * @author  Jieyi
@@ -25,10 +25,10 @@ class MovieCrewViewHolder(view: View): BaseViewHolder(view) {
 
     override fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
         (model as MovieCastsModel.CrewBean).let {
-            Glide.with(this.context.applicationContext).
-                    load(MovieDBConfig.BASE_IMAGE_URL + it.profile_path).
-                    diskCacheStrategy(DiskCacheStrategy.SOURCE).
-                    into(this.ivCast)
+            ViewUtils.loadImageToView(this.context.applicationContext,
+                    MovieDBConfig.BASE_IMAGE_URL + it.profile_path,
+                    this.ivCast,
+                    GlideResizeRequestListener(this.item))
             this.tvCharacter.text = it.job
             this.tvName.text = it.name
         }

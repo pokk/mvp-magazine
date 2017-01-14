@@ -5,8 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import taiwan.no1.app.mvp.models.IVisitable
 import taiwan.no1.app.ui.adapter.viewholder.BaseViewHolder
-import taiwan.no1.app.ui.adapter.viewtype.IViewTypeFactory
-import taiwan.no1.app.ui.adapter.viewtype.ViewTypeFactory
+import taiwan.no1.app.ui.adapter.viewholder.viewtype.IViewTypeFactory
+import taiwan.no1.app.ui.adapter.viewholder.viewtype.ViewTypeFactory
 
 /**
  * A common recycler view's adapter for vary view holders.

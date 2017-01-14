@@ -11,8 +11,6 @@ import android.view.ViewStub
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.bindView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import taiwan.no1.app.R
 import taiwan.no1.app.api.config.MovieDBConfig
 import taiwan.no1.app.internal.di.annotations.PerFragment
@@ -26,6 +24,7 @@ import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.adapter.DropMoviePagerAdapter
 import taiwan.no1.app.ui.adapter.itemdecorator.MovieHorizontalItemDecorator
+import taiwan.no1.app.utilies.ViewUtils
 import javax.inject.Inject
 import kotlin.reflect.KClass
 
@@ -150,7 +149,6 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         // TODO: 1/8/17 Here may happen memory leak!? We need to use deep copy.
         this.movieDetail = movieDetailModel
 
-        // Inflate the introduction section.
         this.vpDropPoster.adapter = movieDetailModel.images?.let {
             if (null != it.backdrops && null != it.posters)
                 DropMoviePagerAdapter(this.context,
@@ -160,17 +158,15 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
             else
                 null
         }
-        Glide.with(this.context.applicationContext).
-                load(MovieDBConfig.BASE_IMAGE_URL + movieDetailModel.poster_path).
-                fitCenter().
-                diskCacheStrategy(DiskCacheStrategy.SOURCE).
-                into(this.ivMoviePoster)
+        ViewUtils.loadImageToView(this.context.applicationContext,
+                MovieDBConfig.BASE_IMAGE_URL + movieDetailModel.poster_path,
+                this.ivMoviePoster)
         this.tvReleaseDate.setBackgroundColor(Color.TRANSPARENT)
         this.tvReleaseDate.text = movieDetailModel.release_date
         this.tvTitle.setBackgroundColor(Color.TRANSPARENT)
         this.tvTitle.text = movieDetailModel.title
 
-
+        // Inflate the introduction section.
         if (null != stubIntro.parent) {
             stubIntro.inflate()
             this.tvOverview.text = movieDetailModel.overview
@@ -178,10 +174,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
             this.tvRunTime.text = movieDetailModel.runtime.toString()
             this.tvLanguage.text = movieDetailModel.original_language
             movieDetailModel.production_countries?.let {
-                var productions = ""
-                for ((iso, name) in it)
-                    productions += name
-                this.tvProduction.text = productions
+                this.tvProduction.text = it.flatMap { listOf(it.name) }.joinToString("")
             }
             this.tvVote.text = movieDetailModel.vote_average.toString()
         }
@@ -216,6 +209,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         else
             stubRelated.visibility = View.VISIBLE
 
+        // TODO: 1/14/17 Trailer videos from youtube.
         // Inflate the trailer movieList section.
 //        if (null != stubTrailer.parent)
 //            movieDetailModel.videos?.results?.let {

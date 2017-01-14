@@ -1,12 +1,12 @@
 package taiwan.no1.app.ui.fragments
 
-import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v4.view.ViewPager.SCROLL_STATE_IDLE
 import android.view.ViewGroup
 import android.widget.ImageView
 import butterknife.bindView
+import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
 import com.jakewharton.rxbinding.support.v4.view.pageScrollStateChanges
 import jp.wasabeef.blurry.Blurry
@@ -110,14 +110,9 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
         var currPosition: Int = 0
         var prevPosition: Int = -1
 
-        // FIXME: 2017/01/12 Make the card frame to fit the image size.
-//        this.hicvpGallery.viewTreeObserver.addOnGlobalLayoutListener {
-//            (this.hicvpGallery.adapter as HorizontalPagerAdapter).itemHeight = this.hicvpGallery.height
-//            (this.hicvpGallery.adapter as HorizontalPagerAdapter).itemWidth = this.hicvpGallery.width
-//        }
         this.hicvpGallery.apply {
             this.adapter = argMovieImages?.let {
-                HorizontalPagerAdapter(this.context, false, ivBackground, it)
+                HorizontalPagerAdapter(this.context, false, it)
             }
             // Set the current blur image in viewpager's background.
             this.pageScrollStateChanges().subscribe {
@@ -127,13 +122,14 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
                         // the previous position and the current position.
                         currPosition = hicvpGallery.currentItem
                         if (currPosition != prevPosition) {
+                            // The last one of HorizontalInfiniteCycleViewPager is showing current view.
                             ((hicvpGallery.getChildAt(hicvpGallery.childCount - 1) as ViewGroup).
                                     findViewById(R.id.img_item) as ImageView).let {
                                 // FIXME: 2017/01/13 The first image won't be showed.
                                 it.drawable?.let {
                                     Blurry.with(this.context).
                                             radius(25).
-                                            from((it as BitmapDrawable).bitmap).
+                                            from((it as GlideBitmapDrawable).bitmap).
                                             into(ivBackground)
                                 }
                             }
@@ -143,8 +139,6 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
                 }
             }
         }
-//        (this.hicvpGallery.adapter as HorizontalPagerAdapter).itemHeight = this.hicvpGallery.height
-//        (this.hicvpGallery.adapter as HorizontalPagerAdapter).itemWidth = this.hicvpGallery.width
     }
     //endregion
 }

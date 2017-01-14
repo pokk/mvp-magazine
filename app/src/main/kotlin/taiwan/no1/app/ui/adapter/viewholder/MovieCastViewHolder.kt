@@ -5,8 +5,6 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.bindView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.hwangjr.rxbus.RxBus
 import com.touchin.constant.RxbusTag
 import taiwan.no1.app.R
@@ -15,6 +13,8 @@ import taiwan.no1.app.mvp.models.MovieCastsModel
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.fragments.CastDetailFragment
 import taiwan.no1.app.ui.fragments.MovieListFragment
+import taiwan.no1.app.ui.listeners.GlideResizeRequestListener
+import taiwan.no1.app.utilies.ViewUtils
 
 /**
  * @author  Jieyi
@@ -29,10 +29,10 @@ class MovieCastViewHolder(view: View): BaseViewHolder(view) {
 
     override fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
         (model as MovieCastsModel.CastBean).let {
-            Glide.with(this.context.applicationContext).
-                    load(MovieDBConfig.BASE_IMAGE_URL + it.profile_path).
-                    diskCacheStrategy(DiskCacheStrategy.SOURCE).
-                    into(this.ivCast)
+            ViewUtils.loadImageToView(this.context.applicationContext,
+                    MovieDBConfig.BASE_IMAGE_URL + it.profile_path,
+                    this.ivCast,
+                    GlideResizeRequestListener(this.item))
             this.tvCharacter.text = it.character
             this.tvName.text = it.name
             this.item.setOnClickListener {
