@@ -6,6 +6,7 @@ import taiwan.no1.app.internal.di.modules.ActivityModule
 import taiwan.no1.app.internal.di.modules.ActivityUseCaseModule
 import taiwan.no1.app.ui.BaseActivity
 import taiwan.no1.app.ui.activities.MainActivity
+import taiwan.no1.app.ui.activities.VideoActivity
 
 /**
  * @author  Jieyi
@@ -32,4 +33,6 @@ interface ActivityComponent {
     fun inject(baseActivity: BaseActivity)
     
     fun inject(mainActivity: MainActivity)
+
+    fun inject(videoActivity: VideoActivity)
 }

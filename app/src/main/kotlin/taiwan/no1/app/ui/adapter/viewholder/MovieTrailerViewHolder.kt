@@ -5,11 +5,14 @@ import android.view.View
 import android.widget.ImageView
 import butterknife.bindView
 import com.hwangjr.rxbus.RxBus
-import com.touchin.constant.RxbusTag.ACTIVITY_YOUTUBE_VIEW
+import com.touchin.constant.RxbusTag.ACTIVITY_NAVIGATOR
 import taiwan.no1.app.R
 import taiwan.no1.app.mvp.models.MovieVideosModel
+import taiwan.no1.app.ui.activities.VideoActivity
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
+import taiwan.no1.app.utilies.AppLog
 import taiwan.no1.app.utilies.ViewUtils
+import taiwan.no1.app.utilies.YoutubeExtract
 
 /**
  * @author  Jieyi
@@ -22,17 +25,24 @@ class MovieTrailerViewHolder(val view: View): BaseViewHolder(view) {
 
     override fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
         (model as MovieVideosModel).let {
-            val key: String = it.key.orEmpty()
-            val youtubeThumbnail: String = "http://img.youtube.com/vi/$key/0.jpg"
+            YoutubeExtract(it.key).startExtracting(object: YoutubeExtract.YouTubeExtractorListener {
+                override fun onSuccess(result: YoutubeExtract.YouTubeExtractorResult) {
+                    item.setOnClickListener {
+                        RxBus.get().post(ACTIVITY_NAVIGATOR,
+                                VideoActivity.newInstance(view.context, result.videoUri.toString()))
+                    }
 
-            item.setOnClickListener {
-                RxBus.get().post(ACTIVITY_YOUTUBE_VIEW, key)
-            }
-            ViewUtils.loadImageToView(view.context.applicationContext,
-                    youtubeThumbnail,
-                    ivTrailer)
+                    ViewUtils.loadImageToView(view.context.applicationContext,
+                            result.defaultThumbUri.toString(),
+                            ivTrailer)
+                }
+
+                override fun onFailure(error: Error) {
+                    // FIXME: 1/15/17 Some url cannot be extract.
+                    AppLog.e(error)
+                }
+            })
+
         }
-
-
     }
 }

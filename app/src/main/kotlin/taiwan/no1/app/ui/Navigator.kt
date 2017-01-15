@@ -2,7 +2,6 @@ package taiwan.no1.app.ui
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 
 
 /**
@@ -22,8 +21,7 @@ class Navigator {
      *
      * @param context A Context needed to open the destiny activity.
      */
-    fun navigateTo(context: Context, youtubeKey: String) {
-        context.startActivity(Intent(Intent.ACTION_VIEW,
-                Uri.parse("http://www.youtube.com/watch?v=" + youtubeKey)))
+    fun navigateToVideoActivity(context: Context, intent: Intent) {
+        context.startActivity(intent)
     }
 }

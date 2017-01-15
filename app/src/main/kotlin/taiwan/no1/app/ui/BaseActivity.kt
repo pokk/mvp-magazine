@@ -1,6 +1,7 @@
 package taiwan.no1.app.ui
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.CallSuper
 import android.support.v4.app.Fragment
@@ -39,9 +40,9 @@ abstract class BaseActivity: RxAppCompatActivity(), IView, IActivityView {
             addFragment(R.id.main_container, fragment, true)
         }
 
-        @Subscribe(tags = arrayOf(Tag(RxbusTag.ACTIVITY_YOUTUBE_VIEW)))
-        fun navigateYoutube(youtubeKey: String) {
-            navigator.navigateTo(this@BaseActivity, youtubeKey)
+        @Subscribe(tags = arrayOf(Tag(RxbusTag.ACTIVITY_NAVIGATOR)))
+        fun navigateActivity(intent: Intent) {
+            navigator.navigateToVideoActivity(this@BaseActivity, intent)
         }
     }
 

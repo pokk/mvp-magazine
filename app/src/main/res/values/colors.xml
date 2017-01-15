@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="colorBlack">#000000</color>
+
     <!-- View Pager -->
     <color name="viewPageBackground">#ff252e39</color>
     <color name="viewPageSlideBackground">#182128</color>

@@ -4,7 +4,9 @@ import dagger.Module
 import dagger.Provides
 import taiwan.no1.app.internal.di.annotations.PerActivity
 import taiwan.no1.app.mvp.contracts.MainContract
+import taiwan.no1.app.mvp.contracts.VideoContract
 import taiwan.no1.app.mvp.presenters.MainPresenter
+import taiwan.no1.app.mvp.presenters.VideoPresenter
 import taiwan.no1.app.ui.Navigator
 
 /**
@@ -20,8 +22,12 @@ class ActivityModule {
     @Provides
     @PerActivity
     fun provideNavigator(): Navigator = Navigator()
-    
+
     @Provides
     @PerActivity
     fun provideMainPresenter(): MainContract.Presenter = MainPresenter()
+
+    @Provides
+    @PerActivity
+    fun provideVideoPresenter(): VideoContract.Presenter = VideoPresenter()
 }

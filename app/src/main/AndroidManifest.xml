@@ -25,6 +25,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <!-- TODO: Become full screen. -->
+        <activity
+            android:name=".ui.activities.VideoActivity"
+            android:screenOrientation="landscape">
+        </activity>
     </application>
 
 </manifest>
