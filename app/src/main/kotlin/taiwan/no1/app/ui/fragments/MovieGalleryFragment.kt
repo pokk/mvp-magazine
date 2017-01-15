@@ -1,5 +1,6 @@
 package taiwan.no1.app.ui.fragments
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v4.view.ViewPager.SCROLL_STATE_IDLE
@@ -125,12 +126,25 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
                             // The last one of HorizontalInfiniteCycleViewPager is showing current view.
                             ((hicvpGallery.getChildAt(hicvpGallery.childCount - 1) as ViewGroup).
                                     findViewById(R.id.img_item) as ImageView).let {
-                                // FIXME: 2017/01/13 The first image won't be showed.
+                                val aspectRatio: Double = ivBackground.width.toDouble() / ivBackground.height.toDouble()
+                                // FIXME: 1/15/17 The first image always is null.
                                 it.drawable?.let {
-                                    Blurry.with(this.context).
-                                            radius(25).
-                                            from((it as GlideBitmapDrawable).bitmap).
-                                            into(ivBackground)
+                                    (it as GlideBitmapDrawable).bitmap.let {
+                                        val bitmap: Bitmap = Bitmap.createBitmap(it).apply {
+                                            val ratio: Double = this.width.toDouble() / this.height.toDouble()
+                                            if (ratio > aspectRatio) {
+                                                this.width = (aspectRatio * this.height).toInt()
+                                            }
+                                            else {
+                                                this.height = (this.width / aspectRatio).toInt()
+                                            }
+                                        }
+                                        Blurry.with(this.context).
+                                                radius(25).
+                                                sampling(2).
+                                                from(bitmap).
+                                                into(ivBackground)
+                                    }
                                 }
                             }
                         }
