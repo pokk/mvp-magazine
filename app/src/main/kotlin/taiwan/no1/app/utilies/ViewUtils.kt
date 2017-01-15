@@ -15,7 +15,7 @@ import com.bumptech.glide.request.RequestListener
  */
 object ViewUtils {
     fun resizeView(view: View, height: Int, width: Int) {
-        view.layoutParams.apply {
+        view.layoutParams?.apply {
             this.height = height
             this.width = width
         }

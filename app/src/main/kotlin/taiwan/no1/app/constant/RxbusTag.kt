@@ -10,4 +10,5 @@ package com.touchin.constant
 object RxbusTag {
     const val FRAGMENT_NAVIGATOR: String = "navigator_fragment"
     const val FRAGMENT_CHILD_NAVIGATOR: String = "navigator_child_fragment"
+    const val ACTIVITY_YOUTUBE_VIEW: String = "activity_open_youtube"
 }

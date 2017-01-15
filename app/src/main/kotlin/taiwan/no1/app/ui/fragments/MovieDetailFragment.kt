@@ -211,13 +211,13 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
 
         // TODO: 1/14/17 Trailer videos from youtube.
         // Inflate the trailer movieList section.
-//        if (null != stubTrailer.parent)
-//            movieDetailModel.videos?.results?.let {
-//                stubTrailer.inflate()
-//                this.showTrailerMovies(it)
-//            }
-//        else
-//            stubTrailer.visibility = View.VISIBLE
+        if (null != stubTrailer.parent)
+            movieDetailModel.videos?.results?.let {
+                stubTrailer.inflate()
+                this.showTrailerMovies(it)
+            }
+        else
+            stubTrailer.visibility = View.VISIBLE
     }
     //endregion
 

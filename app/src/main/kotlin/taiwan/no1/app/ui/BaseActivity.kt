@@ -38,6 +38,11 @@ abstract class BaseActivity: RxAppCompatActivity(), IView, IActivityView {
         fun navigateFragment(fragment: Fragment) {
             addFragment(R.id.main_container, fragment, true)
         }
+
+        @Subscribe(tags = arrayOf(Tag(RxbusTag.ACTIVITY_YOUTUBE_VIEW)))
+        fun navigateYoutube(youtubeKey: String) {
+            navigator.navigateTo(this@BaseActivity, youtubeKey)
+        }
     }
 
     //region Activity lifecycle
