@@ -7,6 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import com.bumptech.glide.load.resource.drawable.GlideDrawable
+import com.bumptech.glide.request.target.Target
+import com.hwangjr.rxbus.RxBus
+import com.touchin.constant.RxbusTag
 import taiwan.no1.app.R
 import taiwan.no1.app.api.config.MovieDBConfig
 import taiwan.no1.app.mvp.models.ImageInfoModel
@@ -23,6 +27,7 @@ class HorizontalPagerAdapter(val context: Context,
                              val isTwoWay: Boolean,
                              val imageLists: List<ImageInfoModel>): PagerAdapter() {
     private val layoutInflater: LayoutInflater by lazy { LayoutInflater.from(this.context) }
+    private var isLoaded: Boolean = false
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean = view == `object`
 
@@ -50,7 +55,24 @@ class HorizontalPagerAdapter(val context: Context,
         ViewUtils.loadImageToView(this.context.applicationContext,
                 MovieDBConfig.BASE_IMAGE_URL + this.imageLists[position].file_path,
                 ivPoster,
-                GlideResizeRequestListener(cvFrame))
+                object: GlideResizeRequestListener(cvFrame) {
+                    override fun onResourceReady(resource: GlideDrawable,
+                                                 model: String,
+                                                 target: Target<GlideDrawable>,
+                                                 isFromMemoryCache: Boolean,
+                                                 isFirstResource: Boolean): Boolean {
+                        // Notify once when entry this view. 
+                        if (0 == position && !isLoaded) {
+                            RxBus.get().post(RxbusTag.FRAGMENT_FINISH_LOADED, position.toString())
+                            isLoaded = true
+                        }
+                        return super.onResourceReady(resource,
+                                model,
+                                target,
+                                isFromMemoryCache,
+                                isFirstResource)
+                    }
+                })
 
         container.addView(view)
         return view
@@ -59,5 +81,4 @@ class HorizontalPagerAdapter(val context: Context,
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
         container.removeView(`object` as View)
     }
-
 }

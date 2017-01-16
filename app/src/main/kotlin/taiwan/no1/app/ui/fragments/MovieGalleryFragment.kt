@@ -9,7 +9,11 @@ import android.widget.ImageView
 import butterknife.bindView
 import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
+import com.hwangjr.rxbus.RxBus
+import com.hwangjr.rxbus.annotation.Subscribe
+import com.hwangjr.rxbus.annotation.Tag
 import com.jakewharton.rxbinding.support.v4.view.pageScrollStateChanges
+import com.touchin.constant.RxbusTag
 import jp.wasabeef.blurry.Blurry
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
@@ -55,12 +59,24 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
     private val ivBackground by bindView<ImageView>(R.id.iv_gallery_background)
     //endregion
 
+    private var isFirstImageFinished: Boolean = false
+
     // Get the arguments from the bundle here.
     private val argMovieImages: List<ImageInfoModel>? by lazy {
         this.arguments.getParcelableArray(ARG_PARAM_IMAGES).toList() as List<ImageInfoModel>
     }
+    private val aspectRatio: Double by lazy {
+        this.ivBackground.width.toDouble() / this.ivBackground.height.toDouble()
+    }
 
     //region Fragment lifecycle
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // Register RxBus.
+        RxBus.get().register(this)
+    }
+
     override fun onResume() {
         super.onResume()
         this.presenter.resume()
@@ -72,6 +88,8 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
     }
 
     override fun onDestroy() {
+        // Unregister RxBus.
+        RxBus.get().unregister(this)
         // After super.onDestroy() is executed, the presenter will be destroy. So the presenter should be
         // executed before super.onDestroy().
         this.presenter.destroy()
@@ -122,32 +140,9 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
                         // Avoiding to slide at the same page then setting the same image many times. So keeping
                         // the previous position and the current position.
                         currPosition = hicvpGallery.currentItem
-                        if (currPosition != prevPosition) {
-                            // The last one of HorizontalInfiniteCycleViewPager is showing current view.
-                            ((hicvpGallery.getChildAt(hicvpGallery.childCount - 1) as ViewGroup).
-                                    findViewById(R.id.img_item) as ImageView).let {
-                                val aspectRatio: Double = ivBackground.width.toDouble() / ivBackground.height.toDouble()
-                                // FIXME: 1/15/17 The first image always is null.
-                                it.drawable?.let {
-                                    (it as GlideBitmapDrawable).bitmap.let {
-                                        val bitmap: Bitmap = Bitmap.createBitmap(it).apply {
-                                            val ratio: Double = this.width.toDouble() / this.height.toDouble()
-                                            if (ratio > aspectRatio) {
-                                                this.width = (aspectRatio * this.height).toInt()
-                                            }
-                                            else {
-                                                this.height = (this.width / aspectRatio).toInt()
-                                            }
-                                        }
-                                        Blurry.with(this.context).
-                                                radius(25).
-                                                sampling(2).
-                                                from(bitmap).
-                                                into(ivBackground)
-                                    }
-                                }
-                            }
-                        }
+                        if (currPosition != prevPosition && isFirstImageFinished)
+                            presenter.resizeImageToFitBackground(aspectRatio,
+                                    Bitmap.createBitmap(extractBitmapFromCurrItem()))
                         prevPosition = currPosition
                     }
                 }
@@ -155,4 +150,25 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
         }
     }
     //endregion
+
+    //region View implementation
+    override fun setBackgroundImage(image: Bitmap) {
+        Blurry.with(this.context).radius(20).sampling(2).from(image).into(ivBackground)
+    }
+    //endregion
+
+    @Subscribe(tags = arrayOf(Tag(RxbusTag.FRAGMENT_FINISH_LOADED)))
+    fun finishLoadingImage(msg: String) {
+        this.isFirstImageFinished = true
+        this.presenter.resizeImageToFitBackground(this.aspectRatio,
+                Bitmap.createBitmap(this.extractBitmapFromCurrItem()))
+    }
+
+    private fun getCurrentPresentItem(): ViewGroup =
+            // The last one of HorizontalInfiniteCycleViewPager is showing current view.
+            this.hicvpGallery.getChildAt(hicvpGallery.childCount - 1) as ViewGroup
+
+    private fun extractBitmapFromCurrItem(): Bitmap =
+            ((getCurrentPresentItem().findViewById(R.id.img_item) as ImageView).
+                    drawable as GlideBitmapDrawable).bitmap
 }

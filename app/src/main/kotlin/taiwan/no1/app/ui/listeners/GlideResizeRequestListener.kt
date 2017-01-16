@@ -11,7 +11,7 @@ import taiwan.no1.app.utilies.ViewUtils
  * @since   1/15/17
  */
 
-class GlideResizeRequestListener constructor(val view: View): GlideCustomRequestListener() {
+open class GlideResizeRequestListener constructor(val view: View): GlideCustomRequestListener() {
     override fun onResourceReady(resource: GlideDrawable,
                                  model: String,
                                  target: Target<GlideDrawable>,

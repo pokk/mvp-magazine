@@ -1,5 +1,6 @@
 package taiwan.no1.app.mvp.contracts
 
+import android.graphics.Bitmap
 import taiwan.no1.app.mvp.presenters.IPresenter
 import taiwan.no1.app.mvp.views.IFragmentView
 import taiwan.no1.app.mvp.views.IView
@@ -12,7 +13,11 @@ import taiwan.no1.app.mvp.views.IView
  */
 
 interface MovieGalleryContract {
-    interface Presenter: IPresenter<View>
+    interface Presenter: IPresenter<View> {
+        fun resizeImageToFitBackground(aspectRatio: Double, image: Bitmap)
+    }
 
-    interface View: IView, IFragmentView
+    interface View: IView, IFragmentView {
+        fun setBackgroundImage(image: Bitmap)
+    }
 }
