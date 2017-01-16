@@ -206,7 +206,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
                 false)
         this.rvCasts.adapter = CommonRecyclerAdapter(castList.filter { null != it.profile_path },
                 this.argFromFragment)
-        this.rvCasts.addItemDecoration(MovieHorizontalItemDecorator(20))
+        this.rvCasts.addItemDecoration(MovieHorizontalItemDecorator(30))
     }
 
     private fun showMovieCrews(crewList: List<MovieCastsModel.CrewBean>) {
@@ -215,7 +215,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
                 false)
         this.rvCrews.adapter = CommonRecyclerAdapter(crewList.filter { null != it.profile_path },
                 this.argFromFragment)
-        this.rvCrews.addItemDecoration(MovieHorizontalItemDecorator(20))
+        this.rvCrews.addItemDecoration(MovieHorizontalItemDecorator(30))
     }
 
     private fun showSimilarMovies(similarMovieList: List<MovieBriefModel>) {
@@ -225,7 +225,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         this.rvRelated.adapter = CommonRecyclerAdapter(similarMovieList.
                 map { it.apply { it.isMainView = false } }.
                 sortedWith(compareBy({ it.release_date })).reversed(), this.argFromFragment)
-        this.rvRelated.addItemDecoration(MovieHorizontalItemDecorator(20))
+        this.rvRelated.addItemDecoration(MovieHorizontalItemDecorator(30))
     }
 
     private fun showTrailerMovies(videoMovieList: List<MovieVideosModel>) {
@@ -233,7 +233,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
                 LinearLayoutManager.HORIZONTAL,
                 false)
         this.rvTrailer.adapter = CommonRecyclerAdapter(videoMovieList, this.argFromFragment)
-        this.rvTrailer.addItemDecoration(MovieHorizontalItemDecorator(20))
+        this.rvTrailer.addItemDecoration(MovieHorizontalItemDecorator(30))
     }
 
     private fun showMovies(recyclerView: RecyclerView, list: List<KClass<*>>, listtype: KClass<*>) {

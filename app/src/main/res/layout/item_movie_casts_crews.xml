@@ -6,8 +6,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
     android:orientation="vertical"
-    app:cardCornerRadius="5dp">
+    app:cardCornerRadius="5dp"
+    app:cardElevation="5dp">
 
     <taiwan.no1.app.ui.customize.FittableImageView
         android:id="@+id/iv_cast"
@@ -25,7 +28,7 @@
             android:id="@+id/tv_character"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#99000000"
+            android:background="#55000000"
             android:gravity="center"
             android:textColor="#dddddd"
             tools:text="Character"/>
@@ -34,7 +37,7 @@
             android:id="@+id/tv_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#99000000"
+            android:background="#55000000"
             android:gravity="center"
             android:textColor="#dddddd"
             tools:text="Name"/>
