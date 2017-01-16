@@ -25,6 +25,7 @@ import taiwan.no1.app.ui.adapter.DropMoviePagerAdapter
 import taiwan.no1.app.ui.adapter.itemdecorator.MovieHorizontalItemDecorator
 import taiwan.no1.app.utilies.ViewUtils
 import javax.inject.Inject
+import kotlin.comparisons.compareBy
 import kotlin.reflect.KClass
 
 
@@ -221,7 +222,9 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         this.rvRelated.layoutManager = LinearLayoutManager(this.context,
                 LinearLayoutManager.HORIZONTAL,
                 false)
-        this.rvRelated.adapter = CommonRecyclerAdapter(similarMovieList, this.argFromFragment)
+        this.rvRelated.adapter = CommonRecyclerAdapter(similarMovieList.
+                map { it.apply { it.isMainView = false } }.
+                sortedWith(compareBy({ it.release_date })).reversed(), this.argFromFragment)
         this.rvRelated.addItemDecoration(MovieHorizontalItemDecorator(20))
     }
 

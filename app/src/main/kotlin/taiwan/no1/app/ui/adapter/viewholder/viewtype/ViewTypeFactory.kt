@@ -27,7 +27,8 @@ class ViewTypeFactory: IViewTypeFactory {
         CREW(R.layout.item_movie_casts_crews),
     }
 
-    override fun type(movieBriefModel: MovieBriefModel): Int = TypeResource.MOVIE_LIST.ordinal
+    override fun type(movieBriefModel: MovieBriefModel, isMain: Boolean): Int =
+            if (isMain) TypeResource.MOVIE_LIST.ordinal else TypeResource.MOVIE_RELATED.ordinal
 
     override fun type(castBean: MovieCastsModel.CastBean): Int = TypeResource.MOVIE_CAST.ordinal
 

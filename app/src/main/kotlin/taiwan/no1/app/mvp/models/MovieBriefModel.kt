@@ -25,8 +25,10 @@ data class MovieBriefModel(val poster_path: String? = null,
                            val vote_count: Int = 0,
                            val isVideo: Boolean = false,
                            val vote_average: Double = 0.toDouble(),
+                           var isMainView: Boolean = true, // This is for difference view type.
                            val genre_ids: List<Int>? = null): IVisitable, Parcelable {
-    override fun type(typeFactory: IViewTypeFactory): Int = typeFactory.type(MovieBriefModel@ this)
+    override fun type(typeFactory: IViewTypeFactory): Int = typeFactory.type(MovieBriefModel@ this,
+            this.isMainView)
 
     companion object {
         @JvmField val CREATOR: Parcelable.Creator<MovieBriefModel> = object: Parcelable.Creator<MovieBriefModel> {
@@ -48,6 +50,7 @@ data class MovieBriefModel(val poster_path: String? = null,
             source.readInt(),
             1 == source.readInt(),
             source.readDouble(),
+            1 == source.readInt(),
             ArrayList<Int>().apply { source.readList(this, Int::class.java.classLoader) })
 
     override fun describeContents() = 0
@@ -66,6 +69,7 @@ data class MovieBriefModel(val poster_path: String? = null,
         dest?.writeInt(vote_count)
         dest?.writeInt((if (isVideo) 1 else 0))
         dest?.writeDouble(vote_average)
+        dest?.writeInt((if (isMainView) 1 else 0))
         dest?.writeList(genre_ids)
     }
 }

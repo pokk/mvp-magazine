@@ -24,7 +24,7 @@ import taiwan.no1.app.utilies.ViewUtils
 class MovieRelatedViewHolder(view: View): BaseViewHolder(view) {
     val item by bindView<CardView>(R.id.item_cast)
     val ivPoster by bindView<ImageView>(R.id.iv_cast)
-    val tvCharacter by bindView<TextView>(R.id.tv_character)
+    val tvRelease by bindView<TextView>(R.id.tv_character)
     val tvName by bindView<TextView>(R.id.tv_name)
 
     override fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
@@ -33,7 +33,7 @@ class MovieRelatedViewHolder(view: View): BaseViewHolder(view) {
                     MovieDBConfig.BASE_IMAGE_URL + it.poster_path,
                     this.ivPoster,
                     GlideResizeRequestListener(this.item))
-            this.tvCharacter.text = it.original_title
+            this.tvRelease.text = it.release_date
             this.tvName.text = it.title
             this.item.setOnClickListener {
                 RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(

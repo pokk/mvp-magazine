@@ -15,7 +15,7 @@ import taiwan.no1.app.ui.adapter.viewholder.BaseViewHolder
  */
 
 interface IViewTypeFactory {
-    fun type(movieBriefModel: MovieBriefModel): Int
+    fun type(movieBriefModel: MovieBriefModel, isMain: Boolean = true): Int
 
     fun type(castBean: MovieCastsModel.CastBean): Int
 

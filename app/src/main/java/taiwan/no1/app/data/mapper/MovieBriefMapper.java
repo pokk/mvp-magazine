@@ -49,7 +49,7 @@ public class MovieBriefMapper implements IBeanMapper<MovieBriefModel, MovieBrief
                                    entity.getPopularity(),
                                    entity.getVote_count(),
                                    entity.isVideo(),
-                                   entity.getVote_average(),
+                                   entity.getVote_average(), true,
                                    new ArrayList<>(entity.getGenre_ids()));
     }
 }
