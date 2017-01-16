@@ -6,6 +6,7 @@ import android.support.annotation.LayoutRes
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewStub
 import com.trello.rxlifecycle.android.FragmentEvent
 import com.trello.rxlifecycle.components.support.RxFragment
 import dagger.internal.Preconditions
@@ -109,6 +110,7 @@ abstract class BaseFragment: RxFragment(), IView, IFragmentView {
      * Initialize the presenter in [onCreateView].
      */
     abstract protected fun initPresenter()
+    //endregion
 
     /**
      * Get a use case component from a owner activity.
@@ -119,5 +121,19 @@ abstract class BaseFragment: RxFragment(), IView, IFragmentView {
      */
     protected fun <C> getComponent(componentType: Class<C>, obj: Any?): C =
             componentType.cast((activity as HasComponent<*>).getFragmentComponent(obj))
-    //endregion
+
+    /**
+     * Show the [viewStub] and prevent to show again and again.
+     *
+     * @param viewStub [ViewStub] of assignment.
+     * @param settings the setting of [ViewStub]'s content.
+     */
+    protected fun showViewStub(viewStub: ViewStub, settings: () -> Unit) {
+        if (null != viewStub.parent) {
+            viewStub.inflate()
+            settings()
+        }
+        else
+            viewStub.visibility = View.VISIBLE
+    }
 }

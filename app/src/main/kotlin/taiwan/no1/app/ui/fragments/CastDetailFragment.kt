@@ -172,25 +172,18 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
         }
 
         // Inflate the introduction section.
-        if (null != stubIntro.parent) {
-            stubIntro.inflate()
+        this.showViewStub(this.stubIntro, {
             this.showInfo(castDetailModel.biography, this.tvBioOfTitle, this.tvBio)
             this.showInfo(castDetailModel.birthday, this.tvBirthdayOfTitle, this.tvBirthday)
             this.showInfo(castDetailModel.place_of_birth, this.tvBronOfTitle, this.tvBron)
             this.showInfo(castDetailModel.homepage, this.tvHomepageOfTitle, this.tvHomepage)
             this.showInfo(castDetailModel.deathday, this.tvDeathdayOfTitle, this.tvDeathday)
-        }
-        else
-            stubIntro.visibility = View.VISIBLE
+        })
 
         // Inflate the related movie section.
-        if (null != stubRelated.parent)
-            castDetailModel.combined_credits?.cast?.let {
-                stubRelated.inflate()
-                this.showCreditsMovies(it)
-            }
-        else
-            stubRelated.visibility = View.VISIBLE
+        this.showViewStub(this.stubRelated, {
+            castDetailModel.combined_credits?.cast?.let { this.showCreditsMovies(it) }
+        })
     }
     //endregion
 

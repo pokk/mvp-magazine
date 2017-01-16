@@ -6,6 +6,7 @@ import android.support.annotation.LayoutRes
 import android.support.v4.view.ViewPager.SCROLL_STATE_IDLE
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import butterknife.bindView
 import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
@@ -57,6 +58,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
     //region View variables
     private val hicvpGallery by bindView<HorizontalInfiniteCycleViewPager>(R.id.hicvp_gallery)
     private val ivBackground by bindView<ImageView>(R.id.iv_gallery_background)
+    private val tvNumbers by bindView<TextView>(R.id.tv_numbers)
     //endregion
 
     private var isFirstImageFinished: Boolean = false
@@ -128,7 +130,10 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
     override fun init(savedInstanceState: Bundle?) {
         var currPosition: Int = 0
         var prevPosition: Int = -1
+        val fixedPosition: Int = this.hicvpGallery.currentItem
+        var total: Int = this.argMovieImages?.size ?: 0
 
+        this.tvNumbers.text = this.setNumberText(total)
         this.hicvpGallery.apply {
             this.adapter = argMovieImages?.let {
                 HorizontalPagerAdapter(this.context, false, it)
@@ -140,9 +145,12 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
                         // Avoiding to slide at the same page then setting the same image many times. So keeping
                         // the previous position and the current position.
                         currPosition = hicvpGallery.currentItem
-                        if (currPosition != prevPosition && isFirstImageFinished)
+                        if (currPosition != prevPosition && isFirstImageFinished) {
+                            tvNumbers.text = setNumberText(total,
+                                    Math.abs(currPosition - fixedPosition) % total + 1)
                             presenter.resizeImageToFitBackground(aspectRatio,
                                     Bitmap.createBitmap(extractBitmapFromCurrItem()))
+                        }
                         prevPosition = currPosition
                     }
                 }
@@ -171,4 +179,6 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
     private fun extractBitmapFromCurrItem(): Bitmap =
             ((getCurrentPresentItem().findViewById(R.id.img_item) as ImageView).
                     drawable as GlideBitmapDrawable).bitmap
+
+    private fun setNumberText(totalNumber: Int, currentNumber: Int = 1) = "$currentNumber / $totalNumber"
 }

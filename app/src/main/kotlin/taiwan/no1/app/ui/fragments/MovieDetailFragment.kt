@@ -6,7 +6,6 @@ import android.support.annotation.LayoutRes
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.View
 import android.view.ViewStub
 import android.widget.ImageView
 import android.widget.TextView
@@ -167,8 +166,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         this.tvTitle.text = movieDetailModel.title
 
         // Inflate the introduction section.
-        if (null != stubIntro.parent) {
-            stubIntro.inflate()
+        this.showViewStub(this.stubIntro, {
             this.tvOverview.text = movieDetailModel.overview
             this.tvStatus.text = movieDetailModel.status
             this.tvRunTime.text = movieDetailModel.runtime.toString()
@@ -177,47 +175,27 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
                 this.tvProduction.text = it.flatMap { listOf(it.name) }.joinToString("")
             }
             this.tvVote.text = movieDetailModel.vote_average.toString()
-        }
-        else
-            stubIntro.visibility = View.VISIBLE
+        })
 
         // Inflate the cast section.
-        if (null != stubCasts.parent)
-            movieDetailModel.casts?.cast?.let {
-                stubCasts.inflate()
-                this.showMovieCasts(it)
-            }
-        else
-            stubCasts.visibility = View.VISIBLE
+        this.showViewStub(this.stubCasts, {
+            movieDetailModel.casts?.cast?.let { this.showMovieCasts(it) }
+        })
 
         // Inflate the crew section.
-        if (null != stubCrews.parent) {
-            movieDetailModel.casts?.crew?.let {
-                stubCrews.inflate()
-                this.showMovieCrews(it)
-            }
-        }
-        else
-            stubCrews.visibility = View.VISIBLE
+        this.showViewStub(this.stubCrews, {
+            movieDetailModel.casts?.crew?.let { this.showMovieCrews(it) }
+        })
 
         // Inflate the related movieList section.
-        if (null != stubRelated.parent)
-            movieDetailModel.similar?.movieBriefModel?.let {
-                stubRelated.inflate()
-                this.showSimilarMovies(it)
-            }
-        else
-            stubRelated.visibility = View.VISIBLE
+        this.showViewStub(this.stubRelated, {
+            movieDetailModel.similar?.movieBriefModel?.let { this.showSimilarMovies(it) }
+        })
 
-        // TODO: 1/14/17 Trailer videos from youtube.
         // Inflate the trailer movieList section.
-        if (null != stubTrailer.parent)
-            movieDetailModel.videos?.results?.let {
-                stubTrailer.inflate()
-                this.showTrailerMovies(it)
-            }
-        else
-            stubTrailer.visibility = View.VISIBLE
+        this.showViewStub(this.stubTrailer, {
+            movieDetailModel.videos?.results?.let { this.showTrailerMovies(it) }
+        })
     }
     //endregion
 
@@ -255,11 +233,6 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         this.rvTrailer.addItemDecoration(MovieHorizontalItemDecorator(20))
     }
 
-    private fun showMovies(recyclerView: RecyclerView, list: List<MovieBriefModel>, type: KClass<*>) {
-        with(recyclerView) {
-            this.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-            this.adapter = CommonRecyclerAdapter(list, argFromFragment)
-            this.addItemDecoration(MovieHorizontalItemDecorator(20))
-        }
+    private fun showMovies(recyclerView: RecyclerView, list: List<KClass<*>>, listtype: KClass<*>) {
     }
 }
