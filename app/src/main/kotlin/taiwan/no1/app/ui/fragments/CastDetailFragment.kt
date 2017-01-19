@@ -27,7 +27,7 @@ import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.adapter.itemdecorator.MovieHorizontalItemDecorator
 import taiwan.no1.app.ui.listeners.GlideCustomRequestListener
-import taiwan.no1.app.utilies.ViewUtils
+import taiwan.no1.app.utilies.ImageLoader.IImageLoader
 import javax.inject.Inject
 import kotlin.comparisons.compareBy
 
@@ -59,7 +59,10 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
     }
     //endregion
 
-    @Inject lateinit var presenter: CastDetailContract.Presenter
+    @Inject
+    lateinit var presenter: CastDetailContract.Presenter
+    @Inject
+    lateinit var imageLoader: IImageLoader
 
     //region View variables
     private val ivDropPoster by bindView<DiagonalView>(R.id.dv_drop_poster)
@@ -141,8 +144,7 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
     override fun showCastDetail(castDetailModel: CastDetailModel) {
         val imageUrl = castDetailModel.images?.let { it.profiles?.let { if (it.size > 1) it[1].file_path else it[0].file_path } }
 
-        ViewUtils.loadImageToView(this.context.applicationContext,
-                MovieDBConfig.BASE_IMAGE_URL + imageUrl,
+        this.imageLoader.display(MovieDBConfig.BASE_IMAGE_URL + imageUrl,
                 this.ivDropPoster, object: GlideCustomRequestListener() {
             override fun onResourceReady(resource: GlideDrawable,
                                          model: String,
@@ -153,8 +155,7 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
                 return false
             }
         })
-        ViewUtils.loadImageToView(this.context.applicationContext,
-                MovieDBConfig.BASE_IMAGE_URL + castDetailModel.profile_path,
+        this.imageLoader.display(MovieDBConfig.BASE_IMAGE_URL + castDetailModel.profile_path,
                 this.ivPersonPoster, null, false)
         this.ivDropPoster.setOnClickListener {
             RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(

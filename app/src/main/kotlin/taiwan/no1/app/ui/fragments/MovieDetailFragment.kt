@@ -23,7 +23,7 @@ import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.adapter.DropMoviePagerAdapter
 import taiwan.no1.app.ui.adapter.itemdecorator.MovieHorizontalItemDecorator
-import taiwan.no1.app.utilies.ViewUtils
+import taiwan.no1.app.utilies.ImageLoader.IImageLoader
 import javax.inject.Inject
 import kotlin.comparisons.compareBy
 import kotlin.reflect.KClass
@@ -59,6 +59,8 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
 
     @Inject
     lateinit var presenter: MovieDetailContract.Presenter
+    @Inject
+    lateinit var imageLoader: IImageLoader
 
     //region View variables
     private val vpDropPoster by bindView<ViewPager>(R.id.vp_drop_poster)
@@ -158,8 +160,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
             else
                 null
         }
-        ViewUtils.loadImageToView(this.context.applicationContext,
-                MovieDBConfig.BASE_IMAGE_URL + movieDetailModel.poster_path,
+        this.imageLoader.display(MovieDBConfig.BASE_IMAGE_URL + movieDetailModel.poster_path,
                 this.ivMoviePoster)
         this.tvReleaseDate.setBackgroundColor(Color.TRANSPARENT)
         this.tvReleaseDate.text = movieDetailModel.release_date

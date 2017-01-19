@@ -4,6 +4,7 @@ import dagger.Component
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.modules.FragmentModule
 import taiwan.no1.app.internal.di.modules.FragmentUseCaseModule
+import taiwan.no1.app.internal.di.modules.UtilsModule
 import taiwan.no1.app.ui.fragments.*
 
 /**
@@ -14,13 +15,14 @@ import taiwan.no1.app.ui.fragments.*
 
 @PerFragment
 @Component(dependencies = arrayOf(AppComponent::class),
-        modules = arrayOf(FragmentModule::class, FragmentUseCaseModule::class))
+        modules = arrayOf(FragmentModule::class, FragmentUseCaseModule::class, UtilsModule::class))
 interface FragmentComponent {
     object Initializer {
         fun init(appComponent: AppComponent): FragmentComponent = DaggerFragmentComponent.builder()
                 .appComponent(appComponent)
                 .fragmentUseCaseModule(FragmentUseCaseModule())
                 .fragmentModule(FragmentModule())
+                .utilsModule(UtilsModule())
                 .build()
     }
 
