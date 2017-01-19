@@ -15,10 +15,8 @@ import taiwan.no1.app.api.config.MovieDBConfig
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.contracts.MovieDetailContract
-import taiwan.no1.app.mvp.models.MovieBriefModel
-import taiwan.no1.app.mvp.models.MovieCastsModel
+import taiwan.no1.app.mvp.models.IVisitable
 import taiwan.no1.app.mvp.models.MovieDetailModel
-import taiwan.no1.app.mvp.models.MovieVideosModel
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.adapter.DropMoviePagerAdapter
@@ -26,7 +24,6 @@ import taiwan.no1.app.ui.adapter.itemdecorator.MovieHorizontalItemDecorator
 import taiwan.no1.app.utilies.ImageLoader.IImageLoader
 import javax.inject.Inject
 import kotlin.comparisons.compareBy
-import kotlin.reflect.KClass
 
 
 /**
@@ -181,62 +178,41 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
 
         // Inflate the cast section.
         this.showViewStub(this.stubCasts, {
-            movieDetailModel.casts?.cast?.let { this.showMovieCasts(it) }
+            movieDetailModel.casts?.cast?.let {
+                this.showCardItems(this.rvCasts,
+                        it.filter { null != it.profile_path })
+            }
         })
 
         // Inflate the crew section.
         this.showViewStub(this.stubCrews, {
-            movieDetailModel.casts?.crew?.let { this.showMovieCrews(it) }
+            movieDetailModel.casts?.crew?.let {
+                this.showCardItems(this.rvCrews,
+                        it.filter { null != it.profile_path })
+            }
         })
 
         // Inflate the related movieList section.
         this.showViewStub(this.stubRelated, {
-            movieDetailModel.similar?.movieBriefModel?.let { this.showSimilarMovies(it) }
+            movieDetailModel.similar?.movieBriefModel?.let {
+                this.showCardItems(this.rvRelated, it.map {
+                    it.apply { it.isMainView = false }
+                }.sortedWith(compareBy({ it.release_date })).reversed())
+            }
         })
 
         // Inflate the trailer movieList section.
         this.showViewStub(this.stubTrailer, {
-            movieDetailModel.videos?.results?.let { this.showTrailerMovies(it) }
+            movieDetailModel.videos?.results?.let { this.showCardItems(this.rvTrailer, it) }
         })
     }
     //endregion
 
-    private fun showMovieCasts(castList: List<MovieCastsModel.CastBean>) {
-        this.rvCasts.layoutManager = LinearLayoutManager(this.context,
-                LinearLayoutManager.HORIZONTAL,
-                false)
-        this.rvCasts.adapter = CommonRecyclerAdapter(castList.filter { null != it.profile_path },
-                this.argFromFragment)
-        this.rvCasts.addItemDecoration(MovieHorizontalItemDecorator(30))
-    }
-
-    private fun showMovieCrews(crewList: List<MovieCastsModel.CrewBean>) {
-        this.rvCrews.layoutManager = LinearLayoutManager(this.context,
-                LinearLayoutManager.HORIZONTAL,
-                false)
-        this.rvCrews.adapter = CommonRecyclerAdapter(crewList.filter { null != it.profile_path },
-                this.argFromFragment)
-        this.rvCrews.addItemDecoration(MovieHorizontalItemDecorator(30))
-    }
-
-    private fun showSimilarMovies(similarMovieList: List<MovieBriefModel>) {
-        this.rvRelated.layoutManager = LinearLayoutManager(this.context,
-                LinearLayoutManager.HORIZONTAL,
-                false)
-        this.rvRelated.adapter = CommonRecyclerAdapter(similarMovieList.
-                map { it.apply { it.isMainView = false } }.
-                sortedWith(compareBy({ it.release_date })).reversed(), this.argFromFragment)
-        this.rvRelated.addItemDecoration(MovieHorizontalItemDecorator(30))
-    }
-
-    private fun showTrailerMovies(videoMovieList: List<MovieVideosModel>) {
-        this.rvTrailer.layoutManager = LinearLayoutManager(this.context,
-                LinearLayoutManager.HORIZONTAL,
-                false)
-        this.rvTrailer.adapter = CommonRecyclerAdapter(videoMovieList, this.argFromFragment)
-        this.rvTrailer.addItemDecoration(MovieHorizontalItemDecorator(30))
-    }
-
-    private fun showMovies(recyclerView: RecyclerView, list: List<KClass<*>>, listtype: KClass<*>) {
+    private fun <T: IVisitable> showCardItems(recyclerView: RecyclerView, list: List<T>) {
+        recyclerView.apply {
+            this.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+            this.adapter = CommonRecyclerAdapter(list, argFromFragment)
+            this.addItemDecoration(MovieHorizontalItemDecorator(30))
+        }
     }
 }

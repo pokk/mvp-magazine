@@ -22,7 +22,7 @@ import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.contracts.CastDetailContract
 import taiwan.no1.app.mvp.models.CastDetailModel
-import taiwan.no1.app.mvp.models.CreditsModel
+import taiwan.no1.app.mvp.models.IVisitable
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.adapter.itemdecorator.MovieHorizontalItemDecorator
@@ -183,19 +183,21 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
 
         // Inflate the related movie section.
         this.showViewStub(this.stubRelated, {
-            castDetailModel.combined_credits?.cast?.let { this.showCreditsMovies(it) }
+            castDetailModel.combined_credits?.cast?.let {
+                this.showCardItems(this.rvRelated, it.filter { it.media_type == "movie" }.
+                        sortedWith(compareBy({ it.release_date })).
+                        reversed())
+            }
         })
     }
     //endregion
 
-    private fun showCreditsMovies(creditsMovieList: List<CreditsModel.CastBean>) {
-        this.rvRelated.layoutManager = LinearLayoutManager(this.context,
-                LinearLayoutManager.HORIZONTAL,
-                false)
-        this.rvRelated.adapter = CommonRecyclerAdapter(creditsMovieList.filter { it.media_type == "movie" }.
-                sortedWith(compareBy({ it.release_date })).
-                reversed(), this.argFromFragment)
-        this.rvRelated.addItemDecoration(MovieHorizontalItemDecorator(20))
+    private fun <T: IVisitable> showCardItems(recyclerView: RecyclerView, list: List<T>) {
+        recyclerView.apply {
+            this.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+            this.adapter = CommonRecyclerAdapter(list, argFromFragment)
+            this.addItemDecoration(MovieHorizontalItemDecorator(30))
+        }
     }
 
     private fun showInfo(info: String?, title: TextView, content: TextView) {
