@@ -25,7 +25,7 @@ class MovieTrailerViewHolder(val view: View): BaseViewHolder(view) {
 
     override fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
         (model as MovieVideosModel).let {
-            YoutubeExtract(it.key).startExtracting(object: YoutubeExtract.YouTubeExtractorListener {
+            YoutubeExtract(it.key ?: "").startExtracting(object: YoutubeExtract.YouTubeExtractorListener {
                 override fun onSuccess(result: YoutubeExtract.YouTubeExtractorResult) {
                     item.setOnClickListener {
                         RxBus.get().post(ACTIVITY_NAVIGATOR,
