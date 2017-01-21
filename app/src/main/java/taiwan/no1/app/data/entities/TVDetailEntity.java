@@ -2,6 +2,8 @@ package taiwan.no1.app.data.entities;
 
 import java.util.List;
 
+import taiwan.no1.app.mvp.models.TvDetailModel;
+
 /**
  * Created by weian on 2017/1/11.
  */
@@ -31,12 +33,12 @@ public class TVDetailEntity {
     private MovieListResEntity similar;
     private List<CreatedByBean> created_by;
     private List<Integer> episode_run_time;
-    private List<GenresBean> genres;
+    private List<TvDetailModel.GenresBean> genres;
     private List<String> languages;
-    private List<NetworksBean> networks;
+    private List<TvDetailModel.NetworksBean> networks;
     private List<String> origin_country;
-    private List<ProductionCompaniesBean> production_companies;
-    private List<SeasonsBean> seasons;
+    private List<TvDetailModel.ProductionCompaniesBean> production_companies;
+    private List<TvDetailModel.SeasonsBean> seasons;
 
     public String getBackdrop_path() {
         return backdrop_path;
@@ -222,11 +224,11 @@ public class TVDetailEntity {
         this.episode_run_time = episode_run_time;
     }
 
-    public List<GenresBean> getGenres() {
+    public List<TvDetailModel.GenresBean> getGenres() {
         return genres;
     }
 
-    public void setGenres(List<GenresBean> genres) {
+    public void setGenres(List<TvDetailModel.GenresBean> genres) {
         this.genres = genres;
     }
 
@@ -238,11 +240,11 @@ public class TVDetailEntity {
         this.languages = languages;
     }
 
-    public List<NetworksBean> getNetworks() {
+    public List<TvDetailModel.NetworksBean> getNetworks() {
         return networks;
     }
 
-    public void setNetworks(List<NetworksBean> networks) {
+    public void setNetworks(List<TvDetailModel.NetworksBean> networks) {
         this.networks = networks;
     }
 
@@ -254,19 +256,19 @@ public class TVDetailEntity {
         this.origin_country = origin_country;
     }
 
-    public List<ProductionCompaniesBean> getProduction_companies() {
+    public List<TvDetailModel.ProductionCompaniesBean> getProduction_companies() {
         return production_companies;
     }
 
-    public void setProduction_companies(List<ProductionCompaniesBean> production_companies) {
+    public void setProduction_companies(List<TvDetailModel.ProductionCompaniesBean> production_companies) {
         this.production_companies = production_companies;
     }
 
-    public List<SeasonsBean> getSeasons() {
+    public List<TvDetailModel.SeasonsBean> getSeasons() {
         return seasons;
     }
 
-    public void setSeasons(List<SeasonsBean> seasons) {
+    public void setSeasons(List<TvDetailModel.SeasonsBean> seasons) {
         this.seasons = seasons;
     }
 
@@ -303,140 +305,6 @@ public class TVDetailEntity {
 
         public void setProfile_path(String profile_path) {
             this.profile_path = profile_path;
-        }
-    }
-
-    public static class GenresBean {
-        /**
-         * id : 18
-         * name : Drama
-         */
-
-        private int id;
-        private String name;
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-    }
-
-    public static class NetworksBean {
-        /**
-         * id : 238
-         * name : History
-         */
-
-        private int id;
-        private String name;
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-    }
-
-    public static class ProductionCompaniesBean {
-        /**
-         * name : Shaw Media
-         * id : 7224
-         */
-
-        private String name;
-        private int id;
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-    }
-
-    public static class SeasonsBean {
-        /**
-         * air_date : 2013-02-25
-         * episode_count : 2
-         * id : 53335
-         * poster_path : /woP1jNltcWMLqK6pcFqPJq6pyJ6.jpg
-         * season_number : 0
-         */
-
-        private String air_date;
-        private int episode_count;
-        private int id;
-        private String poster_path;
-        private int season_number;
-
-        public String getAir_date() {
-            return air_date;
-        }
-
-        public void setAir_date(String air_date) {
-            this.air_date = air_date;
-        }
-
-        public int getEpisode_count() {
-            return episode_count;
-        }
-
-        public void setEpisode_count(int episode_count) {
-            this.episode_count = episode_count;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getPoster_path() {
-            return poster_path;
-        }
-
-        public void setPoster_path(String poster_path) {
-            this.poster_path = poster_path;
-        }
-
-        public int getSeason_number() {
-            return season_number;
-        }
-
-        public void setSeason_number(int season_number) {
-            this.season_number = season_number;
         }
     }
 }
