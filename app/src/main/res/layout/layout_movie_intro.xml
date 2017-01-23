@@ -6,122 +6,50 @@
     android:orientation="vertical">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:paddingStart="16dp"
-        android:paddingTop="5dp"
-        android:text="Overview"
-        android:textSize="20sp"
-        android:textStyle="bold"/>
+        style="@style/DetailTitle"
+        android:text="Overview"/>
 
     <TextView
         android:id="@+id/tv_overview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-smallcaps"
-        android:lineSpacingExtra="3dp"
-        android:padding="16dp"
-        android:textColor="#828282"
-        android:textSize="16sp"/>
+        style="@style/DetailContent"/>
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:paddingStart="16dp"
-        android:paddingTop="5dp"
-        android:text="Run Time"
-        android:textSize="20sp"
-        android:textStyle="bold"/>
+        style="@style/DetailTitle"
+        android:text="Run Time"/>
 
     <TextView
         android:id="@+id/tv_run_time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-smallcaps"
-        android:lineSpacingExtra="3dp"
-        android:padding="16dp"
-        android:textColor="#828282"
-        android:textSize="16sp"/>
+        style="@style/DetailContent"/>
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:paddingStart="16dp"
-        android:paddingTop="5dp"
-        android:text="Status"
-        android:textSize="20sp"
-        android:textStyle="bold"/>
+        style="@style/DetailTitle"
+        android:text="Status"/>
 
     <TextView
         android:id="@+id/tv_status"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-smallcaps"
-        android:lineSpacingExtra="3dp"
-        android:padding="16dp"
-        android:textColor="#828282"
-        android:textSize="16sp"/>
-    
+        style="@style/DetailContent"/>
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:paddingStart="16dp"
-        android:paddingTop="5dp"
-        android:text="Language"
-        android:textSize="20sp"
-        android:textStyle="bold"/>
+        style="@style/DetailTitle"
+        android:text="Language"/>
 
     <TextView
         android:id="@+id/tv_language"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-smallcaps"
-        android:lineSpacingExtra="3dp"
-        android:padding="16dp"
-        android:textColor="#828282"
-        android:textSize="16sp"/>
+        style="@style/DetailContent"/>
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:paddingStart="16dp"
-        android:paddingTop="5dp"
-        android:text="Production"
-        android:textSize="20sp"
-        android:textStyle="bold"/>
+        style="@style/DetailTitle"
+        android:text="Production"/>
 
     <TextView
         android:id="@+id/tv_productions"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-smallcaps"
-        android:lineSpacingExtra="3dp"
-        android:padding="16dp"
-        android:textColor="#828282"
-        android:textSize="16sp"/>
+        style="@style/DetailContent"/>
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:paddingStart="16dp"
-        android:paddingTop="5dp"
-        android:text="Vote"
-        android:textSize="20sp"
-        android:textStyle="bold"/>
+        style="@style/DetailTitle"
+        android:text="Vote"/>
 
     <TextView
         android:id="@+id/tv_vote"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-smallcaps"
-        android:lineSpacingExtra="3dp"
-        android:padding="16dp"
-        android:textColor="#828282"
-        android:textSize="16sp"/>
+        style="@style/DetailContent"/>
 </LinearLayout>

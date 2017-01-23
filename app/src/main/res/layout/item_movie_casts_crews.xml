@@ -26,20 +26,16 @@
 
         <TextView
             android:id="@+id/tv_character"
+            style="@style/CardDescribe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#55000000"
-            android:gravity="center"
-            android:textColor="#dddddd"
             tools:text="Character"/>
 
         <TextView
             android:id="@+id/tv_name"
+            style="@style/CardDescribe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#55000000"
-            android:gravity="center"
-            android:textColor="#dddddd"
             tools:text="Name"/>
     </LinearLayout>
 </android.support.v7.widget.CardView>
