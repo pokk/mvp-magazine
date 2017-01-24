@@ -9,6 +9,7 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable
 import com.bumptech.glide.request.RequestListener
 
 /**
+ * View utility.
  *
  * @author  Jieyi
  * @since   1/14/17
