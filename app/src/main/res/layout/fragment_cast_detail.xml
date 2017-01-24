@@ -37,7 +37,7 @@
                     app:layout_collapseMode="parallax"
                     app:solidColor="#dddddd"/>
 
-                <taiwan.no1.app.ui.customize.CircleImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/iv_person"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
