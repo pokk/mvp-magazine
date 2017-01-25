@@ -176,6 +176,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
             // The last one of HorizontalInfiniteCycleViewPager is showing current view.
             this.hicvpGallery.getChildAt(hicvpGallery.childCount - 1) as ViewGroup
 
+    // FIXME: 2017/01/25 If the images didn't finish loading then APP will crash.
     private fun extractBitmapFromCurrItem(): Bitmap =
             ((getCurrentPresentItem().findViewById(R.id.img_item) as ImageView).
                     drawable as GlideBitmapDrawable).bitmap

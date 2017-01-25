@@ -187,8 +187,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         // Inflate the crew section.
         this.showViewStub(this.stubCrews, {
             movieDetailModel.casts?.crew?.let {
-                this.showCardItems(this.rvCrews,
-                        it.filter { null != it.profile_path })
+                this.showCardItems(this.rvCrews, it.filter { null != it.profile_path })
             }
         })
 
