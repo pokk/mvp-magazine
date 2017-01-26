@@ -1,15 +1,18 @@
 package taiwan.no1.app.ui.fragments
 
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.transition.TransitionInflater
 import android.view.ViewStub
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.bindView
+import taiwan.no1.app.App
 import taiwan.no1.app.R
 import taiwan.no1.app.api.config.MovieDBConfig
 import taiwan.no1.app.internal.di.annotations.PerFragment
@@ -22,6 +25,7 @@ import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.adapter.DropMoviePagerAdapter
 import taiwan.no1.app.ui.adapter.itemdecorator.MovieHorizontalItemDecorator
 import taiwan.no1.app.ui.customize.StarScoreView
+import taiwan.no1.app.utilies.AppLog
 import taiwan.no1.app.utilies.ImageLoader.IImageLoader
 import taiwan.no1.app.utilies.TimeUtils
 import javax.inject.Inject
@@ -48,6 +52,15 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
          * @return A new instance of [fragment] MovieDetailFragment.
          */
         fun newInstance(id: String, from: Int): MovieDetailFragment = MovieDetailFragment().apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                TransitionInflater.from(App.getAppContext()).let {
+                    this.sharedElementReturnTransition = it.inflateTransition(R.transition.change_image_transform)
+                    this.exitTransition = it.inflateTransition(android.R.transition.fade)
+                    this.sharedElementEnterTransition = it.inflateTransition(R.transition.change_image_transform)
+                    this.enterTransition = it.inflateTransition(android.R.transition.fade)
+                }
+            }
+
             this.arguments = Bundle().apply {
                 this.putString(ARG_PARAM_MOVIE_ID, id)
                 this.putInt(ARG_PARAM_FROM_ID, from)
@@ -150,6 +163,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         // TODO: 1/8/17 Here may happen memory leak!? We need to use deep copy.
         this.movieDetail = movieDetailModel
 
+        AppLog.w(movieDetailModel.id)
         this.vpDropPoster.adapter = movieDetailModel.images?.let {
             if (null != it.backdrops && null != it.posters)
                 DropMoviePagerAdapter(this.context,
@@ -159,8 +173,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
             else
                 null
         }
-        this.imageLoader.display(MovieDBConfig.BASE_IMAGE_URL + movieDetailModel.poster_path,
-                this.ivMoviePoster)
+        this.imageLoader.display(MovieDBConfig.BASE_IMAGE_URL + movieDetailModel.poster_path, this.ivMoviePoster)
         this.tvReleaseDate.setBackgroundColor(Color.TRANSPARENT)
         this.tvReleaseDate.text = movieDetailModel.release_date
         this.tvTitle.setBackgroundColor(Color.TRANSPARENT)

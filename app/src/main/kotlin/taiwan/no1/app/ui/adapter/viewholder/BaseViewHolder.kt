@@ -14,7 +14,7 @@ import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
  */
 
 abstract class BaseViewHolder(view: View): RecyclerView.ViewHolder(view) {
-    protected val context: Context = view.context
+    protected val mContext: Context = view.context
 
     /**
      * Set the views' properties.

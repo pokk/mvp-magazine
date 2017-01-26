@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@color/lb_search_bar_text"
+        android:transitionName="movie_post"
         tools:ignore="contentDescription"/>
 
     <TextView

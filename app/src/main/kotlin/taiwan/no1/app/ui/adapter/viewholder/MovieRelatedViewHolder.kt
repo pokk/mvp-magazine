@@ -29,7 +29,7 @@ class MovieRelatedViewHolder(view: View): BaseViewHolder(view) {
 
     override fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
         (model as MovieBriefModel).let {
-            ViewUtils.loadImageToView(this.context.applicationContext,
+            ViewUtils.loadImageToView(this.mContext.applicationContext,
                     MovieDBConfig.BASE_IMAGE_URL + it.poster_path,
                     this.ivPoster,
                     GlideResizeRequestListener(this.item))
@@ -39,7 +39,9 @@ class MovieRelatedViewHolder(view: View): BaseViewHolder(view) {
                 RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
                         Pair(MovieListFragment.NAVIGATOR_ARG_FRAGMENT,
                                 MovieDetailFragment.newInstance(model.id.toString(), adapter.fragmentTag)),
-                        Pair(MovieListFragment.NAVIGATOR_ARG_TAG, adapter.fragmentTag)))
+                        Pair(MovieListFragment.NAVIGATOR_ARG_TAG, adapter.fragmentTag),
+                        Pair(MovieListFragment.NAVIGATOR_ARG_SHARED_ELEMENT, ivPoster),
+                        Pair(MovieListFragment.NAVIGATOR_ARG_SHARED_NAME, ivPoster.transitionName)))
             }
         }
     }

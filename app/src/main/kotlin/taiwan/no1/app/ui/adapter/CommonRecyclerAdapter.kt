@@ -24,9 +24,7 @@ class CommonRecyclerAdapter(var models: List<IVisitable>, val fragmentTag: Int =
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-        val itemView: View = View.inflate(parent.context,
-                ViewTypeFactory.TypeResource.values()[viewType].id,
-                null)
+        val itemView: View = View.inflate(parent.context, ViewTypeFactory.TypeResource.values()[viewType].id, null)
 
         return this.typeFactory.createViewHolder(viewType, itemView)
     }

@@ -1,8 +1,24 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
+        <!-- enable window content transitions -->
+        <item name="android:windowContentTransitions" tools:targetApi="lollipop">true</item>
+
+        <!-- specify enter and exit transitions -->
+        <!-- options are: explode, slide, fade -->
+        <item name="android:windowEnterTransition" tools:targetApi="lollipop">@transition/change_image_transform</item>
+        <item name="android:windowExitTransition" tools:targetApi="lollipop">@transition/change_image_transform</item>
+
+        <!-- specify shared element transitions -->
+        <item name="android:windowSharedElementEnterTransition" tools:targetApi="lollipop">
+            @transition/change_image_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition" tools:targetApi="lollipop">
+            @transition/change_image_transform
+        </item>
+
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
