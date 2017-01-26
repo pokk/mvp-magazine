@@ -7,7 +7,9 @@ import android.view.View
 import taiwan.no1.app.R
 
 /**
- * Created by jieyi on 2017/01/25.
+ * @author  jieyi
+ * @version 0.0.1
+ * @since   2017/01/25
  */
 
 class StarScoreView: View {
@@ -17,21 +19,36 @@ class StarScoreView: View {
             color = Color.YELLOW
         }
     }
-    private var scoreBitmap: Bitmap = BitmapFactory.decodeResource(this.resources, R.drawable.ic_star_border)
-        set(value) {
-            field = value
-        }
     private var mWidth: Int = 0
     private var mHeight: Int = 0
-    private var scoreNumber: Int = 5
+    private var scoreMaxNumber: Int = 5
+        set(value) {
+            field = value
+            invalidate()
+        }
+    var score: Double = .0
+        set(value) {
+            field = value
+            invalidate()
+        }
+    private var scoreBoardBitmap: Bitmap = BitmapFactory.decodeResource(this.resources, R.drawable.ic_star_border)
+        set(value) {
+            field = value
+            invalidate()
+        }
+    private var scoreBitmap: Bitmap = BitmapFactory.decodeResource(this.resources, R.drawable.ic_star)
+        set(value) {
+            field = value
+            invalidate()
+        }
+    private var desiredWidth: Int = this.scoreBoardBitmap.width * this.scoreMaxNumber
+    private var desiredHeight: Int = this.scoreBoardBitmap.height
 
-    constructor(context: Context?): super(context)
-    constructor(context: Context?, attrs: AttributeSet?): super(context, attrs)
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int): super(context,
-            attrs,
-            defStyleAttr)
+    constructor(context: Context): super(context)
+    constructor(context: Context, attrs: AttributeSet?): super(context, attrs)
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int): super(context, attrs, defStyleAttr)
 
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int): super(context,
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int): super(context,
             attrs,
             defStyleAttr,
             defStyleRes)
@@ -42,41 +59,59 @@ class StarScoreView: View {
         val heightMode: Int = MeasureSpec.getMode(heightMeasureSpec)
         val heightSize: Int = MeasureSpec.getSize(heightMeasureSpec)
 
-        val desiredWidth: Int = this.scoreBitmap.width * this.scoreNumber
-        val desiredHeight: Int = this.scoreBitmap.height
-
         // Measure width.
-        val settingWidth = when (widthMode) {
+        this.mWidth = when (widthMode) {
         // Must be this size.
             MeasureSpec.EXACTLY -> widthSize
-        //Can't be bigger than...
+        // Can't be bigger than...
             MeasureSpec.AT_MOST -> Math.min(desiredWidth, widthSize)
-        //Be whatever you want.
+        // Be whatever you want.
             else -> desiredWidth
         }
 
         // Measure height.
-        val settingHeight = when (heightMode) {
+        this.mHeight = when (heightMode) {
         // Must be this size.
             MeasureSpec.EXACTLY -> heightSize
-        //Can't be bigger than...
+        // Can't be bigger than...
             MeasureSpec.AT_MOST -> Math.min(desiredHeight, heightSize)
-        //Be whatever you want.
+        // Be whatever you want.
             else -> desiredHeight
         }
 
-        setMeasuredDimension(settingWidth, settingHeight)
+        setMeasuredDimension(this.mWidth, this.mHeight)
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        // TODO: 2017/01/25 Finish this star score view. See the result in the [fragment_movie_detail.xml].
-//        (0..this.scoreNumber - 1).forEach {
-//            canvas.drawBitmap(this.scoreBitmap, 0f + this.scoreBitmap.width * it, 0f, this.scorePaint)
-//        }
-        canvas.drawBitmap(this.scoreBitmap, 0f, 0f, this.scorePaint)
-        this.scorePaint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
-        this.scorePaint.color = Color.RED
-        canvas.drawRect(0f, 0f, width.toFloat(), height.toFloat(), this.scorePaint)
+        (0..this.scoreMaxNumber - 1).forEach {
+            if (it < Math.floor(this.score))
+                canvas.drawBitmap(this.scoreBitmap, this.scoreBitmap.width * it.toFloat(), 0f, this.scorePaint)
+            else if (it >= Math.ceil(this.score))
+                canvas.drawBitmap(this.scoreBoardBitmap,
+                        this.scoreBoardBitmap.width * it.toFloat(),
+                        0f,
+                        this.scorePaint)
+            else {
+                val decimal: Double = this.score - Math.floor(this.score)
+                canvas.drawBitmap(this.scoreBitmap,
+                        Rect(0, 0, (this.scoreBitmap.width * decimal).toInt(), this.scoreBitmap.height),
+                        Rect(this.scoreBitmap.width * it,
+                                0,
+                                (this.scoreBitmap.width * it.toFloat() + this.scoreBitmap.width * decimal).toInt(),
+                                this.scoreBitmap.height),
+                        this.scorePaint)
+                canvas.drawBitmap(this.scoreBoardBitmap,
+                        Rect((this.scoreBoardBitmap.width * decimal).toInt(),
+                                0,
+                                this.scoreBoardBitmap.width,
+                                this.scoreBoardBitmap.height),
+                        Rect(this.scoreBoardBitmap.width * it + (this.scoreBoardBitmap.width * decimal).toInt(),
+                                0,
+                                this.scoreBoardBitmap.width * (it + 1),
+                                this.scoreBoardBitmap.height),
+                        this.scorePaint)
+            }
+        }
     }
 }

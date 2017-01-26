@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="#ffffff"
     tools:context=".ui.activities.MainActivity">
 
     <android.support.v4.widget.NestedScrollView
@@ -19,6 +19,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
             android:orientation="vertical">
 
             <ViewStub
@@ -78,11 +80,10 @@
 
                 <TextView
                     android:id="@+id/tv_title"
-                    style="@style/Poster.Name"
+                    style="@style/Poster.Text.Name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/vp_drop_poster"
-                    android:layout_gravity="bottom"
                     android:layout_toEndOf="@+id/iv_movie_poster"
                     android:gravity="end"
                     app:layout_collapseMode="parallax"
@@ -90,7 +91,7 @@
 
                 <TextView
                     android:id="@+id/tv_release_date"
-                    style="@style/Poster.Date"
+                    style="@style/Poster.Text.Date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_above="@+id/tv_title"
@@ -101,17 +102,16 @@
                     tools:text="2000-10-13"/>
 
                 <TextView
-                    android:id="@+id/tv_time"
+                    android:id="@+id/tv_run_time"
+                    style="@style/Poster"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_below="@+id/tv_title"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginTop="2dp"
                     android:drawableStart="@drawable/ic_access_time"
                     android:gravity="center"
-                    android:textColor="#135441"
-                    tools:text="  1 h 23 m"/>
+                    android:text="  0 h 0 m"
+                    android:textColor="#135441"/>
 
                 <ImageView
                     android:id="@+id/iv_movie_poster"
@@ -128,8 +128,12 @@
                     tools:ignore="contentDescription"/>
 
                 <taiwan.no1.app.ui.customize.StarScoreView
+                    android:id="@+id/ssv_score"
+                    style="@style/Poster"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/tv_run_time"/>
             </RelativeLayout>
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>

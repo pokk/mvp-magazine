@@ -15,14 +15,6 @@
 
     <TextView
         style="@style/DetailTitle"
-        android:text="Run Time"/>
-
-    <TextView
-        android:id="@+id/tv_run_time"
-        style="@style/DetailContent"/>
-
-    <TextView
-        style="@style/DetailTitle"
         android:text="Status"/>
 
     <TextView
@@ -43,13 +35,5 @@
 
     <TextView
         android:id="@+id/tv_productions"
-        style="@style/DetailContent"/>
-
-    <TextView
-        style="@style/DetailTitle"
-        android:text="Vote"/>
-
-    <TextView
-        android:id="@+id/tv_vote"
         style="@style/DetailContent"/>
 </LinearLayout>

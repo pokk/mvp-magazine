@@ -21,7 +21,9 @@ import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.adapter.DropMoviePagerAdapter
 import taiwan.no1.app.ui.adapter.itemdecorator.MovieHorizontalItemDecorator
+import taiwan.no1.app.ui.customize.StarScoreView
 import taiwan.no1.app.utilies.ImageLoader.IImageLoader
+import taiwan.no1.app.utilies.TimeUtils
 import javax.inject.Inject
 import kotlin.comparisons.compareBy
 
@@ -63,6 +65,8 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     private val vpDropPoster by bindView<ViewPager>(R.id.vp_drop_poster)
     private val ivMoviePoster by bindView<ImageView>(R.id.iv_movie_poster)
     private val tvReleaseDate by bindView<TextView>(R.id.tv_release_date)
+    private val tvTime by bindView<TextView>(R.id.tv_run_time)
+    private val ssvStarRate by bindView<StarScoreView>(R.id.ssv_score)
     private val tvTitle by bindView<TextView>(R.id.tv_title)
     private val stubIntro by bindView<ViewStub>(R.id.stub_introduction)
     private val stubCasts by bindView<ViewStub>(R.id.stub_casts)
@@ -71,10 +75,8 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     private val stubTrailer by bindView<ViewStub>(R.id.stub_trailer)
     private val tvOverview by bindView<TextView>(R.id.tv_overview)
     private val tvStatus by bindView<TextView>(R.id.tv_status)
-    private val tvRunTime by bindView<TextView>(R.id.tv_run_time)
     private val tvLanguage by bindView<TextView>(R.id.tv_language)
     private val tvProduction by bindView<TextView>(R.id.tv_productions)
-    private val tvVote by bindView<TextView>(R.id.tv_vote)
     private val rvCasts by bindView<RecyclerView>(R.id.rv_casts)
     private val rvCrews by bindView<RecyclerView>(R.id.rv_crews)
     private val rvRelated by bindView<RecyclerView>(R.id.rv_related)
@@ -163,17 +165,19 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         this.tvReleaseDate.text = movieDetailModel.release_date
         this.tvTitle.setBackgroundColor(Color.TRANSPARENT)
         this.tvTitle.text = movieDetailModel.title
+        TimeUtils.number2Time(movieDetailModel.runtime.toDouble(), TimeUtils.TimeType.Min).let {
+            this.tvTime.text = "  ${it.hours} h ${it.mins} m"
+        }
+        this.ssvStarRate.score = movieDetailModel.vote_average / 2
 
         // Inflate the introduction section.
         this.showViewStub(this.stubIntro, {
             this.tvOverview.text = movieDetailModel.overview
             this.tvStatus.text = movieDetailModel.status
-            this.tvRunTime.text = movieDetailModel.runtime.toString()
             this.tvLanguage.text = movieDetailModel.original_language
             movieDetailModel.production_countries?.let {
                 this.tvProduction.text = it.flatMap { listOf(it.name) }.joinToString("")
             }
-            this.tvVote.text = movieDetailModel.vote_average.toString()
         })
 
         // Inflate the cast section.

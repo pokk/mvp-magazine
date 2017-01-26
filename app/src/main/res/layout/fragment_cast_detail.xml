@@ -50,7 +50,7 @@
 
                 <TextView
                     android:id="@+id/tv_name"
-                    style="@style/Poster.Name"
+                    style="@style/Poster.Text.Name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/dv_drop_poster"
@@ -60,7 +60,7 @@
 
                 <TextView
                     android:id="@+id/tv_job"
-                    style="@style/Poster.Date"
+                    style="@style/Poster.Text.Date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_above="@id/tv_name"
