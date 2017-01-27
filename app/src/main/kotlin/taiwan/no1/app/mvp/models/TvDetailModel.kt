@@ -176,22 +176,16 @@ data class TvDetailModel(val backdrop_path: String? = null,
             source.readParcelable<MovieImagesModel>(MovieImagesModel::class.java.classLoader),
             source.readParcelable<MovieListResModel>(MovieListResModel::class.java.classLoader),
             source.createTypedArrayList(CreatedByBean.CREATOR),
-            ArrayList<Int>().apply
-            {
-                source.readList(this,
-                        Int::class.java.classLoader)
+            ArrayList<Int>().apply {
+                source.readList(this, Int::class.java.classLoader)
             },
             source.createTypedArrayList(GenresBean.CREATOR),
-            ArrayList<String>().apply
-            {
-                source.readList(this,
-                        String::class.java.classLoader)
+            ArrayList<String>().apply {
+                source.readList(this, String::class.java.classLoader)
             },
             source.createTypedArrayList(NetworksBean.CREATOR),
-            ArrayList<String>().apply
-            {
-                source.readList(this,
-                        String::class.java.classLoader)
+            ArrayList<String>().apply {
+                source.readList(this, String::class.java.classLoader)
             },
             source.createTypedArrayList(ProductionCompaniesBean.CREATOR),
             source.createTypedArrayList(SeasonsBean.CREATOR))
