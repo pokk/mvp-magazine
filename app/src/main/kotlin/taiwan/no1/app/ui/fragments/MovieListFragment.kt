@@ -1,17 +1,21 @@
 package taiwan.no1.app.ui.fragments
 
+import android.os.Build
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v4.app.Fragment
 import android.support.v7.widget.OrientationHelper
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
+import android.transition.TransitionInflater
+import android.widget.ImageView
 import butterknife.bindView
 import com.hwangjr.rxbus.RxBus
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.annotation.Tag
 import com.jakewharton.rxbinding.support.v7.widget.scrollEvents
 import com.touchin.constant.RxbusTag
+import taiwan.no1.app.App
 import taiwan.no1.app.R
 import taiwan.no1.app.data.repositiry.DataRepository
 import taiwan.no1.app.internal.di.annotations.PerFragment
@@ -21,6 +25,7 @@ import taiwan.no1.app.mvp.models.MovieBriefModel
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.adapter.itemdecorator.GridSpacingItemDecorator
+import taiwan.no1.app.utilies.AppLog
 import java.util.*
 import javax.inject.Inject
 
@@ -36,6 +41,8 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
         // For navigating the fragment's arguments. 
         const val NAVIGATOR_ARG_FRAGMENT = "fragment"
         const val NAVIGATOR_ARG_TAG = "tag"
+        const val NAVIGATOR_ARG_SHARED_ELEMENT = "shared_element"
+        const val NAVIGATOR_ARG_SHARED_NAME = "shared_element_name"
         // The key name of the fragment initialization parameters.
         private const val ARG_PARAM_CATEGORY: String = "param_movie_category"
         // The key name of the fragment restore the status parameters. 
@@ -47,6 +54,13 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
          * @return A new instance of [fragment] MovieListFragment.
          */
         fun newInstance(category: DataRepository.Movies): MovieListFragment = MovieListFragment().apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                TransitionInflater.from(App.getAppContext()).let {
+                    this.sharedElementReturnTransition = it.inflateTransition(R.transition.change_image_transform)
+                    this.exitTransition = it.inflateTransition(android.R.transition.fade)
+                }
+            }
+
             this.arguments = Bundle().apply {
                 this.putSerializable(ARG_PARAM_CATEGORY, category)
             }
@@ -184,13 +198,18 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
     fun navigateFragment(mapArgs: HashMap<String, Any>) {
         val fragment: Fragment = mapArgs[NAVIGATOR_ARG_FRAGMENT] as Fragment
         val tag: Int = mapArgs[NAVIGATOR_ARG_TAG] as Int
+        val sharedElement: ImageView? = mapArgs[NAVIGATOR_ARG_SHARED_ELEMENT] as? ImageView
+        val sharedElementName: String? = mapArgs[NAVIGATOR_ARG_SHARED_NAME] as? String
 
         // To avoid the same fragment but different hash code's fragment add the fragment.
         if (tag == this.hashCode()) {
-            this.childFragmentManager.beginTransaction().
-                    replace(R.id.main_container, fragment, fragment.javaClass.name).
-                    addToBackStack(fragment.javaClass.name).
-                    commit()
+            AppLog.w(sharedElement, sharedElementName)
+            this.childFragmentManager.beginTransaction().apply {
+                replace(R.id.main_container, fragment, fragment.javaClass.name)
+                addToBackStack(fragment.javaClass.name)
+                if (null != sharedElement && null != sharedElementName)
+                    addSharedElement(sharedElement, sharedElementName)
+            }.commit()
         }
     }
 }

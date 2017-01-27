@@ -1,15 +1,18 @@
 package taiwan.no1.app.ui.fragments
 
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.transition.TransitionInflater
 import android.view.ViewStub
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.bindView
+import taiwan.no1.app.App
 import taiwan.no1.app.R
 import taiwan.no1.app.api.config.MovieDBConfig
 import taiwan.no1.app.internal.di.annotations.PerFragment
@@ -21,7 +24,10 @@ import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.adapter.DropMoviePagerAdapter
 import taiwan.no1.app.ui.adapter.itemdecorator.MovieHorizontalItemDecorator
+import taiwan.no1.app.ui.customize.StarScoreView
+import taiwan.no1.app.utilies.AppLog
 import taiwan.no1.app.utilies.ImageLoader.IImageLoader
+import taiwan.no1.app.utilies.TimeUtils
 import javax.inject.Inject
 import kotlin.comparisons.compareBy
 
@@ -46,6 +52,15 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
          * @return A new instance of [fragment] MovieDetailFragment.
          */
         fun newInstance(id: String, from: Int): MovieDetailFragment = MovieDetailFragment().apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                TransitionInflater.from(App.getAppContext()).let {
+                    this.sharedElementReturnTransition = it.inflateTransition(R.transition.change_image_transform)
+                    this.exitTransition = it.inflateTransition(android.R.transition.fade)
+                    this.sharedElementEnterTransition = it.inflateTransition(R.transition.change_image_transform)
+                    this.enterTransition = it.inflateTransition(android.R.transition.fade)
+                }
+            }
+
             this.arguments = Bundle().apply {
                 this.putString(ARG_PARAM_MOVIE_ID, id)
                 this.putInt(ARG_PARAM_FROM_ID, from)
@@ -63,6 +78,8 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     private val vpDropPoster by bindView<ViewPager>(R.id.vp_drop_poster)
     private val ivMoviePoster by bindView<ImageView>(R.id.iv_movie_poster)
     private val tvReleaseDate by bindView<TextView>(R.id.tv_release_date)
+    private val tvTime by bindView<TextView>(R.id.tv_run_time)
+    private val ssvStarRate by bindView<StarScoreView>(R.id.ssv_score)
     private val tvTitle by bindView<TextView>(R.id.tv_title)
     private val stubIntro by bindView<ViewStub>(R.id.stub_introduction)
     private val stubCasts by bindView<ViewStub>(R.id.stub_casts)
@@ -71,10 +88,8 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     private val stubTrailer by bindView<ViewStub>(R.id.stub_trailer)
     private val tvOverview by bindView<TextView>(R.id.tv_overview)
     private val tvStatus by bindView<TextView>(R.id.tv_status)
-    private val tvRunTime by bindView<TextView>(R.id.tv_run_time)
     private val tvLanguage by bindView<TextView>(R.id.tv_language)
     private val tvProduction by bindView<TextView>(R.id.tv_productions)
-    private val tvVote by bindView<TextView>(R.id.tv_vote)
     private val rvCasts by bindView<RecyclerView>(R.id.rv_casts)
     private val rvCrews by bindView<RecyclerView>(R.id.rv_crews)
     private val rvRelated by bindView<RecyclerView>(R.id.rv_related)
@@ -148,6 +163,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         // TODO: 1/8/17 Here may happen memory leak!? We need to use deep copy.
         this.movieDetail = movieDetailModel
 
+        AppLog.w(movieDetailModel.id)
         this.vpDropPoster.adapter = movieDetailModel.images?.let {
             if (null != it.backdrops && null != it.posters)
                 DropMoviePagerAdapter(this.context,
@@ -157,23 +173,24 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
             else
                 null
         }
-        this.imageLoader.display(MovieDBConfig.BASE_IMAGE_URL + movieDetailModel.poster_path,
-                this.ivMoviePoster)
+        this.imageLoader.display(MovieDBConfig.BASE_IMAGE_URL + movieDetailModel.poster_path, this.ivMoviePoster)
         this.tvReleaseDate.setBackgroundColor(Color.TRANSPARENT)
         this.tvReleaseDate.text = movieDetailModel.release_date
         this.tvTitle.setBackgroundColor(Color.TRANSPARENT)
         this.tvTitle.text = movieDetailModel.title
+        TimeUtils.number2Time(movieDetailModel.runtime.toDouble(), TimeUtils.TimeType.Min).let {
+            this.tvTime.text = "  ${it.hours} h ${it.mins} m"
+        }
+        this.ssvStarRate.score = movieDetailModel.vote_average / 2
 
         // Inflate the introduction section.
         this.showViewStub(this.stubIntro, {
             this.tvOverview.text = movieDetailModel.overview
             this.tvStatus.text = movieDetailModel.status
-            this.tvRunTime.text = movieDetailModel.runtime.toString()
             this.tvLanguage.text = movieDetailModel.original_language
             movieDetailModel.production_countries?.let {
                 this.tvProduction.text = it.flatMap { listOf(it.name) }.joinToString("")
             }
-            this.tvVote.text = movieDetailModel.vote_average.toString()
         })
 
         // Inflate the cast section.
@@ -187,8 +204,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         // Inflate the crew section.
         this.showViewStub(this.stubCrews, {
             movieDetailModel.casts?.crew?.let {
-                this.showCardItems(this.rvCrews,
-                        it.filter { null != it.profile_path })
+                this.showCardItems(this.rvCrews, it.filter { null != it.profile_path })
             }
         })
 

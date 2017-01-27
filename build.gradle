@@ -18,6 +18,7 @@ buildscript {
         navigation_tabstrip_version = '1.0.4'
         infinite_viewpager_version = '1.0.2'
         blurry_version = '2.1.0'
+        circle_image_version = '2.1.0'
     }
     repositories {
         jcenter()

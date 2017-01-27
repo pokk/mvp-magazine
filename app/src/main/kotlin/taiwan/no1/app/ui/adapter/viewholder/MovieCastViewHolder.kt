@@ -29,7 +29,7 @@ class MovieCastViewHolder(view: View): BaseViewHolder(view) {
 
     override fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
         (model as MovieCastsModel.CastBean).let {
-            ViewUtils.loadImageToView(this.context.applicationContext,
+            ViewUtils.loadImageToView(this.mContext.applicationContext,
                     MovieDBConfig.BASE_IMAGE_URL + it.profile_path,
                     this.ivCast,
                     GlideResizeRequestListener(this.item))

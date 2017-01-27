@@ -36,7 +36,7 @@ class DropMoviePagerAdapter(val context: Context,
     override fun getCount(): Int = this.dropPosterList.size
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val dvDropPoster: DiagonalView = this.layoutInflater.inflate(R.layout.item_mvoie_poster,
+        val dvDropPoster: DiagonalView = this.layoutInflater.inflate(R.layout.item_movie_poster,
                 null,
                 false) as DiagonalView
 

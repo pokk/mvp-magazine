@@ -86,8 +86,8 @@ dependencies {
     compile "com.github.devlight:infinitecycleviewpager:${infinite_viewpager_version}"
     // Blurry image
     compile "jp.wasabeef:blurry:${blurry_version}"
-
-    compile 'de.hdodenhof:circleimageview:2.1.0'
+    // Circle image
+    compile "de.hdodenhof:circleimageview:${circle_image_version}"
 
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.android.support:support-v4:25.1.0'

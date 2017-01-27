@@ -20,7 +20,7 @@ import taiwan.no1.app.utilies.ViewUtils
  * @since   1/7/17
  */
 
-class MovieListViewHolder(view: View): BaseViewHolder(view) {
+class MovieListViewHolder(val view: View): BaseViewHolder(view) {
     private val item by bindView<LinearLayout>(R.id.item_movie_brief)
     private val ivPoster by bindView<ImageView>(R.id.iv_movie_poster)
     private val tvTitle by bindView<TextView>(R.id.tv_title)
@@ -28,7 +28,7 @@ class MovieListViewHolder(view: View): BaseViewHolder(view) {
     override fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
         // Cast the model data type to MovieBriefModel.
         (model as MovieBriefModel).let {
-            ViewUtils.loadImageToView(this.context.applicationContext,
+            ViewUtils.loadImageToView(this.mContext.applicationContext,
                     MovieDBConfig.BASE_IMAGE_URL + it.poster_path,
                     this.ivPoster)
             this.tvTitle.text = (it.release_date + "\n" + it.title)
@@ -36,7 +36,9 @@ class MovieListViewHolder(view: View): BaseViewHolder(view) {
                 RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
                         Pair(MovieListFragment.NAVIGATOR_ARG_FRAGMENT,
                                 MovieDetailFragment.newInstance(model.id.toString(), adapter.fragmentTag)),
-                        Pair(MovieListFragment.NAVIGATOR_ARG_TAG, adapter.fragmentTag)))
+                        Pair(MovieListFragment.NAVIGATOR_ARG_TAG, adapter.fragmentTag),
+                        Pair(MovieListFragment.NAVIGATOR_ARG_SHARED_ELEMENT, ivPoster),
+                        Pair(MovieListFragment.NAVIGATOR_ARG_SHARED_NAME, ivPoster.transitionName)))
             }
         }
     }
