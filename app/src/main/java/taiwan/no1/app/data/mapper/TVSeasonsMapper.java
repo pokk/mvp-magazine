@@ -2,6 +2,10 @@ package taiwan.no1.app.data.mapper;
 
 import android.support.annotation.NonNull;
 
+import com.innahema.collections.query.queriables.Queryable;
+
+import java.util.List;
+
 import javax.inject.Singleton;
 
 import taiwan.no1.app.data.entities.TVSeasonsEntity;
@@ -23,9 +27,9 @@ public class TVSeasonsMapper implements IBeanMapper<TVSeasonsModel, TVSeasonsEnt
     @NonNull
     @Override
     public TVSeasonsModel transformTo(@NonNull TVSeasonsEntity entity) {
-        //        List<TVSeasonsEntity.EpisodesBean> tvEpisodesBean = Queryable.from(entity.getEpisodes())
-        //                .map(data -> new TVSeasonsModel.EpisodesBean())
-        //                .toList();
+        List<TVSeasonsModel.EpisodesBean> tvEpisodesBean = Queryable.from(entity.getEpisodes())
+                .map(data -> new TVSeasonsModel.EpisodesBean())
+                .toList();
 
         return new TVSeasonsModel(entity.get_id(),
                                   entity.getAir_date(),
@@ -33,6 +37,7 @@ public class TVSeasonsMapper implements IBeanMapper<TVSeasonsModel, TVSeasonsEnt
                                   entity.getOverview(),
                                   entity.getId(),
                                   entity.getPoster_path(),
-                                  entity.getSeason_number(), null);
+                                  entity.getSeason_number(),
+                                  tvEpisodesBean);
     }
 }
