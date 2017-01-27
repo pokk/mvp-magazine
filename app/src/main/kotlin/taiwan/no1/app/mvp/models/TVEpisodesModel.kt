@@ -19,6 +19,7 @@ data class TVEpisodesModel(val air_date: String? = null,
                            val vote_count: Double = 0.toDouble(),
                            val videos: MovieDetailModel.VideosBean? = null): Parcelable {
     data class ImageBean(val stills: List<StillsBean>? = null): Parcelable {
+        //region Parcelable
         companion object {
             @JvmField val CREATOR: Parcelable.Creator<ImageBean> = object: Parcelable.Creator<ImageBean> {
                 override fun createFromParcel(source: Parcel): ImageBean = ImageBean(source)
@@ -35,6 +36,7 @@ data class TVEpisodesModel(val air_date: String? = null,
         override fun writeToParcel(dest: Parcel?, flags: Int) {
             dest?.writeList(stills)
         }
+        //endregion
     }
 
     data class StillsBean(val aspect_ratio: Double = 0.toDouble(),
@@ -44,6 +46,7 @@ data class TVEpisodesModel(val air_date: String? = null,
                           val vote_average: Double = 0.toDouble(),
                           val vote_count: Int = 0,
                           val width: Int = 0): Parcelable {
+        //region Parcelable
         companion object {
             @JvmField val CREATOR: Parcelable.Creator<StillsBean> = object: Parcelable.Creator<StillsBean> {
                 override fun createFromParcel(source: Parcel): StillsBean = StillsBean(source)
@@ -70,6 +73,7 @@ data class TVEpisodesModel(val air_date: String? = null,
             dest?.writeInt(vote_count)
             dest?.writeInt(width)
         }
+        //endregion
     }
 
     data class GuestStarsBean(val id: Int = 0,
@@ -78,6 +82,7 @@ data class TVEpisodesModel(val air_date: String? = null,
                               val character: String? = null,
                               val order: Int = 0,
                               val profile_path: String? = null): Parcelable {
+        //region Parcelable
         companion object {
             @JvmField val CREATOR: Parcelable.Creator<GuestStarsBean> = object: Parcelable.Creator<GuestStarsBean> {
                 override fun createFromParcel(source: Parcel): GuestStarsBean = GuestStarsBean(source)
@@ -98,8 +103,10 @@ data class TVEpisodesModel(val air_date: String? = null,
             dest?.writeInt(order)
             dest?.writeString(profile_path)
         }
+        //endregion
     }
 
+    //region Parcelable
     companion object {
         @JvmField val CREATOR: Parcelable.Creator<TVEpisodesModel> = object: Parcelable.Creator<TVEpisodesModel> {
             override fun createFromParcel(source: Parcel): TVEpisodesModel = TVEpisodesModel(source)
@@ -132,4 +139,5 @@ data class TVEpisodesModel(val air_date: String? = null,
         dest?.writeDouble(vote_count)
         dest?.writeParcelable(videos, 0)
     }
+    //endregion
 }

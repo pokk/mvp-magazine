@@ -20,6 +20,7 @@ data class MovieVideosModel(val id: String? = null,
                             val type: String? = null): IVisitable, Parcelable {
     override fun type(typeFactory: IViewTypeFactory): Int = typeFactory.type(this)
 
+    //region Parcelable
     companion object {
         @JvmField val CREATOR: Parcelable.Creator<MovieVideosModel> = object: Parcelable.Creator<MovieVideosModel> {
             override fun createFromParcel(source: Parcel): MovieVideosModel = MovieVideosModel(source)
@@ -48,4 +49,5 @@ data class MovieVideosModel(val id: String? = null,
         dest?.writeInt(size)
         dest?.writeString(type)
     }
+    //endregion
 }

@@ -41,6 +41,7 @@ data class TvDetailModel(val backdrop_path: String? = null,
     class CreatedByBean(val id: Int = 0,
                         val name: String? = null,
                         val profile_path: String? = null): Parcelable {
+        //region Parcelable
         companion object {
             @JvmField val CREATOR: Parcelable.Creator<CreatedByBean> = object: Parcelable.Creator<CreatedByBean> {
                 override fun createFromParcel(source: Parcel): CreatedByBean = CreatedByBean(source)
@@ -57,10 +58,12 @@ data class TvDetailModel(val backdrop_path: String? = null,
             dest?.writeString(name)
             dest?.writeString(profile_path)
         }
+        //endregion
     }
 
     class GenresBean(val id: Int = 0,
                      val name: String? = null): Parcelable {
+        //region Parcelable
         companion object {
             @JvmField val CREATOR: Parcelable.Creator<GenresBean> = object: Parcelable.Creator<GenresBean> {
                 override fun createFromParcel(source: Parcel): GenresBean = GenresBean(source)
@@ -76,10 +79,12 @@ data class TvDetailModel(val backdrop_path: String? = null,
             dest?.writeInt(id)
             dest?.writeString(name)
         }
+        //endregion
     }
 
     class NetworksBean(val id: Int = 0,
                        val name: String? = null): Parcelable {
+        //region Parcelable
         companion object {
             @JvmField val CREATOR: Parcelable.Creator<NetworksBean> = object: Parcelable.Creator<NetworksBean> {
                 override fun createFromParcel(source: Parcel): NetworksBean = NetworksBean(source)
@@ -95,10 +100,12 @@ data class TvDetailModel(val backdrop_path: String? = null,
             dest?.writeInt(id)
             dest?.writeString(name)
         }
+        //endregion
     }
 
     class ProductionCompaniesBean(val name: String? = null,
                                   val id: Int = 0): Parcelable {
+        //region Parcelable
         companion object {
             @JvmField val CREATOR: Parcelable.Creator<ProductionCompaniesBean> = object: Parcelable.Creator<ProductionCompaniesBean> {
                 override fun createFromParcel(source: Parcel): ProductionCompaniesBean = ProductionCompaniesBean(
@@ -116,6 +123,7 @@ data class TvDetailModel(val backdrop_path: String? = null,
             dest?.writeString(name)
             dest?.writeInt(id)
         }
+        //endregion
     }
 
     class SeasonsBean(val air_date: String? = null,
@@ -123,6 +131,7 @@ data class TvDetailModel(val backdrop_path: String? = null,
                       val id: Int = 0,
                       val poster_path: String? = null,
                       val season_number: Int = 0): Parcelable {
+        //region Parcelable
         companion object {
             @JvmField val CREATOR: Parcelable.Creator<SeasonsBean> = object: Parcelable.Creator<SeasonsBean> {
                 override fun createFromParcel(source: Parcel): SeasonsBean = SeasonsBean(source)
@@ -145,8 +154,10 @@ data class TvDetailModel(val backdrop_path: String? = null,
             dest?.writeString(poster_path)
             dest?.writeInt(season_number)
         }
+        //endregion
     }
 
+    //region Parcelable
     companion object {
         @JvmField val CREATOR: Parcelable.Creator<TvDetailModel> = object: Parcelable.Creator<TvDetailModel> {
             override fun createFromParcel(source: Parcel): TvDetailModel = TvDetailModel(source)
@@ -223,4 +234,5 @@ data class TvDetailModel(val backdrop_path: String? = null,
         dest?.writeTypedList(production_companies)
         dest?.writeTypedList(seasons)
     }
+    //endregion
 }

@@ -30,6 +30,7 @@ data class MovieBriefModel(val poster_path: String? = null,
     override fun type(typeFactory: IViewTypeFactory): Int = typeFactory.type(MovieBriefModel@ this,
             this.isMainView)
 
+    //region Parcelable
     companion object {
         @JvmField val CREATOR: Parcelable.Creator<MovieBriefModel> = object: Parcelable.Creator<MovieBriefModel> {
             override fun createFromParcel(source: Parcel): MovieBriefModel = MovieBriefModel(source)
@@ -72,4 +73,5 @@ data class MovieBriefModel(val poster_path: String? = null,
         dest?.writeInt((if (isMainView) 1 else 0))
         dest?.writeList(genre_ids)
     }
+    //endregion
 }

@@ -11,6 +11,7 @@ import android.os.Parcelable
 
 data class MovieImagesModel(val backdrops: List<ImageInfoModel>? = null,
                             val posters: List<ImageInfoModel>? = null): Parcelable {
+    //region Parcelable
     companion object {
         @JvmField val CREATOR: Parcelable.Creator<MovieImagesModel> = object: Parcelable.Creator<MovieImagesModel> {
             override fun createFromParcel(source: Parcel): MovieImagesModel = MovieImagesModel(source)
@@ -27,5 +28,6 @@ data class MovieImagesModel(val backdrops: List<ImageInfoModel>? = null,
         dest?.writeTypedList(backdrops)
         dest?.writeTypedList(posters)
     }
+    //endregion
 }
 

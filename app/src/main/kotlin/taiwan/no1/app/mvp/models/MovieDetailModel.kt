@@ -43,6 +43,7 @@ data class MovieDetailModel(val isAdult: Boolean = false,
                                        val name: String? = null,
                                        val poster_path: String? = null,
                                        val backdrop_path: String? = null): Parcelable {
+        //region Parcelable
         companion object {
             @JvmField val CREATOR: Parcelable.Creator<BelongsToCollectionBean> = object: Parcelable.Creator<BelongsToCollectionBean> {
                 override fun createFromParcel(source: Parcel): BelongsToCollectionBean = BelongsToCollectionBean(
@@ -65,10 +66,12 @@ data class MovieDetailModel(val isAdult: Boolean = false,
             dest?.writeString(poster_path)
             dest?.writeString(backdrop_path)
         }
+        //endregion
     }
 
     data class GenresBean(val id: Int = 0,
                           val name: String? = null): Parcelable {
+        //region Parcelable
         companion object {
             @JvmField val CREATOR: Parcelable.Creator<GenresBean> = object: Parcelable.Creator<GenresBean> {
                 override fun createFromParcel(source: Parcel): GenresBean = GenresBean(source)
@@ -84,10 +87,12 @@ data class MovieDetailModel(val isAdult: Boolean = false,
             dest?.writeInt(id)
             dest?.writeString(name)
         }
+        //endregion
     }
 
     data class ProductionCompaniesBean(val name: String? = null,
                                        val id: Int = 0): Parcelable {
+        //region Parcelable
         companion object {
             @JvmField val CREATOR: Parcelable.Creator<ProductionCompaniesBean> = object: Parcelable.Creator<ProductionCompaniesBean> {
                 override fun createFromParcel(source: Parcel): ProductionCompaniesBean = ProductionCompaniesBean(
@@ -105,10 +110,12 @@ data class MovieDetailModel(val isAdult: Boolean = false,
             dest?.writeString(name)
             dest?.writeInt(id)
         }
+        //endregion
     }
 
     data class ProductionCountriesBean(val iso_3166_1: String? = null,
                                        val name: String? = null): Parcelable {
+        //region Parcelable
         companion object {
             @JvmField val CREATOR: Parcelable.Creator<ProductionCountriesBean> = object: Parcelable.Creator<ProductionCountriesBean> {
                 override fun createFromParcel(source: Parcel): ProductionCountriesBean = ProductionCountriesBean(
@@ -126,10 +133,12 @@ data class MovieDetailModel(val isAdult: Boolean = false,
             dest?.writeString(iso_3166_1)
             dest?.writeString(name)
         }
+        //endregion
     }
 
     data class SpokenLanguagesBean(val iso_639_1: String? = null,
                                    val name: String? = null): Parcelable {
+        //region Parcelable
         companion object {
             @JvmField val CREATOR: Parcelable.Creator<SpokenLanguagesBean> = object: Parcelable.Creator<SpokenLanguagesBean> {
                 override fun createFromParcel(source: Parcel): SpokenLanguagesBean = SpokenLanguagesBean(
@@ -147,9 +156,11 @@ data class MovieDetailModel(val isAdult: Boolean = false,
             dest?.writeString(iso_639_1)
             dest?.writeString(name)
         }
+        //endregion
     }
 
     data class VideosBean(val results: List<MovieVideosModel>? = null): Parcelable {
+        //region Parcelable
         companion object {
             @JvmField val CREATOR: Parcelable.Creator<VideosBean> = object: Parcelable.Creator<VideosBean> {
                 override fun createFromParcel(source: Parcel): VideosBean = VideosBean(source)
@@ -166,8 +177,10 @@ data class MovieDetailModel(val isAdult: Boolean = false,
         override fun writeToParcel(dest: Parcel?, flags: Int) {
             dest?.writeList(results)
         }
+        //endregion
     }
 
+    //region Parcelable
     companion object {
         @JvmField val CREATOR: Parcelable.Creator<MovieDetailModel> = object: Parcelable.Creator<MovieDetailModel> {
             override fun createFromParcel(source: Parcel): MovieDetailModel = MovieDetailModel(source)
@@ -238,4 +251,5 @@ data class MovieDetailModel(val isAdult: Boolean = false,
         dest?.writeTypedList(production_countries)
         dest?.writeTypedList(spoken_languages)
     }
+    //endregion
 }

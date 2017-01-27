@@ -14,6 +14,7 @@ data class MovieListWithDateResModel(var page: Int = 0,
                                      var total_pages: Int = 0,
                                      val dates: MovieDatesModel? = null,
                                      var movieBriefModel: List<MovieBriefModel>? = null): Parcelable {
+    //region Parcelable
     companion object {
         @JvmField val CREATOR: Parcelable.Creator<MovieListWithDateResModel> = object: Parcelable.Creator<MovieListWithDateResModel> {
             override fun createFromParcel(source: Parcel): MovieListWithDateResModel = MovieListWithDateResModel(
@@ -38,4 +39,5 @@ data class MovieListWithDateResModel(var page: Int = 0,
         dest?.writeParcelable(dates, 0)
         dest?.writeTypedList(movieBriefModel)
     }
+    //endregion
 }

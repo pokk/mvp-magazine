@@ -28,6 +28,7 @@ data class CreditsModel(val cast: List<CastBean>? = null,
                         val original_name: String? = null): IVisitable, Parcelable {
         override fun type(typeFactory: IViewTypeFactory): Int = typeFactory.type(this)
 
+        //region Parcelable
         companion object {
             @JvmField val CREATOR: Parcelable.Creator<CastBean> = object: Parcelable.Creator<CastBean> {
                 override fun createFromParcel(source: Parcel): CastBean = CastBean(source)
@@ -66,6 +67,7 @@ data class CreditsModel(val cast: List<CastBean>? = null,
             dest?.writeString(name)
             dest?.writeString(original_name)
         }
+        //endregion
     }
 
     data class CrewBean(val isAdult: Boolean = false,
@@ -80,6 +82,7 @@ data class CreditsModel(val cast: List<CastBean>? = null,
                         val media_type: String? = null): IVisitable, Parcelable {
         override fun type(typeFactory: IViewTypeFactory): Int = typeFactory.type(this)
 
+        //region Parcelable
         companion object {
             @JvmField val CREATOR: Parcelable.Creator<CrewBean> = object: Parcelable.Creator<CrewBean> {
                 override fun createFromParcel(source: Parcel): CrewBean = CrewBean(source)
@@ -112,8 +115,10 @@ data class CreditsModel(val cast: List<CastBean>? = null,
             dest?.writeString(title)
             dest?.writeString(media_type)
         }
+        //endregion
     }
 
+    //region Parcelable
     companion object {
         @JvmField val CREATOR: Parcelable.Creator<CreditsModel> = object: Parcelable.Creator<CreditsModel> {
             override fun createFromParcel(source: Parcel): CreditsModel = CreditsModel(source)
@@ -131,4 +136,5 @@ data class CreditsModel(val cast: List<CastBean>? = null,
         dest?.writeList(cast)
         dest?.writeList(crew)
     }
+    //endregion
 }

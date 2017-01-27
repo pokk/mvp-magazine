@@ -16,6 +16,7 @@ data class ImageInfoModel(val aspect_ratio: Double = 0.toDouble(),
                           val vote_average: Double = 0.toDouble(),
                           val vote_count: Int = 0,
                           val width: Int = 0): Parcelable {
+    //region Parcelable
     companion object {
         @JvmField val CREATOR: Parcelable.Creator<ImageInfoModel> = object: Parcelable.Creator<ImageInfoModel> {
             override fun createFromParcel(source: Parcel): ImageInfoModel = ImageInfoModel(source)
@@ -42,4 +43,5 @@ data class ImageInfoModel(val aspect_ratio: Double = 0.toDouble(),
         dest.writeInt(vote_count)
         dest.writeInt(width)
     }
+    //endregion
 }

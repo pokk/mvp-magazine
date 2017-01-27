@@ -28,6 +28,7 @@ data class TVSeasonsModel(val _id: String? = null,
                             val vote_count: Int = 0,
                             val crew: List<MovieCastsModel.CrewBean>? = null,
                             val guest_stars: List<TVEpisodesModel.GuestStarsBean>? = null): Parcelable {
+        //region Parcelable
         companion object {
             @JvmField val CREATOR: Parcelable.Creator<EpisodesBean> = object: Parcelable.Creator<EpisodesBean> {
                 override fun createFromParcel(source: Parcel): EpisodesBean = EpisodesBean(source)
@@ -66,8 +67,10 @@ data class TVSeasonsModel(val _id: String? = null,
             dest?.writeList(crew)
             dest?.writeList(guest_stars)
         }
+        //endregion
     }
 
+    //region Parcelable
     companion object {
         @JvmField val CREATOR: Parcelable.Creator<TVSeasonsModel> = object: Parcelable.Creator<TVSeasonsModel> {
             override fun createFromParcel(source: Parcel): TVSeasonsModel = TVSeasonsModel(source)
@@ -96,4 +99,5 @@ data class TVSeasonsModel(val _id: String? = null,
         dest?.writeInt(season_number)
         dest?.writeList(episodes)
     }
+    //endregion
 }

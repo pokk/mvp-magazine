@@ -11,6 +11,7 @@ import android.os.Parcelable
 
 data class MovieDatesModel(var maximum: String? = null,
                            var minimum: String? = null): Parcelable {
+    //region Parcelable
     companion object {
         @JvmField val CREATOR: Parcelable.Creator<MovieDatesModel> = object: Parcelable.Creator<MovieDatesModel> {
             override fun createFromParcel(source: Parcel): MovieDatesModel = MovieDatesModel(source)
@@ -26,4 +27,5 @@ data class MovieDatesModel(var maximum: String? = null,
         dest?.writeString(maximum)
         dest?.writeString(minimum)
     }
+    //endregion
 }

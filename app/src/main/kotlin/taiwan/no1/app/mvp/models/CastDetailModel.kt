@@ -24,6 +24,7 @@ data class CastDetailModel(val isAdult: Boolean = false,
                            val also_known_as: List<String>? = null,
                            val images: CastImagesModel? = null,
                            val combined_credits: CreditsModel? = null): Parcelable {
+    //region Parcelable
     companion object {
         @JvmField val CREATOR: Parcelable.Creator<CastDetailModel> = object: Parcelable.Creator<CastDetailModel> {
             override fun createFromParcel(source: Parcel): CastDetailModel = CastDetailModel(source)
@@ -68,4 +69,5 @@ data class CastDetailModel(val isAdult: Boolean = false,
         dest?.writeParcelable(images, 0)
         dest?.writeParcelable(combined_credits, 0)
     }
+    //endregion
 }
