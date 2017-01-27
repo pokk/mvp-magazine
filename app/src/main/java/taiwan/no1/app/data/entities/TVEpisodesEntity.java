@@ -2,6 +2,8 @@ package taiwan.no1.app.data.entities;
 
 import java.util.List;
 
+import taiwan.no1.app.mvp.models.MovieDetailModel;
+
 /**
  * Created by weian on 2017/1/21.
  */
@@ -18,9 +20,9 @@ public class TVEpisodesEntity {
     private String still_path;
     private double vote_average;
     private int vote_count;
-    private VideosBean videos;
+    private MovieDetailModel.VideosBean videos;
     private ImagesBean images;
-    private List<CrewBean> crew;
+    private List<MovieCastsEntity.CrewBean> crew;
     private List<GuestStarsBean> guest_stars;
 
     public String getAir_date() {
@@ -103,11 +105,11 @@ public class TVEpisodesEntity {
         this.vote_count = vote_count;
     }
 
-    public VideosBean getVideos() {
+    public MovieDetailModel.VideosBean getVideos() {
         return videos;
     }
 
-    public void setVideos(VideosBean videos) {
+    public void setVideos(MovieDetailModel.VideosBean videos) {
         this.videos = videos;
     }
 
@@ -119,11 +121,11 @@ public class TVEpisodesEntity {
         this.images = images;
     }
 
-    public List<CrewBean> getCrew() {
+    public List<MovieCastsEntity.CrewBean> getCrew() {
         return crew;
     }
 
-    public void setCrew(List<CrewBean> crew) {
+    public void setCrew(List<MovieCastsEntity.CrewBean> crew) {
         this.crew = crew;
     }
 
@@ -133,18 +135,6 @@ public class TVEpisodesEntity {
 
     public void setGuest_stars(List<GuestStarsBean> guest_stars) {
         this.guest_stars = guest_stars;
-    }
-
-    public static class VideosBean {
-        private List<?> results;
-
-        public List<?> getResults() {
-            return results;
-        }
-
-        public void setResults(List<?> results) {
-            this.results = results;
-        }
     }
 
     public static class ImagesBean {
@@ -223,64 +213,6 @@ public class TVEpisodesEntity {
             public void setWidth(int width) {
                 this.width = width;
             }
-        }
-    }
-
-    public static class CrewBean {
-
-        private int id;
-        private String credit_id;
-        private String name;
-        private String department;
-        private String job;
-        private String profile_path;
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getCredit_id() {
-            return credit_id;
-        }
-
-        public void setCredit_id(String credit_id) {
-            this.credit_id = credit_id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getDepartment() {
-            return department;
-        }
-
-        public void setDepartment(String department) {
-            this.department = department;
-        }
-
-        public String getJob() {
-            return job;
-        }
-
-        public void setJob(String job) {
-            this.job = job;
-        }
-
-        public String getProfile_path() {
-            return profile_path;
-        }
-
-        public void setProfile_path(String profile_path) {
-            this.profile_path = profile_path;
         }
     }
 

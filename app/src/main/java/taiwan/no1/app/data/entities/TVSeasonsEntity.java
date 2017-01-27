@@ -93,8 +93,8 @@ public class TVSeasonsEntity {
         private String still_path;
         private double vote_average;
         private int vote_count;
-        private List<CrewBean> crew;
-        private List<GuestStarsBean> guest_stars;
+        private List<MovieCastsEntity.CrewBean> crew;
+        private List<TVEpisodesEntity.GuestStarsBean> guest_stars;
 
         public String getAir_date() {
             return air_date;
@@ -176,136 +176,20 @@ public class TVSeasonsEntity {
             this.vote_count = vote_count;
         }
 
-        public List<CrewBean> getCrew() {
+        public List<MovieCastsEntity.CrewBean> getCrew() {
             return crew;
         }
 
-        public void setCrew(List<CrewBean> crew) {
+        public void setCrew(List<MovieCastsEntity.CrewBean> crew) {
             this.crew = crew;
         }
 
-        public List<GuestStarsBean> getGuest_stars() {
+        public List<TVEpisodesEntity.GuestStarsBean> getGuest_stars() {
             return guest_stars;
         }
 
-        public void setGuest_stars(List<GuestStarsBean> guest_stars) {
+        public void setGuest_stars(List<TVEpisodesEntity.GuestStarsBean> guest_stars) {
             this.guest_stars = guest_stars;
-        }
-
-        public static class CrewBean {
-
-            private int id;
-            private String credit_id;
-            private String name;
-            private String department;
-            private String job;
-            private Object profile_path;
-
-            public int getId() {
-                return id;
-            }
-
-            public void setId(int id) {
-                this.id = id;
-            }
-
-            public String getCredit_id() {
-                return credit_id;
-            }
-
-            public void setCredit_id(String credit_id) {
-                this.credit_id = credit_id;
-            }
-
-            public String getName() {
-                return name;
-            }
-
-            public void setName(String name) {
-                this.name = name;
-            }
-
-            public String getDepartment() {
-                return department;
-            }
-
-            public void setDepartment(String department) {
-                this.department = department;
-            }
-
-            public String getJob() {
-                return job;
-            }
-
-            public void setJob(String job) {
-                this.job = job;
-            }
-
-            public Object getProfile_path() {
-                return profile_path;
-            }
-
-            public void setProfile_path(Object profile_path) {
-                this.profile_path = profile_path;
-            }
-        }
-
-        public static class GuestStarsBean {
-
-            private int id;
-            private String name;
-            private String credit_id;
-            private String character;
-            private int order;
-            private String profile_path;
-
-            public int getId() {
-                return id;
-            }
-
-            public void setId(int id) {
-                this.id = id;
-            }
-
-            public String getName() {
-                return name;
-            }
-
-            public void setName(String name) {
-                this.name = name;
-            }
-
-            public String getCredit_id() {
-                return credit_id;
-            }
-
-            public void setCredit_id(String credit_id) {
-                this.credit_id = credit_id;
-            }
-
-            public String getCharacter() {
-                return character;
-            }
-
-            public void setCharacter(String character) {
-                this.character = character;
-            }
-
-            public int getOrder() {
-                return order;
-            }
-
-            public void setOrder(int order) {
-                this.order = order;
-            }
-
-            public String getProfile_path() {
-                return profile_path;
-            }
-
-            public void setProfile_path(String profile_path) {
-                this.profile_path = profile_path;
-            }
         }
     }
 }
