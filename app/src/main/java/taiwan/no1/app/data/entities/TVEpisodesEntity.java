@@ -2,14 +2,11 @@ package taiwan.no1.app.data.entities;
 
 import java.util.List;
 
-import taiwan.no1.app.mvp.models.MovieDetailModel;
-
 /**
  * Created by weian on 2017/1/21.
  */
 
 public class TVEpisodesEntity {
-
     private String air_date;
     private int episode_number;
     private String name;
@@ -20,7 +17,7 @@ public class TVEpisodesEntity {
     private String still_path;
     private double vote_average;
     private int vote_count;
-    private MovieDetailModel.VideosBean videos;
+    private MovieDetailEntity.VideosBean videos;
     private ImagesBean images;
     private List<MovieCastsEntity.CrewBean> crew;
     private List<GuestStarsBean> guest_stars;
@@ -105,11 +102,11 @@ public class TVEpisodesEntity {
         this.vote_count = vote_count;
     }
 
-    public MovieDetailModel.VideosBean getVideos() {
+    public MovieDetailEntity.VideosBean getVideos() {
         return videos;
     }
 
-    public void setVideos(MovieDetailModel.VideosBean videos) {
+    public void setVideos(MovieDetailEntity.VideosBean videos) {
         this.videos = videos;
     }
 
@@ -217,15 +214,6 @@ public class TVEpisodesEntity {
     }
 
     public static class GuestStarsBean {
-        /**
-         * id : 208907
-         * name : Todd Lasance
-         * credit_id : 5813d85dc3a3687a8d027608
-         * character : Edward Clariss
-         * order : 132
-         * profile_path : /tW0FVdoUYqsNyFOlBgRf054xUZp.jpg
-         */
-
         private int id;
         private String name;
         private String credit_id;

@@ -74,6 +74,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/vp_drop_poster"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"/>
+
                 <TextView
                     android:id="@+id/tv_title"
                     style="@style/Poster.Text.Name"
@@ -117,13 +124,6 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_title"
                     android:layout_toStartOf="@+id/tv_run_time"/>
-
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/vp_drop_poster"
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"/>
 
                 <ImageView
                     android:id="@+id/iv_movie_poster"
