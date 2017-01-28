@@ -7,12 +7,10 @@ import android.support.annotation.LayoutRes
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.transition.TransitionInflater
 import android.view.ViewStub
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.bindView
-import taiwan.no1.app.App
 import taiwan.no1.app.R
 import taiwan.no1.app.api.config.MovieDBConfig
 import taiwan.no1.app.internal.di.annotations.PerFragment
@@ -53,12 +51,13 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
          */
         fun newInstance(id: String, from: Int): MovieDetailFragment = MovieDetailFragment().apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                TransitionInflater.from(App.getAppContext()).let {
-                    this.sharedElementReturnTransition = it.inflateTransition(R.transition.change_image_transform)
-                    this.exitTransition = it.inflateTransition(android.R.transition.fade)
-                    this.sharedElementEnterTransition = it.inflateTransition(R.transition.change_image_transform)
-                    this.enterTransition = it.inflateTransition(android.R.transition.fade)
-                }
+//                TransitionInflater.from(App.getAppContext()).let {
+//                    this.sharedElementReturnTransition = it.inflateTransition(R.transition.change_image_transform)
+//                    this.exitTransition = it.inflateTransition(android.R.transition.fade)
+//                    this.sharedElementEnterTransition = it.inflateTransition(R.transition.change_image_transform)
+//                    this.enterTransition = it.inflateTransition(android.R.transition.fade)
+//                    this.reenterTransition = it.inflateTransition(android.R.transition.fade)
+//                }
             }
 
             this.arguments = Bundle().apply {

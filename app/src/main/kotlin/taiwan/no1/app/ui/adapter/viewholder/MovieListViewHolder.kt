@@ -23,6 +23,7 @@ import taiwan.no1.app.utilies.ViewUtils
 class MovieListViewHolder(val view: View): BaseViewHolder(view) {
     private val item by bindView<LinearLayout>(R.id.item_movie_brief)
     private val ivPoster by bindView<ImageView>(R.id.iv_movie_poster)
+    private val tvRelease by bindView<TextView>(R.id.tv_release)
     private val tvTitle by bindView<TextView>(R.id.tv_title)
 
     override fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
@@ -31,14 +32,15 @@ class MovieListViewHolder(val view: View): BaseViewHolder(view) {
             ViewUtils.loadImageToView(this.mContext.applicationContext,
                     MovieDBConfig.BASE_IMAGE_URL + it.poster_path,
                     this.ivPoster)
-            this.tvTitle.text = (it.release_date + "\n" + it.title)
+            this.tvRelease.text = it.release_date
+            this.tvTitle.text = it.title
             this.item.setOnClickListener {
                 RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
                         Pair(MovieListFragment.NAVIGATOR_ARG_FRAGMENT,
                                 MovieDetailFragment.newInstance(model.id.toString(), adapter.fragmentTag)),
                         Pair(MovieListFragment.NAVIGATOR_ARG_TAG, adapter.fragmentTag),
-                        Pair(MovieListFragment.NAVIGATOR_ARG_SHARED_ELEMENT, ivPoster),
-                        Pair(MovieListFragment.NAVIGATOR_ARG_SHARED_NAME, ivPoster.transitionName)))
+                        Pair(MovieListFragment.NAVIGATOR_ARG_SHARED_ELEMENTS,
+                                hashMapOf(Pair(tvRelease, tvRelease.transitionName)))))
             }
         }
     }

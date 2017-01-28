@@ -19,7 +19,6 @@ import rx.schedulers.Schedulers;
 import taiwan.no1.app.domain.executor.PostExecutionThread;
 import taiwan.no1.app.domain.executor.ThreadExecutor;
 import taiwan.no1.app.domain.repository.IRepository;
-import taiwan.no1.app.utilies.AppLog;
 
 /**
  * Abstract class for a Use Case (Interactor in terms of Clean Architecture).
@@ -69,8 +68,8 @@ abstract class BaseUseCase<R extends BaseUseCase.RequestValues> {
         Preconditions.checkNotNull(request);
         Preconditions.checkNotNull(useCaseSubscriber);
 
-        Observable observable = this.buildUseCaseObservable()
-                                    .doOnUnsubscribe(() -> AppLog.d("Unsubscribing subscription"));
+        Observable observable = this.buildUseCaseObservable();
+        //                                    .doOnUnsubscribe(() -> AppLog.d("Unsubscribing subscription"));
 
         // Assign the one of them to RxJava request.
         if (null != request.fragmentLifecycle) {

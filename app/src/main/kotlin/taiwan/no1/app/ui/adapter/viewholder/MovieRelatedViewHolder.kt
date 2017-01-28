@@ -40,8 +40,8 @@ class MovieRelatedViewHolder(view: View): BaseViewHolder(view) {
                         Pair(MovieListFragment.NAVIGATOR_ARG_FRAGMENT,
                                 MovieDetailFragment.newInstance(model.id.toString(), adapter.fragmentTag)),
                         Pair(MovieListFragment.NAVIGATOR_ARG_TAG, adapter.fragmentTag),
-                        Pair(MovieListFragment.NAVIGATOR_ARG_SHARED_ELEMENT, ivPoster),
-                        Pair(MovieListFragment.NAVIGATOR_ARG_SHARED_NAME, ivPoster.transitionName)))
+                        Pair(MovieListFragment.NAVIGATOR_ARG_SHARED_ELEMENTS,
+                                mapOf(Pair(ivPoster, ivPoster.transitionName)))))
             }
         }
     }

@@ -16,8 +16,17 @@
         tools:ignore="contentDescription"/>
 
     <TextView
+        android:id="@+id/tv_release"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:transitionName="movie_release"
+        android:background="@color/colorAccent"
+        tools:text="test"/>
+
+    <TextView
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
+        android:transitionName="movie_title"
         android:layout_height="wrap_content"
         android:background="@color/colorAccent"
         tools:text="test"/>

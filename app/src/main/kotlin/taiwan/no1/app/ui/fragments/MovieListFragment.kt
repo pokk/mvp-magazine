@@ -8,7 +8,7 @@ import android.support.v7.widget.OrientationHelper
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.transition.TransitionInflater
-import android.widget.ImageView
+import android.view.View
 import butterknife.bindView
 import com.hwangjr.rxbus.RxBus
 import com.hwangjr.rxbus.annotation.Subscribe
@@ -41,8 +41,7 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
         // For navigating the fragment's arguments. 
         const val NAVIGATOR_ARG_FRAGMENT = "fragment"
         const val NAVIGATOR_ARG_TAG = "tag"
-        const val NAVIGATOR_ARG_SHARED_ELEMENT = "shared_element"
-        const val NAVIGATOR_ARG_SHARED_NAME = "shared_element_name"
+        const val NAVIGATOR_ARG_SHARED_ELEMENTS = "shared_element_list"
         // The key name of the fragment initialization parameters.
         private const val ARG_PARAM_CATEGORY: String = "param_movie_category"
         // The key name of the fragment restore the status parameters. 
@@ -198,17 +197,15 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
     fun navigateFragment(mapArgs: HashMap<String, Any>) {
         val fragment: Fragment = mapArgs[NAVIGATOR_ARG_FRAGMENT] as Fragment
         val tag: Int = mapArgs[NAVIGATOR_ARG_TAG] as Int
-        val sharedElement: ImageView? = mapArgs[NAVIGATOR_ARG_SHARED_ELEMENT] as? ImageView
-        val sharedElementName: String? = mapArgs[NAVIGATOR_ARG_SHARED_NAME] as? String
+        val shareElements: HashMap<View, String>? = mapArgs[NAVIGATOR_ARG_SHARED_ELEMENTS] as? HashMap<View, String>
 
         // To avoid the same fragment but different hash code's fragment add the fragment.
         if (tag == this.hashCode()) {
-            AppLog.w(sharedElement, sharedElementName)
+            shareElements?.forEach { AppLog.w(it.key, it.value) }
             this.childFragmentManager.beginTransaction().apply {
-                replace(R.id.main_container, fragment, fragment.javaClass.name)
-                addToBackStack(fragment.javaClass.name)
-                if (null != sharedElement && null != sharedElementName)
-                    addSharedElement(sharedElement, sharedElementName)
+                this.replace(R.id.main_container, fragment, fragment.javaClass.name)
+                this.addToBackStack(fragment.javaClass.name)
+                shareElements?.forEach { addSharedElement(it.key, it.value) }
             }.commit()
         }
     }
