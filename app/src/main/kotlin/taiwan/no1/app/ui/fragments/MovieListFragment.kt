@@ -201,11 +201,14 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
 
         // To avoid the same fragment but different hash code's fragment add the fragment.
         if (tag == this.hashCode()) {
-            shareElements?.forEach { AppLog.w(it.key, it.value) }
+            AppLog.w(childFragmentManager)
             this.childFragmentManager.beginTransaction().apply {
                 this.replace(R.id.main_container, fragment, fragment.javaClass.name)
                 this.addToBackStack(fragment.javaClass.name)
-                shareElements?.forEach { addSharedElement(it.key, it.value) }
+                shareElements?.forEach {
+                    AppLog.v(it.key, it.value)
+                    addSharedElement(it.key, it.value)
+                }
             }.commit()
         }
     }

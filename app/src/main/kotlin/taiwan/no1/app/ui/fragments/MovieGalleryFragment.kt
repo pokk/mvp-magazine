@@ -1,9 +1,11 @@
 package taiwan.no1.app.ui.fragments
 
 import android.graphics.Bitmap
+import android.os.Build
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v4.view.ViewPager.SCROLL_STATE_IDLE
+import android.transition.TransitionInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -16,6 +18,7 @@ import com.hwangjr.rxbus.annotation.Tag
 import com.jakewharton.rxbinding.support.v4.view.pageScrollStateChanges
 import com.touchin.constant.RxbusTag
 import jp.wasabeef.blurry.Blurry
+import taiwan.no1.app.App
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
@@ -46,6 +49,11 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
         fun newInstance(movies: List<ImageInfoModel>? = null):
                 MovieGalleryFragment = MovieGalleryFragment().apply {
             this.arguments = Bundle().apply {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    TransitionInflater.from(App.getAppContext()).let {
+                        sharedElementEnterTransition = it.inflateTransition(R.transition.change_image_transform)
+                    }
+                }
                 this.putParcelableArray(ARG_PARAM_IMAGES, movies?.toTypedArray())
             }
         }

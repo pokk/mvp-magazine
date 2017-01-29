@@ -6,6 +6,7 @@ import android.support.v4.view.PagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import com.bumptech.glide.load.resource.drawable.GlideDrawable
 import com.bumptech.glide.request.target.Target
 import com.hwangjr.rxbus.RxBus
@@ -26,8 +27,9 @@ import taiwan.no1.app.utilies.ViewUtils
  */
 
 class DropMoviePagerAdapter(val context: Context,
-                            val dropPosterList: List<ImageInfoModel>,
-                            val posterList: List<ImageInfoModel>,
+                            val dropPosterList: List<ImageInfoModel>, // For showing in the ViewPager.
+                            val posterList: List<ImageInfoModel>, // For throwing to the next fragment.
+                            val iv: ImageView,
                             val argFromFragment: Int): PagerAdapter() {
     private val layoutInflater: LayoutInflater by lazy { LayoutInflater.from(this.context) }
 
@@ -56,7 +58,9 @@ class DropMoviePagerAdapter(val context: Context,
             RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
                     Pair(MovieListFragment.NAVIGATOR_ARG_FRAGMENT,
                             MovieGalleryFragment.newInstance(posterList)),
-                    Pair(MovieListFragment.NAVIGATOR_ARG_TAG, argFromFragment)))
+                    Pair(MovieListFragment.NAVIGATOR_ARG_TAG, argFromFragment),
+                    Pair(MovieListFragment.NAVIGATOR_ARG_SHARED_ELEMENTS, hashMapOf(
+                            Pair(iv, iv.transitionName)))))
         }
         container.addView(dvDropPoster)
 

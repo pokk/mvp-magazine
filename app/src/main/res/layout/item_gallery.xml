@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
+            android:transitionName="movie_post"
             tools:ignore="ContentDescription"/>
     </android.support.v7.widget.CardView>
 

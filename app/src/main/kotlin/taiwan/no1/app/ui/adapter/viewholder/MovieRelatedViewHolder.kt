@@ -35,13 +35,14 @@ class MovieRelatedViewHolder(view: View): BaseViewHolder(view) {
                     GlideResizeRequestListener(this.item))
             this.tvRelease.text = it.release_date
             this.tvName.text = it.title
+            this.tvRelease.transitionName = "movie_release"
             this.item.setOnClickListener {
                 RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
                         Pair(MovieListFragment.NAVIGATOR_ARG_FRAGMENT,
                                 MovieDetailFragment.newInstance(model.id.toString(), adapter.fragmentTag)),
                         Pair(MovieListFragment.NAVIGATOR_ARG_TAG, adapter.fragmentTag),
                         Pair(MovieListFragment.NAVIGATOR_ARG_SHARED_ELEMENTS,
-                                mapOf(Pair(ivPoster, ivPoster.transitionName)))))
+                                hashMapOf(Pair(tvRelease, tvRelease.transitionName)))))
             }
         }
     }
