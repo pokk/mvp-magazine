@@ -201,7 +201,6 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
 
         // To avoid the same fragment but different hash code's fragment add the fragment.
         if (tag == this.hashCode()) {
-            AppLog.w(childFragmentManager)
             this.childFragmentManager.beginTransaction().apply {
                 this.replace(R.id.main_container, fragment, fragment.javaClass.name)
                 this.addToBackStack(fragment.javaClass.name)

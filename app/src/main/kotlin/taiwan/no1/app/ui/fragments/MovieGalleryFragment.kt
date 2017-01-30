@@ -28,6 +28,7 @@ import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.HorizontalPagerAdapter
 import javax.inject.Inject
 
+
 /**
  *
  * @author  Jieyi
@@ -136,10 +137,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
      * @param savedInstanceState the previous fragment data status after the system calls [onPause].
      */
     override fun init(savedInstanceState: Bundle?) {
-        var currPosition: Int = 0
-        var prevPosition: Int = -1
-        val fixedPosition: Int = this.hicvpGallery.currentItem
-        var total: Int = this.argMovieImages?.size ?: 0
+        val total: Int = this.argMovieImages?.size ?: 0
 
         this.tvNumbers.text = this.setNumberText(total)
         this.hicvpGallery.apply {
@@ -150,16 +148,11 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
             this.pageScrollStateChanges().subscribe {
                 when (it) {
                     SCROLL_STATE_IDLE -> {
-                        // Avoiding to slide at the same page then setting the same image many times. So keeping
-                        // the previous position and the current position.
-                        currPosition = hicvpGallery.currentItem
-                        if (currPosition != prevPosition && isFirstImageFinished) {
-                            tvNumbers.text = setNumberText(total,
-                                    Math.abs(currPosition - fixedPosition) % total + 1)
+                        if (isFirstImageFinished) {
+                            tvNumbers.text = setNumberText(total, realItem + 1)
                             presenter.resizeImageToFitBackground(aspectRatio,
                                     Bitmap.createBitmap(extractBitmapFromCurrItem()))
                         }
-                        prevPosition = currPosition
                     }
                 }
             }
