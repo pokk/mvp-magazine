@@ -12,7 +12,7 @@ import android.content.Context
 
 class ImageLoaderFactory {
     enum class Type {
-        GLIDE,
+        GLIDE, PICASSO
     }
 
     companion object {

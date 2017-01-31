@@ -12,12 +12,12 @@
     app:cardCornerRadius="5dp"
     app:cardElevation="5dp">
 
-    <taiwan.no1.app.ui.customize.FittableImageView
+    <ImageView
         android:id="@+id/iv_cast"
         android:layout_width="wrap_content"
         android:layout_height="250dp"
         android:transitionName="movie_post"
-        app:srcCompat="@color/lb_basic_card_content_text_color"/>
+        tools:ignore="ContentDescription"/>
 
     <LinearLayout
         android:layout_width="match_parent"
