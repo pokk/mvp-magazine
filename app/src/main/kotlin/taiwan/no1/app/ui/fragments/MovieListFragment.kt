@@ -25,7 +25,6 @@ import taiwan.no1.app.mvp.models.MovieBriefModel
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.adapter.itemdecorator.GridSpacingItemDecorator
-import taiwan.no1.app.utilies.AppLog
 import java.util.*
 import javax.inject.Inject
 
@@ -204,10 +203,7 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
             this.childFragmentManager.beginTransaction().apply {
                 this.replace(R.id.main_container, fragment, fragment.javaClass.name)
                 this.addToBackStack(fragment.javaClass.name)
-                shareElements?.forEach {
-                    AppLog.v(it.key, it.value)
-                    addSharedElement(it.key, it.value)
-                }
+                shareElements?.forEach { addSharedElement(it.key, it.value) }
             }.commit()
         }
     }
