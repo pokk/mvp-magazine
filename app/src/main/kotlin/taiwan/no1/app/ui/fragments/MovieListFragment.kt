@@ -192,6 +192,7 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
     }
     //endregion
 
+    //region RxBus
     @Subscribe(tags = arrayOf(Tag(RxbusTag.FRAGMENT_CHILD_NAVIGATOR)))
     fun navigateFragment(mapArgs: HashMap<String, Any>) {
         val fragment: Fragment = mapArgs[NAVIGATOR_ARG_FRAGMENT] as Fragment
@@ -207,4 +208,5 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
             }.commit()
         }
     }
+    //endregion
 }

@@ -2,8 +2,8 @@ package taiwan.no1.app.data.source;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v4.util.ArrayMap;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -44,7 +44,7 @@ public class CloudDataStore implements IDataStore {
     @Nullable
     @Override
     public Observable<MovieListResEntity> popularMovieEntities(final int page) {
-        Map<String, String> query = new HashMap<String, String>() {{
+        Map<String, String> query = new ArrayMap<String, String>() {{
             put("api_key", api_key);
             put("page", String.valueOf(page));
         }};
@@ -55,7 +55,7 @@ public class CloudDataStore implements IDataStore {
     @Nullable
     @Override
     public Observable<MovieListResEntity> topRatedMovieEntities(final int page) {
-        Map<String, String> query = new HashMap<String, String>() {{
+        Map<String, String> query = new ArrayMap<String, String>() {{
             put("api_key", api_key);
             put("page", String.valueOf(page));
         }};
@@ -66,7 +66,7 @@ public class CloudDataStore implements IDataStore {
     @Nullable
     @Override
     public Observable<MovieListWithDateResEntity> nowPlayingMovieEntities(final int page) {
-        Map<String, String> query = new HashMap<String, String>() {{
+        Map<String, String> query = new ArrayMap<String, String>() {{
             put("api_key", api_key);
             put("page", String.valueOf(page));
         }};
@@ -77,7 +77,7 @@ public class CloudDataStore implements IDataStore {
     @Nullable
     @Override
     public Observable<MovieListWithDateResEntity> upComingMovieEntities(final int page) {
-        Map<String, String> query = new HashMap<String, String>() {{
+        Map<String, String> query = new ArrayMap<String, String>() {{
             put("api_key", api_key);
             put("page", String.valueOf(page));
         }};
@@ -93,7 +93,7 @@ public class CloudDataStore implements IDataStore {
     @Nullable
     @Override
     public Observable<MovieDetailEntity> movieDetailEntities(final int id) {
-        Map<String, String> query = new HashMap<String, String>() {{
+        Map<String, String> query = new ArrayMap<String, String>() {{
             put("api_key", api_key);
             put("append_to_response", "videos,images,similar,casts");
         }};
@@ -109,7 +109,7 @@ public class CloudDataStore implements IDataStore {
     @Nullable
     @Override
     public Observable<CastDetailEntity> castDetailEntities(final int id) {
-        Map<String, String> query = new HashMap<String, String>() {{
+        Map<String, String> query = new ArrayMap<String, String>() {{
             put("api_key", api_key);
             put("append_to_response", "images,combined_credits");
         }};
@@ -120,7 +120,7 @@ public class CloudDataStore implements IDataStore {
     @Nullable
     @Override
     public Observable<TVDetailEntity> tvDetailEntities(final int id) {
-        Map<String, String> query = new HashMap<String, String>() {{
+        Map<String, String> query = new ArrayMap<String, String>() {{
             put("api_key", api_key);
             put("append_to_response", "videos, images, similar, casts");
         }};

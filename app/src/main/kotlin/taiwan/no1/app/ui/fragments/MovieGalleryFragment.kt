@@ -160,6 +160,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
         }
         this.tvNumbers.text = this.setNumberText(total)
         this.hicvpGallery.apply {
+            var oldItemIndex: Int = this.currentItem
             this.adapter = argMovieImages?.let {
                 HorizontalPagerAdapter(this.context, false, it)
             }
@@ -168,9 +169,16 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
             // So I'm using finding the item's specific tag to fix it.
             this.pageSelections().subscribe {
                 if (isFirstImageFinished) {
-                    tvNumbers.text = setNumberText(total, realItem + 1)
-                    presenter.resizeImageToFitBackground(aspectRatio,
-                            Bitmap.createBitmap(extractBitmapFromItem(this.realItem)))
+                    val presentItem: Bitmap? = extractBitmapFromItem(this.realItem)
+                    if (null == presentItem) {
+                        // TODO: 2/1/17 Handle the empty card, what we gonna do.
+                    }
+                    else {
+                        tvNumbers.text = setNumberText(total, this.realItem + 1)
+                        presenter.resizeImageToFitBackground(aspectRatio,
+                                Bitmap.createBitmap(presentItem))
+                        oldItemIndex = this.currentItem
+                    }
                 }
             }
         }
@@ -179,18 +187,20 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
 
     //region View implementation
     override fun setBackgroundImage(image: Bitmap) {
-        Blurry.with(this.context).radius(50).sampling(2).async({
+        Blurry.with(this.context).radius(20).sampling(4).async({
             isBackground.setImageDrawable(it as Drawable)
-        }).from(image).into(iv_hidden)
+        })./* Here are redundant code, but it won't work without them. */from(image).into(iv_hidden)
     }
     //endregion
 
+    //region RxBus
     @Subscribe(tags = arrayOf(Tag(RxbusTag.FRAGMENT_FINISH_LOADED)))
     fun finishLoadingImage(msg: String) {
         this.isFirstImageFinished = true
         this.presenter.resizeImageToFitBackground(this.aspectRatio,
                 Bitmap.createBitmap(this.extractBitmapFromItem(hicvpGallery.realItem)))
     }
+    //endregion
 
     /**
      * Search the specific view item from the view pager.
@@ -208,8 +218,8 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
     }
 
     // FIXME: 2017/01/25 If the images didn't finish loading then APP will crash.
-    private fun extractBitmapFromItem(index: Int): Bitmap =
-            ((findViewPagerItem(index)?.findViewById(R.id.img_item) as ImageView).drawable as GlideBitmapDrawable).bitmap
+    private fun extractBitmapFromItem(index: Int): Bitmap? =
+            ((findViewPagerItem(index)?.findViewById(R.id.img_item) as ImageView).drawable as? GlideBitmapDrawable)?.bitmap
 
     private fun setNumberText(totalNumber: Int, currentNumber: Int = 1) = "$currentNumber / $totalNumber"
 }
