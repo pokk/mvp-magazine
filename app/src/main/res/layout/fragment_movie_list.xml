@@ -12,7 +12,7 @@
         android:id="@+id/rv_movie_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/viewPageBackground"
+        android:background="@color/viewPageSlideBackground"
         app:layoutManager="android.support.v7.widget.StaggeredGridLayoutManager"
         tools:listitem="@layout/item_brief_movie"/>
 </FrameLayout>

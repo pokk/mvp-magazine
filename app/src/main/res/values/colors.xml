@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimaryDark">#1D2539</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorNavigationBar">#000000</color>
 
     <color name="colorBlack">#000000</color>
+    <color name="colorTransport">#00000000</color>
 
     <!-- View Pager -->
     <color name="viewPageBackground">#ff252e39</color>
@@ -13,3 +15,4 @@
     <color name="viewPageActiveText">#fff</color>
     <color name="viewPageText">#81ffffff</color>
 </resources>
+ 

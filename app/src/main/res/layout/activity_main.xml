@@ -19,6 +19,10 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"
-        app:bb_showShadow="true"
+        android:background="@color/viewPageBackground"
+        app:bb_activeTabColor="#f0f0f0"
+        app:bb_inActiveTabAlpha=".5"
+        app:bb_inActiveTabColor="#959595"
+        app:bb_showShadow="false"
         app:bb_tabXmlResource="@xml/bottom_bar_tabs"/>
 </RelativeLayout>

@@ -10,11 +10,9 @@
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nsv_base"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/NestScrollInfo"
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/tv_title"
-        android:layout_centerHorizontal="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -87,11 +85,12 @@
                     style="@style/Poster.Text.Name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:transitionName="movie_title"
                     android:layout_alignBottom="@+id/vp_drop_poster"
                     android:layout_toEndOf="@+id/iv_movie_poster"
                     android:gravity="end"
+                    android:transitionName="movie_title"
                     app:layout_collapseMode="parallax"
+                    tools:background="@color/colorTransport"
                     tools:text="Star Wars 2"/>
 
                 <TextView
@@ -99,12 +98,13 @@
                     style="@style/Poster.Text.Date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:transitionName="movie_release"
                     android:layout_above="@+id/tv_title"
                     android:layout_toEndOf="@+id/iv_movie_poster"
                     android:gravity="end"
+                    android:transitionName="movie_release"
                     app:layout_collapseMode="parallax"
                     app:layout_scrollFlags="scroll|snap"
+                    tools:background="@color/colorTransport"
                     tools:text="2000-10-13"/>
 
                 <TextView
