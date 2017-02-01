@@ -36,7 +36,10 @@ class HorizontalPagerAdapter(val context: Context,
     override fun getItemPosition(`object`: Any): Int = PagerAdapter.POSITION_NONE
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val view: View = this.layoutInflater.inflate(R.layout.item_gallery, container, false)
+        val view: View = this.layoutInflater.inflate(R.layout.item_gallery, container, false).apply {
+            // For easy to find this view.
+            this.tag = position
+        }
         val ivPoster: ImageView = view.findViewById(R.id.img_item) as ImageView
         val cvFrame: CardView = view.findViewById(R.id.cv_frame) as CardView
         //        if (isTwoWay) {

@@ -4,9 +4,8 @@ import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.LayoutRes
-import android.support.v4.view.ViewPager.SCROLL_STATE_IDLE
 import android.transition.TransitionInflater
-import android.view.ViewGroup
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.bindView
@@ -15,7 +14,7 @@ import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
 import com.hwangjr.rxbus.RxBus
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.annotation.Tag
-import com.jakewharton.rxbinding.support.v4.view.pageScrollStateChanges
+import com.jakewharton.rxbinding.support.v4.view.pageSelections
 import com.touchin.constant.RxbusTag
 import jp.wasabeef.blurry.Blurry
 import taiwan.no1.app.App
@@ -145,15 +144,11 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
                 HorizontalPagerAdapter(this.context, false, it)
             }
             // Set the current blur image in viewpager's background.
-            this.pageScrollStateChanges().subscribe {
-                when (it) {
-                    SCROLL_STATE_IDLE -> {
-                        if (isFirstImageFinished) {
-                            tvNumbers.text = setNumberText(total, realItem + 1)
-                            presenter.resizeImageToFitBackground(aspectRatio,
-                                    Bitmap.createBitmap(extractBitmapFromCurrItem()))
-                        }
-                    }
+            this.pageSelections().subscribe {
+                if (isFirstImageFinished) {
+                    tvNumbers.text = setNumberText(total, realItem + 1)
+                    presenter.resizeImageToFitBackground(aspectRatio,
+                            Bitmap.createBitmap(extractBitmapFromItem(this.realItem)))
                 }
             }
         }
@@ -162,7 +157,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
 
     //region View implementation
     override fun setBackgroundImage(image: Bitmap) {
-        Blurry.with(this.context).radius(20).sampling(2).from(image).into(ivBackground)
+        Blurry.with(this.context).radius(50).sampling(2).async().from(image).into(ivBackground)
     }
     //endregion
 
@@ -170,16 +165,27 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
     fun finishLoadingImage(msg: String) {
         this.isFirstImageFinished = true
         this.presenter.resizeImageToFitBackground(this.aspectRatio,
-                Bitmap.createBitmap(this.extractBitmapFromCurrItem()))
+                Bitmap.createBitmap(this.extractBitmapFromItem(hicvpGallery.realItem)))
     }
 
-    private fun getCurrentPresentItem(): ViewGroup =
-            // The last one of HorizontalInfiniteCycleViewPager is showing current view.
-            this.hicvpGallery.getChildAt(hicvpGallery.childCount - 1) as ViewGroup
+    /**
+     * Search the specific view item from the view pager.
+     *
+     * @param index index
+     * @return [View]
+     */
+    private fun findViewPagerItem(index: Int): View? {
+        (0..this.hicvpGallery.childCount - 1).forEach {
+            if (index == hicvpGallery.getChildAt(it).tag)
+                return hicvpGallery.getChildAt(it)
+        }
+
+        return null
+    }
 
     // FIXME: 2017/01/25 If the images didn't finish loading then APP will crash.
-    private fun extractBitmapFromCurrItem(): Bitmap =
-            ((getCurrentPresentItem().findViewById(R.id.img_item) as ImageView).
+    private fun extractBitmapFromItem(index: Int): Bitmap =
+            ((findViewPagerItem(index)?.findViewById(R.id.img_item) as ImageView).
                     drawable as GlideBitmapDrawable).bitmap
 
     private fun setNumberText(totalNumber: Int, currentNumber: Int = 1) = "$currentNumber / $totalNumber"
