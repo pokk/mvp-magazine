@@ -7,6 +7,7 @@ import taiwan.no1.app.data.entities.CastDetailEntity;
 import taiwan.no1.app.data.entities.MovieDetailEntity;
 import taiwan.no1.app.data.entities.MovieListResEntity;
 import taiwan.no1.app.data.entities.MovieListWithDateResEntity;
+import taiwan.no1.app.data.entities.TVDetailEntity;
 
 /**
  * @author Jieyi
@@ -54,5 +55,11 @@ public class LocalDataStore implements IDataStore {
     @Deprecated
     public Observable<CastDetailEntity> castDetailEntities(final int id) {
         throw new Error("No-op");
+    }
+
+    @Nullable
+    @Override
+    public Observable<TVDetailEntity> tvDetailEntities(final int id) {
+        throw  new Error("No-op");
     }
 }

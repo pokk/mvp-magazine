@@ -2,6 +2,8 @@ package taiwan.no1.app.domain.repository;
 
 import android.support.annotation.NonNull;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 import rx.Observable;
@@ -9,6 +11,7 @@ import taiwan.no1.app.data.repositiry.DataRepository;
 import taiwan.no1.app.mvp.models.CastDetailModel;
 import taiwan.no1.app.mvp.models.MovieBriefModel;
 import taiwan.no1.app.mvp.models.MovieDetailModel;
+import taiwan.no1.app.mvp.models.TvDetailModel;
 
 /**
  * Interface that represents a Repository for getting a movie related data.
@@ -44,4 +47,7 @@ public interface IRepository {
      */
     @NonNull
     Observable<CastDetailModel> castDetail(final int id);
+
+    @NonNull
+    Observable<TvDetailModel> detailTV(final int id);
 }

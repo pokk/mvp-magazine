@@ -15,6 +15,7 @@ import taiwan.no1.app.data.entities.CastDetailEntity;
 import taiwan.no1.app.data.entities.MovieDetailEntity;
 import taiwan.no1.app.data.entities.MovieListResEntity;
 import taiwan.no1.app.data.entities.MovieListWithDateResEntity;
+import taiwan.no1.app.data.entities.TVDetailEntity;
 import taiwan.no1.app.internal.di.components.NetComponent;
 
 /**
@@ -114,5 +115,16 @@ public class CloudDataStore implements IDataStore {
         }};
 
         return this.movieDBService.castDetail(id, query);
+    }
+
+    @Nullable
+    @Override
+    public Observable<TVDetailEntity> tvDetailEntities(final int id) {
+        Map<String, String> query = new HashMap<String, String>() {{
+            put("api_key", api_key);
+            put("append_to_response", "videos, images, similar, casts");
+        }};
+
+        return this.movieDBService.tvDetail(id, query);
     }
 }

@@ -7,6 +7,7 @@ import taiwan.no1.app.data.entities.CastDetailEntity;
 import taiwan.no1.app.data.entities.MovieDetailEntity;
 import taiwan.no1.app.data.entities.MovieListResEntity;
 import taiwan.no1.app.data.entities.MovieListWithDateResEntity;
+import taiwan.no1.app.data.entities.TVDetailEntity;
 
 /**
  * Interface that represents a data store from where data is retrieved.
@@ -51,4 +52,7 @@ public interface IDataStore {
      */
     @Nullable
     Observable<CastDetailEntity> castDetailEntities(final int id);
+
+    @Nullable
+    Observable<TVDetailEntity> tvDetailEntities(final int id);
 }

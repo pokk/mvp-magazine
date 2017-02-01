@@ -10,6 +10,7 @@ import taiwan.no1.app.data.entities.CastDetailEntity;
 import taiwan.no1.app.data.entities.MovieDetailEntity;
 import taiwan.no1.app.data.entities.MovieListResEntity;
 import taiwan.no1.app.data.entities.MovieListWithDateResEntity;
+import taiwan.no1.app.data.entities.TVDetailEntity;
 
 /**
  * @author Jieyi
@@ -34,4 +35,7 @@ public interface MovieDBService {
 
     @GET("person/{id}")
     Observable<CastDetailEntity> castDetail(@Path("id") int id, @QueryMap Map<String, String> queries);
+
+    @GET("tv/{id}")
+    Observable<TVDetailEntity> tvDetail(@Path("id") int id, @QueryMap Map<String, String> queries);
 }
