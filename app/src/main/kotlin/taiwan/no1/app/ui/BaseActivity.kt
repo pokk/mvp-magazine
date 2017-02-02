@@ -168,7 +168,7 @@ abstract class BaseActivity: RxAppCompatActivity(), IView, IActivityView {
      * @param tag [Fragment]'s tag.
      * @return [Fragment]
      */
-    protected fun findFragmentByTag(tag: String): Fragment {
+    protected fun findFragmentByTag(tag: String): Fragment? {
         return this.supportFragmentManager.findFragmentByTag(tag)
     }
 

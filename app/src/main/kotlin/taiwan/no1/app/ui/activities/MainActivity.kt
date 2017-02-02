@@ -11,9 +11,9 @@ import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.contracts.MainContract
 import taiwan.no1.app.ui.BaseActivity
 import taiwan.no1.app.ui.fragments.ActressMainFragment
+import taiwan.no1.app.ui.fragments.IMainFragment
 import taiwan.no1.app.ui.fragments.MovieMainFragment
 import taiwan.no1.app.ui.fragments.TvListFragment
-import taiwan.no1.app.utilies.AppLog
 import javax.inject.Inject
 
 /**
@@ -29,6 +29,8 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
     //region View variables
     private val rlMainContainer by bindView<RelativeLayout>(R.id.rl_main_container)
     private val bottombarMenu by bindView<BottomBar>(R.id.bb_menu)
+
+    private var currentTag: String = ""
     //endregion
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,15 +45,15 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
     override fun getFragmentComponent(obj: Any?): FragmentComponent = super.provideFragmentComponent(obj)
 
     override fun onBackPressed() {
-        (this.findFragmentByTag(MovieMainFragment::class.java.name) as MovieMainFragment).
-                getCurrentDisplayFragment().childFragmentManager?.let {
-            // Pop back from current presenter fragment.
-            if (0 < it.backStackEntryCount) {
-                it.popBackStack()
+        (this.findFragmentByTag(this.currentTag) as? IMainFragment)?.getCurrentDisplayFragment()?.let {
+            it.childFragmentManager?.let {
+                // Pop back from current presenter fragment.
+                if (0 < it.backStackEntryCount)
+                    it.popBackStack()
+                else
+                    super.onBackPressed()
             }
-            else
-                super.onBackPressed()
-        }
+        } ?: super.onBackPressed()
     }
 
     /**
@@ -66,16 +68,12 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
 
         this.popAllFragment()
         this.bottombarMenu.setOnTabSelectListener {
-            when (it) {
-                R.id.tab_movies ->
-                    this.addFragment(R.id.rl_main_container, MovieMainFragment.newInstance(), false)
-                R.id.tab_tv_dramas ->
-                    this.addFragment(R.id.rl_main_container, TvListFragment.newInstance(), false)
-                R.id.tab_people ->
-                    this.addFragment(R.id.rl_main_container, ActressMainFragment.newInstance(), false)
-                else ->
-                    AppLog.i()
-            }
+            this.addFragment(R.id.rl_main_container, when (it) {
+                R.id.tab_movies -> MovieMainFragment.newInstance().apply { currentTag = this.javaClass.name }
+                R.id.tab_tv_dramas -> TvListFragment.newInstance().apply { currentTag = this.javaClass.name }
+                R.id.tab_people -> ActressMainFragment.newInstance().apply { currentTag = this.javaClass.name }
+                else -> MovieMainFragment.newInstance().apply { currentTag = this.javaClass.name }
+            }, false)
         }
     }
 }

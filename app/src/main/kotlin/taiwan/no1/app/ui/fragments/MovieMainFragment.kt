@@ -28,7 +28,7 @@ import javax.inject.Inject
  * @since   2017/01/12
  */
 @PerFragment
-class MovieMainFragment: BaseFragment(), MovieMainContract.View {
+class MovieMainFragment: BaseFragment(), MovieMainContract.View, IMainFragment {
     //region Static initialization
     companion object Factory {
         // The key name of the fragment initialization parameters.
@@ -144,7 +144,7 @@ class MovieMainFragment: BaseFragment(), MovieMainContract.View {
      *
      * @return current display [Fragment].
      */
-    fun getCurrentDisplayFragment(): Fragment = this.fragmentList[this.vpContainer.currentItem]
+    override fun getCurrentDisplayFragment(): Fragment? = this.fragmentList[this.vpContainer.currentItem]
 
     /**
      * Clear all of the child fragments.
