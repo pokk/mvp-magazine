@@ -4,6 +4,7 @@ import android.support.annotation.Nullable;
 
 import rx.Observable;
 import taiwan.no1.app.data.entities.CastDetailEntity;
+import taiwan.no1.app.data.entities.CastListResEntity;
 import taiwan.no1.app.data.entities.MovieDetailEntity;
 import taiwan.no1.app.data.entities.MovieListResEntity;
 import taiwan.no1.app.data.entities.MovieListWithDateResEntity;
@@ -55,4 +56,10 @@ public interface IDataStore {
 
     @Nullable
     Observable<TVDetailEntity> tvDetailEntities(final int id);
+
+    /**
+     * Get an {@link rx.Observable} which will emit a {@link CastListResEntity}.
+     */
+    @Nullable
+    Observable<CastListResEntity> popularCastEntities(final int page);
 }

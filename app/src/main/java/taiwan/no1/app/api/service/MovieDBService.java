@@ -7,6 +7,7 @@ import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 import rx.Observable;
 import taiwan.no1.app.data.entities.CastDetailEntity;
+import taiwan.no1.app.data.entities.CastListResEntity;
 import taiwan.no1.app.data.entities.MovieDetailEntity;
 import taiwan.no1.app.data.entities.MovieListResEntity;
 import taiwan.no1.app.data.entities.MovieListWithDateResEntity;
@@ -38,4 +39,7 @@ public interface MovieDBService {
 
     @GET("tv/{id}")
     Observable<TVDetailEntity> tvDetail(@Path("id") int id, @QueryMap Map<String, String> queries);
+
+    @GET("person/popular")
+    Observable<CastListResEntity> popularCastList(@QueryMap Map<String, String> queries);
 }

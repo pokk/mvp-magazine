@@ -3,6 +3,7 @@ package taiwan.no1.app.internal.di.modules
 import dagger.Module
 import dagger.Provides
 import taiwan.no1.app.domain.usecase.CastDetail
+import taiwan.no1.app.domain.usecase.CastLists
 import taiwan.no1.app.domain.usecase.MovieDetail
 import taiwan.no1.app.domain.usecase.MovieLists
 import taiwan.no1.app.internal.di.annotations.PerFragment
@@ -53,6 +54,6 @@ class FragmentModule {
 
     @Provides
     @PerFragment
-    fun provideActressesMainPresenter(): ActressMainContract.Presenter =
-            ActressMainPresenter()
+    fun provideActressesMainPresenter(castCase: CastLists): ActressMainContract.Presenter =
+            ActressMainPresenter(castCase)
 }

@@ -17,8 +17,7 @@ import taiwan.no1.app.domain.repository.IRepository;
  */
 
 public class CastDetail extends BaseUseCase<CastDetail.Requests> {
-    public CastDetail(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread,
-                      IRepository repository) {
+    public CastDetail(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread, IRepository repository) {
         super(threadExecutor, postExecutionThread, repository);
     }
 
@@ -29,8 +28,7 @@ public class CastDetail extends BaseUseCase<CastDetail.Requests> {
      * @param useCaseSubscriber The guy who will be listen to the observable build with
      */
     @Override
-    public void execute(@NonNull final CastDetail.Requests request,
-                        @NonNull final Subscriber useCaseSubscriber) {
+    public void execute(@NonNull final Requests request, @NonNull final Subscriber useCaseSubscriber) {
         this.requestValues = request;
 
         super.execute(request, useCaseSubscriber);

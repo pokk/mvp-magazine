@@ -2,13 +2,12 @@ package taiwan.no1.app.domain.repository;
 
 import android.support.annotation.NonNull;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.List;
 
 import rx.Observable;
 import taiwan.no1.app.data.repositiry.DataRepository;
 import taiwan.no1.app.mvp.models.CastDetailModel;
+import taiwan.no1.app.mvp.models.CastListResModel;
 import taiwan.no1.app.mvp.models.MovieBriefModel;
 import taiwan.no1.app.mvp.models.MovieDetailModel;
 import taiwan.no1.app.mvp.models.TvDetailModel;
@@ -24,7 +23,7 @@ public interface IRepository {
     /**
      * Get an {@link Observable} which will emit a {@link List<MovieBriefModel>}.
      *
-     * @param page a page of popular videoLists.
+     * @param page a page of a movie list.
      * @return {@link Observable}
      */
     @NonNull
@@ -50,4 +49,13 @@ public interface IRepository {
 
     @NonNull
     Observable<TvDetailModel> detailTV(final int id);
+
+    /**
+     * Get an {@link Observable} which will emit a {@link List<CastListResModel>}.
+     *
+     * @param page a page of popular cast list.
+     * @return {@link Observable}
+     */
+    @NonNull
+    Observable<CastListResModel> casts(final int page);
 }

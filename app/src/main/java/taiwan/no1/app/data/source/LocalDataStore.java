@@ -4,6 +4,7 @@ import android.support.annotation.Nullable;
 
 import rx.Observable;
 import taiwan.no1.app.data.entities.CastDetailEntity;
+import taiwan.no1.app.data.entities.CastListResEntity;
 import taiwan.no1.app.data.entities.MovieDetailEntity;
 import taiwan.no1.app.data.entities.MovieListResEntity;
 import taiwan.no1.app.data.entities.MovieListWithDateResEntity;
@@ -60,6 +61,12 @@ public class LocalDataStore implements IDataStore {
     @Nullable
     @Override
     public Observable<TVDetailEntity> tvDetailEntities(final int id) {
+        throw new Error("No-op");
+    }
+
+    @Nullable
+    @Override
+    public Observable<CastListResEntity> popularCastEntities(int page) {
         throw  new Error("No-op");
     }
 }

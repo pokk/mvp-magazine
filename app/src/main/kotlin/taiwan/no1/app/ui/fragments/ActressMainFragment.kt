@@ -6,7 +6,9 @@ import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.contracts.ActressMainContract
+import taiwan.no1.app.mvp.models.CastListResModel
 import taiwan.no1.app.ui.BaseFragment
+import taiwan.no1.app.utilies.AppLog
 import javax.inject.Inject
 
 /**
@@ -84,6 +86,13 @@ class ActressMainFragment: BaseFragment(), ActressMainContract.View {
      * @param savedInstanceState the previous fragment data status after the system calls [onPause].
      */
     override fun init(savedInstanceState: Bundle?) {
+        this.presenter.requestListMovies()
+    }
+    //endregion
+
+    //region View implementations
+    override fun obtainCastBriefList(castList: List<CastListResModel>) {
+        AppLog.d(castList)
     }
     //endregion
 }

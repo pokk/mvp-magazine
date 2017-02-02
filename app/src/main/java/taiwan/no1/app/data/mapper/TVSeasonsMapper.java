@@ -20,6 +20,7 @@ import taiwan.no1.app.mvp.models.TVSeasonsModel;
 public class TVSeasonsMapper implements IBeanMapper<TVSeasonsModel, TVSeasonsEntity> {
     @NonNull
     @Override
+    @Deprecated
     public TVSeasonsEntity transformFrom(@NonNull TVSeasonsModel model) {
         return null;
     }
@@ -28,8 +29,8 @@ public class TVSeasonsMapper implements IBeanMapper<TVSeasonsModel, TVSeasonsEnt
     @Override
     public TVSeasonsModel transformTo(@NonNull TVSeasonsEntity entity) {
         List<TVSeasonsModel.EpisodesBean> tvEpisodesBean = Queryable.from(entity.getEpisodes())
-                .map(data -> new TVSeasonsModel.EpisodesBean())
-                .toList();
+                                                                    .map(data -> new TVSeasonsModel.EpisodesBean())
+                                                                    .toList();
 
         return new TVSeasonsModel(entity.get_id(),
                                   entity.getAir_date(),

@@ -12,6 +12,7 @@ import rx.Observable;
 import taiwan.no1.app.R;
 import taiwan.no1.app.api.service.MovieDBService;
 import taiwan.no1.app.data.entities.CastDetailEntity;
+import taiwan.no1.app.data.entities.CastListResEntity;
 import taiwan.no1.app.data.entities.MovieDetailEntity;
 import taiwan.no1.app.data.entities.MovieListResEntity;
 import taiwan.no1.app.data.entities.MovieListWithDateResEntity;
@@ -126,5 +127,21 @@ public class CloudDataStore implements IDataStore {
         }};
 
         return this.movieDBService.tvDetail(id, query);
+    }
+
+    /**
+     * @param page page number.
+     * @return {@link Observable}
+     * @see <a href="https://developers.themoviedb.org/3/people/get-popular-people">Get-Popular-Casts</>
+     */
+    @Nullable
+    @Override
+    public Observable<CastListResEntity> popularCastEntities(final int page) {
+        Map<String, String> query = new ArrayMap<String, String>() {{
+            put("api_key", api_key);
+            put("page", String.valueOf(page));
+        }};
+
+        return this.movieDBService.popularCastList(query);
     }
 }

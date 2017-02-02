@@ -1,5 +1,6 @@
 package taiwan.no1.app.mvp.contracts
 
+import taiwan.no1.app.mvp.models.CastListResModel
 import taiwan.no1.app.mvp.presenters.IPresenter
 import taiwan.no1.app.mvp.views.IFragmentView
 import taiwan.no1.app.mvp.views.IView
@@ -13,7 +14,11 @@ import taiwan.no1.app.mvp.views.IView
  */
 
 interface ActressMainContract {
-    interface Presenter: IPresenter<View>
+    interface Presenter: IPresenter<View> {
+        fun requestListMovies(page: Int = 1)
+    }
 
-    interface View: IView, IFragmentView
+    interface View: IView, IFragmentView {
+        fun obtainCastBriefList(castList: List<CastListResModel>)
+    }
 }

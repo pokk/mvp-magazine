@@ -18,8 +18,7 @@ import taiwan.no1.app.domain.repository.IRepository;
  */
 
 public class MovieLists extends BaseUseCase<MovieLists.Requests> {
-    public MovieLists(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread,
-                      IRepository repository) {
+    public MovieLists(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread, IRepository repository) {
         super(threadExecutor, postExecutionThread, repository);
     }
 
@@ -30,8 +29,7 @@ public class MovieLists extends BaseUseCase<MovieLists.Requests> {
      * @param useCaseSubscriber The guy who will be listen to the observable build with
      */
     @Override
-    public void execute(@NonNull final MovieLists.Requests request,
-                        @NonNull final Subscriber useCaseSubscriber) {
+    public void execute(@NonNull final Requests request, @NonNull final Subscriber useCaseSubscriber) {
         this.requestValues = request;
 
         super.execute(request, useCaseSubscriber);

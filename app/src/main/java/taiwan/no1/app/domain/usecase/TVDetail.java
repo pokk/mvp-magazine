@@ -13,14 +13,14 @@ import taiwan.no1.app.domain.repository.IRepository;
  */
 
 public class TVDetail extends BaseUseCase<TVDetail.Requests> {
-    public TVDetail(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread,
-                    IRepository repository) {
+    public TVDetail(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread, IRepository repository) {
         super(threadExecutor, postExecutionThread, repository);
     }
 
     @Override
-    public void execute(@NonNull TVDetail.Requests request, @NonNull Subscriber useCaseSubscriber) {
+    public void execute(@NonNull Requests request, @NonNull Subscriber useCaseSubscriber) {
         this.requestValues = request;
+
         super.execute(request, useCaseSubscriber);
     }
 

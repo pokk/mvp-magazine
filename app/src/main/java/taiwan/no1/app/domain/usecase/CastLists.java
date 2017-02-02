@@ -9,21 +9,20 @@ import taiwan.no1.app.domain.executor.PostExecutionThread;
 import taiwan.no1.app.domain.executor.ThreadExecutor;
 import taiwan.no1.app.domain.repository.IRepository;
 
-
 /**
- * This class is an implementation of {@link BaseUseCase} that represents a use case for an example.
+ * {@inheritDoc}
  *
  * @author Jieyi
- * @since 9/6/16
+ * @since 12/29/16
  */
 
-public class MovieDetail extends BaseUseCase<MovieDetail.Requests> {
-    public MovieDetail(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread, IRepository repository) {
+public class CastLists extends BaseUseCase<CastLists.Requests> {
+    public CastLists(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread, IRepository repository) {
         super(threadExecutor, postExecutionThread, repository);
     }
 
     /**
-     * Executes the current use case with request parameters.
+     * {@inheritDoc}
      *
      * @param request           Send the data to data layer with request parameters.
      * @param useCaseSubscriber The guy who will be listen to the observable build with
@@ -36,22 +35,24 @@ public class MovieDetail extends BaseUseCase<MovieDetail.Requests> {
     }
 
     /**
-     * Builds an {@link Observable} which will be used when executing the current {@link BaseUseCase}.
+     * {@inheritDoc}
      *
      * @return {@link Observable} for connecting with a {@link Subscription} from the kotlin layer.
      */
     @NonNull
     @Override
     protected Observable buildUseCaseObservable() {
-        return this.repository.detailMovie(this.requestValues.movieId);
+        return this.repository.casts(this.requestValues.page);
     }
 
     /**
-     * Wrapping data requests for general situation.
+     * {@inheritDoc}
      */
     public static final class Requests extends BaseUseCase.RequestValues {
-        private final int movieId;
+        private final int page;
 
-        public Requests(int movieId) {this.movieId = movieId;}
+        public Requests(final int page) {
+            this.page = page;
+        }
     }
 }
