@@ -67,6 +67,6 @@ public class LocalDataStore implements IDataStore {
     @Nullable
     @Override
     public Observable<CastListResEntity> popularCastEntities(int page) {
-        throw  new Error("No-op");
+        throw new Error("No-op");
     }
 }

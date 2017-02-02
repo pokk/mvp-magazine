@@ -27,7 +27,7 @@ class MovieCastRelatedViewHolder(view: View): BaseViewHolder(view) {
     // FIXME: 2017/01/19 not be injected.
     @Inject
     lateinit var imageLoader: IImageLoader
-    
+
     val item by bindView<CardView>(R.id.item_cast)
     val ivPoster by bindView<ImageView>(R.id.iv_cast)
     val tvReleaseDate by bindView<TextView>(R.id.tv_character)

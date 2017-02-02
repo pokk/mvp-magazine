@@ -12,7 +12,7 @@ import taiwan.no1.app.mvp.views.IView
 interface IPresenter<in V: IView> {
     /**
      * Initial method.
-     * 
+     *
      * @param view [IView]
      */
     fun init(view: V)
