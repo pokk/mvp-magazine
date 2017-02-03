@@ -19,6 +19,6 @@ interface ActressMainContract {
     }
 
     interface View: IView, IFragmentView {
-        fun obtainCastBriefList(castList: List<CastListResModel>)
+        fun obtainCastBriefList(castList: List<CastListResModel.CastBriefBean>)
     }
 }

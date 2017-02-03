@@ -27,8 +27,7 @@ object ViewUtils {
                         into: ImageView,
                         listener: RequestListener<String, GlideDrawable>? = null,
                         isFitCenter: Boolean = true) {
-        Glide.with(context).
-                load(uri).apply {
+        Glide.with(context).load(uri).apply {
             if (isFitCenter) fitCenter() else centerCrop()
             diskCacheStrategy(DiskCacheStrategy.SOURCE)
             listener?.let { listener(listener) }

@@ -26,6 +26,8 @@ import taiwan.no1.app.mvp.models.IVisitable
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.adapter.itemdecorator.MovieHorizontalItemDecorator
+import taiwan.no1.app.ui.fragments.MovieMainFragment.Factory.NAVIGATOR_ARG_FRAGMENT
+import taiwan.no1.app.ui.fragments.MovieMainFragment.Factory.NAVIGATOR_ARG_TAG
 import taiwan.no1.app.ui.listeners.GlideCustomRequestListener
 import taiwan.no1.app.utilies.ImageLoader.IImageLoader
 import javax.inject.Inject
@@ -159,9 +161,9 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
                 this.ivPersonPoster, null, false)
         this.ivDropPoster.setOnClickListener {
             RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
-                    Pair(MovieListFragment.NAVIGATOR_ARG_FRAGMENT,
+                    Pair(NAVIGATOR_ARG_FRAGMENT,
                             MovieGalleryFragment.newInstance(castDetailModel.images?.profiles)),
-                    Pair(MovieListFragment.NAVIGATOR_ARG_TAG, argFromFragment)))
+                    Pair(NAVIGATOR_ARG_TAG, argFromFragment)))
         }
         this.tvJob.apply {
             this.setBackgroundColor(Color.TRANSPARENT)

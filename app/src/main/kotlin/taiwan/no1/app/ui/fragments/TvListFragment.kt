@@ -93,7 +93,7 @@ class TvListFragment: BaseFragment(), TvListContract.View, IMainFragment {
      *
      * @return current display [Fragment].
      */
-    override fun getCurrentDisplayFragment(): Fragment? = null
+    override fun getCurrentDisplayFragment(): Fragment = this
 
     //region View implementations
     //endregion

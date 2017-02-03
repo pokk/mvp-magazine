@@ -1,10 +1,7 @@
 package taiwan.no1.app.ui.adapter.viewholder.viewtype
 
 import android.view.View
-import taiwan.no1.app.mvp.models.CreditsModel
-import taiwan.no1.app.mvp.models.MovieBriefModel
-import taiwan.no1.app.mvp.models.MovieCastsModel
-import taiwan.no1.app.mvp.models.MovieVideosModel
+import taiwan.no1.app.mvp.models.*
 import taiwan.no1.app.ui.adapter.viewholder.BaseViewHolder
 
 /**
@@ -26,6 +23,8 @@ interface IViewTypeFactory {
     fun type(crewBean: CreditsModel.CrewBean): Int
 
     fun type(movieVideosModel: MovieVideosModel): Int
+
+    fun type(castBriefModel: CastListResModel.CastBriefBean): Int
 
     /**
      * Creating a view holder.

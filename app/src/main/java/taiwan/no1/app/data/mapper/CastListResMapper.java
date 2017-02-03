@@ -41,11 +41,11 @@ public class CastListResMapper implements IBeanMapper<CastListResModel, CastList
                                                                                data.getProfile_path(),
                                                                                data.isAdult(),
                                                                                data.getId(),
-                                                                               data.getName(),
-                                                                               data.getPopularity(),
-                                                                               Queryable.from(data.getKnown_for())
-                                                                                        .map(castKnownForMapper::transformTo)
-                                                                                        .toList()))
+                                                                               data.getName(), data.getPopularity()))
+                                                                       // TODO: 2/3/17 In the furture we may use it.
+                                                                       //                                                                               Queryable.from(data.getKnown_for())
+                                                                       //                                                                                        .map(castKnownForMapper::transformTo)
+                                                                       //                                                                                        .toList()))
                                                                        .toList();
 
         return new CastListResModel(entity.getPage(),

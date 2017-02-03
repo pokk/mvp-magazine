@@ -12,7 +12,9 @@ import taiwan.no1.app.api.config.MovieDBConfig
 import taiwan.no1.app.mvp.models.MovieBriefModel
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.fragments.MovieDetailFragment
-import taiwan.no1.app.ui.fragments.MovieListFragment
+import taiwan.no1.app.ui.fragments.MovieMainFragment.Factory.NAVIGATOR_ARG_FRAGMENT
+import taiwan.no1.app.ui.fragments.MovieMainFragment.Factory.NAVIGATOR_ARG_SHARED_ELEMENTS
+import taiwan.no1.app.ui.fragments.MovieMainFragment.Factory.NAVIGATOR_ARG_TAG
 import taiwan.no1.app.utilies.ViewUtils
 
 /**
@@ -36,10 +38,10 @@ class MovieListViewHolder(val view: View): BaseViewHolder(view) {
             this.tvTitle.text = it.title
             this.item.setOnClickListener {
                 RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
-                        Pair(MovieListFragment.NAVIGATOR_ARG_FRAGMENT,
+                        Pair(NAVIGATOR_ARG_FRAGMENT,
                                 MovieDetailFragment.newInstance(model.id.toString(), adapter.fragmentTag)),
-                        Pair(MovieListFragment.NAVIGATOR_ARG_TAG, adapter.fragmentTag),
-                        Pair(MovieListFragment.NAVIGATOR_ARG_SHARED_ELEMENTS,
+                        Pair(NAVIGATOR_ARG_TAG, adapter.fragmentTag),
+                        Pair(NAVIGATOR_ARG_SHARED_ELEMENTS,
                                 hashMapOf(Pair(tvRelease, tvRelease.transitionName)))))
             }
         }

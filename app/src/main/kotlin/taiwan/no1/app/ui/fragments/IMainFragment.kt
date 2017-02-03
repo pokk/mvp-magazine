@@ -15,5 +15,5 @@ interface IMainFragment {
      *
      * @return current display [Fragment].
      */
-    fun getCurrentDisplayFragment(): Fragment?
+    fun getCurrentDisplayFragment(): Fragment
 }

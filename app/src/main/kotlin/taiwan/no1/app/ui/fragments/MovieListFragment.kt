@@ -3,18 +3,12 @@ package taiwan.no1.app.ui.fragments
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.LayoutRes
-import android.support.v4.app.Fragment
 import android.support.v7.widget.OrientationHelper
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.transition.TransitionInflater
-import android.view.View
 import butterknife.bindView
-import com.hwangjr.rxbus.RxBus
-import com.hwangjr.rxbus.annotation.Subscribe
-import com.hwangjr.rxbus.annotation.Tag
 import com.jakewharton.rxbinding.support.v7.widget.scrollEvents
-import com.touchin.constant.RxbusTag
 import taiwan.no1.app.App
 import taiwan.no1.app.R
 import taiwan.no1.app.data.repositiry.DataRepository
@@ -37,10 +31,6 @@ import javax.inject.Inject
 class MovieListFragment: BaseFragment(), MovieListContract.View {
     //region Static initialization
     companion object Factory {
-        // For navigating the fragment's arguments. 
-        const val NAVIGATOR_ARG_FRAGMENT = "fragment"
-        const val NAVIGATOR_ARG_TAG = "tag"
-        const val NAVIGATOR_ARG_SHARED_ELEMENTS = "shared_element_list"
         // The key name of the fragment initialization parameters.
         private const val ARG_PARAM_CATEGORY: String = "param_movie_category"
         // The key name of the fragment restore the status parameters. 
@@ -74,20 +64,16 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
     //endregion
 
     private var movieList: ArrayList<MovieBriefModel>? = null
+    private var maxPageIndex: Int = 1
+    private var pageIndex: Int = 1
+    private var loading: Boolean = true
+    
     // Get the arguments from the bundle here.
     private val argMovieCategory: DataRepository.Movies by lazy {
         this.arguments.getSerializable(ARG_PARAM_CATEGORY) as DataRepository.Movies
     }
-    private var maxPageIndex: Int = 1
-    private var pageIndex: Int = 1
-    private var loading: Boolean = true
 
     //region Fragment lifecycle
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        RxBus.get().register(MovieListFragment@ this)
-    }
-
     override fun onResume() {
         super.onResume()
         this.presenter.resume()
@@ -101,14 +87,12 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        outState.putParcelableArrayList(ARG_PARAM_INSTANCE_MOVIES, movieList)
+        outState.putParcelableArrayList(ARG_PARAM_INSTANCE_MOVIES, this.movieList)
     }
 
     override fun onDestroy() {
         // After super.onDestroy() is executed, the presenter will be destroy. So the presenter should be
         // executed before super.onDestroy().
-        RxBus.get().unregister(MovieListFragment@ this)
-
         this.presenter.destroy()
         super.onDestroy()
     }
@@ -169,7 +153,7 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
             this.rvMovies.setHasFixedSize(true)
             this.rvMovies.addItemDecoration(GridSpacingItemDecorator(2, 10, false))
             // Just give a empty adapter.
-            this.rvMovies.adapter = CommonRecyclerAdapter(ArrayList<MovieBriefModel>(), this.hashCode())
+            this.rvMovies.adapter = CommonRecyclerAdapter(Collections.emptyList(), this.hashCode())
 
             // Request the movie data.
             this.argMovieCategory.let { this.presenter.requestListMovies(it, pageIndex++) }
@@ -189,24 +173,6 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
         this.movieList?.let { (this.rvMovies.adapter as CommonRecyclerAdapter).addItem(it) }
         // Switch on loading new movie page.
         this.loading = true
-    }
-    //endregion
-
-    //region RxBus
-    @Subscribe(tags = arrayOf(Tag(RxbusTag.FRAGMENT_CHILD_NAVIGATOR)))
-    fun navigateFragment(mapArgs: HashMap<String, Any>) {
-        val fragment: Fragment = mapArgs[NAVIGATOR_ARG_FRAGMENT] as Fragment
-        val tag: Int = mapArgs[NAVIGATOR_ARG_TAG] as Int
-        val shareElements: HashMap<View, String>? = mapArgs[NAVIGATOR_ARG_SHARED_ELEMENTS] as? HashMap<View, String>
-
-        // To avoid the same fragment but different hash code's fragment add the fragment.
-        if (tag == this.hashCode()) {
-            this.childFragmentManager.beginTransaction().apply {
-                this.replace(R.id.main_container, fragment, fragment.javaClass.name)
-                this.addToBackStack(fragment.javaClass.name)
-                shareElements?.forEach { addSharedElement(it.key, it.value) }
-            }.commit()
-        }
     }
     //endregion
 }

@@ -31,6 +31,10 @@ import javax.inject.Inject
 class MovieMainFragment: BaseFragment(), MovieMainContract.View, IMainFragment {
     //region Static initialization
     companion object Factory {
+        // For navigating the fragment's arguments. 
+        const val NAVIGATOR_ARG_FRAGMENT = "fragment"
+        const val NAVIGATOR_ARG_TAG = "tag"
+        const val NAVIGATOR_ARG_SHARED_ELEMENTS = "shared_element_list"
         // The key name of the fragment initialization parameters.
 
         /**
@@ -144,7 +148,7 @@ class MovieMainFragment: BaseFragment(), MovieMainContract.View, IMainFragment {
      *
      * @return current display [Fragment].
      */
-    override fun getCurrentDisplayFragment(): Fragment? = this.fragmentList[this.vpContainer.currentItem]
+    override fun getCurrentDisplayFragment(): Fragment = this.fragmentList[this.vpContainer.currentItem]
 
     /**
      * Clear all of the child fragments.
