@@ -11,9 +11,9 @@ import android.support.v4.app.FragmentStatePagerAdapter
  * @since   1/6/17
  */
 
-class MovieViewPager constructor(val context: Context,
-                                 val fragmentManager: FragmentManager,
-                                 val fragmentList: List<Fragment>):
+class MainViewPager constructor(val context: Context,
+                                val fragmentManager: FragmentManager,
+                                val fragmentList: List<Fragment>):
         FragmentStatePagerAdapter(fragmentManager) {
     override fun getItem(position: Int): Fragment = this.fragmentList[position]
 

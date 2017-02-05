@@ -21,7 +21,7 @@ import taiwan.no1.app.ui.BaseActivity
 import taiwan.no1.app.ui.fragments.ActressMainFragment
 import taiwan.no1.app.ui.fragments.IMainFragment
 import taiwan.no1.app.ui.fragments.MovieMainFragment
-import taiwan.no1.app.ui.fragments.TvListFragment
+import taiwan.no1.app.ui.fragments.TvMainFragment
 import java.util.*
 import javax.inject.Inject
 
@@ -88,7 +88,7 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
         this.bottombarMenu.setOnTabSelectListener {
             this.addFragment(R.id.rl_main_container, when (it) {
                 R.id.tab_movies -> MovieMainFragment.newInstance().apply { currentTag = this.javaClass.name }
-                R.id.tab_tv_dramas -> TvListFragment.newInstance().apply { currentTag = this.javaClass.name }
+                R.id.tab_tv_dramas -> TvMainFragment.newInstance().apply { currentTag = this.javaClass.name }
                 R.id.tab_people -> ActressMainFragment.newInstance().apply { currentTag = this.javaClass.name }
                 else -> MovieMainFragment.newInstance().apply { currentTag = this.javaClass.name }
             }, false)
@@ -102,7 +102,6 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
      */
     private fun getCurrentPresentFragment(): Fragment =
             (this.findFragmentByTag(this.currentTag) as IMainFragment).getCurrentDisplayFragment()
-
 
     //region RxBus
     @Subscribe(tags = arrayOf(Tag(RxbusTag.FRAGMENT_CHILD_NAVIGATOR)))

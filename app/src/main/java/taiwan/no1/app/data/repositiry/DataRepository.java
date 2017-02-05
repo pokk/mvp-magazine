@@ -10,12 +10,14 @@ import javax.inject.Inject;
 
 import rx.Observable;
 import taiwan.no1.app.data.entities.MovieBriefEntity;
+import taiwan.no1.app.data.entities.TvBriefEntity;
 import taiwan.no1.app.data.mapper.CastDetailMapper;
 import taiwan.no1.app.data.mapper.CastListResMapper;
 import taiwan.no1.app.data.mapper.MovieBriefMapper;
 import taiwan.no1.app.data.mapper.MovieCastsMapper;
 import taiwan.no1.app.data.mapper.MovieDetailMapper;
 import taiwan.no1.app.data.mapper.TVDetailMapper;
+import taiwan.no1.app.data.mapper.TvBriefMapper;
 import taiwan.no1.app.data.mapper.TvListResMapper;
 import taiwan.no1.app.data.source.CloudDataStore;
 import taiwan.no1.app.data.source.IDataStore;
@@ -25,8 +27,8 @@ import taiwan.no1.app.mvp.models.CastDetailModel;
 import taiwan.no1.app.mvp.models.CastListResModel;
 import taiwan.no1.app.mvp.models.MovieBriefModel;
 import taiwan.no1.app.mvp.models.MovieDetailModel;
+import taiwan.no1.app.mvp.models.TvBriefModel;
 import taiwan.no1.app.mvp.models.TvDetailModel;
-import taiwan.no1.app.mvp.models.TvListResModel;
 
 /**
  * Low layer pure entity convert to kotlin layer data model from the repositories.
@@ -42,6 +44,7 @@ public class DataRepository implements IRepository {
     @Inject MovieCastsMapper movieCastsMapper;
     @Inject CastDetailMapper castDetailMapper;
     @Inject TvListResMapper tvListResMapper;
+    @Inject TvBriefMapper tvBriefMapper;
     @Inject TVDetailMapper tvDetailMapper;
     @Inject CastListResMapper castListResMapper;
 
@@ -57,18 +60,18 @@ public class DataRepository implements IRepository {
         switch (category) {
             case POPULAR:
             case TOP_RATED:
-                return store.moviesEntities(category, page).map(entity -> transition(entity.getMovieEntities()));
+                return store.moviesEntities(category, page).map(entity -> transitionMovie(entity.getMovieEntities()));
             case NOW_PLAYING:
             case UP_COMING:
                 return store.moviesWithDateEntities(category, page)
-                            .map(entity -> transition(entity.getMovieEntities()));
+                            .map(entity -> transitionMovie(entity.getMovieEntities()));
         }
 
         throw new Error("Movies doesn't have this type!");
     }
 
     @NonNull
-    private List<MovieBriefModel> transition(@NonNull final List<MovieBriefEntity> entities) {
+    private List<MovieBriefModel> transitionMovie(@NonNull final List<MovieBriefEntity> entities) {
         return Queryable.from(entities).map(this.moviesMapper::transformTo).toList();
     }
 
@@ -86,8 +89,15 @@ public class DataRepository implements IRepository {
 
     @NonNull
     @Override
-    public Observable<TvListResModel> tvs(CloudDataStore.Tvs category, int page) {
-        return this.dataStoreFactory.createCloud().TvsEntities(category, page).map(this.tvListResMapper::transformTo);
+    public Observable<List<TvBriefModel>> tvs(CloudDataStore.Tvs category, int page) {
+        return this.dataStoreFactory.createCloud()
+                                    .TvsEntities(category, page)
+                                    .map(entity -> transitionTv(entity.getResults()));
+    }
+
+    @NonNull
+    private List<TvBriefModel> transitionTv(@NonNull final List<TvBriefEntity> entities) {
+        return Queryable.from(entities).map(this.tvBriefMapper::transformTo).toList();
     }
 
     @NonNull

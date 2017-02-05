@@ -10,6 +10,7 @@ import taiwan.no1.app.mvp.models.CastDetailModel;
 import taiwan.no1.app.mvp.models.CastListResModel;
 import taiwan.no1.app.mvp.models.MovieBriefModel;
 import taiwan.no1.app.mvp.models.MovieDetailModel;
+import taiwan.no1.app.mvp.models.TvBriefModel;
 import taiwan.no1.app.mvp.models.TvDetailModel;
 import taiwan.no1.app.mvp.models.TvListResModel;
 
@@ -55,7 +56,7 @@ public interface IRepository {
      * @return {@link Observable}
      */
     @NonNull
-    Observable<TvListResModel> tvs(final CloudDataStore.Tvs category, final int page);
+    Observable<List<TvBriefModel>> tvs(final CloudDataStore.Tvs category, final int page);
 
     @NonNull
     Observable<TvDetailModel> detailTV(final int id);

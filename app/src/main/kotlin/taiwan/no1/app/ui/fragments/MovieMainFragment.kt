@@ -17,7 +17,7 @@ import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.contracts.MovieMainContract
 import taiwan.no1.app.ui.BaseFragment
-import taiwan.no1.app.ui.adapter.MovieViewPager
+import taiwan.no1.app.ui.adapter.MainViewPager
 import java.util.*
 import javax.inject.Inject
 
@@ -119,7 +119,7 @@ class MovieMainFragment: BaseFragment(), MovieMainContract.View, IMainFragment {
         this.ntsTabMenu.setViewPager(this.vpContainer.apply {
             var flagClearPrevFragment: Boolean = false
 
-            this.adapter = MovieViewPager(context(), fragmentManager, fragmentList)
+            this.adapter = MainViewPager(context(), fragmentManager, fragmentList)
             // Initial the position.
             currItemPos = this.currentItem
             prevItemPos = this.currentItem
@@ -157,8 +157,7 @@ class MovieMainFragment: BaseFragment(), MovieMainContract.View, IMainFragment {
      */
     private fun clearAllChildrenFragment(index: Int) {
         (0..this.fragmentList[index].childFragmentManager.backStackEntryCount - 1).forEach {
-            this.fragmentList[index].childFragmentManager.popBackStack(null,
-                    FragmentManager.POP_BACK_STACK_INCLUSIVE)
+            this.fragmentList[index].childFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         }
     }
 }
