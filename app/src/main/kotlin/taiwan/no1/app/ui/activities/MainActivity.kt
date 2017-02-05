@@ -20,6 +20,9 @@ import taiwan.no1.app.mvp.contracts.MainContract
 import taiwan.no1.app.ui.BaseActivity
 import taiwan.no1.app.ui.fragments.ActressMainFragment
 import taiwan.no1.app.ui.fragments.IMainFragment
+import taiwan.no1.app.ui.fragments.MainControlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
+import taiwan.no1.app.ui.fragments.MainControlFragment.Factory.NAVIGATOR_ARG_SHARED_ELEMENTS
+import taiwan.no1.app.ui.fragments.MainControlFragment.Factory.NAVIGATOR_ARG_TAG
 import taiwan.no1.app.ui.fragments.MovieMainFragment
 import taiwan.no1.app.ui.fragments.TvMainFragment
 import java.util.*
@@ -107,9 +110,9 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
     @Subscribe(tags = arrayOf(Tag(RxbusTag.FRAGMENT_CHILD_NAVIGATOR)))
     fun navigateFragment(mapArgs: HashMap<String, Any>) {
         val presentFragment: Fragment = this.getCurrentPresentFragment()
-        val fragment: Fragment = mapArgs[MovieMainFragment.NAVIGATOR_ARG_FRAGMENT] as Fragment
-        val tag: Int = mapArgs[MovieMainFragment.NAVIGATOR_ARG_TAG] as Int
-        val shareElements: HashMap<View, String>? = mapArgs[MovieMainFragment.NAVIGATOR_ARG_SHARED_ELEMENTS] as? HashMap<View, String>
+        val fragment: Fragment = mapArgs[NAVIGATOR_ARG_FRAGMENT] as Fragment
+        val tag: Int = mapArgs[NAVIGATOR_ARG_TAG] as Int
+        val shareElements: HashMap<View, String>? = mapArgs[NAVIGATOR_ARG_SHARED_ELEMENTS] as? HashMap<View, String>
 
         // To avoid the same fragment but different hash code's fragment add the fragment.
         if (tag == presentFragment.hashCode()) {

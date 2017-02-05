@@ -15,10 +15,10 @@ import com.touchin.constant.RxbusTag
 import taiwan.no1.app.R
 import taiwan.no1.app.api.config.MovieDBConfig
 import taiwan.no1.app.mvp.models.ImageInfoModel
+import taiwan.no1.app.ui.fragments.MainControlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
+import taiwan.no1.app.ui.fragments.MainControlFragment.Factory.NAVIGATOR_ARG_SHARED_ELEMENTS
+import taiwan.no1.app.ui.fragments.MainControlFragment.Factory.NAVIGATOR_ARG_TAG
 import taiwan.no1.app.ui.fragments.MovieGalleryFragment
-import taiwan.no1.app.ui.fragments.MovieMainFragment.Factory.NAVIGATOR_ARG_FRAGMENT
-import taiwan.no1.app.ui.fragments.MovieMainFragment.Factory.NAVIGATOR_ARG_SHARED_ELEMENTS
-import taiwan.no1.app.ui.fragments.MovieMainFragment.Factory.NAVIGATOR_ARG_TAG
 import taiwan.no1.app.ui.listeners.GlideCustomRequestListener
 import taiwan.no1.app.utilies.ViewUtils
 

@@ -12,8 +12,8 @@ import taiwan.no1.app.api.config.MovieDBConfig
 import taiwan.no1.app.mvp.models.CastListResModel
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.fragments.CastDetailFragment
-import taiwan.no1.app.ui.fragments.MovieMainFragment.Factory.NAVIGATOR_ARG_FRAGMENT
-import taiwan.no1.app.ui.fragments.MovieMainFragment.Factory.NAVIGATOR_ARG_TAG
+import taiwan.no1.app.ui.fragments.MainControlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
+import taiwan.no1.app.ui.fragments.MainControlFragment.Factory.NAVIGATOR_ARG_TAG
 import taiwan.no1.app.utilies.ViewUtils
 
 /**
