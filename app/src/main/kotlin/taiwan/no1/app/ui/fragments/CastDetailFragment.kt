@@ -1,10 +1,12 @@
 package taiwan.no1.app.ui.fragments
 
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.transition.TransitionInflater
 import android.view.View
 import android.view.ViewStub
 import android.widget.ImageView
@@ -15,6 +17,7 @@ import com.bumptech.glide.request.target.Target
 import com.hwangjr.rxbus.RxBus
 import com.intrusoft.squint.DiagonalView
 import com.touchin.constant.RxbusTag
+import taiwan.no1.app.App
 import taiwan.no1.app.R
 import taiwan.no1.app.api.config.MovieDBConfig
 import taiwan.no1.app.constant.Constant
@@ -53,6 +56,12 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
          * @return A new instance of [fragment] CastDetailFragment.
          */
         fun newInstance(id: String, from: Int): CastDetailFragment = CastDetailFragment().apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                TransitionInflater.from(App.getAppContext()).inflateTransition(R.transition.change_image_transform).let {
+                    this.sharedElementEnterTransition = it
+                    this.sharedElementReturnTransition = it
+                }
+            }
             this.arguments = Bundle().apply {
                 this.putString(ARG_PARAM_CAST_ID, id)
                 this.putInt(ARG_PARAM_FROM_ID, from)

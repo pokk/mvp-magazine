@@ -131,7 +131,9 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
             fragmentManager.beginTransaction().apply {
                 this.replace(container, fragment, fragment.javaClass.name)
                 this.addToBackStack(fragment.javaClass.name)
-                shareElements?.forEach { addSharedElement(it.key, it.value) }
+                shareElements?.forEach {
+                    addSharedElement(it.key, it.value)
+                }
             }.commit()
         }
     }

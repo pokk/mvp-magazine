@@ -11,6 +11,7 @@
         android:id="@+id/iv_cast_poster"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:transitionName="cast_poster"
         android:src="@color/lb_search_bar_text"
         tools:ignore="contentDescription"/>
 
