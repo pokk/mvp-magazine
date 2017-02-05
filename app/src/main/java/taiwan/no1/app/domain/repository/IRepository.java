@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 import rx.Observable;
-import taiwan.no1.app.data.repositiry.DataRepository;
+import taiwan.no1.app.data.source.CloudDataStore;
 import taiwan.no1.app.mvp.models.CastDetailModel;
 import taiwan.no1.app.mvp.models.CastListResModel;
 import taiwan.no1.app.mvp.models.MovieBriefModel;
@@ -27,7 +27,7 @@ public interface IRepository {
      * @return {@link Observable}
      */
     @NonNull
-    Observable<List<MovieBriefModel>> movies(final DataRepository.Movies category, final int page);
+    Observable<List<MovieBriefModel>> movies(final CloudDataStore.Movies category, final int page);
 
     /**
      * Get an {@link Observable} which will emit a {@link MovieDetailModel}.

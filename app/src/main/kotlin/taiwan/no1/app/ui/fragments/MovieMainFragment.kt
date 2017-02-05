@@ -12,7 +12,7 @@ import com.gigamole.navigationtabstrip.NavigationTabStrip
 import com.jakewharton.rxbinding.support.v4.view.pageScrollStateChanges
 import com.jakewharton.rxbinding.support.v4.view.pageSelections
 import taiwan.no1.app.R
-import taiwan.no1.app.data.repositiry.DataRepository
+import taiwan.no1.app.data.source.CloudDataStore
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.contracts.MovieMainContract
@@ -60,10 +60,10 @@ class MovieMainFragment: BaseFragment(), MovieMainContract.View, IMainFragment {
     private var currItemPos: Int = -1
     private val fragmentList: List<Fragment> by lazy {
         ArrayList(arrayListOf(
-                MovieListFragment.newInstance(DataRepository.Movies.POPULAR),
-                MovieListFragment.newInstance(DataRepository.Movies.NOW_PLAYING),
-                MovieListFragment.newInstance(DataRepository.Movies.TOP_RATED),
-                MovieListFragment.newInstance(DataRepository.Movies.UP_COMING)))
+                MovieListFragment.newInstance(CloudDataStore.Movies.POPULAR),
+                MovieListFragment.newInstance(CloudDataStore.Movies.NOW_PLAYING),
+                MovieListFragment.newInstance(CloudDataStore.Movies.TOP_RATED),
+                MovieListFragment.newInstance(CloudDataStore.Movies.UP_COMING)))
     }
 
     // Get the arguments from the bundle here.

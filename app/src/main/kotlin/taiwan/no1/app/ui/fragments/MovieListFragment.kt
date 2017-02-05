@@ -11,7 +11,7 @@ import butterknife.bindView
 import com.jakewharton.rxbinding.support.v7.widget.scrollEvents
 import taiwan.no1.app.App
 import taiwan.no1.app.R
-import taiwan.no1.app.data.repositiry.DataRepository
+import taiwan.no1.app.data.source.CloudDataStore
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.contracts.MovieListContract
@@ -41,7 +41,7 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
          *
          * @return A new instance of [fragment] MovieListFragment.
          */
-        fun newInstance(category: DataRepository.Movies): MovieListFragment = MovieListFragment().apply {
+        fun newInstance(category: CloudDataStore.Movies): MovieListFragment = MovieListFragment().apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 TransitionInflater.from(App.getAppContext()).let {
                     this.sharedElementReturnTransition = it.inflateTransition(R.transition.change_image_transform)
@@ -69,8 +69,8 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
     private var loading: Boolean = true
     
     // Get the arguments from the bundle here.
-    private val argMovieCategory: DataRepository.Movies by lazy {
-        this.arguments.getSerializable(ARG_PARAM_CATEGORY) as DataRepository.Movies
+    private val argMovieCategory: CloudDataStore.Movies by lazy {
+        this.arguments.getSerializable(ARG_PARAM_CATEGORY) as CloudDataStore.Movies
     }
 
     //region Fragment lifecycle

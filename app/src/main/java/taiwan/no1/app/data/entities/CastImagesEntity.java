@@ -13,4 +13,11 @@ public class CastImagesEntity {
     public List<ImageInfoEntity> getProfiles() { return profiles;}
 
     public void setProfiles(List<ImageInfoEntity> profiles) { this.profiles = profiles;}
+
+    @Override
+    public String toString() {
+        return "CastImagesEntity{" +
+                "profiles=" + profiles +
+                '}';
+    }
 }

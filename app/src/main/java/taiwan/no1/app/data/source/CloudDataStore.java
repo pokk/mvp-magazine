@@ -30,6 +30,13 @@ public class CloudDataStore implements IDataStore {
     private final Context context;
     private final String api_key;
 
+    public enum Movies {
+        POPULAR,
+        TOP_RATED,
+        NOW_PLAYING,
+        UP_COMING
+    }
+
     @Inject
     public CloudDataStore(Context context) {
         NetComponent.Initializer.init().inject(CloudDataStore.this);
@@ -44,46 +51,43 @@ public class CloudDataStore implements IDataStore {
      */
     @Nullable
     @Override
-    public Observable<MovieListResEntity> popularMovieEntities(final int page) {
+    public Observable<MovieListResEntity> moviesEntities(final Movies category, final int page) {
         Map<String, String> query = new ArrayMap<String, String>() {{
             put("api_key", api_key);
             put("page", String.valueOf(page));
         }};
 
-        return this.movieDBService.popularMovieList(query);
+        switch (category) {
+            case POPULAR:
+                return this.movieDBService.popularMovieList(query);
+            case TOP_RATED:
+                return this.movieDBService.topRatedMovieList(query);
+        }
+
+        throw new Error("Movies doesn't have this type!");
     }
 
+    /**
+     * @param page page number.
+     * @return {@link Observable}
+     * @see <a href="https://developers.themoviedb.org/3/movies/get-popular-movies">Get-Popular-Movie</>
+     */
     @Nullable
     @Override
-    public Observable<MovieListResEntity> topRatedMovieEntities(final int page) {
+    public Observable<MovieListWithDateResEntity> moviesWithDateEntities(final Movies category, final int page) {
         Map<String, String> query = new ArrayMap<String, String>() {{
             put("api_key", api_key);
             put("page", String.valueOf(page));
         }};
 
-        return this.movieDBService.topRatedMovieList(query);
-    }
+        switch (category) {
+            case NOW_PLAYING:
+                return this.movieDBService.nowPlayingMovieList(query);
+            case UP_COMING:
+                return this.movieDBService.upComingMovieList(query);
+        }
 
-    @Nullable
-    @Override
-    public Observable<MovieListWithDateResEntity> nowPlayingMovieEntities(final int page) {
-        Map<String, String> query = new ArrayMap<String, String>() {{
-            put("api_key", api_key);
-            put("page", String.valueOf(page));
-        }};
-
-        return this.movieDBService.nowPlayingMovieList(query);
-    }
-
-    @Nullable
-    @Override
-    public Observable<MovieListWithDateResEntity> upComingMovieEntities(final int page) {
-        Map<String, String> query = new ArrayMap<String, String>() {{
-            put("api_key", api_key);
-            put("page", String.valueOf(page));
-        }};
-
-        return this.movieDBService.upComingMovieList(query);
+        throw new Error("Movies doesn't have this type!");
     }
 
     /**

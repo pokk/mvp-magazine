@@ -16,6 +16,7 @@ import taiwan.no1.app.data.mapper.MovieBriefMapper;
 import taiwan.no1.app.data.mapper.MovieCastsMapper;
 import taiwan.no1.app.data.mapper.MovieDetailMapper;
 import taiwan.no1.app.data.mapper.TVDetailMapper;
+import taiwan.no1.app.data.source.CloudDataStore;
 import taiwan.no1.app.data.source.IDataStore;
 import taiwan.no1.app.data.source.factory.DataStoreFactory;
 import taiwan.no1.app.domain.repository.IRepository;
@@ -41,13 +42,6 @@ public class DataRepository implements IRepository {
     @Inject TVDetailMapper tvDetailMapper;
     @Inject CastListResMapper castListResMapper;
 
-    public enum Movies {
-        POPULAR,
-        TOP_RATED,
-        NOW_PLAYING,
-        UP_COMING
-    }
-
     @Inject
     DataRepository(DataStoreFactory dataStoreFactory) {
         this.dataStoreFactory = dataStoreFactory;
@@ -55,17 +49,16 @@ public class DataRepository implements IRepository {
 
     @NonNull
     @Override
-    public Observable<List<MovieBriefModel>> movies(final Movies category, final int page) {
+    public Observable<List<MovieBriefModel>> movies(final CloudDataStore.Movies category, final int page) {
         IDataStore store = this.dataStoreFactory.createCloud();
         switch (category) {
             case POPULAR:
-                return store.popularMovieEntities(page).map(entity -> transition(entity.getMovieEntities()));
             case TOP_RATED:
-                return store.topRatedMovieEntities(page).map(entity -> transition(entity.getMovieEntities()));
+                return store.moviesEntities(category, page).map(entity -> transition(entity.getMovieEntities()));
             case NOW_PLAYING:
-                return store.nowPlayingMovieEntities(page).map(entity -> transition(entity.getMovieEntities()));
             case UP_COMING:
-                return store.upComingMovieEntities(page).map(entity -> transition(entity.getMovieEntities()));
+                return store.moviesWithDateEntities(category, page)
+                            .map(entity -> transition(entity.getMovieEntities()));
         }
 
         throw new Error("Movies doesn't have this type!");

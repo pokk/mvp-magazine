@@ -22,26 +22,14 @@ public interface IDataStore {
      * Get an {@link rx.Observable} which will emit a {@link MovieListResEntity}.
      */
     @Nullable
-    Observable<MovieListResEntity> popularMovieEntities(final int page);
+    Observable<MovieListResEntity> moviesEntities(final CloudDataStore.Movies category, final int page);
 
     /**
      * Get an {@link rx.Observable} which will emit a {@link MovieListResEntity}.
      */
     @Nullable
-    Observable<MovieListResEntity> topRatedMovieEntities(final int page);
-
-    /**
-     * Get an {@link rx.Observable} which will emit a {@link MovieListWithDateResEntity}.
-     */
-    @Nullable
-    Observable<MovieListWithDateResEntity> nowPlayingMovieEntities(final int page);
-
-    /**
-     * Get an {@link rx.Observable} which will emit a {@link MovieListWithDateResEntity}.
-     */
-    @Nullable
-    Observable<MovieListWithDateResEntity> upComingMovieEntities(final int page);
-
+    Observable<MovieListWithDateResEntity> moviesWithDateEntities(final CloudDataStore.Movies category, final int page);
+    
     /**
      * Get an {@link rx.Observable} which will emit a {@link MovieDetailEntity}.
      */

@@ -18,29 +18,13 @@ import taiwan.no1.app.data.entities.TVDetailEntity;
 public class LocalDataStore implements IDataStore {
     @Nullable
     @Override
-    @Deprecated
-    public Observable<MovieListResEntity> popularMovieEntities(final int page) {
+    public Observable<MovieListResEntity> moviesEntities(CloudDataStore.Movies category, int page) {
         throw new Error("No-op");
     }
 
     @Nullable
     @Override
-    @Deprecated
-    public Observable<MovieListResEntity> topRatedMovieEntities(int page) {
-        throw new Error("No-op");
-    }
-
-    @Nullable
-    @Override
-    @Deprecated
-    public Observable<MovieListWithDateResEntity> nowPlayingMovieEntities(int page) {
-        throw new Error("No-op");
-    }
-
-    @Nullable
-    @Override
-    @Deprecated
-    public Observable<MovieListWithDateResEntity> upComingMovieEntities(int page) {
+    public Observable<MovieListWithDateResEntity> moviesWithDateEntities(CloudDataStore.Movies category, int page) {
         throw new Error("No-op");
     }
 
