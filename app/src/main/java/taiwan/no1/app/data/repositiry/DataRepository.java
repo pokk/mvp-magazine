@@ -16,6 +16,7 @@ import taiwan.no1.app.data.mapper.MovieBriefMapper;
 import taiwan.no1.app.data.mapper.MovieCastsMapper;
 import taiwan.no1.app.data.mapper.MovieDetailMapper;
 import taiwan.no1.app.data.mapper.TVDetailMapper;
+import taiwan.no1.app.data.mapper.TvListResMapper;
 import taiwan.no1.app.data.source.CloudDataStore;
 import taiwan.no1.app.data.source.IDataStore;
 import taiwan.no1.app.data.source.factory.DataStoreFactory;
@@ -25,6 +26,7 @@ import taiwan.no1.app.mvp.models.CastListResModel;
 import taiwan.no1.app.mvp.models.MovieBriefModel;
 import taiwan.no1.app.mvp.models.MovieDetailModel;
 import taiwan.no1.app.mvp.models.TvDetailModel;
+import taiwan.no1.app.mvp.models.TvListResModel;
 
 /**
  * Low layer pure entity convert to kotlin layer data model from the repositories.
@@ -39,6 +41,7 @@ public class DataRepository implements IRepository {
     @Inject MovieDetailMapper movieDetailMapper;
     @Inject MovieCastsMapper movieCastsMapper;
     @Inject CastDetailMapper castDetailMapper;
+    @Inject TvListResMapper tvListResMapper;
     @Inject TVDetailMapper tvDetailMapper;
     @Inject CastListResMapper castListResMapper;
 
@@ -79,6 +82,12 @@ public class DataRepository implements IRepository {
     @Override
     public Observable<CastDetailModel> castDetail(final int id) {
         return this.dataStoreFactory.createCloud().castDetailEntities(id).map(this.castDetailMapper::transformTo);
+    }
+
+    @NonNull
+    @Override
+    public Observable<TvListResModel> tvs(CloudDataStore.Tvs category, int page) {
+        return this.dataStoreFactory.createCloud().TvsEntities(category, page).map(this.tvListResMapper::transformTo);
     }
 
     @NonNull

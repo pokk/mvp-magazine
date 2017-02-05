@@ -17,6 +17,7 @@ import taiwan.no1.app.data.entities.MovieDetailEntity;
 import taiwan.no1.app.data.entities.MovieListResEntity;
 import taiwan.no1.app.data.entities.MovieListWithDateResEntity;
 import taiwan.no1.app.data.entities.TVDetailEntity;
+import taiwan.no1.app.data.entities.TvListResEntity;
 import taiwan.no1.app.internal.di.components.NetComponent;
 
 /**
@@ -34,7 +35,14 @@ public class CloudDataStore implements IDataStore {
         POPULAR,
         TOP_RATED,
         NOW_PLAYING,
-        UP_COMING
+        UP_COMING,
+    }
+
+    public enum Tvs {
+        ON_THE_AIR,
+        AIRING_TODAY,
+        POPULAR,
+        TOP_RATED,
     }
 
     @Inject
@@ -120,6 +128,33 @@ public class CloudDataStore implements IDataStore {
         }};
 
         return this.movieDBService.castDetail(id, query);
+    }
+
+    /**
+     * @param page page number.
+     * @return {@link Observable}
+     * @see <a href="https://developers.themoviedb.org/3/tv/"></>
+     */
+    @Nullable
+    @Override
+    public Observable<TvListResEntity> TvsEntities(final Tvs category, final int page) {
+        Map<String, String> query = new ArrayMap<String, String>() {{
+            put("api_key", api_key);
+            put("page", String.valueOf(page));
+        }};
+
+        switch (category) {
+            case ON_THE_AIR:
+                return this.movieDBService.onTheAirTvList(query);
+            case AIRING_TODAY:
+                return this.movieDBService.airingTodayTvList(query);
+            case POPULAR:
+                return this.movieDBService.popularTvList(query);
+            case TOP_RATED:
+                return this.movieDBService.topRatedTvList(query);
+        }
+
+        throw new Error("Tvs doesn't have this type!");
     }
 
     @Nullable

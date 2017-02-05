@@ -24,6 +24,8 @@ interface IViewTypeFactory {
 
     fun type(movieVideosModel: MovieVideosModel): Int
 
+    fun type(tvBriefModel: TvBriefModel): Int
+
     fun type(castBriefModel: CastListResModel.CastBriefBean): Int
 
     /**
