@@ -26,11 +26,21 @@ public class DataStoreFactory {
         this.context = context;
     }
 
+    /**
+     * Create a local data object through repository pattern, ex. local database.
+     *
+     * @return a operation local data object.
+     */
     @NonNull
     public IDataStore createLocal() {
         return new LocalDataStore();
     }
 
+    /**
+     * Create a remote data object through repository pattern.
+     *
+     * @return a operation remote data object.
+     */
     @NonNull
     public IDataStore createCloud() {
         return new CloudDataStore(context);

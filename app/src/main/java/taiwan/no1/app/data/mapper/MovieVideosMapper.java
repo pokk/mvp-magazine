@@ -10,17 +10,22 @@ import taiwan.no1.app.domain.mapper.IBeanMapper;
 import taiwan.no1.app.mvp.models.MovieVideosModel;
 
 /**
+ * Mapper class used to transform between {@link MovieVideosModel} (in the kotlin layer) and {@link MovieVideosEntity}
+ * (in the data layer).
+ * 
  * @author Jieyi
  * @since 12/31/16
  */
 
 @Singleton
 public class MovieVideosMapper implements IBeanMapper<MovieVideosModel, MovieVideosEntity> {
-
     @Inject
     public MovieVideosMapper() {
     }
 
+    /**
+     * Implement {@inheritDoc}
+     */
     @NonNull
     @Override
     @Deprecated
@@ -28,6 +33,9 @@ public class MovieVideosMapper implements IBeanMapper<MovieVideosModel, MovieVid
         throw new Error("No-op");
     }
 
+    /**
+     * Implement {@inheritDoc}
+     */
     @NonNull
     @Override
     public MovieVideosModel transformTo(@NonNull MovieVideosEntity entity) {

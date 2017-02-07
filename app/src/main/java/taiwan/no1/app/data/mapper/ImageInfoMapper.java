@@ -10,17 +10,22 @@ import taiwan.no1.app.domain.mapper.IBeanMapper;
 import taiwan.no1.app.mvp.models.ImageInfoModel;
 
 /**
+ * Mapper class used to transform between {@link ImageInfoModel} (in the kotlin layer) and {@link ImageInfoEntity}
+ * (in the data layer).
+ * 
  * @author Jieyi
  * @since 12/31/16
  */
 
 @Singleton
 public class ImageInfoMapper implements IBeanMapper<ImageInfoModel, ImageInfoEntity> {
-
     @Inject
     public ImageInfoMapper() {
     }
 
+    /**
+     * Implement {@inheritDoc}
+     */
     @NonNull
     @Override
     @Deprecated
@@ -28,6 +33,9 @@ public class ImageInfoMapper implements IBeanMapper<ImageInfoModel, ImageInfoEnt
         throw new Error("No-op");
     }
 
+    /**
+     * Implement {@inheritDoc}
+     */
     @NonNull
     @Override
     public ImageInfoModel transformTo(@NonNull ImageInfoEntity entity) {

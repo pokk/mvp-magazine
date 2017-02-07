@@ -7,6 +7,7 @@ import android.support.v7.widget.OrientationHelper
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import butterknife.bindView
+import com.jakewharton.rxbinding.support.v7.widget.scrollEvents
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
@@ -15,6 +16,7 @@ import taiwan.no1.app.mvp.models.CastListResModel
 import taiwan.no1.app.mvp.models.CastListResModel.CastBriefBean
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
+import taiwan.no1.app.ui.adapter.itemdecorator.GridSpacingItemDecorator
 import java.util.*
 import javax.inject.Inject
 
@@ -51,6 +53,7 @@ class ActressMainFragment: BaseFragment(), ActressMainContract.View, IMainFragme
 
     private var castList: ArrayList<CastBriefBean>? = null
     private var pageIndex: Int = 1
+    private var loading: Boolean = true
 
     // Get the arguments from the bundle here.
 
@@ -118,13 +121,26 @@ class ActressMainFragment: BaseFragment(), ActressMainContract.View, IMainFragme
             // FIXME: 2/3/17 The images are small than original size.
             this.rvCasts.layoutManager = StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL).apply {
                 // TODO: 2/3/17 Add the listener.
+                rvCasts.scrollEvents().subscribe {
+                    if (0 < it.dy()) {
+                        val visibleItemCount: Int = this.childCount
+                        val totalItemCount: Int = this.itemCount
+                        val pastVisibleItems: Int = this.findFirstVisibleItemPositions(null)[0]
+
+                        if (loading && visibleItemCount + pastVisibleItems >= totalItemCount && 0 < totalItemCount) {
+                            loading = false
+                            // TODO: 2017/01/10 Limit the max page.
+                            presenter.requestListCasts(pageIndex++)
+                        }
+                    }
+                }
             }
-//            this.rvCasts.setHasFixedSize(true)
-//            this.rvCasts.addItemDecoration(GridSpacingItemDecorator(2, 10, false))
+            this.rvCasts.setHasFixedSize(true)
+            this.rvCasts.addItemDecoration(GridSpacingItemDecorator(2, 10, false))
             // Just give a empty adapter.
             this.rvCasts.adapter = CommonRecyclerAdapter(Collections.emptyList(), this.hashCode())
             // Request the movie data.
-            this.presenter.requestListMovies(pageIndex++)
+            this.presenter.requestListCasts(pageIndex++)
         }
     }
     //endregion
@@ -146,6 +162,8 @@ class ActressMainFragment: BaseFragment(), ActressMainContract.View, IMainFragme
         // Because the view pager will load the fragment first, if we just set the data directly, views won't
         // be showed. To avoid it, the adapter will be reset.
         this.castList?.let { (this.rvCasts.adapter as CommonRecyclerAdapter).addItem(it) }
+        // Switch on loading new cast page.
+        this.loading = true
     }
     //endregion
 }

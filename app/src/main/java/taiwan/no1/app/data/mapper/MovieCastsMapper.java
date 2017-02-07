@@ -16,8 +16,8 @@ import taiwan.no1.app.mvp.models.MovieCastsModel.CastBean;
 import taiwan.no1.app.mvp.models.MovieCastsModel.CrewBean;
 
 /**
- * Mapper class used to transform between {@link MovieCastsModel} (in the kotlin layer) and
- * {@link MovieCastsEntity} (in the data layer).
+ * Mapper class used to transform between {@link MovieCastsModel} (in the kotlin layer) and {@link MovieCastsEntity}
+ * (in the data layer).
  *
  * @author Jieyi
  * @since 12/28/16
@@ -25,11 +25,13 @@ import taiwan.no1.app.mvp.models.MovieCastsModel.CrewBean;
 
 @Singleton
 public class MovieCastsMapper implements IBeanMapper<MovieCastsModel, MovieCastsEntity> {
-
     @Inject
     public MovieCastsMapper() {
     }
 
+    /**
+     * Implement {@inheritDoc}
+     */
     @NonNull
     @Override
     @Deprecated
@@ -37,6 +39,9 @@ public class MovieCastsMapper implements IBeanMapper<MovieCastsModel, MovieCasts
         throw new Error("No-op");
     }
 
+    /**
+     * Implement {@inheritDoc}
+     */
     @NonNull
     @Override
     public MovieCastsModel transformTo(@NonNull MovieCastsEntity entity) {

@@ -21,11 +21,13 @@ import taiwan.no1.app.mvp.models.MovieBriefModel;
 
 @Singleton
 public class MovieBriefMapper implements IBeanMapper<MovieBriefModel, MovieBriefEntity> {
-
     @Inject
     public MovieBriefMapper() {
     }
 
+    /**
+     * Implement {@inheritDoc}
+     */
     @NonNull
     @Override
     @Deprecated
@@ -33,6 +35,9 @@ public class MovieBriefMapper implements IBeanMapper<MovieBriefModel, MovieBrief
         throw new Error("No-op");
     }
 
+    /**
+     * Implement {@inheritDoc}
+     */
     @NonNull
     @Override
     public MovieBriefModel transformTo(@NonNull MovieBriefEntity entity) {

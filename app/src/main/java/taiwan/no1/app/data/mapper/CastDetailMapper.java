@@ -17,8 +17,8 @@ import taiwan.no1.app.mvp.models.CreditsModel;
 import taiwan.no1.app.mvp.models.ImageInfoModel;
 
 /**
- * Mapper class used to transform between {@link CastDetailModel} (in the kotlin layer) and
- * {@link CastDetailEntity} (in the data layer).
+ * Mapper class used to transform between {@link CastDetailModel} (in the kotlin layer) and {@link CastDetailEntity}
+ * (in the data layer).
  *
  * @author Jieyi
  * @since 12/28/16
@@ -33,6 +33,9 @@ public class CastDetailMapper implements IBeanMapper<CastDetailModel, CastDetail
     public CastDetailMapper() {
     }
 
+    /**
+     * Implement {@inheritDoc}
+     */
     @NonNull
     @Override
     @Deprecated
@@ -40,6 +43,9 @@ public class CastDetailMapper implements IBeanMapper<CastDetailModel, CastDetail
         throw new Error("No-op");
     }
 
+    /**
+     * Implement {@inheritDoc}
+     */
     @NonNull
     @Override
     public CastDetailModel transformTo(@NonNull CastDetailEntity entity) {

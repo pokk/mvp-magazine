@@ -22,8 +22,8 @@ import taiwan.no1.app.mvp.models.MovieListResModel;
 import taiwan.no1.app.mvp.models.MovieVideosModel;
 
 /**
- * Mapper class used to transform between {@link MovieDetailModel} (in the kotlin layer) an
- * {@link MovieDetailEntity} (in the data layer).
+ * Mapper class used to transform between {@link MovieDetailModel} (in the kotlin layer) an {@link MovieDetailEntity}
+ * (in the data layer).
  *
  * @author Jieyi
  * @since 12/29/16
@@ -40,6 +40,9 @@ public class MovieDetailMapper implements IBeanMapper<MovieDetailModel, MovieDet
     public MovieDetailMapper() {
     }
 
+    /**
+     * Implement {@inheritDoc}
+     */
     @NonNull
     @Override
     @Deprecated
@@ -47,13 +50,15 @@ public class MovieDetailMapper implements IBeanMapper<MovieDetailModel, MovieDet
         throw new Error("No-op");
     }
 
+    /**
+     * Implement {@inheritDoc}
+     */
     @NonNull
     @Override
     public MovieDetailModel transformTo(@NonNull MovieDetailEntity entity) {
         // We may not use all of information, then we will remove some redundant information.
         List<GenresBean> genresBeen = Queryable.from(entity.getGenres())
-                                               .map(data -> new MovieDetailModel.GenresBean(data.getId(),
-                                                                                            data.getName()))
+                                               .map(data -> new MovieDetailModel.GenresBean(data.getId(), data.getName()))
                                                .toList();
         List<ProductionCompaniesBean> productionCompaniesBeen = Queryable.from(entity.getProduction_companies())
                                                                          .map(data -> new MovieDetailModel.ProductionCompaniesBean(
@@ -67,9 +72,8 @@ public class MovieDetailMapper implements IBeanMapper<MovieDetailModel, MovieDet
                                                                          .toList();
 
         List<SpokenLanguagesBean> spokenLanguagesBeen = Queryable.from(entity.getSpoken_languages())
-                                                                 .map(data -> new MovieDetailModel.SpokenLanguagesBean(
-                                                                         data.getIso_639_1(),
-                                                                         data.getName()))
+                                                                 .map(data -> new MovieDetailModel.SpokenLanguagesBean(data.getIso_639_1(),
+                                                                                                                       data.getName()))
                                                                  .toList();
         List<MovieVideosModel> movieVideosModels = Queryable.from(entity.getVideos().getResults())
                                                             .map(this.movieVideosMapper::transformTo)

@@ -14,6 +14,9 @@ import taiwan.no1.app.domain.mapper.IBeanMapper;
 import taiwan.no1.app.mvp.models.CastListResModel;
 
 /**
+ * Mapper class used to transform between {@link CastListResModel} (in the kotlin layer) and {@link CastListResEntity}
+ * (in the data layer).
+ * 
  * @author Jieyi
  * @since 1/1/17
  */
@@ -26,6 +29,9 @@ public class CastListResMapper implements IBeanMapper<CastListResModel, CastList
     public CastListResMapper() {
     }
 
+    /**
+     * Implement {@inheritDoc}
+     */
     @NonNull
     @Override
     @Deprecated
@@ -33,24 +39,24 @@ public class CastListResMapper implements IBeanMapper<CastListResModel, CastList
         throw new Error("No-op");
     }
 
+    /**
+     * Implement {@inheritDoc}
+     */
     @NonNull
     @Override
     public CastListResModel transformTo(@NonNull CastListResEntity entity) {
         List<CastListResModel.CastBriefBean> castBriefBeans = Queryable.from(entity.getResults())
-                                                                       .map(data -> new CastListResModel.CastBriefBean(
-                                                                               data.getProfile_path(),
-                                                                               data.isAdult(),
-                                                                               data.getId(),
-                                                                               data.getName(), data.getPopularity()))
-                                                                       // TODO: 2/3/17 In the furture we may use it.
-                                                                       //                                                                               Queryable.from(data.getKnown_for())
-                                                                       //                                                                                        .map(castKnownForMapper::transformTo)
-                                                                       //                                                                                        .toList()))
+                                                                       .map(data -> new CastListResModel.CastBriefBean(data.getProfile_path(),
+                                                                                                                       data.isAdult(),
+                                                                                                                       data.getId(),
+                                                                                                                       data.getName(),
+                                                                                                                       data.getPopularity(),
+                                                                                                                       Queryable.from(
+                                                                                                                               data.getKnown_for())
+                                                                                                                                .map(castKnownForMapper::transformTo)
+                                                                                                                                .toList()))
                                                                        .toList();
 
-        return new CastListResModel(entity.getPage(),
-                                    entity.getTotal_results(),
-                                    entity.getTotal_pages(),
-                                    castBriefBeans);
+        return new CastListResModel(entity.getPage(), entity.getTotal_results(), entity.getTotal_pages(), castBriefBeans);
     }
 }

@@ -16,17 +16,22 @@ import taiwan.no1.app.mvp.models.CreditsModel.CastBean;
 import taiwan.no1.app.mvp.models.CreditsModel.CrewBean;
 
 /**
+ * Mapper class used to transform between {@link CreditsModel} (in the kotlin layer) and {@link CreditsEntity}
+ * (in the data layer).
+ * 
  * @author Jieyi
  * @since 2017/01/04
  */
 
 @Singleton
 public class CreditsMapper implements IBeanMapper<CreditsModel, CreditsEntity> {
-
     @Inject
     public CreditsMapper() {
     }
 
+    /**
+     * Implement {@inheritDoc}
+     */
     @NonNull
     @Override
     @Deprecated
@@ -34,6 +39,9 @@ public class CreditsMapper implements IBeanMapper<CreditsModel, CreditsEntity> {
         throw new Error("No-op");
     }
 
+    /**
+     * Implement {@inheritDoc}
+     */
     @NonNull
     @Override
     public CreditsModel transformTo(@NonNull CreditsEntity entity) {

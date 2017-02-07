@@ -15,6 +15,9 @@ import taiwan.no1.app.mvp.models.ImageInfoModel;
 import taiwan.no1.app.mvp.models.MovieImagesModel;
 
 /**
+ * Mapper class used to transform between {@link MovieImagesModel} (in the kotlin layer) an {@link MovieImagesEntity}
+ * (in the data layer).
+ * 
  * @author Jieyi
  * @since 12/31/16
  */
@@ -27,6 +30,9 @@ public class MovieImagesMapper implements IBeanMapper<MovieImagesModel, MovieIma
     public MovieImagesMapper() {
     }
 
+    /**
+     * Implement {@inheritDoc}
+     */
     @NonNull
     @Override
     @Deprecated
@@ -34,15 +40,14 @@ public class MovieImagesMapper implements IBeanMapper<MovieImagesModel, MovieIma
         throw new Error("No-op");
     }
 
+    /**
+     * Implement {@inheritDoc}
+     */
     @NonNull
     @Override
     public MovieImagesModel transformTo(@NonNull MovieImagesEntity entity) {
-        List<ImageInfoModel> backdrops = Queryable.from(entity.getBackdrops())
-                                                  .map(this.imageInfoMapper::transformTo)
-                                                  .toList();
-        List<ImageInfoModel> posters = Queryable.from(entity.getPosters())
-                                                .map(this.imageInfoMapper::transformTo)
-                                                .toList();
+        List<ImageInfoModel> backdrops = Queryable.from(entity.getBackdrops()).map(this.imageInfoMapper::transformTo).toList();
+        List<ImageInfoModel> posters = Queryable.from(entity.getPosters()).map(this.imageInfoMapper::transformTo).toList();
         return new MovieImagesModel(backdrops, posters);
     }
 }

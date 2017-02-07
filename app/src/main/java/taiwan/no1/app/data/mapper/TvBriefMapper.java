@@ -23,11 +23,13 @@ import taiwan.no1.app.mvp.models.TvBriefModel;
 
 @Singleton
 public class TvBriefMapper implements IBeanMapper<TvBriefModel, TvBriefEntity> {
-
     @Inject
     public TvBriefMapper() {
     }
 
+    /**
+     * Implement {@inheritDoc}
+     */
     @NonNull
     @Override
     @Deprecated
@@ -35,6 +37,9 @@ public class TvBriefMapper implements IBeanMapper<TvBriefModel, TvBriefEntity> {
         throw new Error("No-op");
     }
 
+    /**
+     * Implement {@inheritDoc}
+     */
     @NonNull
     @Override
     public TvBriefModel transformTo(@NonNull TvBriefEntity entity) {

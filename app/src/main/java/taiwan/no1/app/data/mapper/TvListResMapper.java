@@ -15,6 +15,9 @@ import taiwan.no1.app.mvp.models.TvBriefModel;
 import taiwan.no1.app.mvp.models.TvListResModel;
 
 /**
+ * Mapper class used to transform between {@link TvListResModel} (in the kotlin layer) and {@link TvListResEntity}
+ * (in the data layer).
+ * 
  * @author Jieyi
  * @since 1/1/17
  */
@@ -27,6 +30,9 @@ public class TvListResMapper implements IBeanMapper<TvListResModel, TvListResEnt
     public TvListResMapper() {
     }
 
+    /**
+     * Implement {@inheritDoc}
+     */
     @NonNull
     @Override
     @Deprecated
@@ -34,12 +40,13 @@ public class TvListResMapper implements IBeanMapper<TvListResModel, TvListResEnt
         throw new Error("No-op");
     }
 
+    /**
+     * Implement {@inheritDoc}
+     */
     @NonNull
     @Override
     public TvListResModel transformTo(@NonNull TvListResEntity entity) {
-        List<TvBriefModel> tvBriefModels = Queryable.from(entity.getResults())
-                                                    .map(this.tvBriefMapper::transformTo)
-                                                    .toList();
+        List<TvBriefModel> tvBriefModels = Queryable.from(entity.getResults()).map(this.tvBriefMapper::transformTo).toList();
 
         return new TvListResModel(entity.getPage(), entity.getTotal_results(), entity.getTotal_pages(), tvBriefModels);
     }

@@ -16,6 +16,9 @@ import taiwan.no1.app.mvp.models.MovieDatesModel;
 import taiwan.no1.app.mvp.models.MovieListWithDateResModel;
 
 /**
+ * Mapper class used to transform between {@link MovieListWithDateResModel} (in the kotlin layer) and {@link MovieListWithDateResEntity}
+ * (in the data layer).
+ *
  * @author Jieyi
  * @since 1/1/17
  */
@@ -28,6 +31,9 @@ public class MovieListWithDatesResMapper implements IBeanMapper<MovieListWithDat
     public MovieListWithDatesResMapper() {
     }
 
+    /**
+     * Implement {@inheritDoc}
+     */
     @NonNull
     @Override
     @Deprecated
@@ -35,6 +41,9 @@ public class MovieListWithDatesResMapper implements IBeanMapper<MovieListWithDat
         throw new Error("No-op");
     }
 
+    /**
+     * Implement {@inheritDoc}
+     */
     @NonNull
     @Override
     public MovieListWithDateResModel transformTo(@NonNull MovieListWithDateResEntity entity) {

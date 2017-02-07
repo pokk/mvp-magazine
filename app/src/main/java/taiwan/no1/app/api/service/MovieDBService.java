@@ -15,6 +15,8 @@ import taiwan.no1.app.data.entities.TVDetailEntity;
 import taiwan.no1.app.data.entities.TvListResEntity;
 
 /**
+ * TmDB http api request interface set by using {@link retrofit2.Retrofit}.
+ *
  * @author Jieyi
  * @since 12/29/16
  */

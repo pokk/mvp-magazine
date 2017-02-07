@@ -15,7 +15,7 @@ import taiwan.no1.app.mvp.views.IView
 
 interface ActressMainContract {
     interface Presenter: IPresenter<View> {
-        fun requestListMovies(page: Int = 1)
+        fun requestListCasts(page: Int = 1)
     }
 
     interface View: IView, IFragmentView {

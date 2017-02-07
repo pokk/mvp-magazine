@@ -21,6 +21,8 @@ import taiwan.no1.app.data.entities.TvListResEntity;
 import taiwan.no1.app.internal.di.components.NetComponent;
 
 /**
+ * The http api sets of retrieving the movies, casts, tvs information
+ *
  * @author Jieyi
  * @since 12/6/16
  */
@@ -31,6 +33,7 @@ public class CloudDataStore implements IDataStore {
     private final Context context;
     private final String api_key;
 
+    // Categories of TmDB movie list.
     public enum Movies {
         POPULAR,
         TOP_RATED,
@@ -38,6 +41,7 @@ public class CloudDataStore implements IDataStore {
         UP_COMING,
     }
 
+    // Categories of TmDB tv list.
     public enum Tvs {
         ON_THE_AIR,
         AIRING_TODAY,
@@ -53,9 +57,10 @@ public class CloudDataStore implements IDataStore {
     }
 
     /**
-     * @param page page number.
-     * @return {@link Observable}
+     * {@inheritDoc}
+     *
      * @see <a href="https://developers.themoviedb.org/3/movies/get-popular-movies">Get-Popular-Movie</>
+     * @see <a href="https://developers.themoviedb.org/3/movies/get-top-rated-movies">Get-Top-Rated-Movie</>
      */
     @Nullable
     @Override
@@ -76,9 +81,10 @@ public class CloudDataStore implements IDataStore {
     }
 
     /**
-     * @param page page number.
-     * @return {@link Observable}
-     * @see <a href="https://developers.themoviedb.org/3/movies/get-popular-movies">Get-Popular-Movie</>
+     * {@inheritDoc}
+     *
+     * @see <a href="https://developers.themoviedb.org/3/movies/get-now-playing">Get-Now-Playing-Movie</>
+     * @see <a href="https://developers.themoviedb.org/3/movies/get-upcoming">Get-Upcoming-Movie</>
      */
     @Nullable
     @Override
@@ -99,8 +105,8 @@ public class CloudDataStore implements IDataStore {
     }
 
     /**
-     * @param id movie id.
-     * @return {@link Observable}
+     * {@inheritDoc}
+     *
      * @see <a href="https://developers.themoviedb.org/3/movies/get-movie-details">Get-Movie-Details</>
      */
     @Nullable
@@ -115,9 +121,9 @@ public class CloudDataStore implements IDataStore {
     }
 
     /**
-     * @param id cast id.
-     * @return {@link Observable}
-     * @see <a href="https://developers.themoviedb.org/3/people">Get-Movie-Details</>
+     * {@inheritDoc}
+     *
+     * @see <a href="https://developers.themoviedb.org/3/people/get-person-details">Get-Person-Details</>
      */
     @Nullable
     @Override
@@ -131,9 +137,12 @@ public class CloudDataStore implements IDataStore {
     }
 
     /**
-     * @param page page number.
-     * @return {@link Observable}
-     * @see <a href="https://developers.themoviedb.org/3/tv/"></>
+     * {@inheritDoc}
+     *
+     * @see <a href="https://developers.themoviedb.org/3/tv/get-tv-airing-today">Get-Tv-Airing-Today</>
+     * @see <a href="https://developers.themoviedb.org/3/tv/get-tv-on-the-air">Get-On-The-Air</>
+     * @see <a href="https://developers.themoviedb.org/3/tv/get-popular-tv-shows">Get-Popular-Tv-Shows</>
+     * @see <a href="https://developers.themoviedb.org/3/tv/get-top-rated-tv">Get-Top-Rated-Tv</>
      */
     @Nullable
     @Override
@@ -157,20 +166,25 @@ public class CloudDataStore implements IDataStore {
         throw new Error("Tvs doesn't have this type!");
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @see <a href="https://developers.themoviedb.org/3/tv/get-tv-details">Get-Tv-Details</>
+     */
     @Nullable
     @Override
     public Observable<TVDetailEntity> tvDetailEntities(final int id) {
         Map<String, String> query = new ArrayMap<String, String>() {{
             put("api_key", api_key);
-            put("append_to_response", "videos, images, similar, casts");
+            put("append_to_response", "videos,images,similar,casts");
         }};
 
         return this.movieDBService.tvDetail(id, query);
     }
 
     /**
-     * @param page page number.
-     * @return {@link Observable}
+     * {@inheritDoc}
+     *
      * @see <a href="https://developers.themoviedb.org/3/people/get-popular-people">Get-Popular-Casts</>
      */
     @Nullable

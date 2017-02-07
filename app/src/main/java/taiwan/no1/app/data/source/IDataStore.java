@@ -20,40 +20,67 @@ import taiwan.no1.app.data.entities.TvListResEntity;
 
 public interface IDataStore {
     /**
-     * Get an {@link rx.Observable} which will emit a {@link MovieListResEntity}.
+     * Retrieve a list of movie information by specific category, the response forms are difference between the below.
+     *
+     * @param category from {@link CloudDataStore.Movies}.
+     * @param page     a number of page from remote database.
+     * @return an {@link rx.Observable} which will emit a {@link MovieListResEntity}.
      */
     @Nullable
     Observable<MovieListResEntity> moviesEntities(final CloudDataStore.Movies category, final int page);
 
     /**
-     * Get an {@link rx.Observable} which will emit a {@link MovieListResEntity}.
+     * Retrieve a list of movie information by specific category, the response forms are difference between the above.
+     *
+     * @param category from {@link CloudDataStore.Movies}.
+     * @param page     a number of page from remote database.
+     * @return an {@link rx.Observable} which will emit a {@link MovieListWithDateResEntity}.
      */
     @Nullable
     Observable<MovieListWithDateResEntity> moviesWithDateEntities(final CloudDataStore.Movies category, final int page);
 
     /**
-     * Get an {@link rx.Observable} which will emit a {@link MovieDetailEntity}.
+     * Retrieve a detail movie information by the movie id.
+     *
+     * @param id movie id.
+     * @return an {@link rx.Observable} which will emit a {@link MovieDetailEntity}.
      */
     @Nullable
     Observable<MovieDetailEntity> movieDetailEntities(final int id);
 
     /**
-     * Get an {@link rx.Observable} which will emit a {@link CastDetailEntity}.
+     * Retrieve a detail cast information by the cast id.
+     *
+     * @param id cast id.
+     * @return an {@link rx.Observable} which will emit a {@link CastDetailEntity}.
      */
     @Nullable
     Observable<CastDetailEntity> castDetailEntities(final int id);
 
     /**
-     * Get an {@link rx.Observable} which will emit a {@link TvListResEntity}.
+     * Retrieve a list of tv information by specific category.
+     *
+     * @param category from {@link CloudDataStore.Tvs}.
+     * @param page     a number of page from remote database.
+     * @return an {@link rx.Observable} which will emit a {@link TvListResEntity}.
      */
     @Nullable
     Observable<TvListResEntity> TvsEntities(final CloudDataStore.Tvs category, final int page);
 
+    /**
+     * Retrieve a detail tv information by the tv id.
+     *
+     * @param id tv id.
+     * @return an {@link rx.Observable} which will emit a {@link TVDetailEntity}.
+     */
     @Nullable
     Observable<TVDetailEntity> tvDetailEntities(final int id);
 
     /**
-     * Get an {@link rx.Observable} which will emit a {@link CastListResEntity}.
+     * Retrieve a list of the popular cast information.
+     *
+     * @param page a number of page from remote database.
+     * @return an {@link rx.Observable} which will emit a {@link CastListResEntity}.
      */
     @Nullable
     Observable<CastListResEntity> popularCastEntities(final int page);

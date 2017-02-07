@@ -18,6 +18,9 @@ import taiwan.no1.app.mvp.models.MovieVideosModel;
 import taiwan.no1.app.mvp.models.TvDetailModel;
 
 /**
+ * Mapper class used to transform between {@link TvDetailModel} (in the kotlin layer) and {@link TVDetailEntity}
+ * (in the data layer).
+ * <p>
  * Created by weian on 2017/1/12.
  */
 
@@ -27,11 +30,13 @@ public class TVDetailMapper implements IBeanMapper<TvDetailModel, TVDetailEntity
     @Inject MovieImagesMapper tvImagesMapper;
     @Inject MovieListResMapper tvListResMapper;
 
-
     @Inject
     public TVDetailMapper() {
     }
 
+    /**
+     * Implement {@inheritDoc}
+     */
     @NonNull
     @Override
     @Deprecated
@@ -39,6 +44,9 @@ public class TVDetailMapper implements IBeanMapper<TvDetailModel, TVDetailEntity
         return null;
     }
 
+    /**
+     * Implement {@inheritDoc}
+     */
     @NonNull
     @Override
     public TvDetailModel transformTo(@NonNull TVDetailEntity entity) {

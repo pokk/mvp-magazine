@@ -16,6 +16,9 @@ import taiwan.no1.app.mvp.models.MovieVideosModel;
 import taiwan.no1.app.mvp.models.TVEpisodesModel;
 
 /**
+ * Mapper class used to transform between {@link TVEpisodesModel} (in the kotlin layer) and {@link TVEpisodesEntity}
+ * (in the data layer).
+ * <p>
  * Created by weian on 2017/1/21.
  */
 
@@ -27,6 +30,9 @@ public class TVEpisodesMapper implements IBeanMapper<TVEpisodesModel, TVEpisodes
     public TVEpisodesMapper() {
     }
 
+    /**
+     * Implement {@inheritDoc}
+     */
     @NonNull
     @Override
     @Deprecated
@@ -34,6 +40,9 @@ public class TVEpisodesMapper implements IBeanMapper<TVEpisodesModel, TVEpisodes
         return null;
     }
 
+    /**
+     * Implement {@inheritDoc}
+     */
     @NonNull
     @Override
     public TVEpisodesModel transformTo(@NonNull TVEpisodesEntity entity) {

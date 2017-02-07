@@ -22,6 +22,11 @@ public class RestfulApiFactory {
     RestfulApiFactory() {
     }
 
+    /**
+     * Create a new http service configuration.
+     *
+     * @return TmDB http service config.
+     */
     @NonNull
     public IApiConfig createMovieDBConfig() {
         return new MovieDBConfig();

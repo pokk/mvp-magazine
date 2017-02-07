@@ -20,8 +20,8 @@ class ActressMainPresenter(val castCase: CastLists):
     }
     //endregion
 
-    override fun requestListMovies(page: Int) {
-        val request = CastLists.Requests(1)
+    override fun requestListCasts(page: Int) {
+        val request = CastLists.Requests(page)
         request.fragmentLifecycle = this.view.getLifecycle()
         this.castCase.execute(request, subscriber<CastListResModel>().onError {
             AppLog.e(it.message)
