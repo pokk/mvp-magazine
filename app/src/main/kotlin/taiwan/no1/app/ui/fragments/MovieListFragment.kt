@@ -3,8 +3,7 @@ package taiwan.no1.app.ui.fragments
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.LayoutRes
-import android.support.v7.widget.OrientationHelper
-import android.support.v7.widget.StaggeredGridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.transition.TransitionInflater
 import butterknife.bindView
 import taiwan.no1.app.App
@@ -16,7 +15,6 @@ import taiwan.no1.app.mvp.contracts.MovieListContract
 import taiwan.no1.app.mvp.models.MovieBriefModel
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
-import taiwan.no1.app.ui.adapter.itemdecorator.GridSpacingItemDecorator
 import taiwan.no1.app.ui.customize.LoadMoreRecyclerView
 import java.util.*
 import javax.inject.Inject
@@ -137,9 +135,9 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
         }
         else {
             this.rvMovies.let {
-                it.layoutManager = StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL)
+                it.layoutManager = LinearLayoutManager(this.context)
                 it.setHasFixedSize(true)
-                it.addItemDecoration(GridSpacingItemDecorator(2, 10, false))
+//                it.addItemDecoration(GridSpacingItemDecorator(2, 10, false))
                 // Just give a empty adapter.
                 it.adapter = CommonRecyclerAdapter(Collections.emptyList(), this.hashCode())
                 it.setOnBottomListener(object: LoadMoreRecyclerView.OnBottomListener {

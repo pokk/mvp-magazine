@@ -1,33 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     android:id="@+id/item_movie_brief"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:padding="10dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/iv_movie_poster"
+    <taiwan.no1.app.ui.customize.TicketDisplayLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@color/lb_search_bar_text"
-        android:transitionName="movie_post"
-        tools:ignore="contentDescription"/>
+        android:layout_height="160dp"
+        android:layout_toEndOf="@+id/cardView"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorWhite"
+        android:padding="13dp"
+        android:addStatesFromChildren="false">
 
-    <TextView
-        android:id="@+id/tv_release"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:transitionName="movie_release"
-        android:background="@color/colorAccent"
-        tools:text="test"/>
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:lineSpacingMultiplier="0.8"
+            android:textStyle="bold"
+            android:textColor="#454044"
+            tools:text="The Angry Birds"/>
 
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="match_parent"
-        android:transitionName="movie_title"
-        android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        tools:text="test"/>
-</LinearLayout>
+        <TextView
+            android:id="@+id/tv_release"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title"
+            tools:text="2016-10-24"/>
+
+        <TextView
+            android:id="@+id/tv_vote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_release"
+            tools:text="9.9 / 10"/>
+
+        <TextView
+            android:id="@+id/tv_brief_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:ellipsize="end"
+            android:lineSpacingMultiplier="1.1"
+            android:lines="3"
+            tools:text="Framed in the 1940s for the double murder of his wife and her lover, upstanding banker Andy Dufresne begins a new life at the Shawshank prison, where he puts his accounting skills to work for an amoral warden. During his long stretch in prison, Dufresne comes to be admired by the other inmates -- including an older prisoner named Red -- for his integrity and unquenchable sense of hope."/>
+    </taiwan.no1.app.ui.customize.TicketDisplayLayout>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="130dp"
+        android:layout_height="180dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:id="@+id/iv_movie_poster"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="ContentDescription"/>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

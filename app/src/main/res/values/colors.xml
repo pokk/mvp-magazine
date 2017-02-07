@@ -5,8 +5,19 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorNavigationBar">#000000</color>
 
-    <color name="colorBlack">#000000</color>
     <color name="colorTransport">#00000000</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorBlue">#FF33B5E5</color>
+    <color name="colorPurple">#FFAA66CC</color>
+    <color name="colorGreen">#FF99CC00</color>
+    <color name="colorOrange">#FFFFBB33</color>
+    <color name="colorRed">#FFFF4444</color>
+    <color name="colorDarkBlue">#FF0099CC</color>
+    <color name="colorDarkPurple">#FF9933CC</color>
+    <color name="colorDarkGreen">#FF669900</color>
+    <color name="colorDarkOrange">#FFFF8800</color>
+    <color name="colorDarkRed">#FFCC0000</color>
 
     <!-- View Pager -->
     <color name="viewPageBackground">#ff252e39</color>
