@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v4.app.Fragment
 import android.support.v7.widget.OrientationHelper
-import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import butterknife.bindView
-import com.jakewharton.rxbinding.support.v7.widget.scrollEvents
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
@@ -17,6 +15,7 @@ import taiwan.no1.app.mvp.models.CastListResModel.CastBriefBean
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.adapter.itemdecorator.GridSpacingItemDecorator
+import taiwan.no1.app.ui.customize.LoadMoreRecyclerView
 import java.util.*
 import javax.inject.Inject
 
@@ -48,14 +47,16 @@ class ActressMainFragment: BaseFragment(), ActressMainContract.View, IMainFragme
     lateinit var presenter: ActressMainContract.Presenter
 
     //region View variables
-    private val rvCasts by bindView<RecyclerView>(R.id.rv_cast_list)
+    private val rvCasts by bindView<LoadMoreRecyclerView>(R.id.rv_cast_list)
     //endregion
 
+    //region Local variables
     private var castList: ArrayList<CastBriefBean>? = null
     private var pageIndex: Int = 1
     private var loading: Boolean = true
 
     // Get the arguments from the bundle here.
+    //endregion
 
     //region Fragment lifecycle
     override fun onResume() {
@@ -119,26 +120,18 @@ class ActressMainFragment: BaseFragment(), ActressMainContract.View, IMainFragme
         }
         else {
             // FIXME: 2/3/17 The images are small than original size.
-            this.rvCasts.layoutManager = StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL).apply {
-                // TODO: 2/3/17 Add the listener.
-                rvCasts.scrollEvents().subscribe {
-                    if (0 < it.dy()) {
-                        val visibleItemCount: Int = this.childCount
-                        val totalItemCount: Int = this.itemCount
-                        val pastVisibleItems: Int = this.findFirstVisibleItemPositions(null)[0]
-
-                        if (loading && visibleItemCount + pastVisibleItems >= totalItemCount && 0 < totalItemCount) {
-                            loading = false
-                            // TODO: 2017/01/10 Limit the max page.
-                            presenter.requestListCasts(pageIndex++)
-                        }
+            this.rvCasts.let {
+                it.layoutManager = StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL)
+                it.setHasFixedSize(true)
+                it.addItemDecoration(GridSpacingItemDecorator(2, 10, false))
+                // Just give a empty adapter.
+                it.adapter = CommonRecyclerAdapter(Collections.emptyList(), this.hashCode())
+                it.setOnBottomListener(object: LoadMoreRecyclerView.OnBottomListener {
+                    override fun onBottom() {
+                        presenter.requestListCasts(pageIndex++)
                     }
-                }
+                })
             }
-            this.rvCasts.setHasFixedSize(true)
-            this.rvCasts.addItemDecoration(GridSpacingItemDecorator(2, 10, false))
-            // Just give a empty adapter.
-            this.rvCasts.adapter = CommonRecyclerAdapter(Collections.emptyList(), this.hashCode())
             // Request the movie data.
             this.presenter.requestListCasts(pageIndex++)
         }

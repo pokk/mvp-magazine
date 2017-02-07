@@ -97,10 +97,12 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     private val rvTrailer by bindView<RecyclerView>(R.id.rv_trailer)
     //endregion
 
+    //region Local variables
     private var movieDetail: MovieDetailModel? = null
     // Get the arguments from the bundle here.
     private val argMovieId: String by lazy { this.arguments.getString(ARG_PARAM_MOVIE_ID) }
     private val argFromFragment: Int by lazy { this.arguments.getInt(ARG_PARAM_FROM_ID) }
+    //endregion
 
     //region Fragment lifecycle
     override fun onResume() {

@@ -32,9 +32,11 @@ abstract class MainControlFragment: BaseFragment(), IMainFragment {
     protected val ntsTabMenu by bindView<NavigationTabStrip>(R.id.nts_center)
     //endregion
 
+    //region Local variables
     protected var prevItemPos: Int = -1
     protected var currItemPos: Int = -1
     abstract protected val fragmentList: List<Fragment>
+    //endregion
 
     /**
      * Initialization of this fragment. Set the listeners or view components' attributions.

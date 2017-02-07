@@ -3,10 +3,8 @@ package taiwan.no1.app.ui.fragments
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.OrientationHelper
-import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import butterknife.bindView
-import com.jakewharton.rxbinding.support.v7.widget.scrollEvents
 import taiwan.no1.app.R
 import taiwan.no1.app.data.source.CloudDataStore
 import taiwan.no1.app.internal.di.annotations.PerFragment
@@ -16,6 +14,7 @@ import taiwan.no1.app.mvp.models.TvBriefModel
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.adapter.itemdecorator.GridSpacingItemDecorator
+import taiwan.no1.app.ui.customize.LoadMoreRecyclerView
 import java.util.*
 import javax.inject.Inject
 
@@ -50,9 +49,10 @@ class TvListFragment: BaseFragment(), TvListContract.View {
     lateinit var presenter: TvListContract.Presenter
 
     //region View variables
-    private val rvTvs by bindView<RecyclerView>(R.id.rv_tv_list)
+    private val rvTvs by bindView<LoadMoreRecyclerView>(R.id.rv_tv_list)
     //endregion
 
+    //region Local variables
     private var tvList: ArrayList<TvBriefModel>? = null
     private var maxPageIndex: Int = 1
     private var pageIndex: Int = 1
@@ -62,6 +62,7 @@ class TvListFragment: BaseFragment(), TvListContract.View {
     private val argTvCategory: CloudDataStore.Tvs by lazy {
         this.arguments.getSerializable(ARG_PARAM_CATEGORY) as CloudDataStore.Tvs
     }
+    //endregion
 
     //region Fragment lifecycle
     override fun onResume() {
@@ -125,25 +126,18 @@ class TvListFragment: BaseFragment(), TvListContract.View {
             (this.rvTvs.adapter as CommonRecyclerAdapter).models = this.tvList!!
         }
         else {
-            this.rvTvs.layoutManager = StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL).apply {
-                rvTvs.scrollEvents().subscribe {
-                    if (0 < it.dy()) {
-                        val visibleItemCount: Int = this.childCount
-                        val totalItemCount: Int = this.itemCount
-                        val pastVisibleItems: Int = this.findFirstVisibleItemPositions(null)[0]
-
-                        if (loading && visibleItemCount + pastVisibleItems >= totalItemCount && 0 < totalItemCount) {
-                            loading = false
-                            // TODO: 2017/01/10 Limit the max page. 
-                            presenter.requestListTvs(argTvCategory, pageIndex++)
-                        }
+            this.rvTvs.let {
+                it.layoutManager = StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL)
+                it.setHasFixedSize(true)
+                it.addItemDecoration(GridSpacingItemDecorator(2, 10, false))
+                // Just give a empty adapter.
+                it.adapter = CommonRecyclerAdapter(Collections.emptyList(), this.hashCode())
+                it.setOnBottomListener(object: LoadMoreRecyclerView.OnBottomListener {
+                    override fun onBottom() {
+                        presenter.requestListTvs(argTvCategory, pageIndex++)
                     }
-                }
+                })
             }
-            this.rvTvs.setHasFixedSize(true)
-            this.rvTvs.addItemDecoration(GridSpacingItemDecorator(2, 10, false))
-            // Just give a empty adapter.
-            this.rvTvs.adapter = CommonRecyclerAdapter(Collections.emptyList(), this.hashCode())
 
             // Request the movie data.
             this.argTvCategory.let { this.presenter.requestListTvs(it, pageIndex++) }

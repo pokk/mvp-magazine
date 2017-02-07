@@ -75,6 +75,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
     private val tvNumbers by bindView<TextView>(R.id.tv_numbers)
     //endregion
 
+    //region Local variables
     private var isFirstImageFinished: Boolean = false
 
     // Get the arguments from the bundle here.
@@ -84,6 +85,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
     private val aspectRatio: Double by lazy {
         this.isBackground.width.toDouble() / this.isBackground.height.toDouble()
     }
+    //endregion
 
     //region Fragment lifecycle
     override fun onCreate(savedInstanceState: Bundle?) {

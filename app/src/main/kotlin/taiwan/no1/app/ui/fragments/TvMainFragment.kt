@@ -36,6 +36,7 @@ class TvMainFragment: MainControlFragment(), TvMainContract.View {
     @Inject
     lateinit var presenter: TvMainContract.Presenter
 
+    //region Local variables
     override val fragmentList: List<Fragment> by lazy {
         ArrayList(arrayListOf(
                 TvListFragment.newInstance(CloudDataStore.Tvs.ON_THE_AIR),
@@ -43,6 +44,7 @@ class TvMainFragment: MainControlFragment(), TvMainContract.View {
                 TvListFragment.newInstance(CloudDataStore.Tvs.POPULAR),
                 TvListFragment.newInstance(CloudDataStore.Tvs.TOP_RATED)))
     }
+    //endregion
 
     //region Fragment lifecycle
     override fun onResume() {

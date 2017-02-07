@@ -4,11 +4,9 @@ import android.os.Build
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.OrientationHelper
-import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.transition.TransitionInflater
 import butterknife.bindView
-import com.jakewharton.rxbinding.support.v7.widget.scrollEvents
 import taiwan.no1.app.App
 import taiwan.no1.app.R
 import taiwan.no1.app.data.source.CloudDataStore
@@ -19,6 +17,7 @@ import taiwan.no1.app.mvp.models.MovieBriefModel
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.adapter.itemdecorator.GridSpacingItemDecorator
+import taiwan.no1.app.ui.customize.LoadMoreRecyclerView
 import java.util.*
 import javax.inject.Inject
 
@@ -60,18 +59,20 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
     lateinit var presenter: MovieListContract.Presenter
 
     //region View variables
-    private val rvMovies by bindView<RecyclerView>(R.id.rv_movie_list)
+    private val rvMovies by bindView<LoadMoreRecyclerView>(R.id.rv_movie_list)
     //endregion
 
+    //region Local variables
     private var movieList: ArrayList<MovieBriefModel>? = null
     private var maxPageIndex: Int = 1
     private var pageIndex: Int = 1
     private var loading: Boolean = true
-    
+
     // Get the arguments from the bundle here.
     private val argMovieCategory: CloudDataStore.Movies by lazy {
         this.arguments.getSerializable(ARG_PARAM_CATEGORY) as CloudDataStore.Movies
     }
+    //endregion
 
     //region Fragment lifecycle
     override fun onResume() {
@@ -135,25 +136,18 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
             (this.rvMovies.adapter as CommonRecyclerAdapter).models = this.movieList!!
         }
         else {
-            this.rvMovies.layoutManager = StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL).apply {
-                rvMovies.scrollEvents().subscribe {
-                    if (0 < it.dy()) {
-                        val visibleItemCount: Int = this.childCount
-                        val totalItemCount: Int = this.itemCount
-                        val pastVisibleItems: Int = this.findFirstVisibleItemPositions(null)[0]
-
-                        if (loading && visibleItemCount + pastVisibleItems >= totalItemCount && 0 < totalItemCount) {
-                            loading = false
-                            // TODO: 2017/01/10 Limit the max page. 
-                            presenter.requestListMovies(argMovieCategory, pageIndex++)
-                        }
+            this.rvMovies.let {
+                it.layoutManager = StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL)
+                it.setHasFixedSize(true)
+                it.addItemDecoration(GridSpacingItemDecorator(2, 10, false))
+                // Just give a empty adapter.
+                it.adapter = CommonRecyclerAdapter(Collections.emptyList(), this.hashCode())
+                it.setOnBottomListener(object: LoadMoreRecyclerView.OnBottomListener {
+                    override fun onBottom() {
+                        presenter.requestListMovies(argMovieCategory, pageIndex++)
                     }
-                }
+                })
             }
-            this.rvMovies.setHasFixedSize(true)
-            this.rvMovies.addItemDecoration(GridSpacingItemDecorator(2, 10, false))
-            // Just give a empty adapter.
-            this.rvMovies.adapter = CommonRecyclerAdapter(Collections.emptyList(), this.hashCode())
 
             // Request the movie data.
             this.argMovieCategory.let { this.presenter.requestListMovies(it, pageIndex++) }

@@ -37,7 +37,8 @@ import javax.inject.Inject
 import kotlin.comparisons.compareBy
 
 /**
- *
+ * Present the assigned cast information, photos, articles.
+ * 
  * @author  Jieyi
  * @since   1/1/17
  */
@@ -95,9 +96,11 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
     private val rvRelated by bindView<RecyclerView>(R.id.rv_related)
     //endregion
 
+    //region Local variables
     // Get the arguments from the bundle here.
     private val argId: String by lazy { this.arguments.getString(ARG_PARAM_CAST_ID) }
     private val argFromFragment: Int by lazy { this.arguments.getInt(ARG_PARAM_FROM_ID) }
+    //endregion
 
     //region Fragment lifecycle
     override fun onResume() {

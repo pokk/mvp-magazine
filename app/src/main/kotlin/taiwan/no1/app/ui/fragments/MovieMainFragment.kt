@@ -37,6 +37,7 @@ class MovieMainFragment: MainControlFragment(), MovieMainContract.View {
     @Inject
     lateinit var presenter: MovieMainContract.Presenter
 
+    //region Local variables
     override val fragmentList: List<Fragment> by lazy {
         ArrayList(arrayListOf(
                 MovieListFragment.newInstance(CloudDataStore.Movies.POPULAR),
@@ -44,6 +45,7 @@ class MovieMainFragment: MainControlFragment(), MovieMainContract.View {
                 MovieListFragment.newInstance(CloudDataStore.Movies.TOP_RATED),
                 MovieListFragment.newInstance(CloudDataStore.Movies.UP_COMING)))
     }
+    //endregion
 
     // Get the arguments from the bundle here.
 

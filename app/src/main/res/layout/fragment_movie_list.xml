@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.v7.widget.RecyclerView
+    <taiwan.no1.app.ui.customize.LoadMoreRecyclerView
         android:id="@+id/rv_movie_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
