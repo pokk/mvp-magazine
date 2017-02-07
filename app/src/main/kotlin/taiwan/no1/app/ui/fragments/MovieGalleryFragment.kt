@@ -144,6 +144,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
     override fun init(savedInstanceState: Bundle?) {
         val total: Int = this.argMovieImages?.size ?: 0
 
+        // FIXED: 2/1/17 Used [ImageSwitcher] to fix the animation changing of the backgrounds.
         this.isBackground.apply {
             // Create the inner image view by factory pattern.
             this.setFactory {
@@ -155,8 +156,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
             }
             // Set the changing images' animation.
             this.inAnimation = AnimationUtils.loadAnimation(MovieGalleryFragment@ this.context, android.R.anim.fade_in)
-            this.outAnimation = AnimationUtils.loadAnimation(MovieGalleryFragment@ this.context,
-                    android.R.anim.fade_out)
+            this.outAnimation = AnimationUtils.loadAnimation(MovieGalleryFragment@ this.context, android.R.anim.fade_out)
         }
         this.tvNumbers.text = this.setNumberText(total)
         this.hicvpGallery.apply {
@@ -175,8 +175,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
                     }
                     else {
                         tvNumbers.text = setNumberText(total, this.realItem + 1)
-                        presenter.resizeImageToFitBackground(aspectRatio,
-                                Bitmap.createBitmap(presentItem))
+                        presenter.resizeImageToFitBackground(aspectRatio, Bitmap.createBitmap(presentItem))
                         oldItemIndex = this.currentItem
                     }
                 }
@@ -205,7 +204,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
     /**
      * Search the specific view item from the view pager.
      *
-     * @param index index
+     * @param index index.
      * @return [View]
      */
     private fun findViewPagerItem(index: Int): View? {
