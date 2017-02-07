@@ -15,8 +15,10 @@ import com.touchin.constant.RxbusTag
 import taiwan.no1.app.R
 import taiwan.no1.app.api.config.MovieDBConfig
 import taiwan.no1.app.mvp.models.ImageInfoModel
+import taiwan.no1.app.ui.fragments.MainControlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
+import taiwan.no1.app.ui.fragments.MainControlFragment.Factory.NAVIGATOR_ARG_SHARED_ELEMENTS
+import taiwan.no1.app.ui.fragments.MainControlFragment.Factory.NAVIGATOR_ARG_TAG
 import taiwan.no1.app.ui.fragments.MovieGalleryFragment
-import taiwan.no1.app.ui.fragments.MovieListFragment
 import taiwan.no1.app.ui.listeners.GlideCustomRequestListener
 import taiwan.no1.app.utilies.ViewUtils
 
@@ -56,10 +58,10 @@ class DropMoviePagerAdapter(val context: Context,
         })
         dvDropPoster.setOnClickListener {
             RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
-                    Pair(MovieListFragment.NAVIGATOR_ARG_FRAGMENT,
+                    Pair(NAVIGATOR_ARG_FRAGMENT,
                             MovieGalleryFragment.newInstance(posterList)),
-                    Pair(MovieListFragment.NAVIGATOR_ARG_TAG, argFromFragment),
-                    Pair(MovieListFragment.NAVIGATOR_ARG_SHARED_ELEMENTS, hashMapOf(
+                    Pair(NAVIGATOR_ARG_TAG, argFromFragment),
+                    Pair(NAVIGATOR_ARG_SHARED_ELEMENTS, hashMapOf(
                             Pair(iv, iv.transitionName)))))
         }
         container.addView(dvDropPoster)

@@ -27,8 +27,7 @@ data class MovieBriefModel(val poster_path: String? = null,
                            val vote_average: Double = 0.toDouble(),
                            var isMainView: Boolean = true, // This is for difference view type.
                            val genre_ids: List<Int>? = null): IVisitable, Parcelable {
-    override fun type(typeFactory: IViewTypeFactory): Int = typeFactory.type(MovieBriefModel@ this,
-            this.isMainView)
+    override fun type(typeFactory: IViewTypeFactory): Int = typeFactory.type(MovieBriefModel@ this, this.isMainView)
 
     //region Parcelable
     companion object {

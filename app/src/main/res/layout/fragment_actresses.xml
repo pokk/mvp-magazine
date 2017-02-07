@@ -1,47 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
-    <!--<FrameLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="45dp"-->
-    <!--android:background="@color/viewPageBackground">-->
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <!--<View-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="5dp"-->
-    <!--android:layout_gravity="center|bottom"-->
-    <!--android:layout_marginTop="18dp"-->
-    <!--android:background="@color/viewPageSlideBackground"/>-->
-
-    <!--<com.gigamole.navigationtabstrip.NavigationTabStrip-->
-    <!--android:id="@+id/nts_center"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="45dp"-->
-    <!--android:layout_gravity="center"-->
-    <!--android:layout_marginEnd="10dp"-->
-    <!--android:layout_marginStart="10dp"-->
-    <!--app:nts_active_color="@color/viewPageActiveText"-->
-    <!--app:nts_color="@color/viewPageSlideSpotBackground"-->
-    <!--app:nts_corners_radius="3.5dp"-->
-    <!--app:nts_factor="0.8"-->
-    <!--app:nts_gravity="bottom"-->
-    <!--app:nts_inactive_color="@color/viewPageText"-->
-    <!--app:nts_titles="@array/movie_titles"-->
-    <!--app:nts_type="point"-->
-    <!--app:nts_weight="7dp"/>-->
-    <!--</FrameLayout>-->
-
-    <!--<android.support.v4.view.ViewPager-->
-    <!--android:id="@+id/vp_container"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent">-->
-    <!--</android.support.v4.view.ViewPager>-->
-
-    <!-- For init -->
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_cast_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="actresses"/>
-</LinearLayout>
+        android:background="@color/viewPageSlideBackground"
+        app:layoutManager="android.support.v7.widget.StaggeredGridLayoutManager"
+        tools:listitem="@layout/item_brief_cast"/>
+</FrameLayout>

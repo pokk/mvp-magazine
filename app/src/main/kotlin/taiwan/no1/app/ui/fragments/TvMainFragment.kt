@@ -2,11 +2,13 @@ package taiwan.no1.app.ui.fragments
 
 import android.os.Bundle
 import android.support.annotation.LayoutRes
+import android.support.v4.app.Fragment
 import taiwan.no1.app.R
+import taiwan.no1.app.data.source.CloudDataStore
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.contracts.TvMainContract
-import taiwan.no1.app.ui.BaseFragment
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -15,21 +17,18 @@ import javax.inject.Inject
  * @since   1/12/17
  */
 @PerFragment
-class TvMainFragment: BaseFragment(), TvMainContract.View {
+class TvMainFragment: MainControlFragment(), TvMainContract.View {
     //region Static initialization
     companion object Factory {
         // The key name of the fragment initialization parameters.
-        private const val ARG_PARAM_: String = "param_"
 
         /**
          * Use this factory method to create a new instance of this fragment using the provided parameters.
          *
          * @return A new instance of [fragment] TvMainFragment.
          */
-        fun newInstance(arg1: String): TvMainFragment = TvMainFragment().apply {
-            this.arguments = Bundle().apply {
-                this.putString(ARG_PARAM_, arg1)
-            }
+        fun newInstance(): TvMainFragment = TvMainFragment().apply {
+            this.arguments = Bundle().apply {}
         }
     }
     //endregion
@@ -37,8 +36,13 @@ class TvMainFragment: BaseFragment(), TvMainContract.View {
     @Inject
     lateinit var presenter: TvMainContract.Presenter
 
-    // Get the arguments from the bundle here.
-    private val arg1: String by lazy { this.arguments.getString(ARG_PARAM_) }
+    override val fragmentList: List<Fragment> by lazy {
+        ArrayList(arrayListOf(
+                TvListFragment.newInstance(CloudDataStore.Tvs.ON_THE_AIR),
+                TvListFragment.newInstance(CloudDataStore.Tvs.AIRING_TODAY),
+                TvListFragment.newInstance(CloudDataStore.Tvs.POPULAR),
+                TvListFragment.newInstance(CloudDataStore.Tvs.TOP_RATED)))
+    }
 
     //region Fragment lifecycle
     override fun onResume() {
@@ -81,13 +85,12 @@ class TvMainFragment: BaseFragment(), TvMainContract.View {
     override fun initPresenter() {
         this.presenter.init(TvMainFragment@ this)
     }
+    //endregion
 
     /**
-     * Initialization of this fragment. Set the listeners or view components' attributions.
+     * Get the [Fragment] which is displaying now.
      *
-     * @param savedInstanceState the previous fragment data status after the system calls [onPause].
+     * @return current display [Fragment].
      */
-    override fun init(savedInstanceState: Bundle?) {
-    }
-    //endregion
+    override fun getCurrentDisplayFragment(): Fragment = this.fragmentList[this.vpContainer.currentItem]
 }

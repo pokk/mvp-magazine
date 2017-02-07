@@ -4,9 +4,12 @@ import android.support.annotation.Nullable;
 
 import rx.Observable;
 import taiwan.no1.app.data.entities.CastDetailEntity;
+import taiwan.no1.app.data.entities.CastListResEntity;
 import taiwan.no1.app.data.entities.MovieDetailEntity;
 import taiwan.no1.app.data.entities.MovieListResEntity;
 import taiwan.no1.app.data.entities.MovieListWithDateResEntity;
+import taiwan.no1.app.data.entities.TVDetailEntity;
+import taiwan.no1.app.data.entities.TvListResEntity;
 
 /**
  * @author Jieyi
@@ -17,28 +20,14 @@ public class LocalDataStore implements IDataStore {
     @Nullable
     @Override
     @Deprecated
-    public Observable<MovieListResEntity> popularMovieEntities(final int page) {
+    public Observable<MovieListResEntity> moviesEntities(CloudDataStore.Movies category, int page) {
         throw new Error("No-op");
     }
 
     @Nullable
     @Override
     @Deprecated
-    public Observable<MovieListResEntity> topRatedMovieEntities(int page) {
-        throw new Error("No-op");
-    }
-
-    @Nullable
-    @Override
-    @Deprecated
-    public Observable<MovieListWithDateResEntity> nowPlayingMovieEntities(int page) {
-        throw new Error("No-op");
-    }
-
-    @Nullable
-    @Override
-    @Deprecated
-    public Observable<MovieListWithDateResEntity> upComingMovieEntities(int page) {
+    public Observable<MovieListWithDateResEntity> moviesWithDateEntities(CloudDataStore.Movies category, int page) {
         throw new Error("No-op");
     }
 
@@ -53,6 +42,27 @@ public class LocalDataStore implements IDataStore {
     @Override
     @Deprecated
     public Observable<CastDetailEntity> castDetailEntities(final int id) {
+        throw new Error("No-op");
+    }
+
+    @Nullable
+    @Override
+    @Deprecated
+    public Observable<TvListResEntity> TvsEntities(CloudDataStore.Tvs category, int page) {
+        throw new Error("No-op");
+    }
+
+    @Nullable
+    @Override
+    @Deprecated
+    public Observable<TVDetailEntity> tvDetailEntities(final int id) {
+        throw new Error("No-op");
+    }
+
+    @Nullable
+    @Override
+    @Deprecated
+    public Observable<CastListResEntity> popularCastEntities(int page) {
         throw new Error("No-op");
     }
 }

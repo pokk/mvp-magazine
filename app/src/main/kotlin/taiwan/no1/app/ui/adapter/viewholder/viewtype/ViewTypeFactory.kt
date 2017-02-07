@@ -2,10 +2,7 @@ package taiwan.no1.app.ui.adapter.viewholder.viewtype
 
 import android.view.View
 import taiwan.no1.app.R
-import taiwan.no1.app.mvp.models.CreditsModel
-import taiwan.no1.app.mvp.models.MovieBriefModel
-import taiwan.no1.app.mvp.models.MovieCastsModel
-import taiwan.no1.app.mvp.models.MovieVideosModel
+import taiwan.no1.app.mvp.models.*
 import taiwan.no1.app.ui.adapter.viewholder.*
 
 /**
@@ -23,8 +20,10 @@ class ViewTypeFactory: IViewTypeFactory {
         MOVIE_CREW(R.layout.item_movie_casts_crews),
         MOVIE_RELATED(R.layout.item_movie_casts_crews),
         MOVIE_VIDEO(R.layout.item_movie_trailers),
+        TV_LIST(R.layout.item_brief_tv),
         CAST(R.layout.item_movie_casts_crews),
         CREW(R.layout.item_movie_casts_crews),
+        CAST_LIST(R.layout.item_brief_cast),
     }
 
     override fun type(movieBriefModel: MovieBriefModel, isMain: Boolean): Int =
@@ -40,13 +39,19 @@ class ViewTypeFactory: IViewTypeFactory {
 
     override fun type(movieVideosModel: MovieVideosModel): Int = TypeResource.MOVIE_VIDEO.ordinal
 
+    override fun type(tvBriefModel: TvBriefModel): Int = TypeResource.TV_LIST.ordinal
+
+    override fun type(castBriefModel: CastListResModel.CastBriefBean): Int = TypeResource.CAST_LIST.ordinal
+
     override fun createViewHolder(type: Int, itemView: View): BaseViewHolder = when (type) {
         TypeResource.MOVIE_LIST.ordinal -> MovieListViewHolder(itemView)
         TypeResource.MOVIE_CAST.ordinal -> MovieCastViewHolder(itemView)
         TypeResource.MOVIE_CREW.ordinal -> MovieCrewViewHolder(itemView)
         TypeResource.MOVIE_RELATED.ordinal -> MovieRelatedViewHolder(itemView)
         TypeResource.MOVIE_VIDEO.ordinal -> MovieTrailerViewHolder(itemView)
+        TypeResource.TV_LIST.ordinal -> TvListViewHolder(itemView)
         TypeResource.CAST.ordinal -> MovieCastRelatedViewHolder(itemView)
+        TypeResource.CAST_LIST.ordinal -> CastListViewHolder(itemView)
         else -> throw error("Illegal type")
     }
 }

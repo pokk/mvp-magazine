@@ -1,5 +1,7 @@
 package taiwan.no1.app.mvp.contracts
 
+import taiwan.no1.app.data.source.CloudDataStore
+import taiwan.no1.app.mvp.models.TvBriefModel
 import taiwan.no1.app.mvp.presenters.IPresenter
 import taiwan.no1.app.mvp.views.IFragmentView
 import taiwan.no1.app.mvp.views.IView
@@ -13,7 +15,11 @@ import taiwan.no1.app.mvp.views.IView
  */
 
 interface TvListContract {
-    interface Presenter: IPresenter<View>
+    interface Presenter: IPresenter<View> {
+        fun requestListTvs(category: CloudDataStore.Tvs, page: Int = 1)
+    }
 
-    interface View: IView, IFragmentView
+    interface View: IView, IFragmentView {
+        fun obtainTvBriefList(tvList: List<TvBriefModel>)
+    }
 }

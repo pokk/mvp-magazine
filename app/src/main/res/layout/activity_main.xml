@@ -12,17 +12,17 @@
         android:id="@+id/rl_main_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="-5dp"
         android:layout_above="@+id/bb_menu"/>
 
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bb_menu"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="56dp"
         android:layout_alignParentBottom="true"
         android:background="@color/viewPageBackground"
-        app:bb_showShadow="true"
-        app:bb_inActiveTabColor="#999999"
-        app:bb_activeTabColor="#e0e0e0"
+        app:bb_activeTabColor="#f0f0f0"
+        app:bb_inActiveTabAlpha=".5"
+        app:bb_inActiveTabColor="#959595"
+        app:bb_showShadow="false"
         app:bb_tabXmlResource="@xml/bottom_bar_tabs"/>
 </RelativeLayout>

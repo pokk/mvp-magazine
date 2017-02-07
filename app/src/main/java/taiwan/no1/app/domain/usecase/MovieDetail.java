@@ -18,8 +18,7 @@ import taiwan.no1.app.domain.repository.IRepository;
  */
 
 public class MovieDetail extends BaseUseCase<MovieDetail.Requests> {
-    public MovieDetail(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread,
-                       IRepository repository) {
+    public MovieDetail(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread, IRepository repository) {
         super(threadExecutor, postExecutionThread, repository);
     }
 

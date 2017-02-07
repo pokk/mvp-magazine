@@ -2,12 +2,19 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/iv_gallery_background"
+        android:id="@+id/iv_hidden"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="This is just for blur method.">
+    </ImageView>
+
+    <ImageSwitcher
+        android:id="@+id/is_gallery_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#123456"/>
@@ -30,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:gravity="center"
         android:layout_marginBottom="10dp"
+        android:gravity="center"
         tools:text="1/20"/>
 </FrameLayout>

@@ -11,8 +11,9 @@ import taiwan.no1.app.R
 import taiwan.no1.app.api.config.MovieDBConfig
 import taiwan.no1.app.mvp.models.CreditsModel
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
+import taiwan.no1.app.ui.fragments.MainControlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
+import taiwan.no1.app.ui.fragments.MainControlFragment.Factory.NAVIGATOR_ARG_TAG
 import taiwan.no1.app.ui.fragments.MovieDetailFragment
-import taiwan.no1.app.ui.fragments.MovieListFragment
 import taiwan.no1.app.ui.listeners.GlideResizeRequestListener
 import taiwan.no1.app.utilies.ImageLoader.IImageLoader
 import taiwan.no1.app.utilies.ViewUtils
@@ -27,7 +28,7 @@ class MovieCastRelatedViewHolder(view: View): BaseViewHolder(view) {
     // FIXME: 2017/01/19 not be injected.
     @Inject
     lateinit var imageLoader: IImageLoader
-    
+
     val item by bindView<CardView>(R.id.item_cast)
     val ivPoster by bindView<ImageView>(R.id.iv_cast)
     val tvReleaseDate by bindView<TextView>(R.id.tv_character)
@@ -43,9 +44,9 @@ class MovieCastRelatedViewHolder(view: View): BaseViewHolder(view) {
             this.tvMovieTitle.text = it.title
             this.item.setOnClickListener {
                 RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
-                        Pair(MovieListFragment.NAVIGATOR_ARG_FRAGMENT,
+                        Pair(NAVIGATOR_ARG_FRAGMENT,
                                 MovieDetailFragment.newInstance(model.id.toString(), adapter.fragmentTag)),
-                        Pair(MovieListFragment.NAVIGATOR_ARG_TAG, adapter.fragmentTag)))
+                        Pair(NAVIGATOR_ARG_TAG, adapter.fragmentTag)))
             }
         }
     }

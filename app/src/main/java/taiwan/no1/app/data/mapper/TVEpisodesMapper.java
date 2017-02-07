@@ -20,7 +20,7 @@ import taiwan.no1.app.mvp.models.TVEpisodesModel;
  */
 
 @Singleton
-public class TVEpisodesMapper  implements IBeanMapper<TVEpisodesModel, TVEpisodesEntity> {
+public class TVEpisodesMapper implements IBeanMapper<TVEpisodesModel, TVEpisodesEntity> {
     @Inject MovieVideosMapper tvVideosMapper;
 
     @Inject
@@ -29,6 +29,7 @@ public class TVEpisodesMapper  implements IBeanMapper<TVEpisodesModel, TVEpisode
 
     @NonNull
     @Override
+    @Deprecated
     public TVEpisodesEntity transformFrom(@NonNull TVEpisodesModel model) {
         return null;
     }
@@ -37,18 +38,18 @@ public class TVEpisodesMapper  implements IBeanMapper<TVEpisodesModel, TVEpisode
     @Override
     public TVEpisodesModel transformTo(@NonNull TVEpisodesEntity entity) {
         List<MovieVideosModel> tvMovieVideosModel = Queryable.from(entity.getVideos().getResults())
-                .map(this.tvVideosMapper::transformTo)
-                .toList();
+                                                             .map(this.tvVideosMapper::transformTo)
+                                                             .toList();
 
         return new TVEpisodesModel(entity.getAir_date(),
-                entity.getEpisode_number(),
-                entity.getName(),
-                entity.getOverview(),
-                entity.getId(),
-                entity.getProduction_code(),
-                entity.getSeason_number(),
-                entity.getStill_path(),
-                entity.getVote_count(),
-                new MovieDetailModel.VideosBean(tvMovieVideosModel));
+                                   entity.getEpisode_number(),
+                                   entity.getName(),
+                                   entity.getOverview(),
+                                   entity.getId(),
+                                   entity.getProduction_code(),
+                                   entity.getSeason_number(),
+                                   entity.getStill_path(),
+                                   entity.getVote_count(),
+                                   new MovieDetailModel.VideosBean(tvMovieVideosModel));
     }
 }

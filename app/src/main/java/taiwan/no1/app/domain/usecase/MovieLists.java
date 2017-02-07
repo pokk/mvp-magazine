@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
-import taiwan.no1.app.data.repositiry.DataRepository;
+import taiwan.no1.app.data.source.CloudDataStore;
 import taiwan.no1.app.domain.executor.PostExecutionThread;
 import taiwan.no1.app.domain.executor.ThreadExecutor;
 import taiwan.no1.app.domain.repository.IRepository;
@@ -18,8 +18,7 @@ import taiwan.no1.app.domain.repository.IRepository;
  */
 
 public class MovieLists extends BaseUseCase<MovieLists.Requests> {
-    public MovieLists(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread,
-                      IRepository repository) {
+    public MovieLists(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread, IRepository repository) {
         super(threadExecutor, postExecutionThread, repository);
     }
 
@@ -30,8 +29,7 @@ public class MovieLists extends BaseUseCase<MovieLists.Requests> {
      * @param useCaseSubscriber The guy who will be listen to the observable build with
      */
     @Override
-    public void execute(@NonNull final MovieLists.Requests request,
-                        @NonNull final Subscriber useCaseSubscriber) {
+    public void execute(@NonNull final Requests request, @NonNull final Subscriber useCaseSubscriber) {
         this.requestValues = request;
 
         super.execute(request, useCaseSubscriber);
@@ -52,10 +50,10 @@ public class MovieLists extends BaseUseCase<MovieLists.Requests> {
      * {@inheritDoc}
      */
     public static final class Requests extends BaseUseCase.RequestValues {
-        private final DataRepository.Movies category;
+        private final CloudDataStore.Movies category;
         private final int page;
 
-        public Requests(DataRepository.Movies category, int page) {
+        public Requests(CloudDataStore.Movies category, int page) {
             this.category = category;
             this.page = page;
         }

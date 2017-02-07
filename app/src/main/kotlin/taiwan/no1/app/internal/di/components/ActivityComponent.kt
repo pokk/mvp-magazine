@@ -31,7 +31,7 @@ interface ActivityComponent {
 
     // This injection is for the activity navigator.
     fun inject(baseActivity: BaseActivity)
-    
+
     fun inject(mainActivity: MainActivity)
 
     fun inject(videoActivity: VideoActivity)

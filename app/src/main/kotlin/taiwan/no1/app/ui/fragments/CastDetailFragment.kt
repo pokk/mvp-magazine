@@ -1,10 +1,12 @@
 package taiwan.no1.app.ui.fragments
 
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.transition.TransitionInflater
 import android.view.View
 import android.view.ViewStub
 import android.widget.ImageView
@@ -15,6 +17,7 @@ import com.bumptech.glide.request.target.Target
 import com.hwangjr.rxbus.RxBus
 import com.intrusoft.squint.DiagonalView
 import com.touchin.constant.RxbusTag
+import taiwan.no1.app.App
 import taiwan.no1.app.R
 import taiwan.no1.app.api.config.MovieDBConfig
 import taiwan.no1.app.constant.Constant
@@ -26,6 +29,8 @@ import taiwan.no1.app.mvp.models.IVisitable
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.adapter.itemdecorator.MovieHorizontalItemDecorator
+import taiwan.no1.app.ui.fragments.MainControlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
+import taiwan.no1.app.ui.fragments.MainControlFragment.Factory.NAVIGATOR_ARG_TAG
 import taiwan.no1.app.ui.listeners.GlideCustomRequestListener
 import taiwan.no1.app.utilies.ImageLoader.IImageLoader
 import javax.inject.Inject
@@ -51,6 +56,12 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
          * @return A new instance of [fragment] CastDetailFragment.
          */
         fun newInstance(id: String, from: Int): CastDetailFragment = CastDetailFragment().apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                TransitionInflater.from(App.getAppContext()).inflateTransition(R.transition.change_image_transform).let {
+                    this.sharedElementEnterTransition = it
+                    this.sharedElementReturnTransition = it
+                }
+            }
             this.arguments = Bundle().apply {
                 this.putString(ARG_PARAM_CAST_ID, id)
                 this.putInt(ARG_PARAM_FROM_ID, from)
@@ -159,9 +170,9 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
                 this.ivPersonPoster, null, false)
         this.ivDropPoster.setOnClickListener {
             RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
-                    Pair(MovieListFragment.NAVIGATOR_ARG_FRAGMENT,
+                    Pair(NAVIGATOR_ARG_FRAGMENT,
                             MovieGalleryFragment.newInstance(castDetailModel.images?.profiles)),
-                    Pair(MovieListFragment.NAVIGATOR_ARG_TAG, argFromFragment)))
+                    Pair(NAVIGATOR_ARG_TAG, argFromFragment)))
         }
         this.tvJob.apply {
             this.setBackgroundColor(Color.TRANSPARENT)

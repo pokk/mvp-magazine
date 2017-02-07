@@ -41,8 +41,7 @@ abstract class BaseUseCase<R extends BaseUseCase.RequestValues> {
     protected final IRepository repository;
     R requestValues = null;
 
-    BaseUseCase(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread,
-                IRepository repository) {
+    BaseUseCase(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread, IRepository repository) {
         this.threadExecutor = threadExecutor;
         this.postExecutionThread = postExecutionThread;
         this.repository = repository;
@@ -79,9 +78,7 @@ abstract class BaseUseCase<R extends BaseUseCase.RequestValues> {
             observable = observable.compose(RxLifecycleAndroid.bindActivity(request.activityLifecycle));
         }
 
-        observable.subscribeOn(getSubscribeScheduler())
-                  .observeOn(getObserveScheduler())
-                  .subscribe(useCaseSubscriber);
+        observable.subscribeOn(getSubscribeScheduler()).observeOn(getObserveScheduler()).subscribe(useCaseSubscriber);
     }
 
     /**

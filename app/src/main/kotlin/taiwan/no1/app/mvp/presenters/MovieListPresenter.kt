@@ -1,7 +1,7 @@
 package taiwan.no1.app.mvp.presenters
 
 import rx.lang.kotlin.subscriber
-import taiwan.no1.app.data.repositiry.DataRepository
+import taiwan.no1.app.data.source.CloudDataStore
 import taiwan.no1.app.domain.usecase.MovieLists
 import taiwan.no1.app.mvp.contracts.MovieListContract
 import taiwan.no1.app.mvp.models.MovieBriefModel
@@ -22,7 +22,7 @@ class MovieListPresenter constructor(val moviesCase: MovieLists):
     }
     //endregion
 
-    override fun requestListMovies(category: DataRepository.Movies, page: Int) {
+    override fun requestListMovies(category: CloudDataStore.Movies, page: Int) {
         val request = MovieLists.Requests(category, page)
         request.fragmentLifecycle = this.view.getLifecycle()
         // If declaring [subscriber] as a variable, it won't be used again.
