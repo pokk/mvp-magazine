@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import com.bumptech.glide.load.resource.drawable.GlideDrawable
 import com.bumptech.glide.request.target.Target
 import com.hwangjr.rxbus.RxBus
@@ -57,12 +58,17 @@ class DropMoviePagerAdapter(val context: Context,
             }
         })
         dvDropPoster.setOnClickListener {
-            RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
-                    Pair(NAVIGATOR_ARG_FRAGMENT,
-                            MovieGalleryFragment.newInstance(posterList)),
-                    Pair(NAVIGATOR_ARG_TAG, argFromFragment),
-                    Pair(NAVIGATOR_ARG_SHARED_ELEMENTS, hashMapOf(
-                            Pair(iv, iv.transitionName)))))
+            if (posterList.isNotEmpty()) {
+                RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
+                        Pair(NAVIGATOR_ARG_FRAGMENT,
+                                MovieGalleryFragment.newInstance(posterList)),
+                        Pair(NAVIGATOR_ARG_TAG, argFromFragment),
+                        Pair(NAVIGATOR_ARG_SHARED_ELEMENTS, hashMapOf(
+                                Pair(iv, iv.transitionName)))))
+            }
+            else {
+                Toast.makeText(this.context, "There are no movie poster photos. :(", Toast.LENGTH_SHORT).show()
+            }
         }
         container.addView(dvDropPoster)
 

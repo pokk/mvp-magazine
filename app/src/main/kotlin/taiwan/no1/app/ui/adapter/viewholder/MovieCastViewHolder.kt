@@ -38,8 +38,7 @@ class MovieCastViewHolder(view: View): BaseViewHolder(view) {
             this.tvName.text = it.name
             this.item.setOnClickListener {
                 RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
-                        Pair(NAVIGATOR_ARG_FRAGMENT,
-                                CastDetailFragment.newInstance(model.id.toString(), adapter.fragmentTag)),
+                        Pair(NAVIGATOR_ARG_FRAGMENT, CastDetailFragment.newInstance(model.id.toString(), adapter.fragmentTag)),
                         Pair(NAVIGATOR_ARG_TAG, adapter.fragmentTag)))
             }
         }

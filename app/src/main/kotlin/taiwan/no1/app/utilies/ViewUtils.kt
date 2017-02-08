@@ -1,6 +1,7 @@
 package taiwan.no1.app.utilies
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
@@ -33,5 +34,14 @@ object ViewUtils {
             listener?.let { listener(listener) }
             into(into)
         }
+    }
+
+    fun resizeImageAsRatio(aspectRatio: Double, image: Bitmap): Bitmap = image.apply {
+        val ratio: Double = this.width.toDouble() / this.height.toDouble()
+
+        if (ratio > aspectRatio)
+            this.width = (aspectRatio * this.height).toInt()
+        else
+            this.height = (this.width / aspectRatio).toInt()
     }
 }

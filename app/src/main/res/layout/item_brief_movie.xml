@@ -10,7 +10,7 @@
     <taiwan.no1.app.ui.customize.TicketDisplayLayout
         android:layout_width="match_parent"
         android:layout_height="160dp"
-        android:layout_toEndOf="@+id/cardView"
+        android:layout_toEndOf="@+id/cv_movie_poster"
         android:layout_alignParentBottom="true"
         android:background="@color/colorWhite"
         android:padding="13dp"
@@ -52,16 +52,16 @@
     </taiwan.no1.app.ui.customize.TicketDisplayLayout>
 
     <android.support.v7.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="130dp"
-        android:layout_height="180dp"
+        android:id="@+id/cv_movie_poster"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
 
         <ImageView
             android:id="@+id/iv_movie_poster"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="130dp"
+            android:layout_height="180dp"
             tools:ignore="ContentDescription"/>
     </android.support.v7.widget.CardView>
 </RelativeLayout>

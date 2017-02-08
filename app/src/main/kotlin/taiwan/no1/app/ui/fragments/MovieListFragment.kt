@@ -137,7 +137,6 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
             this.rvMovies.let {
                 it.layoutManager = LinearLayoutManager(this.context)
                 it.setHasFixedSize(true)
-//                it.addItemDecoration(GridSpacingItemDecorator(2, 10, false))
                 // Just give a empty adapter.
                 it.adapter = CommonRecyclerAdapter(Collections.emptyList(), this.hashCode())
                 it.setOnBottomListener(object: LoadMoreRecyclerView.OnBottomListener {
