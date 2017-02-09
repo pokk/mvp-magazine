@@ -86,4 +86,43 @@
         <item name="android:layout_marginTop">10dp</item>
     </style>
 
+    <style name="ListImageSize">
+        <item name="android:layout_width">135dp</item>
+        <item name="android:layout_height">180dp</item>
+    </style>
+
+    <style name="ListImageTitle">
+        <item name="android:lineSpacingMultiplier">0.8</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-smallcaps</item>
+    </style>
+
+    <style name="ListImageTitle.Tv">
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:textColor">#FCFCFB</item>
+    </style>
+
+    <style name="ListImageTitle.Movie">
+        <item name="android:textColor">#454044</item>
+    </style>
+
+    <style name="MovieOverview">
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">sans-serif-smallcaps</item>
+        <item name="android:lineSpacingMultiplier">.9</item>
+        <item name="android:lines">3</item>
+    </style>
+
+    <style name="TvListImageSubtitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:textColor">#F5F2EF</item>
+    </style>
+
+
 </resources>

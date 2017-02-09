@@ -26,13 +26,9 @@
 
         <TextView
             android:id="@+id/tv_title"
+            style="@style/ListImageTitle.Movie"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-smallcaps"
-            android:lineSpacingMultiplier="0.8"
-            android:textColor="#454044"
-            android:textSize="20sp"
-            android:textStyle="bold"
             tools:text="The Angry Birds"/>
 
         <TextView
@@ -53,13 +49,10 @@
 
         <TextView
             android:id="@+id/tv_brief_content"
+            style="@style/MovieOverview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:ellipsize="end"
-            android:fontFamily="sans-serif-smallcaps"
-            android:lineSpacingMultiplier="1.1"
-            android:lines="3"
             tools:text="Framed in the 1940s for the double murder of his wife and her lover, upstanding banker Andy Dufresne begins a new life at the Shawshank prison, where he puts his accounting skills to work for an amoral warden. During his long stretch in prison, Dufresne comes to be admired by the other inmates -- including an older prisoner named Red -- for his integrity and unquenchable sense of hope."/>
     </taiwan.no1.app.ui.customize.TicketDisplayLayout>
 
@@ -74,8 +67,7 @@
 
         <ImageView
             android:id="@+id/iv_movie_poster"
-            android:layout_width="130dp"
-            android:layout_height="180dp"
+            style="@style/ListImageSize"
             tools:ignore="ContentDescription"/>
     </android.support.v7.widget.CardView>
 </RelativeLayout>

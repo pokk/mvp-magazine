@@ -19,8 +19,7 @@
 
         <ImageView
             android:id="@+id/iv_tv_poster"
-            android:layout_width="140dp"
-            android:layout_height="190dp"
+            style="@style/ListImageSize"
             tools:ignore="ContentDescription"/>
     </android.support.v7.widget.CardView>
 
@@ -33,6 +32,7 @@
 
     <!-- TODO: Set the similar color with pic to the background. -->
     <ImageView
+        android:id="@+id/iv_fog"
         android:layout_width="match_parent"
         android:layout_height="210dp"
         android:src="#558f8f8f"
@@ -40,41 +40,25 @@
 
     <TextView
         android:id="@+id/tv_title"
+        style="@style/ListImageTitle.Tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/tv_genres"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_above="@+id/tv_release_date"
         android:layout_toEndOf="@id/cv_frame"
-        android:fontFamily="sans-serif-smallcaps"
-        android:lineSpacingMultiplier="0.8"
-        android:textColor="#FCFCFB"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        tools:text="test"/>
+        tools:text="Agent of S.H.I.E.L.D"/>
+
+    <TextView
+        android:id="@+id/tv_release_date"
+        style="@style/TvListImageSubtitle"
+        android:layout_above="@+id/tv_genres"
+        android:layout_toEndOf="@id/cv_frame"
+        tools:text="2016-12-25"/>
 
     <TextView
         android:id="@+id/tv_genres"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/tv_"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_toEndOf="@id/cv_frame"
-        android:textColor="#D7D7D0"
-        tools:text="test"/>
-
-    <TextView
-        android:id="@+id/tv_"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/TvListImageSubtitle"
         android:layout_alignBottom="@id/iv_tv_backdrop"
         android:layout_marginBottom="5dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
         android:layout_toEndOf="@id/cv_frame"
-        android:textColor="#D7D7D0"
-        tools:text="test"/>
+        tools:text="Action | Drama | Crime"/>
 </RelativeLayout>
