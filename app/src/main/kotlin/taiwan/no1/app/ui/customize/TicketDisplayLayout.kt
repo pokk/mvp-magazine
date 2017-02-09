@@ -17,18 +17,22 @@ import taiwan.no1.app.R
  */
 
 class TicketDisplayLayout: RelativeLayout {
+    // Paint's color.
     var color: Int = Color.WHITE
         set(value) {
             field = value
         }
+    // The distance between a half circle and a half circle.
     var gap = 15f
         set(value) {
             field = value
         }
+    // Circle's radius.
     var radius = 25f
         set(value) {
             field = value
         }
+    // The total number of circles on edge.
     private var circleNum: Int = 0
     private var circleRemain: Float = 0f
     private val paint: Paint by lazy {
@@ -54,6 +58,7 @@ class TicketDisplayLayout: RelativeLayout {
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
 
+        // Counting how many circle we need on the edge.
         if (0f == circleRemain) {
             circleRemain = (h - gap).toInt() % (2 * radius + gap)
         }
@@ -62,7 +67,11 @@ class TicketDisplayLayout: RelativeLayout {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        (0..circleNum - 1).map { gap + radius + circleRemain / 2 + (gap + radius * 2) * it }
-                .forEach { canvas.drawCircle(width.toFloat(), it, radius, paint) }
+
+        (0..circleNum - 1).map {
+            gap + radius + circleRemain / 2 + (gap + radius * 2) * it
+        }.forEach {
+            canvas.drawCircle(width.toFloat(), it, radius, paint)
+        }
     }
 }

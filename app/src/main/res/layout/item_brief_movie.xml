@@ -2,8 +2,8 @@
 <RelativeLayout
     android:id="@+id/item_movie_brief"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dp">
@@ -12,18 +12,23 @@
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:layout_alignParentBottom="true"
+        android:layout_marginStart="-5dp"
         android:layout_toEndOf="@+id/cv_movie_poster"
         android:addStatesFromChildren="false"
-        android:background="@color/colorWhite"
-        app:circleColor="#123456"
-        app:radius="25"
+        android:background="@drawable/border_background"
+        android:paddingBottom="13dp"
+        android:paddingEnd="18dp"
+        android:paddingStart="18dp"
+        android:paddingTop="13dp"
+        app:circleColor="@color/viewPageSlideBackground"
         app:gap="15"
-        android:padding="13dp">
+        app:radius="20">
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-smallcaps"
             android:lineSpacingMultiplier="0.8"
             android:textColor="#454044"
             android:textSize="20sp"
@@ -35,6 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_title"
+            android:textSize="13sp"
             tools:text="2016-10-24"/>
 
         <TextView
@@ -42,6 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_release"
+            android:textSize="13sp"
             tools:text="9.9 / 10"/>
 
         <TextView
@@ -50,6 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:ellipsize="end"
+            android:fontFamily="sans-serif-smallcaps"
             android:lineSpacingMultiplier="1.1"
             android:lines="3"
             tools:text="Framed in the 1940s for the double murder of his wife and her lover, upstanding banker Andy Dufresne begins a new life at the Shawshank prison, where he puts his accounting skills to work for an amoral warden. During his long stretch in prison, Dufresne comes to be admired by the other inmates -- including an older prisoner named Red -- for his integrity and unquenchable sense of hope."/>
@@ -60,7 +68,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        app:cardCornerRadius="3dp"
+        app:cardElevation="10dp">
 
         <ImageView
             android:id="@+id/iv_movie_poster"
