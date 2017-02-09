@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="45dp"
         app:cardCornerRadius="3dp"
         app:cardElevation="10dp">
 
@@ -30,7 +30,6 @@
         android:src="@color/lb_search_bar_text"
         tools:ignore="contentDescription"/>
 
-    <!-- TODO: Set the similar color with pic to the background. -->
     <ImageView
         android:id="@+id/iv_fog"
         android:layout_width="match_parent"
