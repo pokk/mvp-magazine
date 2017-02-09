@@ -1,6 +1,7 @@
 package taiwan.no1.app.ui.adapter
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.support.v4.view.PagerAdapter
 import android.view.LayoutInflater
@@ -8,8 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
-import com.bumptech.glide.load.resource.drawable.GlideDrawable
-import com.bumptech.glide.request.target.Target
+import com.bumptech.glide.request.animation.GlideAnimation
+import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.hwangjr.rxbus.RxBus
 import com.intrusoft.squint.DiagonalView
 import com.touchin.constant.RxbusTag
@@ -20,7 +21,6 @@ import taiwan.no1.app.ui.fragments.MainControlFragment.Factory.NAVIGATOR_ARG_FRA
 import taiwan.no1.app.ui.fragments.MainControlFragment.Factory.NAVIGATOR_ARG_SHARED_ELEMENTS
 import taiwan.no1.app.ui.fragments.MainControlFragment.Factory.NAVIGATOR_ARG_TAG
 import taiwan.no1.app.ui.fragments.MovieGalleryFragment
-import taiwan.no1.app.ui.listeners.GlideCustomRequestListener
 import taiwan.no1.app.utilies.ViewUtils
 
 /**
@@ -45,17 +45,21 @@ class DropMoviePagerAdapter(val context: Context,
                 null,
                 false) as DiagonalView
 
-        ViewUtils.loadImageToView(this.context.applicationContext,
+        ViewUtils.loadBitmapToView(this.context.applicationContext,
                 MovieDBConfig.BASE_IMAGE_URL + this.dropPosterList[position].file_path,
-                dvDropPoster, object: GlideCustomRequestListener() {
-            override fun onResourceReady(resource: GlideDrawable,
-                                         model: String,
-                                         target: Target<GlideDrawable>,
-                                         isFromMemoryCache: Boolean,
-                                         isFirstResource: Boolean): Boolean {
+                dvDropPoster, object: BitmapImageViewTarget(dvDropPoster) {
+            override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
                 dvDropPoster.solidColor = Color.TRANSPARENT
-                return false
+                super.onResourceReady(resource, glideAnimation)
             }
+            //            override fun onResourceReady(resource: GlideDrawable,
+//                                         model: String,
+//                                         target: Target<GlideDrawable>,
+//                                         isFromMemoryCache: Boolean,
+//                                         isFirstResource: Boolean): Boolean {
+//                dvDropPoster.solidColor = Color.TRANSPARENT
+//                return false
+//            }
         })
         dvDropPoster.setOnClickListener {
             if (posterList.isNotEmpty()) {

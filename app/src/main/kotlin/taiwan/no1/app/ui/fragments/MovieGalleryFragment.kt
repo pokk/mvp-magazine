@@ -1,6 +1,7 @@
 package taiwan.no1.app.ui.fragments
 
 import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
@@ -14,7 +15,6 @@ import android.widget.ImageSwitcher
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.bindView
-import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
 import com.hwangjr.rxbus.RxBus
 import com.hwangjr.rxbus.annotation.Subscribe
@@ -220,7 +220,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
 
     // FIXME: 2017/01/25 If the images didn't finish loading then APP will crash.
     private fun extractBitmapFromItem(index: Int): Bitmap? =
-            ((findViewPagerItem(index)?.findViewById(R.id.img_item) as ImageView).drawable as? GlideBitmapDrawable)?.bitmap
+            ((findViewPagerItem(index)?.findViewById(R.id.img_item) as ImageView).drawable as BitmapDrawable).bitmap
 
     private fun setNumberText(totalNumber: Int, currentNumber: Int = 1) = "$currentNumber / $totalNumber"
 }

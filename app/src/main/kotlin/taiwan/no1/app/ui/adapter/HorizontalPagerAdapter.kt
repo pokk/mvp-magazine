@@ -1,20 +1,20 @@
 package taiwan.no1.app.ui.adapter
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.support.v4.view.PagerAdapter
 import android.support.v7.widget.CardView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import com.bumptech.glide.load.resource.drawable.GlideDrawable
-import com.bumptech.glide.request.target.Target
+import com.bumptech.glide.request.animation.GlideAnimation
 import com.hwangjr.rxbus.RxBus
 import com.touchin.constant.RxbusTag
 import taiwan.no1.app.R
 import taiwan.no1.app.api.config.MovieDBConfig
 import taiwan.no1.app.mvp.models.ImageInfoModel
-import taiwan.no1.app.ui.listeners.GlideResizeRequestListener
+import taiwan.no1.app.ui.listeners.GlideResizeTargetListener
 import taiwan.no1.app.utilies.ViewUtils
 
 
@@ -55,27 +55,19 @@ class HorizontalPagerAdapter(val context: Context,
         //            setupItem(view, LIBRARIES[position]);
         //        }
 
-        ViewUtils.loadImageToView(this.context.applicationContext,
+        ViewUtils.loadBitmapToView(this.context.applicationContext,
                 MovieDBConfig.BASE_IMAGE_URL + this.imageLists[position].file_path,
-                ivPoster,
-                object: GlideResizeRequestListener(cvFrame) {
-                    override fun onResourceReady(resource: GlideDrawable,
-                                                 model: String,
-                                                 target: Target<GlideDrawable>,
-                                                 isFromMemoryCache: Boolean,
-                                                 isFirstResource: Boolean): Boolean {
-                        // Notify once when entry this view. 
+                listener = object: GlideResizeTargetListener(ivPoster, cvFrame) {
+                    override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
+                        super.onResourceReady(resource, glideAnimation)
+                        // Notify once when entry this view.
                         if (0 == position && !isLoaded) {
                             RxBus.get().post(RxbusTag.FRAGMENT_FINISH_LOADED, position.toString())
                             isLoaded = true
                         }
-                        return super.onResourceReady(resource,
-                                model,
-                                target,
-                                isFromMemoryCache,
-                                isFirstResource)
                     }
-                })
+                }
+        )
 
         container.addView(view)
         return view

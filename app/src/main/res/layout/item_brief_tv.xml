@@ -35,7 +35,7 @@
         android:id="@+id/iv_fog"
         android:layout_width="match_parent"
         android:layout_height="210dp"
-        android:src="#558f8f8f"
+        android:src="#994f4f4f"
         tools:ignore="contentDescription"/>
 
     <TextView

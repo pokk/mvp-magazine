@@ -32,7 +32,7 @@ class MovieTrailerViewHolder(val view: View): BaseViewHolder(view) {
                                 VideoActivity.newInstance(view.context, result.videoUri.toString()))
                     }
 
-                    ViewUtils.loadImageToView(view.context.applicationContext,
+                    ViewUtils.loadBitmapToView(view.context.applicationContext,
                             result.defaultThumbUri.toString(),
                             ivTrailer)
                 }
