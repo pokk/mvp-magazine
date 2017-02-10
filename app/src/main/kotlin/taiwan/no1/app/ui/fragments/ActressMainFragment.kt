@@ -118,7 +118,7 @@ class ActressMainFragment: BaseFragment(), ActressMainContract.View, IMainFragme
             (this.rvCasts.adapter as CommonRecyclerAdapter).models = this.castList!!
         }
         else {
-            // FIXME: 2/3/17 The images are small than original size.
+            // FIXED: 2/11/17 Using the customize image view to fit the photo ratio.
             this.rvCasts.let {
                 it.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
                 it.setHasFixedSize(true)
