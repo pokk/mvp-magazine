@@ -35,6 +35,7 @@ import javax.inject.Inject
 
 
 /**
+ * Show the poster photos of the movies and the actors [BaseFragment].
  *
  * @author  Jieyi
  * @since   1/1/17
@@ -158,7 +159,8 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
             }
             // Set the changing images' animation.
             this.inAnimation = AnimationUtils.loadAnimation(MovieGalleryFragment@ this.context, android.R.anim.fade_in)
-            this.outAnimation = AnimationUtils.loadAnimation(MovieGalleryFragment@ this.context, android.R.anim.fade_out)
+            this.outAnimation = AnimationUtils.loadAnimation(MovieGalleryFragment@ this.context,
+                    android.R.anim.fade_out)
         }
         this.tvNumbers.text = this.setNumberText(total)
         this.hicvpGallery.apply {
@@ -218,9 +220,9 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
         return null
     }
 
-    // FIXME: 2017/01/25 If the images didn't finish loading then APP will crash.
+    // FIXED: 2017/02/10 Changed the Glide listener to BitmapImageViewTarget then we can check the drawable type as well.
     private fun extractBitmapFromItem(index: Int): Bitmap? =
-            ((findViewPagerItem(index)?.findViewById(R.id.img_item) as ImageView).drawable as BitmapDrawable).bitmap
+            ((findViewPagerItem(index)?.findViewById(R.id.img_item) as ImageView).drawable as? BitmapDrawable)?.bitmap
 
     private fun setNumberText(totalNumber: Int, currentNumber: Int = 1) = "$currentNumber / $totalNumber"
 }

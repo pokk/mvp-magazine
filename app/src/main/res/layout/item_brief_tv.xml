@@ -12,14 +12,15 @@
         android:id="@+id/cv_frame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="40dp"
         app:cardCornerRadius="3dp"
         app:cardElevation="10dp">
 
         <ImageView
             android:id="@+id/iv_tv_poster"
             style="@style/ListImageSize"
+            android:layout_height="190dp"
             tools:ignore="ContentDescription"/>
     </android.support.v7.widget.CardView>
 

@@ -1,5 +1,6 @@
 package taiwan.no1.app.ui.fragments
 
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -12,8 +13,8 @@ import android.view.ViewStub
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.bindView
-import com.bumptech.glide.load.resource.drawable.GlideDrawable
-import com.bumptech.glide.request.target.Target
+import com.bumptech.glide.request.animation.GlideAnimation
+import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.hwangjr.rxbus.RxBus
 import com.intrusoft.squint.DiagonalView
 import com.touchin.constant.RxbusTag
@@ -31,14 +32,13 @@ import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.adapter.itemdecorator.MovieHorizontalItemDecorator
 import taiwan.no1.app.ui.fragments.MainControlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
 import taiwan.no1.app.ui.fragments.MainControlFragment.Factory.NAVIGATOR_ARG_TAG
-import taiwan.no1.app.ui.listeners.GlideCustomRequestListener
 import taiwan.no1.app.utilies.ImageLoader.IImageLoader
 import javax.inject.Inject
 import kotlin.comparisons.compareBy
 
 /**
  * Present the assigned cast information, photos, articles.
- * 
+ *
  * @author  Jieyi
  * @since   1/1/17
  */
@@ -159,18 +159,15 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
         val imageUrl = castDetailModel.images?.let { it.profiles?.let { if (it.size > 1) it[1].file_path else it[0].file_path } }
 
         this.imageLoader.display(MovieDBConfig.BASE_IMAGE_URL + imageUrl,
-                this.ivDropPoster, object: GlideCustomRequestListener() {
-            override fun onResourceReady(resource: GlideDrawable,
-                                         model: String,
-                                         target: Target<GlideDrawable>,
-                                         isFromMemoryCache: Boolean,
-                                         isFirstResource: Boolean): Boolean {
-                ivDropPoster.solidColor = Color.TRANSPARENT
-                return false
-            }
-        })
+                listener = object: BitmapImageViewTarget(this.ivDropPoster) {
+                    override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>?) {
+                        ivDropPoster.solidColor = Color.TRANSPARENT
+                        super.onResourceReady(resource, glideAnimation)
+                    }
+                })
         this.imageLoader.display(MovieDBConfig.BASE_IMAGE_URL + castDetailModel.profile_path,
-                this.ivPersonPoster, null, false)
+                this.ivPersonPoster,
+                isFitCenter = false)
         this.ivDropPoster.setOnClickListener {
             RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
                     Pair(NAVIGATOR_ARG_FRAGMENT,

@@ -1,8 +1,7 @@
 package taiwan.no1.app.utilies.ImageLoader
 
 import android.widget.ImageView
-import com.bumptech.glide.load.resource.drawable.GlideDrawable
-import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.BitmapImageViewTarget
 
 /**
  * Third-party image loader display methods' interface.
@@ -13,7 +12,7 @@ import com.bumptech.glide.request.RequestListener
  */
 interface IImageLoader {
     fun display(uri: String,
-                into: ImageView,
-                listener: RequestListener<String, GlideDrawable>? = null,
+                into: ImageView? = null,
+                listener: BitmapImageViewTarget? = null,
                 isFitCenter: Boolean = true)
 }
