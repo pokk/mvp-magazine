@@ -16,7 +16,7 @@ class MovieGalleryPresenter: BasePresenter<MovieGalleryContract.View>(), MovieGa
     }
 
     override fun resizeImageToFitBackground(aspectRatio: Double, image: Bitmap) {
-        this.view.setBackgroundImage(ViewUtils.resizeImageAsRatio(aspectRatio, image))
+        this.view.setBlurBackground(ViewUtils.resizeImageAsRatio(aspectRatio, image))
     }
     //endregion
 }

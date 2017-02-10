@@ -165,31 +165,37 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
         this.tvNumbers.text = this.setNumberText(total)
         this.hicvpGallery.apply {
             var oldItemIndex: Int = this.currentItem
-            this.adapter = argMovieImages?.let {
-                HorizontalPagerAdapter(this.context, false, it)
-            }
+            this.adapter = argMovieImages?.let { HorizontalPagerAdapter(this.context, false, it) }
             // Set the current blur image in viewpager's background.
             // FIXED: 2/1/17 Sometimes the page's been selected but the present item is still not changed.
             // So I'm using finding the item's specific tag to fix it.
-            this.pageSelections().subscribe {
-                if (isFirstImageFinished) {
-                    val presentItem: Bitmap? = extractBitmapFromItem(this.realItem)
-                    if (null == presentItem) {
-                        // TODO: 2/1/17 Handle the empty card, what we gonna do.
-                    }
-                    else {
-                        tvNumbers.text = setNumberText(total, this.realItem + 1)
-                        presenter.resizeImageToFitBackground(aspectRatio, Bitmap.createBitmap(presentItem))
-                        oldItemIndex = this.currentItem
-                    }
-                }
-            }
+            this.pageSelections().subscribe { attachBackground() }
         }
     }
     //endregion
 
+    fun attachBackground() {
+        val total: Int = this.argMovieImages?.size ?: 0
+        var oldItemIndex: Int = this.hicvpGallery.currentItem
+
+        if (isFirstImageFinished) {
+            val presentItem: Bitmap? = extractBitmapFromItem(this.hicvpGallery.realItem)
+            if (null == presentItem) {
+                // TODO: 2017/02/10 ##### There might have a better way to fix this problem.
+                // FIXED: 2017/02/10 Fixed way as below... Scroll -> attachBgd(Fragment) -> (img is null) ->
+                // FIXED: Notify(PagerAdapter) -> Finished loading -> attachBgd(Fragment) again.
+                (this.hicvpGallery.adapter as HorizontalPagerAdapter).notifyNotLoadYet = true
+            }
+            else {
+                tvNumbers.text = setNumberText(total, this.hicvpGallery.realItem + 1)
+                presenter.resizeImageToFitBackground(aspectRatio, Bitmap.createBitmap(presentItem))
+                oldItemIndex = this.hicvpGallery.currentItem
+            }
+        }
+    }
+
     //region View implementation
-    override fun setBackgroundImage(image: Bitmap) {
+    override fun setBlurBackground(image: Bitmap) {
         Blurry.with(this.context).radius(20).sampling(4).async({
             isBackground.setImageDrawable(it as Drawable)
         })./* Here are redundant code, but it won't work without them. */from(image).into(iv_hidden)
@@ -197,11 +203,22 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
     //endregion
 
     //region RxBus
-    @Subscribe(tags = arrayOf(Tag(RxbusTag.FRAGMENT_FINISH_LOADED)))
-    fun finishLoadingImage(msg: String) {
+    /**
+     * Entry the gallery view after the first photo was finished loading, doing this method to resize the photo size.
+     */
+    @Subscribe(tags = arrayOf(Tag(RxbusTag.FRAGMENT_FINISHED_FIRST_IMG)))
+    fun finishedFirstLoadImg(msg: String) {
         this.isFirstImageFinished = true
         this.presenter.resizeImageToFitBackground(this.aspectRatio,
                 Bitmap.createBitmap(this.extractBitmapFromItem(hicvpGallery.realItem)))
+    }
+
+    /**
+     * When scrolling to the photo isn't finished. And after the photo is finished loading.
+     */
+    @Subscribe(tags = arrayOf(Tag(RxbusTag.FRAGMENT_FINISHED_LOADING_IMG)))
+    fun finishedLoadingImage(msg: String) {
+        attachBackground()
     }
     //endregion
 

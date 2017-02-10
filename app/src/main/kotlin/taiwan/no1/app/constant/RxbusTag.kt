@@ -12,5 +12,6 @@ object RxbusTag {
     const val FRAGMENT_CHILD_NAVIGATOR: String = "navigator_child_fragment"
     const val ACTIVITY_NAVIGATOR: String = "activity_open_youtube"
 
-    const val FRAGMENT_FINISH_LOADED: String = "fragment_finish_loaded_image"
+    const val FRAGMENT_FINISHED_FIRST_IMG: String = "fragment_finished_loading_first_img"
+    const val FRAGMENT_FINISHED_LOADING_IMG: String = "fragment_finished_loading_img"
 }

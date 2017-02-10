@@ -18,6 +18,6 @@ interface MovieGalleryContract {
     }
 
     interface View: IView, IFragmentView {
-        fun setBackgroundImage(image: Bitmap)
+        fun setBlurBackground(image: Bitmap)
     }
 }

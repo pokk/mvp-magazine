@@ -28,6 +28,10 @@ class HorizontalPagerAdapter(val context: Context,
                              val imageLists: List<ImageInfoModel>): PagerAdapter() {
     private val layoutInflater: LayoutInflater by lazy { LayoutInflater.from(this.context) }
     private var isLoaded: Boolean = false
+    var notifyNotLoadYet: Boolean = false
+        set(value) {
+            field = value
+        }
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean = view == `object`
 
@@ -60,9 +64,14 @@ class HorizontalPagerAdapter(val context: Context,
                 listener = object: GlideResizeTargetListener(ivPoster, cvFrame) {
                     override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
                         super.onResourceReady(resource, glideAnimation)
+                        // FIXED: 2017/02/10 It won't crash after switched to other photos.
+                        if (notifyNotLoadYet) {
+                            RxBus.get().post(RxbusTag.FRAGMENT_FINISHED_LOADING_IMG, position.toString())
+                            notifyNotLoadYet = false
+                        }
                         // Notify once when entry this view.
                         if (0 == position && !isLoaded) {
-                            RxBus.get().post(RxbusTag.FRAGMENT_FINISH_LOADED, position.toString())
+                            RxBus.get().post(RxbusTag.FRAGMENT_FINISHED_FIRST_IMG, position.toString())
                             isLoaded = true
                         }
                     }
