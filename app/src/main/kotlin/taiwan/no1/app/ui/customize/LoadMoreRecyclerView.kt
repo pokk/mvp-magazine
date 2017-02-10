@@ -12,15 +12,21 @@ import android.util.AttributeSet
  */
 
 class LoadMoreRecyclerView: RecyclerView {
+    //region Member Variables
     private var onBottomListener: OnBottomListener? = null
+    //endregion
 
     interface OnBottomListener {
         fun onBottom()
     }
 
-    constructor(context: Context): super(context)
-    constructor(context: Context, attrs: AttributeSet?): super(context, attrs)
+    //region Constructors
+    constructor(context: Context): this(context, null, 0)
+
+    constructor(context: Context, attrs: AttributeSet?): this(context, attrs, 0)
+
     constructor(context: Context, attrs: AttributeSet?, defStyle: Int): super(context, attrs, defStyle)
+    //endregion
 
     init {
         this.addOnScrollListener(object: RecyclerView.OnScrollListener() {

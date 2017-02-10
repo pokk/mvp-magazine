@@ -11,26 +11,33 @@ import android.view.View
  * @since   12/31/16
  */
 
-class GridSpacingItemDecorator(private val spanCount: Int,
-                               private val spacing: Int,
-                               private val includeEdge: Boolean): RecyclerView.ItemDecoration() {
+class GridSpacingItemDecorator(private val spanCount: Int, private val spacing: Int, private val includeEdge: Boolean):
+        RecyclerView.ItemDecoration() {
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
-        val position = parent.getChildAdapterPosition(view) // item position
-        val column = position % spanCount // item column
+        // item position.
+        val position = parent.getChildAdapterPosition(view)
+        // item column.
+        val column = position.rem(spanCount)
+
         if (includeEdge) {
-            outRect.left = spacing - column * spacing / spanCount // spacing - column * ((1f / spanCount) * spacing)
-            outRect.right = (column + 1) * spacing / spanCount // (column + 1) * ((1f / spanCount) * spacing)
-            if (position < spanCount) { // top edge
+            // spacing - column * ((1f / spanCount) * spacing).
+            outRect.left = spacing - column * spacing / spanCount
+            // (column + 1) * ((1f / spanCount) * spacing).
+            outRect.right = (column + 1) * spacing / spanCount
+            // top edge.
+            if (position < spanCount)
                 outRect.top = spacing
-            }
-            outRect.bottom = spacing // item bottom
+            // item bottom.
+            outRect.bottom = spacing
         }
         else {
-            outRect.left = column * spacing / spanCount // column * ((1f / spanCount) * spacing)
-            outRect.right = spacing - (column + 1) * spacing / spanCount // spacing - (column + 1) * ((1f /    spanCount) * spacing)
-            if (position >= spanCount) {
-                outRect.top = spacing // item top
-            }
+            // column * ((1f / spanCount) * spacing).
+            outRect.left = column * spacing / spanCount
+            // spacing - (column + 1) * ((1f / spanCount) * spacing).
+            outRect.right = spacing - (column + 1) * spacing / spanCount
+            // item top.
+            if (position >= spanCount)
+                outRect.top = spacing
         }
     }
 }

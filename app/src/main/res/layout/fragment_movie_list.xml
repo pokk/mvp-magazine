@@ -2,9 +2,9 @@
 <FrameLayout
     android:id="@+id/main_container"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <taiwan.no1.app.ui.customize.LoadMoreRecyclerView
         android:id="@+id/rv_movie_list"

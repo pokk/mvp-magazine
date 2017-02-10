@@ -3,7 +3,6 @@ package taiwan.no1.app.ui.fragments
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v4.app.Fragment
-import android.support.v7.widget.OrientationHelper
 import android.support.v7.widget.StaggeredGridLayoutManager
 import butterknife.bindView
 import taiwan.no1.app.R
@@ -121,9 +120,9 @@ class ActressMainFragment: BaseFragment(), ActressMainContract.View, IMainFragme
         else {
             // FIXME: 2/3/17 The images are small than original size.
             this.rvCasts.let {
-                it.layoutManager = StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL)
+                it.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
                 it.setHasFixedSize(true)
-                it.addItemDecoration(GridSpacingItemDecorator(2, 10, false))
+                it.addItemDecoration(GridSpacingItemDecorator(2, 20, false))
                 // Just give a empty adapter.
                 it.adapter = CommonRecyclerAdapter(Collections.emptyList(), this.hashCode())
                 it.setOnBottomListener(object: LoadMoreRecyclerView.OnBottomListener {

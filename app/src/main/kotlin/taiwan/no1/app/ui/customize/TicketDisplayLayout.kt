@@ -17,6 +17,7 @@ import taiwan.no1.app.R
  */
 
 class TicketDisplayLayout: RelativeLayout {
+    //region Member Variables
     // Paint's color.
     var color: Int = Color.WHITE
         set(value) {
@@ -42,9 +43,13 @@ class TicketDisplayLayout: RelativeLayout {
             this.color = this@TicketDisplayLayout.color
         }
     }
+    //endregion
 
+    //region Constructors
     constructor(context: Context): this(context, null, 0)
+
     constructor(context: Context, attrs: AttributeSet?): this(context, attrs, 0)
+
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int): super(context, attrs, defStyleAttr) {
         attrs?.let {
             context.obtainStyledAttributes(it, R.styleable.TicketDisplayLayout).apply {
@@ -54,13 +59,14 @@ class TicketDisplayLayout: RelativeLayout {
             }.recycle()
         }
     }
+    //endregion
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
 
         // Counting how many circle we need on the edge.
         if (0f == circleRemain) {
-            circleRemain = (h - gap).toInt() % (2 * radius + gap)
+            circleRemain = (h - gap).toInt().rem((2 * radius + gap))
         }
         circleNum = ((h - gap) / (2 * radius + gap)).toInt()
     }

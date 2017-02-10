@@ -49,14 +49,13 @@ class TvListViewHolder(val view: View): BaseViewHolder(view) {
                         override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
                             super.onResourceReady(resource, glideAnimation)
                             // Extract the color from pic.
-                            val extractColor: Int = Palette.from(resource).
-                                    generate().
-                                    getVibrantColor(Color.argb(99, 79, 79, 79))
-                            // Set the fog in front of the backdrop.
-                            ivBackdropFog.setBackgroundColor(Color.argb(33,
-                                    Color.red(extractColor),
-                                    Color.green(extractColor),
-                                    Color.blue(extractColor)))
+                            Palette.from(resource).generate().getVibrantColor(Color.argb(99, 79, 79, 79)).let {
+                                // Set the fog in front of the backdrop.
+                                ivBackdropFog.setBackgroundColor(Color.argb(33,
+                                        Color.red(it),
+                                        Color.green(it),
+                                        Color.blue(it)))
+                            }
                         }
                     }, isFitCenter = false)
             // Concat the genres category.

@@ -34,7 +34,6 @@ import taiwan.no1.app.ui.fragments.MainControlFragment.Factory.NAVIGATOR_ARG_FRA
 import taiwan.no1.app.ui.fragments.MainControlFragment.Factory.NAVIGATOR_ARG_TAG
 import taiwan.no1.app.utilies.ImageLoader.IImageLoader
 import javax.inject.Inject
-import kotlin.comparisons.compareBy
 
 /**
  * Present the assigned cast information, photos, articles.
@@ -160,7 +159,7 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
 
         this.imageLoader.display(MovieDBConfig.BASE_IMAGE_URL + imageUrl,
                 listener = object: BitmapImageViewTarget(this.ivDropPoster) {
-                    override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>?) {
+                    override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
                         ivDropPoster.solidColor = Color.TRANSPARENT
                         super.onResourceReady(resource, glideAnimation)
                     }
@@ -196,8 +195,7 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
         this.showViewStub(this.stubRelated, {
             castDetailModel.combined_credits?.cast?.let {
                 this.showCardItems(this.rvRelated, it.filter { it.media_type == "movie" }.
-                        sortedWith(compareBy({ it.release_date })).
-                        reversed())
+                        sortedWith(kotlin.comparisons.compareBy({ it.release_date })).reversed())
             }
         })
     }

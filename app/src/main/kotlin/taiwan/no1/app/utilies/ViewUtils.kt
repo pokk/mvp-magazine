@@ -15,10 +15,14 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget
  * @since   1/14/17
  */
 object ViewUtils {
-    fun resizeView(view: View, height: Int, width: Int) {
+    fun resizeView(view: View, width: Int? = null, height: Int? = null) {
         view.layoutParams?.apply {
-            this.height = height
-            this.width = width
+            height?.let {
+                this.height = it
+            }
+            width?.let {
+                this.width = it
+            }
         }
     }
 

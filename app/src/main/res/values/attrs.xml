@@ -6,4 +6,8 @@
         <attr name="gap" format="float"/>
         <attr name="radius" format="float"/>
     </declare-styleable>
+
+    <declare-styleable name="AdjustHeightImageView">
+        <attr name="heightRatio" format="float"/>
+    </declare-styleable>
 </resources>

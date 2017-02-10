@@ -19,6 +19,6 @@ open class GlideResizeTargetListener constructor(imageView: ImageView, val resiz
     override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
         super.onResourceReady(resource, glideAnimation)
 
-        ViewUtils.resizeView(this.resizeView, resource.height, resource.width)
+        ViewUtils.resizeView(this.resizeView, resource.width, resource.height)
     }
 }

@@ -13,6 +13,7 @@ import taiwan.no1.app.R
  */
 
 class StarScoreView: View {
+    //region Member Variables
     private val scorePaint: Paint by lazy {
         Paint(Paint.ANTI_ALIAS_FLAG).apply {
             style = Paint.Style.FILL
@@ -43,14 +44,15 @@ class StarScoreView: View {
         }
     private var desiredWidth: Int = this.scoreBoardBitmap.width * this.scoreMaxNumber
     private var desiredHeight: Int = this.scoreBoardBitmap.height
+    //endregion
 
-    constructor(context: Context): super(context)
-    constructor(context: Context, attrs: AttributeSet?): super(context, attrs)
+    //region Constructors
+    constructor(context: Context): this(context, null, 0)
+
+    constructor(context: Context, attrs: AttributeSet?): this(context, attrs, 0)
+    
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int): super(context, attrs, defStyleAttr)
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int): super(context,
-            attrs,
-            defStyleAttr,
-            defStyleRes)
+    //endregion
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val widthMode: Int = MeasureSpec.getMode(widthMeasureSpec)
