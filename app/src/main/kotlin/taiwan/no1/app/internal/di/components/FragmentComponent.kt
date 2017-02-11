@@ -30,8 +30,6 @@ interface FragmentComponent {
      * After injected a fragment, the presenter of the fragment should be provided in [FragmentModule].
      */
 
-    fun inject(movieMainFragment: MovieMainFragment)
-
     fun inject(movieListFragment: MovieListFragment)
 
     fun inject(movieDetailFragment: MovieDetailFragment)
@@ -39,8 +37,6 @@ interface FragmentComponent {
     fun inject(movieGalleryFragment: MovieGalleryFragment)
 
     fun inject(castDetailFragment: CastDetailFragment)
-
-    fun inject(tvMainFragment: TvMainFragment)
 
     fun inject(tvListFragment: TvListFragment)
 

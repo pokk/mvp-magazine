@@ -7,9 +7,7 @@ import taiwan.no1.app.R
 import taiwan.no1.app.data.source.CloudDataStore
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
-import taiwan.no1.app.mvp.contracts.TvMainContract
 import java.util.*
-import javax.inject.Inject
 
 /**
  *
@@ -17,7 +15,7 @@ import javax.inject.Inject
  * @since   1/12/17
  */
 @PerFragment
-class TvMainFragment: MainControlFragment(), TvMainContract.View {
+class TvMainFragment: ViewPagerMainCtrlFragment() {
     //region Static initialization
     companion object Factory {
         // The key name of the fragment initialization parameters.
@@ -33,9 +31,6 @@ class TvMainFragment: MainControlFragment(), TvMainContract.View {
     }
     //endregion
 
-    @Inject
-    lateinit var presenter: TvMainContract.Presenter
-
     //region Local variables
     override val fragmentList: List<Fragment> by lazy {
         ArrayList(arrayListOf(
@@ -46,31 +41,11 @@ class TvMainFragment: MainControlFragment(), TvMainContract.View {
     }
     //endregion
 
-    //region Fragment lifecycle
-    override fun onResume() {
-        super.onResume()
-        this.presenter.resume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        this.presenter.pause()
-    }
-
-    override fun onDestroy() {
-        // After super.onDestroy() is executed, the presenter will be destroy. So the presenter should be
-        // executed before super.onDestroy().
-        this.presenter.destroy()
-        super.onDestroy()
-    }
-    //endregion
-
     //region Initialization's order
     /**
      * Inject this fragment and [FragmentComponent].
      */
     override fun inject() {
-        this.getComponent(FragmentComponent::class.java, null).inject(TvMainFragment@ this)
     }
 
     /**
@@ -85,7 +60,6 @@ class TvMainFragment: MainControlFragment(), TvMainContract.View {
      * Set the presenter initialization in [onCreateView].
      */
     override fun initPresenter() {
-        this.presenter.init(TvMainFragment@ this)
     }
     //endregion
 

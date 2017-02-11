@@ -30,8 +30,8 @@ import taiwan.no1.app.mvp.models.IVisitable
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.adapter.itemdecorator.MovieHorizontalItemDecorator
-import taiwan.no1.app.ui.fragments.MainControlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
-import taiwan.no1.app.ui.fragments.MainControlFragment.Factory.NAVIGATOR_ARG_TAG
+import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
+import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_TAG
 import taiwan.no1.app.utilies.ImageLoader.IImageLoader
 import javax.inject.Inject
 

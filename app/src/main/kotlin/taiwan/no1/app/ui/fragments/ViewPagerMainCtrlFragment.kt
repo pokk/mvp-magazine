@@ -19,7 +19,7 @@ import taiwan.no1.app.ui.adapter.MainViewPager
  */
 
 
-abstract class MainControlFragment: BaseFragment(), IMainFragment {
+abstract class ViewPagerMainCtrlFragment: BaseFragment(), IMainFragment {
     companion object Factory {
         // For navigating the fragment's arguments. 
         const val NAVIGATOR_ARG_FRAGMENT = "fragment"

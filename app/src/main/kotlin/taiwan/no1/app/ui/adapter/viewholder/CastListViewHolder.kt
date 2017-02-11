@@ -17,9 +17,9 @@ import taiwan.no1.app.mvp.models.CastListResModel
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.customize.AdjustHeightImageView
 import taiwan.no1.app.ui.fragments.CastDetailFragment
-import taiwan.no1.app.ui.fragments.MainControlFragment
-import taiwan.no1.app.ui.fragments.MainControlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
-import taiwan.no1.app.ui.fragments.MainControlFragment.Factory.NAVIGATOR_ARG_TAG
+import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment
+import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
+import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_TAG
 import taiwan.no1.app.utilies.ViewUtils
 
 /**
@@ -59,7 +59,7 @@ class CastListViewHolder(val view: View): BaseViewHolder(view) {
                         Pair(NAVIGATOR_ARG_FRAGMENT,
                                 CastDetailFragment.newInstance(model.id.toString(), adapter.fragmentTag)),
                         Pair(NAVIGATOR_ARG_TAG, adapter.fragmentTag),
-                        Pair(MainControlFragment.NAVIGATOR_ARG_SHARED_ELEMENTS,
+                        Pair(ViewPagerMainCtrlFragment.NAVIGATOR_ARG_SHARED_ELEMENTS,
                                 hashMapOf(Pair(ivPoster, ivPoster.transitionName)))))
             }
         }

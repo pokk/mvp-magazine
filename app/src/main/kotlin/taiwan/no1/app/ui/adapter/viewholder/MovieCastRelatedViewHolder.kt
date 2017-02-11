@@ -11,9 +11,9 @@ import taiwan.no1.app.R
 import taiwan.no1.app.api.config.MovieDBConfig
 import taiwan.no1.app.mvp.models.CreditsModel
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
-import taiwan.no1.app.ui.fragments.MainControlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
-import taiwan.no1.app.ui.fragments.MainControlFragment.Factory.NAVIGATOR_ARG_TAG
 import taiwan.no1.app.ui.fragments.MovieDetailFragment
+import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
+import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_TAG
 import taiwan.no1.app.ui.listeners.GlideResizeTargetListener
 import taiwan.no1.app.utilies.ImageLoader.IImageLoader
 import taiwan.no1.app.utilies.ViewUtils

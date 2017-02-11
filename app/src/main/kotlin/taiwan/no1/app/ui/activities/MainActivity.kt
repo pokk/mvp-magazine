@@ -20,11 +20,11 @@ import taiwan.no1.app.mvp.contracts.MainContract
 import taiwan.no1.app.ui.BaseActivity
 import taiwan.no1.app.ui.fragments.ActressMainFragment
 import taiwan.no1.app.ui.fragments.IMainFragment
-import taiwan.no1.app.ui.fragments.MainControlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
-import taiwan.no1.app.ui.fragments.MainControlFragment.Factory.NAVIGATOR_ARG_SHARED_ELEMENTS
-import taiwan.no1.app.ui.fragments.MainControlFragment.Factory.NAVIGATOR_ARG_TAG
 import taiwan.no1.app.ui.fragments.MovieMainFragment
 import taiwan.no1.app.ui.fragments.TvMainFragment
+import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
+import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_SHARED_ELEMENTS
+import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_TAG
 import java.util.*
 import javax.inject.Inject
 
