@@ -17,7 +17,7 @@ class GridSpacingItemDecorator(private val spanCount: Int, private val spacing: 
         // item position.
         val position = parent.getChildAdapterPosition(view)
         // item column.
-        val column = position.rem(spanCount)
+        val column = position % spanCount
 
         if (includeEdge) {
             // spacing - column * ((1f / spanCount) * spacing).

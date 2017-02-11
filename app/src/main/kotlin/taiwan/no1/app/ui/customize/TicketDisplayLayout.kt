@@ -66,7 +66,7 @@ class TicketDisplayLayout: RelativeLayout {
 
         // Counting how many circle we need on the edge.
         if (0f == circleRemain) {
-            circleRemain = (h - gap).toInt().rem((2 * radius + gap))
+            circleRemain = (h - gap).toInt() % (2 * radius + gap)
         }
         circleNum = ((h - gap) / (2 * radius + gap)).toInt()
     }
