@@ -82,7 +82,6 @@ public class TVSeasonsEntity {
     }
 
     public static class EpisodesBean {
-
         private String air_date;
         private int episode_number;
         private String name;

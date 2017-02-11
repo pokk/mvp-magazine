@@ -7,7 +7,6 @@ import java.util.List;
  */
 
 public class TVDetailEntity {
-
     private String backdrop_path;
     private String first_air_date;
     private String homepage;

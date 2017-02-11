@@ -40,5 +40,7 @@ interface FragmentComponent {
 
     fun inject(tvListFragment: TvListFragment)
 
+    fun inject(tvDetailFragment: TvDetailFragment)
+
     fun inject(actressMainFragment: ActressMainFragment)
 }

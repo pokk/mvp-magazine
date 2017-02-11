@@ -47,6 +47,13 @@ class FragmentUseCaseModule {
 
     @Provides
     @PerFragment
+    fun ProvideTvDetail(threadExecutor: ThreadExecutor,
+                        postExecutionThread: PostExecutionThread,
+                        repository: IRepository): TVDetail
+            = TVDetail(threadExecutor, postExecutionThread, repository)
+
+    @Provides
+    @PerFragment
     fun ProvideCastLists(threadExecutor: ThreadExecutor,
                          postExecutionThread: PostExecutionThread,
                          repository: IRepository): CastLists

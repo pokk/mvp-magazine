@@ -10,11 +10,16 @@ import android.widget.TextView
 import butterknife.bindView
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.BitmapImageViewTarget
+import com.hwangjr.rxbus.RxBus
+import com.touchin.constant.RxbusTag
 import taiwan.no1.app.R
 import taiwan.no1.app.api.config.MovieDBConfig
 import taiwan.no1.app.constant.Constant
 import taiwan.no1.app.mvp.models.TvBriefModel
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
+import taiwan.no1.app.ui.fragments.TvDetailFragment
+import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
+import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_TAG
 import taiwan.no1.app.utilies.ViewUtils
 
 /**
@@ -71,10 +76,9 @@ class TvListViewHolder(val view: View): BaseViewHolder(view) {
             this.tvRelease.text = it.first_air_date
             this.item.setOnClickListener {
                 // TODO: 2/5/17 Make the tv detail.
-//                RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
-//                        Pair(NAVIGATOR_ARG_FRAGMENT,
-//                                MovieDetailFragment.newInstance(model.id.toString(), adapter.fragmentTag)),
-//                        Pair(NAVIGATOR_ARG_TAG, adapter.fragmentTag)))
+                RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
+                        Pair(NAVIGATOR_ARG_FRAGMENT, TvDetailFragment.newInstance(model.id.toString())),
+                        Pair(NAVIGATOR_ARG_TAG, adapter.fragmentTag)))
             }
         }
     }
