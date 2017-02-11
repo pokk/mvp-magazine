@@ -27,7 +27,7 @@ class ActressMainPresenter(val castCase: CastLists):
             AppLog.e(it.message)
             AppLog.e(it)
         }.onNext {
-            view.obtainCastBriefList(it.results ?: Collections.emptyList())
+            view.showCastBriefList(it.results ?: Collections.emptyList())
         })
     }
 }

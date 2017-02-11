@@ -26,7 +26,7 @@ class TvListPresenter constructor(val tvCase: TvLists): BasePresenter<TvListCont
             AppLog.e(it.message)
             AppLog.e(it)
         }.onNext {
-            view.obtainTvBriefList(it)
+            view.showTvBriefList(it)
         })
     }
 }

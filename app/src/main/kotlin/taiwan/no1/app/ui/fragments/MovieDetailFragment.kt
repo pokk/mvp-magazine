@@ -14,22 +14,17 @@ import android.widget.TextView
 import butterknife.bindView
 import taiwan.no1.app.App
 import taiwan.no1.app.R
-import taiwan.no1.app.api.config.MovieDBConfig
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.contracts.MovieDetailContract
-import taiwan.no1.app.mvp.models.IVisitable
-import taiwan.no1.app.mvp.models.MovieDetailModel
+import taiwan.no1.app.mvp.models.*
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.adapter.DropMoviePagerAdapter
 import taiwan.no1.app.ui.adapter.itemdecorator.MovieHorizontalItemDecorator
 import taiwan.no1.app.ui.customize.StarScoreView
-import taiwan.no1.app.utilies.AppLog
 import taiwan.no1.app.utilies.ImageLoader.IImageLoader
-import taiwan.no1.app.utilies.TimeUtils
 import javax.inject.Inject
-import kotlin.comparisons.compareBy
 
 
 /**
@@ -98,7 +93,6 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     //endregion
 
     //region Local variables
-    private var movieDetail: MovieDetailModel? = null
     // Get the arguments from the bundle here.
     private val argMovieId: String by lazy { this.arguments.getString(ARG_PARAM_MOVIE_ID) }
     private val argFromFragment: Int by lazy { this.arguments.getInt(ARG_PARAM_FROM_ID) }
@@ -162,69 +156,52 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     //endregion
 
     //region View implementations
-    override fun showMovieDetail(movieDetailModel: MovieDetailModel) {
-        // TODO: 1/8/17 Here may happen memory leak!? We need to use deep copy.
-        this.movieDetail = movieDetailModel
+    override fun showMoviePosters(backdrops: List<ImageInfoModel>, posters: List<ImageInfoModel>) {
+        this.vpDropPoster.adapter =
+                DropMoviePagerAdapter(this.context, backdrops, posters, ivMoviePoster, argFromFragment)
+    }
 
-        AppLog.w(movieDetailModel.id)
-        this.vpDropPoster.adapter = movieDetailModel.images?.let {
-            if (null != it.backdrops && null != it.posters)
-                DropMoviePagerAdapter(this.context,
-                        it.backdrops,
-                        it.posters.filter { "en" == it.iso_639_1 },
-                        ivMoviePoster,
-                        argFromFragment)
-            else
-                null
-        }
-        this.imageLoader.display(MovieDBConfig.BASE_IMAGE_URL + movieDetailModel.poster_path, this.ivMoviePoster)
-        this.tvReleaseDate.setBackgroundColor(Color.TRANSPARENT)
-        this.tvReleaseDate.text = movieDetailModel.release_date
+    override fun showMovieCover(posterUri: String) {
+        this.imageLoader.display(posterUri, this.ivMoviePoster)
+    }
+
+    override fun showMovieBase(movieTitle: String, releaseDate: String, runtime: String, score: Double) {
         this.tvTitle.setBackgroundColor(Color.TRANSPARENT)
-        this.tvTitle.text = movieDetailModel.title
-        TimeUtils.number2Time(movieDetailModel.runtime.toDouble(), TimeUtils.TimeType.Min).let {
-            this.tvTime.text = "  ${it.hours} h ${it.mins} m"
-        }
-        this.ssvStarRate.score = movieDetailModel.vote_average / 2
+        this.tvTitle.text = movieTitle
+        this.tvReleaseDate.setBackgroundColor(Color.TRANSPARENT)
+        this.tvReleaseDate.text = releaseDate
+        this.tvTime.text = runtime
+        this.ssvStarRate.score = score
+    }
 
+    override fun showMovieDetail(overview: String, status: String, languages: String, productions: String) {
         // Inflate the introduction section.
         this.showViewStub(this.stubIntro, {
-            this.tvOverview.text = movieDetailModel.overview
-            this.tvStatus.text = movieDetailModel.status
-            this.tvLanguage.text = movieDetailModel.original_language
-            movieDetailModel.production_countries?.let {
-                this.tvProduction.text = it.flatMap { listOf(it.name) }.joinToString("")
-            }
+            this.tvOverview.text = overview
+            this.tvStatus.text = status
+            this.tvLanguage.text = languages
+            this.tvProduction.text = productions
         })
+    }
 
+    override fun showMovieCasts(casts: List<MovieCastsModel.CastBean>) {
         // Inflate the cast section.
-        this.showViewStub(this.stubCasts, {
-            movieDetailModel.casts?.cast?.let {
-                this.showCardItems(this.rvCasts,
-                        it.filter { null != it.profile_path })
-            }
-        })
+        this.showViewStub(this.stubCasts, { this.showCardItems(this.rvCasts, casts) })
+    }
 
+    override fun showMovieCrews(crews: List<MovieCastsModel.CrewBean>) {
         // Inflate the crew section.
-        this.showViewStub(this.stubCrews, {
-            movieDetailModel.casts?.crew?.let {
-                this.showCardItems(this.rvCrews, it.filter { null != it.profile_path })
-            }
-        })
+        this.showViewStub(this.stubCrews, { this.showCardItems(this.rvCrews, crews) })
+    }
 
+    override fun showRelatedMovies(relatedMovies: List<MovieBriefModel>) {
         // Inflate the related movieList section.
-        this.showViewStub(this.stubRelated, {
-            movieDetailModel.similar?.movieBriefModel?.let {
-                this.showCardItems(this.rvRelated, it.map {
-                    it.apply { it.isMainView = false }
-                }.sortedWith(compareBy({ it.release_date })).reversed())
-            }
-        })
+        this.showViewStub(this.stubRelated, { this.showCardItems(this.rvRelated, relatedMovies) })
+    }
 
+    override fun showMovieTrailers(trailers: List<MovieVideosModel>) {
         // Inflate the trailer movieList section.
-        this.showViewStub(this.stubTrailer, {
-            movieDetailModel.videos?.results?.let { this.showCardItems(this.rvTrailer, it) }
-        })
+        this.showViewStub(this.stubTrailer, { this.showCardItems(this.rvTrailer, trailers) })
     }
     //endregion
 

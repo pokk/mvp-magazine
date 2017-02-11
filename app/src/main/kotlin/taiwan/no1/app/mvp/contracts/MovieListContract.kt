@@ -19,6 +19,6 @@ interface MovieListContract {
     }
 
     interface View: IView, IFragmentView {
-        fun obtainMovieBriefList(movieList: List<MovieBriefModel>)
+        fun showMovieBriefList(movieList: List<MovieBriefModel>)
     }
 }

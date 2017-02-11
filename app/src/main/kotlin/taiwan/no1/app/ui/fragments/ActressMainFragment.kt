@@ -145,7 +145,7 @@ class ActressMainFragment: BaseFragment(), ActressMainContract.View, IMainFragme
     override fun getCurrentDisplayFragment(): Fragment = this
 
     //region View implementations
-    override fun obtainCastBriefList(castList: List<CastListResModel.CastBriefBean>) {
+    override fun showCastBriefList(castList: List<CastListResModel.CastBriefBean>) {
         this.castList = ArrayList(if (null == this.castList || this.castList!!.isEmpty())
             castList
         else

@@ -195,7 +195,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
     }
 
     //region View implementation
-    override fun setBlurBackground(image: Bitmap) {
+    override fun showBlurBackground(image: Bitmap) {
         Blurry.with(this.context).radius(20).sampling(4).async({
             isBackground.setImageDrawable(it as Drawable)
         })./* Here are redundant code, but it won't work without them. */from(image).into(iv_hidden)

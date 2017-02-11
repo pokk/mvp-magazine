@@ -30,7 +30,7 @@ class MovieListPresenter constructor(val moviesCase: MovieLists):
             AppLog.e(it.message)
             AppLog.e(it)
         }.onNext {
-            view.obtainMovieBriefList(it)
+            view.showMovieBriefList(it)
         })
     }
 }

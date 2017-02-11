@@ -19,5 +19,10 @@ interface CastDetailContract {
 
     interface View: IView, IFragmentView {
         fun showCastDetail(castDetailModel: CastDetailModel)
+//        fun showCastPosters()
+//        fun showCastProPic()
+//        fun showCastBase(job: String, name: String)
+//        fun showCastDetail(bio: String, birthday: String, bron: String, homepage: String, deathday: String)
+//        fun showRelatedMovie()
     }
 }

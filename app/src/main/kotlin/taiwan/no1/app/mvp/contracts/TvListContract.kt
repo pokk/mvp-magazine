@@ -20,6 +20,6 @@ interface TvListContract {
     }
 
     interface View: IView, IFragmentView {
-        fun obtainTvBriefList(tvList: List<TvBriefModel>)
+        fun showTvBriefList(tvList: List<TvBriefModel>)
     }
 }
