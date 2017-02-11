@@ -2,8 +2,6 @@ package taiwan.no1.app.data.entities;
 
 import java.util.List;
 
-import taiwan.no1.app.mvp.models.TvDetailModel;
-
 /**
  * Created by weian on 2017/1/11.
  */
@@ -31,14 +29,16 @@ public class TVDetailEntity {
     private MovieDetailEntity.VideosBean videos;
     private MovieImagesEntity images;
     private MovieListResEntity similar;
+    private CreditsEntity credits;
     private List<CreatedByBean> created_by;
     private List<Integer> episode_run_time;
-    private List<TvDetailModel.GenresBean> genres;
+    private List<MovieDetailEntity.GenresBean> genres;
     private List<String> languages;
-    private List<TvDetailModel.NetworksBean> networks;
+    // TODO: 2/12/17 New a class for networks.
+    private List<MovieDetailEntity.GenresBean> networks;
     private List<String> origin_country;
-    private List<TvDetailModel.ProductionCompaniesBean> production_companies;
-    private List<TvDetailModel.SeasonsBean> seasons;
+    private List<MovieDetailEntity.ProductionCompaniesBean> production_companies;
+    private List<TVDetailEntity.SeasonsBean> seasons;
 
     public String getBackdrop_path() {
         return backdrop_path;
@@ -224,11 +224,11 @@ public class TVDetailEntity {
         this.episode_run_time = episode_run_time;
     }
 
-    public List<TvDetailModel.GenresBean> getGenres() {
+    public List<MovieDetailEntity.GenresBean> getGenres() {
         return genres;
     }
 
-    public void setGenres(List<TvDetailModel.GenresBean> genres) {
+    public void setGenres(List<MovieDetailEntity.GenresBean> genres) {
         this.genres = genres;
     }
 
@@ -240,11 +240,11 @@ public class TVDetailEntity {
         this.languages = languages;
     }
 
-    public List<TvDetailModel.NetworksBean> getNetworks() {
+    public List<MovieDetailEntity.GenresBean> getNetworks() {
         return networks;
     }
 
-    public void setNetworks(List<TvDetailModel.NetworksBean> networks) {
+    public void setNetworks(List<MovieDetailEntity.GenresBean> networks) {
         this.networks = networks;
     }
 
@@ -256,29 +256,31 @@ public class TVDetailEntity {
         this.origin_country = origin_country;
     }
 
-    public List<TvDetailModel.ProductionCompaniesBean> getProduction_companies() {
+    public List<MovieDetailEntity.ProductionCompaniesBean> getProduction_companies() {
         return production_companies;
     }
 
-    public void setProduction_companies(List<TvDetailModel.ProductionCompaniesBean> production_companies) {
+    public void setProduction_companies(List<MovieDetailEntity.ProductionCompaniesBean> production_companies) {
         this.production_companies = production_companies;
     }
 
-    public List<TvDetailModel.SeasonsBean> getSeasons() {
+    public List<TVDetailEntity.SeasonsBean> getSeasons() {
         return seasons;
     }
 
-    public void setSeasons(List<TvDetailModel.SeasonsBean> seasons) {
+    public void setSeasons(List<TVDetailEntity.SeasonsBean> seasons) {
         this.seasons = seasons;
     }
 
-    public static class CreatedByBean {
-        /**
-         * id : 37631
-         * name : Michael Hirst
-         * profile_path : /pV1GW5TiYgkjaXF4ZdRZHXwmh5W.jpg
-         */
+    public CreditsEntity getCredits() {
+        return credits;
+    }
 
+    public void setCredits(CreditsEntity credits) {
+        this.credits = credits;
+    }
+
+    public static class CreatedByBean {
         private int id;
         private String name;
         private String profile_path;
@@ -305,6 +307,54 @@ public class TVDetailEntity {
 
         public void setProfile_path(String profile_path) {
             this.profile_path = profile_path;
+        }
+    }
+
+    public static class SeasonsBean {
+        private int id;
+        private int episode_count;
+        private int season_number;
+        private String air_date;
+        private String poster_path;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public int getEpisode_count() {
+            return episode_count;
+        }
+
+        public void setEpisode_count(int episode_count) {
+            this.episode_count = episode_count;
+        }
+
+        public int getSeason_number() {
+            return season_number;
+        }
+
+        public void setSeason_number(int season_number) {
+            this.season_number = season_number;
+        }
+
+        public String getAir_date() {
+            return air_date;
+        }
+
+        public void setAir_date(String air_date) {
+            this.air_date = air_date;
+        }
+
+        public String getPoster_path() {
+            return poster_path;
+        }
+
+        public void setPoster_path(String poster_path) {
+            this.poster_path = poster_path;
         }
     }
 }
