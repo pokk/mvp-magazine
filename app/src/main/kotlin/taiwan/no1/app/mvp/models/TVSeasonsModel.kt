@@ -27,7 +27,7 @@ data class TVSeasonsModel(val _id: String? = null,
                             val vote_average: Double = 0.toDouble(),
                             val vote_count: Int = 0,
                             val crew: List<MovieCastsModel.CrewBean>? = null,
-                            val guest_stars: List<TestEpisodesModel.GuestStarsBean>? = null): Parcelable {
+                            val guest_stars: List<TvEpisodesModel.GuestStarsBean>? = null): Parcelable {
         //region Parcelable
         companion object {
             @JvmField val CREATOR: Parcelable.Creator<EpisodesBean> = object: Parcelable.Creator<EpisodesBean> {
@@ -48,8 +48,8 @@ data class TVSeasonsModel(val _id: String? = null,
                 source.readInt(),
                 ArrayList<MovieCastsModel.CrewBean>().apply
                 { source.readList(this, CreditsModel.CrewBean::class.java.classLoader) },
-                ArrayList<TestEpisodesModel.GuestStarsBean>().apply
-                { source.readList(this, TestEpisodesModel.GuestStarsBean::class.java.classLoader) })
+                ArrayList<TvEpisodesModel.GuestStarsBean>().apply
+                { source.readList(this, TvEpisodesModel.GuestStarsBean::class.java.classLoader) })
 
         override fun describeContents() = 0
 
