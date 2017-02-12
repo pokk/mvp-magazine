@@ -138,7 +138,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
      * @param savedInstanceState the previous fragment data status after the system calls [onPause].
      */
     override fun init(savedInstanceState: Bundle?) {
-        // FIXED: 2/1/17 Used [ImageSwitcher] to fix the animation changing of the backgrounds.
+        // FIXED: 2/1/17 Used [ImageSwitcher] to fix the animation changing of the backgrounds smoothly.
         this.isBackground.apply {
             // Create the inner image view by factory pattern.
             this.setFactory {
@@ -153,8 +153,6 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
             this.outAnimation = AnimationUtils.loadAnimation(MovieGalleryFragment@ this.context,
                     android.R.anim.fade_out)
         }
-        // TODO: 2/12/17 Set the aspect ratio in the right timing.
-//        this.presenter.updateISAspectRatio(this.isBackground.width.toDouble() / this.isBackground.height.toDouble())
         this.presenter.updatePosters(this.argMovieImages)
         this.presenter.updatePageOfNumber()
     }
@@ -165,7 +163,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
             this.adapter = HorizontalPagerAdapter(this.context, false, moviePosters)
             // Set the current blur image in viewpager's background.
             // FIXED: 2/1/17 Sometimes the page's been selected but the present item is still not changed.
-            // So I'm using finding the item's specific tag to fix it.
+            // FIXED: So I'm using finding the item's specific tag to fix it.
             this.pageSelections().subscribe { this@MovieGalleryFragment.presenter.attachBackgroundFrom(this) }
         }
     }
@@ -189,10 +187,10 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
      */
     @Subscribe(tags = arrayOf(Tag(RxbusTag.FRAGMENT_FINISHED_FIRST_IMG)))
     fun finishedFirstLoadImg(msg: String) {
+        this.presenter.updateISAspectRatio(this.isBackground.width.toDouble() / this.isBackground.height.toDouble())
         this.presenter.updateIsFirstImg(true)
-        this.presenter.resizeImageToFitBackground(
-                Bitmap.createBitmap(this.presenter.extractBitmap(this.presenter.findViewPagerItem(this.hicvpGallery,
-                        this.hicvpGallery.realItem), this.hicvpGallery.realItem)))
+        this.presenter.resizeImageToFitBackground(Bitmap.createBitmap(this.presenter.extractBitmap(this.hicvpGallery,
+                this.hicvpGallery.realItem)))
     }
 
     /**

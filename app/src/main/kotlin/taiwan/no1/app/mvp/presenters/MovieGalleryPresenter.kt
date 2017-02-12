@@ -21,6 +21,7 @@ class MovieGalleryPresenter: BasePresenter<MovieGalleryContract.View>(), MovieGa
     private var oldAdapterItemIndex: Int = 0
     private var moviePostersInfo: List<ImageInfoModel> = emptyList()
     private var isFirstImageFinished: Boolean = false
+
     //region Presenter implementation
     override fun init(view: MovieGalleryContract.View) {
         super.init(view)
@@ -54,12 +55,13 @@ class MovieGalleryPresenter: BasePresenter<MovieGalleryContract.View>(), MovieGa
 
     override fun attachBackgroundFrom(hicvp: HorizontalInfiniteCycleViewPager) {
         if (this.isFirstImageFinished) {
-            val presentItem: Bitmap? = this.extractBitmap(this.findViewPagerItem(hicvp, hicvp.realItem), hicvp.realItem)
+            val presentItem: Bitmap? = this.extractBitmap(hicvp, hicvp.realItem)
+
             if (null == presentItem) {
-                // TODO: 2017/02/10 ##### There might have a better way to fix this problem.
-                // FIXED: 2017/02/10 Fixed way as below... Scroll -> attachBgd(Fragment) -> (img is null) ->
-                // FIXED: Notify(PagerAdapter) -> Finished loading -> attachBgd(Fragment) again.
-                (hicvp.adapter as HorizontalPagerAdapter).notifyNotLoadYet = true
+                // FIXED: 2017/02/10 Fixed way as below... Scroll -> attachBgd(Presenter) -> [if (img is null)] ->
+                // FIXED: Notify(PagerAdapter) -> Finished loading -> attachBgd(Presenter) again.
+                // Notify to the adapter.
+                (hicvp.adapter as HorizontalPagerAdapter).notifyNotFinishLoadingYet = true
             }
             else {
                 this.updatePageOfNumber(hicvp.realItem)
@@ -69,14 +71,20 @@ class MovieGalleryPresenter: BasePresenter<MovieGalleryContract.View>(), MovieGa
         }
     }
 
-    // TODO: 2/12/17 Need to modify this two method for presenter or view.
+    // FIXED: 2017/02/10 Changed the Glide listener to BitmapImageViewTarget then we can check the drawable type as well.
+    override fun extractBitmap(hicvp: HorizontalInfiniteCycleViewPager, index: Int): Bitmap? =
+            ((this.findViewPagerItem(hicvp, index)?.
+                    findViewById(R.id.img_item) as ImageView).drawable as? BitmapDrawable)?.bitmap
+    //endregion
+
     /**
-     * Search the specific view item from the [HorizontalInfiniteCycleViewPager].
+     * Search the specific [View] item from the [HorizontalInfiniteCycleViewPager] by view pager's index.
      *
+     * @param hicvp [HorizontalInfiniteCycleViewPager]
      * @param index index.
      * @return [View]
      */
-    override fun findViewPagerItem(hicvp: HorizontalInfiniteCycleViewPager, index: Int): View? {
+    private fun findViewPagerItem(hicvp: HorizontalInfiniteCycleViewPager, index: Int): View? {
         (0..hicvp.childCount - 1).forEach {
             if (index == hicvp.getChildAt(it).tag)
                 return hicvp.getChildAt(it)
@@ -84,9 +92,4 @@ class MovieGalleryPresenter: BasePresenter<MovieGalleryContract.View>(), MovieGa
 
         return null
     }
-
-    // FIXED: 2017/02/10 Changed the Glide listener to BitmapImageViewTarget then we can check the drawable type as well.
-    override fun extractBitmap(view: View?, index: Int): Bitmap? =
-            ((view?.findViewById(R.id.img_item) as ImageView).drawable as? BitmapDrawable)?.bitmap
-    //endregion
 }

@@ -27,8 +27,10 @@ class HorizontalPagerAdapter(val context: Context,
                              val isTwoWay: Boolean,
                              val imageLists: List<ImageInfoModel>): PagerAdapter() {
     private val layoutInflater: LayoutInflater by lazy { LayoutInflater.from(this.context) }
-    private var isLoaded: Boolean = false
-    var notifyNotLoadYet: Boolean = false
+    // Checking the first photo is finished loading flag.
+    private var isFirstLoaded: Boolean = false
+    // The flag of that after scrolling, checking the present view's image is finished loading.
+    var notifyNotFinishLoadingYet: Boolean = false
         set(value) {
             field = value
         }
@@ -65,14 +67,14 @@ class HorizontalPagerAdapter(val context: Context,
                     override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
                         super.onResourceReady(resource, glideAnimation)
                         // FIXED: 2017/02/10 It won't crash after switched to other photos.
-                        if (notifyNotLoadYet) {
+                        if (notifyNotFinishLoadingYet) {
                             RxBus.get().post(RxbusTag.FRAGMENT_FINISHED_LOADING_IMG, position.toString())
-                            notifyNotLoadYet = false
+                            notifyNotFinishLoadingYet = false
                         }
                         // Notify once when entry this view.
-                        if (0 == position && !isLoaded) {
+                        if (0 == position && !isFirstLoaded) {
                             RxBus.get().post(RxbusTag.FRAGMENT_FINISHED_FIRST_IMG, position.toString())
-                            isLoaded = true
+                            isFirstLoaded = true
                         }
                     }
                 }

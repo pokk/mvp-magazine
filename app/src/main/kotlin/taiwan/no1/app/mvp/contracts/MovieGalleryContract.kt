@@ -24,8 +24,7 @@ interface MovieGalleryContract {
         fun updatePageOfNumber(currentNum: Int = 0)
         fun resizeImageToFitBackground(image: Bitmap)
         fun attachBackgroundFrom(hicvp: HorizontalInfiniteCycleViewPager)
-        fun findViewPagerItem(hicvp: HorizontalInfiniteCycleViewPager, index: Int): android.view.View?
-        fun extractBitmap(view: android.view.View?, index: Int): Bitmap?
+        fun extractBitmap(hicvp: HorizontalInfiniteCycleViewPager, index: Int): Bitmap?
     }
 
     interface View: IView, IFragmentView {
