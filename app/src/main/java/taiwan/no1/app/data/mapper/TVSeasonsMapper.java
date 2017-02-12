@@ -11,17 +11,17 @@ import javax.inject.Singleton;
 
 import taiwan.no1.app.data.entities.TVSeasonsEntity;
 import taiwan.no1.app.domain.mapper.IBeanMapper;
-import taiwan.no1.app.mvp.models.TVSeasonsModel;
+import taiwan.no1.app.mvp.models.TrstSeasonsModel;
 
 /**
- * Mapper class used to transform between {@link TVSeasonsModel} (in the kotlin layer) and {@link TVSeasonsEntity}
+ * Mapper class used to transform between {@link TrstSeasonsModel} (in the kotlin layer) and {@link TVSeasonsEntity}
  * (in the data layer).
  * <p>
  * Created by weian on 2017/1/21.
  */
 
 @Singleton
-public class TVSeasonsMapper implements IBeanMapper<TVSeasonsModel, TVSeasonsEntity> {
+public class TVSeasonsMapper implements IBeanMapper<TrstSeasonsModel, TVSeasonsEntity> {
     @Inject
     public TVSeasonsMapper() {
     }
@@ -32,7 +32,7 @@ public class TVSeasonsMapper implements IBeanMapper<TVSeasonsModel, TVSeasonsEnt
     @NonNull
     @Override
     @Deprecated
-    public TVSeasonsEntity transformFrom(@NonNull TVSeasonsModel model) {
+    public TVSeasonsEntity transformFrom(@NonNull TrstSeasonsModel model) {
         return null;
     }
 
@@ -41,18 +41,18 @@ public class TVSeasonsMapper implements IBeanMapper<TVSeasonsModel, TVSeasonsEnt
      */
     @NonNull
     @Override
-    public TVSeasonsModel transformTo(@NonNull TVSeasonsEntity entity) {
-        List<TVSeasonsModel.EpisodesBean> tvEpisodesBean = Queryable.from(entity.getEpisodes())
-                                                                    .map(data -> new TVSeasonsModel.EpisodesBean())
-                                                                    .toList();
+    public TrstSeasonsModel transformTo(@NonNull TVSeasonsEntity entity) {
+        List<TrstSeasonsModel.EpisodesBean> tvEpisodesBean = Queryable.from(entity.getEpisodes())
+                                                                      .map(data -> new TrstSeasonsModel.EpisodesBean())
+                                                                      .toList();
 
-        return new TVSeasonsModel(entity.get_id(),
-                                  entity.getAir_date(),
-                                  entity.getName(),
-                                  entity.getOverview(),
-                                  entity.getId(),
-                                  entity.getPoster_path(),
-                                  entity.getSeason_number(),
-                                  tvEpisodesBean);
+        return new TrstSeasonsModel(entity.get_id(),
+                                    entity.getAir_date(),
+                                    entity.getName(),
+                                    entity.getOverview(),
+                                    entity.getId(),
+                                    entity.getPoster_path(),
+                                    entity.getSeason_number(),
+                                    tvEpisodesBean);
     }
 }
