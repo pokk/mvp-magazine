@@ -8,14 +8,14 @@ import java.util.*
  * Created by weian on 2017/1/21.
  */
 
-data class TrstSeasonsModel(val _id: String? = null,
-                            val air_date: String? = null,
-                            val name: String? = null,
-                            val overview: String? = null,
-                            val id: Int = 0,
-                            val poster_path: String? = null,
-                            val season_number: Int = 0,
-                            val episodes: List<TrstSeasonsModel.EpisodesBean>? = null): Parcelable {
+data class TvSeasonsModel(val _id: String? = null,
+                          val air_date: String? = null,
+                          val name: String? = null,
+                          val overview: String? = null,
+                          val id: Int = 0,
+                          val poster_path: String? = null,
+                          val season_number: Int = 0,
+                          val episodes: List<TvSeasonsModel.EpisodesBean>? = null): Parcelable {
     data class EpisodesBean(val air_date: String? = null,
                             val episode_number: Int = 0,
                             val name: String? = null,
@@ -72,9 +72,9 @@ data class TrstSeasonsModel(val _id: String? = null,
 
     //region Parcelable
     companion object {
-        @JvmField val CREATOR: Parcelable.Creator<TrstSeasonsModel> = object: Parcelable.Creator<TrstSeasonsModel> {
-            override fun createFromParcel(source: Parcel): TrstSeasonsModel = TrstSeasonsModel(source)
-            override fun newArray(size: Int): Array<TrstSeasonsModel?> = arrayOfNulls(size)
+        @JvmField val CREATOR: Parcelable.Creator<TvSeasonsModel> = object: Parcelable.Creator<TvSeasonsModel> {
+            override fun createFromParcel(source: Parcel): TvSeasonsModel = TvSeasonsModel(source)
+            override fun newArray(size: Int): Array<TvSeasonsModel?> = arrayOfNulls(size)
         }
     }
 
