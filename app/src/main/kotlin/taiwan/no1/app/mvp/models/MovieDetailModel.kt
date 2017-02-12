@@ -35,10 +35,10 @@ data class MovieDetailModel(val isAdult: Boolean = false,
                             val images: MovieImagesModel? = null,
                             val similar: MovieListResModel? = null,
                             val casts: MovieCastsModel? = null,
-                            val genres: List<GenresBean>? = null,
-                            val production_companies: List<ProductionCompaniesBean>? = null,
-                            val production_countries: List<ProductionCountriesBean>? = null,
-                            val spoken_languages: List<SpokenLanguagesBean>? = null): Parcelable {
+                            val genres: List<CommonBean.BaseBean>? = null,
+                            val production_companies: List<CommonBean.BaseBean>? = null,
+                            val production_countries: List<CommonBean.CountriesBean>? = null,
+                            val spoken_languages: List<CommonBean.LanguagesBean>? = null): Parcelable {
     data class BelongsToCollectionBean(val id: Int = 0,
                                        val name: String? = null,
                                        val poster_path: String? = null,
@@ -65,96 +65,6 @@ data class MovieDetailModel(val isAdult: Boolean = false,
             dest?.writeString(name)
             dest?.writeString(poster_path)
             dest?.writeString(backdrop_path)
-        }
-        //endregion
-    }
-
-    data class GenresBean(val id: Int = 0,
-                          val name: String? = null): Parcelable {
-        //region Parcelable
-        companion object {
-            @JvmField val CREATOR: Parcelable.Creator<GenresBean> = object: Parcelable.Creator<GenresBean> {
-                override fun createFromParcel(source: Parcel): GenresBean = GenresBean(source)
-                override fun newArray(size: Int): Array<GenresBean?> = arrayOfNulls(size)
-            }
-        }
-
-        constructor(source: Parcel): this(source.readInt(), source.readString())
-
-        override fun describeContents() = 0
-
-        override fun writeToParcel(dest: Parcel?, flags: Int) {
-            dest?.writeInt(id)
-            dest?.writeString(name)
-        }
-        //endregion
-    }
-
-    data class ProductionCompaniesBean(val name: String? = null,
-                                       val id: Int = 0): Parcelable {
-        //region Parcelable
-        companion object {
-            @JvmField val CREATOR: Parcelable.Creator<ProductionCompaniesBean> = object: Parcelable.Creator<ProductionCompaniesBean> {
-                override fun createFromParcel(source: Parcel): ProductionCompaniesBean = ProductionCompaniesBean(
-                        source)
-
-                override fun newArray(size: Int): Array<ProductionCompaniesBean?> = arrayOfNulls(size)
-            }
-        }
-
-        constructor(source: Parcel): this(source.readString(), source.readInt())
-
-        override fun describeContents() = 0
-
-        override fun writeToParcel(dest: Parcel?, flags: Int) {
-            dest?.writeString(name)
-            dest?.writeInt(id)
-        }
-        //endregion
-    }
-
-    data class ProductionCountriesBean(val iso_3166_1: String? = null,
-                                       val name: String? = null): Parcelable {
-        //region Parcelable
-        companion object {
-            @JvmField val CREATOR: Parcelable.Creator<ProductionCountriesBean> = object: Parcelable.Creator<ProductionCountriesBean> {
-                override fun createFromParcel(source: Parcel): ProductionCountriesBean = ProductionCountriesBean(
-                        source)
-
-                override fun newArray(size: Int): Array<ProductionCountriesBean?> = arrayOfNulls(size)
-            }
-        }
-
-        constructor(source: Parcel): this(source.readString(), source.readString())
-
-        override fun describeContents() = 0
-
-        override fun writeToParcel(dest: Parcel?, flags: Int) {
-            dest?.writeString(iso_3166_1)
-            dest?.writeString(name)
-        }
-        //endregion
-    }
-
-    data class SpokenLanguagesBean(val iso_639_1: String? = null,
-                                   val name: String? = null): Parcelable {
-        //region Parcelable
-        companion object {
-            @JvmField val CREATOR: Parcelable.Creator<SpokenLanguagesBean> = object: Parcelable.Creator<SpokenLanguagesBean> {
-                override fun createFromParcel(source: Parcel): SpokenLanguagesBean = SpokenLanguagesBean(
-                        source)
-
-                override fun newArray(size: Int): Array<SpokenLanguagesBean?> = arrayOfNulls(size)
-            }
-        }
-
-        constructor(source: Parcel): this(source.readString(), source.readString())
-
-        override fun describeContents() = 0
-
-        override fun writeToParcel(dest: Parcel?, flags: Int) {
-            dest?.writeString(iso_639_1)
-            dest?.writeString(name)
         }
         //endregion
     }
@@ -213,10 +123,10 @@ data class MovieDetailModel(val isAdult: Boolean = false,
             source.readParcelable<MovieImagesModel?>(MovieImagesModel::class.java.classLoader),
             source.readParcelable<MovieListResModel?>(MovieListResModel::class.java.classLoader),
             source.readParcelable<MovieCastsModel?>(MovieCastsModel::class.java.classLoader),
-            source.createTypedArrayList(GenresBean.CREATOR),
-            source.createTypedArrayList(ProductionCompaniesBean.CREATOR),
-            source.createTypedArrayList(ProductionCountriesBean.CREATOR),
-            source.createTypedArrayList(SpokenLanguagesBean.CREATOR))
+            source.createTypedArrayList(CommonBean.BaseBean.CREATOR),
+            source.createTypedArrayList(CommonBean.BaseBean.CREATOR),
+            source.createTypedArrayList(CommonBean.CountriesBean.CREATOR),
+            source.createTypedArrayList(CommonBean.LanguagesBean.CREATOR))
 
     override fun describeContents() = 0
 
