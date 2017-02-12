@@ -13,17 +13,17 @@ import taiwan.no1.app.data.entities.TVEpisodesEntity;
 import taiwan.no1.app.domain.mapper.IBeanMapper;
 import taiwan.no1.app.mvp.models.MovieDetailModel;
 import taiwan.no1.app.mvp.models.MovieVideosModel;
-import taiwan.no1.app.mvp.models.TVEpisodesModel;
+import taiwan.no1.app.mvp.models.TestEpisodesModel;
 
 /**
- * Mapper class used to transform between {@link TVEpisodesModel} (in the kotlin layer) and {@link TVEpisodesEntity}
+ * Mapper class used to transform between {@link TestEpisodesModel} (in the kotlin layer) and {@link TVEpisodesEntity}
  * (in the data layer).
  * <p>
  * Created by weian on 2017/1/21.
  */
 
 @Singleton
-public class TVEpisodesMapper implements IBeanMapper<TVEpisodesModel, TVEpisodesEntity> {
+public class TVEpisodesMapper implements IBeanMapper<TestEpisodesModel, TVEpisodesEntity> {
     @Inject MovieVideosMapper tvVideosMapper;
 
     @Inject
@@ -36,7 +36,7 @@ public class TVEpisodesMapper implements IBeanMapper<TVEpisodesModel, TVEpisodes
     @NonNull
     @Override
     @Deprecated
-    public TVEpisodesEntity transformFrom(@NonNull TVEpisodesModel model) {
+    public TVEpisodesEntity transformFrom(@NonNull TestEpisodesModel model) {
         return null;
     }
 
@@ -45,20 +45,20 @@ public class TVEpisodesMapper implements IBeanMapper<TVEpisodesModel, TVEpisodes
      */
     @NonNull
     @Override
-    public TVEpisodesModel transformTo(@NonNull TVEpisodesEntity entity) {
+    public TestEpisodesModel transformTo(@NonNull TVEpisodesEntity entity) {
         List<MovieVideosModel> tvMovieVideosModel = Queryable.from(entity.getVideos().getResults())
                                                              .map(this.tvVideosMapper::transformTo)
                                                              .toList();
 
-        return new TVEpisodesModel(entity.getAir_date(),
-                                   entity.getEpisode_number(),
-                                   entity.getName(),
-                                   entity.getOverview(),
-                                   entity.getId(),
-                                   entity.getProduction_code(),
-                                   entity.getSeason_number(),
-                                   entity.getStill_path(),
-                                   entity.getVote_count(),
-                                   new MovieDetailModel.VideosBean(tvMovieVideosModel));
+        return new TestEpisodesModel(entity.getAir_date(),
+                                     entity.getEpisode_number(),
+                                     entity.getName(),
+                                     entity.getOverview(),
+                                     entity.getId(),
+                                     entity.getProduction_code(),
+                                     entity.getSeason_number(),
+                                     entity.getStill_path(),
+                                     entity.getVote_count(),
+                                     new MovieDetailModel.VideosBean(tvMovieVideosModel));
     }
 }

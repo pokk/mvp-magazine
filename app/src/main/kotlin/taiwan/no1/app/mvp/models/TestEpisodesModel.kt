@@ -8,16 +8,16 @@ import java.util.*
 /**
  * Created by weian on 2017/1/21.
  */
-data class TVEpisodesModel(val air_date: String? = null,
-                           val episode_number: Int = 0,
-                           val name: String? = null,
-                           val overview: String? = null,
-                           val id: Int = 0,
-                           val production_code: String? = null,
-                           val season_number: Int = 0,
-                           val still_path: String? = null,
-                           val vote_count: Double = 0.toDouble(),
-                           val videos: MovieDetailModel.VideosBean? = null): Parcelable {
+data class TestEpisodesModel(val air_date: String? = null,
+                             val episode_number: Int = 0,
+                             val name: String? = null,
+                             val overview: String? = null,
+                             val id: Int = 0,
+                             val production_code: String? = null,
+                             val season_number: Int = 0,
+                             val still_path: String? = null,
+                             val vote_count: Double = 0.toDouble(),
+                             val videos: MovieDetailModel.VideosBean? = null): Parcelable {
     data class ImageBean(val stills: List<StillsBean>? = null): Parcelable {
         //region Parcelable
         companion object {
@@ -108,9 +108,9 @@ data class TVEpisodesModel(val air_date: String? = null,
 
     //region Parcelable
     companion object {
-        @JvmField val CREATOR: Parcelable.Creator<TVEpisodesModel> = object: Parcelable.Creator<TVEpisodesModel> {
-            override fun createFromParcel(source: Parcel): TVEpisodesModel = TVEpisodesModel(source)
-            override fun newArray(size: Int): Array<TVEpisodesModel?> = arrayOfNulls(size)
+        @JvmField val CREATOR: Parcelable.Creator<TestEpisodesModel> = object: Parcelable.Creator<TestEpisodesModel> {
+            override fun createFromParcel(source: Parcel): TestEpisodesModel = TestEpisodesModel(source)
+            override fun newArray(size: Int): Array<TestEpisodesModel?> = arrayOfNulls(size)
         }
     }
 
