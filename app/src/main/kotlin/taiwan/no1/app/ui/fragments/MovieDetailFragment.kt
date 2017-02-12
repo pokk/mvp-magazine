@@ -155,7 +155,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     }
     //endregion
 
-    //region View implementations
+    //region Presenter implementations
     override fun showMoviePosters(backdrops: List<ImageInfoModel>, posters: List<ImageInfoModel>) {
         this.vpDropPoster.adapter =
                 DropMoviePagerAdapter(this.context, backdrops, posters, ivMoviePoster, argFromFragment)

@@ -1,13 +1,11 @@
 package taiwan.no1.app.ui.fragments
 
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.transition.TransitionInflater
-import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.FrameLayout
@@ -53,7 +51,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
          *
          * @return A new instance of [fragment] MovieGalleryFragment.
          */
-        fun newInstance(movies: List<ImageInfoModel>? = null):
+        fun newInstance(movies: List<ImageInfoModel>):
                 MovieGalleryFragment = MovieGalleryFragment().apply {
             this.arguments = Bundle().apply {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -61,7 +59,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
                         sharedElementEnterTransition = it.inflateTransition(R.transition.change_image_transform)
                     }
                 }
-                this.putParcelableArray(ARG_PARAM_IMAGES, movies?.toTypedArray())
+                this.putParcelableArray(ARG_PARAM_IMAGES, movies.toTypedArray())
             }
         }
     }
@@ -77,14 +75,9 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
     //endregion
 
     //region Local variables
-    private var isFirstImageFinished: Boolean = false
-
     // Get the arguments from the bundle here.
-    private val argMovieImages: List<ImageInfoModel>? by lazy {
+    private val argMovieImages: List<ImageInfoModel> by lazy {
         this.arguments.getParcelableArray(ARG_PARAM_IMAGES).toList() as List<ImageInfoModel>
-    }
-    private val aspectRatio: Double by lazy {
-        this.isBackground.width.toDouble() / this.isBackground.height.toDouble()
     }
     //endregion
 
@@ -145,8 +138,6 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
      * @param savedInstanceState the previous fragment data status after the system calls [onPause].
      */
     override fun init(savedInstanceState: Bundle?) {
-        val total: Int = this.argMovieImages?.size ?: 0
-
         // FIXED: 2/1/17 Used [ImageSwitcher] to fix the animation changing of the backgrounds.
         this.isBackground.apply {
             // Create the inner image view by factory pattern.
@@ -162,39 +153,29 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
             this.outAnimation = AnimationUtils.loadAnimation(MovieGalleryFragment@ this.context,
                     android.R.anim.fade_out)
         }
-        this.tvNumbers.text = this.setNumberText(total)
+        // TODO: 2/12/17 Set the aspect ratio in the right timing.
+//        this.presenter.updateISAspectRatio(this.isBackground.width.toDouble() / this.isBackground.height.toDouble())
+        this.presenter.updatePosters(this.argMovieImages)
+        this.presenter.updatePageOfNumber()
+    }
+
+    override fun showPosters(moviePosters: List<ImageInfoModel>) {
         this.hicvpGallery.apply {
-            var oldItemIndex: Int = this.currentItem
-            this.adapter = argMovieImages?.let { HorizontalPagerAdapter(this.context, false, it) }
+            this@MovieGalleryFragment.presenter.updateOldItemIndex(this.currentItem)
+            this.adapter = HorizontalPagerAdapter(this.context, false, moviePosters)
             // Set the current blur image in viewpager's background.
             // FIXED: 2/1/17 Sometimes the page's been selected but the present item is still not changed.
             // So I'm using finding the item's specific tag to fix it.
-            this.pageSelections().subscribe { attachBackground() }
+            this.pageSelections().subscribe { this@MovieGalleryFragment.presenter.attachBackgroundFrom(this) }
         }
+    }
+
+    override fun showCurrentNumOfPosters(total: String) {
+        this.tvNumbers.text = total
     }
     //endregion
 
-    fun attachBackground() {
-        val total: Int = this.argMovieImages?.size ?: 0
-        var oldItemIndex: Int = this.hicvpGallery.currentItem
-
-        if (isFirstImageFinished) {
-            val presentItem: Bitmap? = extractBitmapFromItem(this.hicvpGallery.realItem)
-            if (null == presentItem) {
-                // TODO: 2017/02/10 ##### There might have a better way to fix this problem.
-                // FIXED: 2017/02/10 Fixed way as below... Scroll -> attachBgd(Fragment) -> (img is null) ->
-                // FIXED: Notify(PagerAdapter) -> Finished loading -> attachBgd(Fragment) again.
-                (this.hicvpGallery.adapter as HorizontalPagerAdapter).notifyNotLoadYet = true
-            }
-            else {
-                tvNumbers.text = setNumberText(total, this.hicvpGallery.realItem + 1)
-                presenter.resizeImageToFitBackground(aspectRatio, Bitmap.createBitmap(presentItem))
-                oldItemIndex = this.hicvpGallery.currentItem
-            }
-        }
-    }
-
-    //region View implementation
+    //region Presenter implementation
     override fun showBlurBackground(image: Bitmap) {
         Blurry.with(this.context).radius(20).sampling(4).async({
             isBackground.setImageDrawable(it as Drawable)
@@ -208,9 +189,10 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
      */
     @Subscribe(tags = arrayOf(Tag(RxbusTag.FRAGMENT_FINISHED_FIRST_IMG)))
     fun finishedFirstLoadImg(msg: String) {
-        this.isFirstImageFinished = true
-        this.presenter.resizeImageToFitBackground(this.aspectRatio,
-                Bitmap.createBitmap(this.extractBitmapFromItem(hicvpGallery.realItem)))
+        this.presenter.updateIsFirstImg(true)
+        this.presenter.resizeImageToFitBackground(
+                Bitmap.createBitmap(this.presenter.extractBitmap(this.presenter.findViewPagerItem(this.hicvpGallery,
+                        this.hicvpGallery.realItem), this.hicvpGallery.realItem)))
     }
 
     /**
@@ -218,28 +200,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
      */
     @Subscribe(tags = arrayOf(Tag(RxbusTag.FRAGMENT_FINISHED_LOADING_IMG)))
     fun finishedLoadingImage(msg: String) {
-        attachBackground()
+        this.presenter.attachBackgroundFrom(this.hicvpGallery)
     }
     //endregion
-
-    /**
-     * Search the specific view item from the view pager.
-     *
-     * @param index index.
-     * @return [View]
-     */
-    private fun findViewPagerItem(index: Int): View? {
-        (0..this.hicvpGallery.childCount - 1).forEach {
-            if (index == hicvpGallery.getChildAt(it).tag)
-                return hicvpGallery.getChildAt(it)
-        }
-
-        return null
-    }
-
-    // FIXED: 2017/02/10 Changed the Glide listener to BitmapImageViewTarget then we can check the drawable type as well.
-    private fun extractBitmapFromItem(index: Int): Bitmap? =
-            ((findViewPagerItem(index)?.findViewById(R.id.img_item) as ImageView).drawable as? BitmapDrawable)?.bitmap
-
-    private fun setNumberText(totalNumber: Int, currentNumber: Int = 1) = "$currentNumber / $totalNumber"
 }

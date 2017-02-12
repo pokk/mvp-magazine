@@ -8,7 +8,7 @@ import taiwan.no1.app.mvp.contracts.VideoContract
  * @since   1/15/17
  */
 class VideoPresenter: BasePresenter<VideoContract.View>(), VideoContract.Presenter {
-    //region View implementation
+    //region Presenter implementation
     override fun init(view: VideoContract.View) {
         super.init(view)
     }

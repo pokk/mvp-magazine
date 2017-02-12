@@ -152,7 +152,7 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
     }
     //endregion
 
-    //region View implementations
+    //region Presenter implementations
     override fun showMovieBriefList(movieList: List<MovieBriefModel>) {
         this.movieList = ArrayList(if (null == this.movieList || this.movieList!!.isEmpty())
             movieList

@@ -14,7 +14,7 @@ import taiwan.no1.app.utilies.AppLog
 class TvDetailPresenter constructor(val tvDetail: TVDetail):
         BasePresenter<TvDetailContract.View>(), TvDetailContract.Presenter {
 
-    //region View implementation
+    //region Presenter implementation
     override fun init(view: TvDetailContract.View) {
         super.init(view)
     }

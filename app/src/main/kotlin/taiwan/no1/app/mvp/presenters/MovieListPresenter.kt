@@ -16,11 +16,10 @@ import taiwan.no1.app.utilies.AppLog
 class MovieListPresenter constructor(val moviesCase: MovieLists):
         BasePresenter<MovieListContract.View>(), MovieListContract.Presenter {
 
-    //region View implementation
+    //region Presenter implementation
     override fun init(view: MovieListContract.View) {
         super.init(view)
     }
-    //endregion
 
     override fun requestListMovies(category: CloudDataStore.Movies, page: Int) {
         val request = MovieLists.Requests(category, page)
@@ -33,4 +32,5 @@ class MovieListPresenter constructor(val moviesCase: MovieLists):
             view.showMovieBriefList(it)
         })
     }
+    //endregion
 }

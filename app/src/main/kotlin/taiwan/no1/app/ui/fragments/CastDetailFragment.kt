@@ -15,23 +15,17 @@ import android.widget.TextView
 import butterknife.bindView
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.BitmapImageViewTarget
-import com.hwangjr.rxbus.RxBus
 import com.intrusoft.squint.DiagonalView
-import com.touchin.constant.RxbusTag
 import taiwan.no1.app.App
 import taiwan.no1.app.R
-import taiwan.no1.app.api.config.MovieDBConfig
-import taiwan.no1.app.constant.Constant
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.contracts.CastDetailContract
-import taiwan.no1.app.mvp.models.CastDetailModel
+import taiwan.no1.app.mvp.models.CreditsModel
 import taiwan.no1.app.mvp.models.IVisitable
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.adapter.itemdecorator.MovieHorizontalItemDecorator
-import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
-import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_TAG
 import taiwan.no1.app.utilies.ImageLoader.IImageLoader
 import javax.inject.Inject
 
@@ -150,54 +144,49 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
      */
     override fun init(savedInstanceState: Bundle?) {
         this.presenter.requestCastDetail(this.argId.toInt())
+        this.ivDropPoster.setOnClickListener { this.presenter.enterToGallery(this.argFromFragment) }
     }
     //endregion
 
-    //region View implementations
-    override fun showCastDetail(castDetailModel: CastDetailModel) {
-        val imageUrl = castDetailModel.images?.let { it.profiles?.let { if (it.size > 1) it[1].file_path else it[0].file_path } }
+    //region Presenter implementations
+    override fun showCastPoster(posterUri: String) {
+        this.imageLoader.display(posterUri, listener = object: BitmapImageViewTarget(this.ivDropPoster) {
+            override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
+                ivDropPoster.solidColor = Color.TRANSPARENT
+                super.onResourceReady(resource, glideAnimation)
+            }
+        })
+    }
 
-        this.imageLoader.display(MovieDBConfig.BASE_IMAGE_URL + imageUrl,
-                listener = object: BitmapImageViewTarget(this.ivDropPoster) {
-                    override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
-                        ivDropPoster.solidColor = Color.TRANSPARENT
-                        super.onResourceReady(resource, glideAnimation)
-                    }
-                })
-        this.imageLoader.display(MovieDBConfig.BASE_IMAGE_URL + castDetailModel.profile_path,
-                this.ivPersonPoster,
-                isFitCenter = false)
-        this.ivDropPoster.setOnClickListener {
-            RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
-                    Pair(NAVIGATOR_ARG_FRAGMENT,
-                            MovieGalleryFragment.newInstance(castDetailModel.images?.profiles)),
-                    Pair(NAVIGATOR_ARG_TAG, argFromFragment)))
-        }
+    override fun showCastProPic(proPicUri: String) {
+        this.imageLoader.display(proPicUri, this.ivPersonPoster, isFitCenter = false)
+    }
+
+    override fun showCastBase(gender: String, name: String) {
         this.tvJob.apply {
             this.setBackgroundColor(Color.TRANSPARENT)
-            this.text = Constant.Gender.values()[castDetailModel.gender].jobName
+            this.text = gender
         }
         this.tvName.apply {
             this.setBackgroundColor(Color.TRANSPARENT)
-            this.text = castDetailModel.name
+            this.text = name
         }
+    }
 
+    override fun showCastDetail(bio: String, birthday: String, bron: String, homepage: String, deathday: String) {
         // Inflate the introduction section.
         this.showViewStub(this.stubIntro, {
-            this.showInfo(castDetailModel.biography, this.tvBioOfTitle, this.tvBio)
-            this.showInfo(castDetailModel.birthday, this.tvBirthdayOfTitle, this.tvBirthday)
-            this.showInfo(castDetailModel.place_of_birth, this.tvBronOfTitle, this.tvBron)
-            this.showInfo(castDetailModel.homepage, this.tvHomepageOfTitle, this.tvHomepage)
-            this.showInfo(castDetailModel.deathday, this.tvDeathdayOfTitle, this.tvDeathday)
+            this.showInfo(bio, this.tvBioOfTitle, this.tvBio)
+            this.showInfo(birthday, this.tvBirthdayOfTitle, this.tvBirthday)
+            this.showInfo(bron, this.tvBronOfTitle, this.tvBron)
+            this.showInfo(homepage, this.tvHomepageOfTitle, this.tvHomepage)
+            this.showInfo(deathday, this.tvDeathdayOfTitle, this.tvDeathday)
         })
+    }
 
+    override fun showRelatedMovie(casts: List<CreditsModel.CastBean>) {
         // Inflate the related movie section.
-        this.showViewStub(this.stubRelated, {
-            castDetailModel.combined_credits?.cast?.let {
-                this.showCardItems(this.rvRelated, it.filter { it.media_type == "movie" }.
-                        sortedWith(kotlin.comparisons.compareBy({ it.release_date })).reversed())
-            }
-        })
+        this.showViewStub(this.stubRelated, { this.showCardItems(this.rvRelated, casts) })
     }
     //endregion
 
@@ -209,7 +198,7 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
         }
     }
 
-    private fun showInfo(info: String?, title: TextView, content: TextView) {
+    private fun showInfo(info: String, title: TextView, content: TextView) {
         if (info.isNullOrEmpty()) {
             title.visibility = View.GONE
             content.visibility = View.GONE

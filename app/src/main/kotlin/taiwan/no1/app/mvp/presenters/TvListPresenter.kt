@@ -12,11 +12,10 @@ import taiwan.no1.app.utilies.AppLog
  * @since   1/7/17
  */
 class TvListPresenter constructor(val tvCase: TvLists): BasePresenter<TvListContract.View>(), TvListContract.Presenter {
-    //region View implementation
+    //region Presenter implementation
     override fun init(view: TvListContract.View) {
         super.init(view)
     }
-    //endregion
 
     override fun requestListTvs(category: CloudDataStore.Tvs, page: Int) {
         val request = TvLists.Requests(category, page)
@@ -29,4 +28,5 @@ class TvListPresenter constructor(val tvCase: TvLists): BasePresenter<TvListCont
             view.showTvBriefList(it)
         })
     }
+    //endregion
 }

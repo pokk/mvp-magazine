@@ -1,7 +1,14 @@
 package taiwan.no1.app.mvp.presenters
 
 import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.view.View
+import android.widget.ImageView
+import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
+import taiwan.no1.app.R
 import taiwan.no1.app.mvp.contracts.MovieGalleryContract
+import taiwan.no1.app.mvp.models.ImageInfoModel
+import taiwan.no1.app.ui.adapter.HorizontalPagerAdapter
 import taiwan.no1.app.utilies.ViewUtils
 
 /**
@@ -10,13 +17,76 @@ import taiwan.no1.app.utilies.ViewUtils
  * @since   1/1/17
  */
 class MovieGalleryPresenter: BasePresenter<MovieGalleryContract.View>(), MovieGalleryContract.Presenter {
-    //region View implementation
+    private var imageSwitcherRatio: Double = 1.0
+    private var oldAdapterItemIndex: Int = 0
+    private var moviePostersInfo: List<ImageInfoModel> = emptyList()
+    private var isFirstImageFinished: Boolean = false
+    //region Presenter implementation
     override fun init(view: MovieGalleryContract.View) {
         super.init(view)
     }
 
-    override fun resizeImageToFitBackground(aspectRatio: Double, image: Bitmap) {
-        this.view.showBlurBackground(ViewUtils.resizeImageAsRatio(aspectRatio, image))
+    override fun updateISAspectRatio(ratio: Double) {
+        this.imageSwitcherRatio = ratio
     }
+
+    override fun updateIsFirstImg(isFinished: Boolean) {
+        this.isFirstImageFinished = isFinished
+    }
+
+    override fun updateOldItemIndex(oldIndex: Int) {
+        this.oldAdapterItemIndex = oldIndex
+    }
+
+    override fun updatePosters(moviePosters: List<ImageInfoModel>) {
+        // TODO: 2/12/17 Need to do deep-copy.
+        this.moviePostersInfo = moviePosters
+        this.view.showPosters(this.moviePostersInfo)
+    }
+
+    override fun updatePageOfNumber(currentNum: Int) {
+        this.view.showCurrentNumOfPosters("${currentNum + 1} / ${this.moviePostersInfo.size}")
+    }
+
+    override fun resizeImageToFitBackground(image: Bitmap) {
+        this.view.showBlurBackground(ViewUtils.resizeImageAsRatio(this.imageSwitcherRatio, image))
+    }
+
+    override fun attachBackgroundFrom(hicvp: HorizontalInfiniteCycleViewPager) {
+        if (this.isFirstImageFinished) {
+            val presentItem: Bitmap? = this.extractBitmap(this.findViewPagerItem(hicvp, hicvp.realItem), hicvp.realItem)
+            if (null == presentItem) {
+                // TODO: 2017/02/10 ##### There might have a better way to fix this problem.
+                // FIXED: 2017/02/10 Fixed way as below... Scroll -> attachBgd(Fragment) -> (img is null) ->
+                // FIXED: Notify(PagerAdapter) -> Finished loading -> attachBgd(Fragment) again.
+                (hicvp.adapter as HorizontalPagerAdapter).notifyNotLoadYet = true
+            }
+            else {
+                this.updatePageOfNumber(hicvp.realItem)
+                this.resizeImageToFitBackground(Bitmap.createBitmap(presentItem))
+                this.updateOldItemIndex(hicvp.currentItem)
+            }
+        }
+    }
+
+    // TODO: 2/12/17 Need to modify this two method for presenter or view.
+    /**
+     * Search the specific view item from the [HorizontalInfiniteCycleViewPager].
+     *
+     * @param index index.
+     * @return [View]
+     */
+    override fun findViewPagerItem(hicvp: HorizontalInfiniteCycleViewPager, index: Int): View? {
+        (0..hicvp.childCount - 1).forEach {
+            if (index == hicvp.getChildAt(it).tag)
+                return hicvp.getChildAt(it)
+        }
+
+        return null
+    }
+
+    // FIXED: 2017/02/10 Changed the Glide listener to BitmapImageViewTarget then we can check the drawable type as well.
+    override fun extractBitmap(view: View?, index: Int): Bitmap? =
+            ((view?.findViewById(R.id.img_item) as ImageView).drawable as? BitmapDrawable)?.bitmap
     //endregion
 }

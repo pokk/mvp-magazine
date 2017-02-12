@@ -14,11 +14,10 @@ import java.util.*
  */
 class ActressMainPresenter(val castCase: CastLists):
         BasePresenter<ActressMainContract.View>(), ActressMainContract.Presenter {
-    //region View implementation
+    //region Presenter implementation
     override fun init(view: ActressMainContract.View) {
         super.init(view)
     }
-    //endregion
 
     override fun requestListCasts(page: Int) {
         val request = CastLists.Requests(page)
@@ -30,4 +29,5 @@ class ActressMainPresenter(val castCase: CastLists):
             view.showCastBriefList(it.results ?: Collections.emptyList())
         })
     }
+    //endregion
 }

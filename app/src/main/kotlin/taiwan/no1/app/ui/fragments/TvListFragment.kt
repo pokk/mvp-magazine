@@ -142,7 +142,7 @@ class TvListFragment: BaseFragment(), TvListContract.View {
     }
     //endregion
 
-    //region View implementations
+    //region Presenter implementations
     override fun showTvBriefList(tvList: List<TvBriefModel>) {
         this.tvList = ArrayList(if (null == this.tvList || this.tvList!!.isEmpty())
             tvList

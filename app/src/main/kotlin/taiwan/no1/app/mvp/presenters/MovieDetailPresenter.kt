@@ -50,15 +50,15 @@ class MovieDetailPresenter constructor(val movieDetailCase: MovieDetail):
     }
     //endregion
 
-    //region View implementation
+    //region Presenter implementation
     override fun init(view: MovieDetailContract.View) {
         super.init(view)
     }
-    //endregion
 
     override fun requestMovieDetail(movieId: Int) {
         val request = MovieDetail.Requests(movieId)
         request.fragmentLifecycle = this.view.getLifecycle()
         this.movieDetailCase.execute(request, this.movieDetailSub)
     }
+    //endregion
 }

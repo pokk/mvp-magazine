@@ -1,6 +1,6 @@
 package taiwan.no1.app.mvp.contracts
 
-import taiwan.no1.app.mvp.models.CastDetailModel
+import taiwan.no1.app.mvp.models.CreditsModel
 import taiwan.no1.app.mvp.presenters.IPresenter
 import taiwan.no1.app.mvp.views.IFragmentView
 import taiwan.no1.app.mvp.views.IView
@@ -15,14 +15,14 @@ import taiwan.no1.app.mvp.views.IView
 interface CastDetailContract {
     interface Presenter: IPresenter<View> {
         fun requestCastDetail(castId: Int)
+        fun enterToGallery(fromFragment: Int)
     }
 
     interface View: IView, IFragmentView {
-        fun showCastDetail(castDetailModel: CastDetailModel)
-//        fun showCastPosters()
-//        fun showCastProPic()
-//        fun showCastBase(job: String, name: String)
-//        fun showCastDetail(bio: String, birthday: String, bron: String, homepage: String, deathday: String)
-//        fun showRelatedMovie()
+        fun showCastPoster(posterUri: String)
+        fun showCastProPic(proPicUri: String)
+        fun showCastBase(gender: String, name: String)
+        fun showCastDetail(bio: String, birthday: String, bron: String, homepage: String, deathday: String)
+        fun showRelatedMovie(casts: List<CreditsModel.CastBean>)
     }
 }

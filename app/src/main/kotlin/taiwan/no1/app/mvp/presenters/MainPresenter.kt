@@ -11,7 +11,7 @@ import taiwan.no1.app.mvp.contracts.MainContract
 
 @PerActivity
 class MainPresenter: BasePresenter<MainContract.View>(), MainContract.Presenter {
-    //region View implementation
+    //region Presenter implementation
     override fun init(view: MainContract.View) {
         super.init(view)
     }
