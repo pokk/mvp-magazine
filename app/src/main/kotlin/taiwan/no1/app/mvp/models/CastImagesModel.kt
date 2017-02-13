@@ -9,7 +9,7 @@ import android.os.Parcelable
  * @since   1/1/17
  */
 
-data class CastImagesModel(val profiles: List<ImageInfoModel>? = null): Parcelable {
+data class CastImagesModel(val profiles: List<ImageProfileModel>? = null): Parcelable {
     //region Parcelable
     companion object {
         @JvmField val CREATOR: Parcelable.Creator<CastImagesModel> = object: Parcelable.Creator<CastImagesModel> {
@@ -18,7 +18,7 @@ data class CastImagesModel(val profiles: List<ImageInfoModel>? = null): Parcelab
         }
     }
 
-    constructor(source: Parcel): this(source.createTypedArrayList(ImageInfoModel.CREATOR))
+    constructor(source: Parcel): this(source.createTypedArrayList(ImageProfileModel.CREATOR))
 
     override fun describeContents() = 0
 

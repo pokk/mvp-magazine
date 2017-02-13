@@ -2,7 +2,7 @@ package taiwan.no1.app.mvp.contracts
 
 import android.graphics.Bitmap
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
-import taiwan.no1.app.mvp.models.ImageInfoModel
+import taiwan.no1.app.mvp.models.ImageProfileModel
 import taiwan.no1.app.mvp.presenters.IPresenter
 import taiwan.no1.app.mvp.views.IFragmentView
 import taiwan.no1.app.mvp.views.IView
@@ -20,7 +20,7 @@ interface MovieGalleryContract {
         fun updateISAspectRatio(ratio: Double)
         fun updateIsFirstImg(isFinished: Boolean)
         fun updateOldItemIndex(oldIndex: Int)
-        fun updatePosters(moviePosters: List<ImageInfoModel>)
+        fun updatePosters(moviePosters: List<ImageProfileModel>)
         fun updatePageOfNumber(currentNum: Int = 0)
         fun resizeImageToFitBackground(image: Bitmap)
         fun attachBackgroundFrom(hicvp: HorizontalInfiniteCycleViewPager)
@@ -28,7 +28,7 @@ interface MovieGalleryContract {
     }
 
     interface View: IView, IFragmentView {
-        fun showPosters(moviePosters: List<ImageInfoModel>)
+        fun showPosters(moviePosters: List<ImageProfileModel>)
         fun showCurrentNumOfPosters(total: String)
         fun showBlurBackground(image: Bitmap)
     }

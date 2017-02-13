@@ -29,19 +29,19 @@ class ViewTypeFactory: IViewTypeFactory {
     override fun type(movieBriefModel: MovieBriefModel, isMain: Boolean): Int =
             if (isMain) TypeResource.MOVIE_LIST.ordinal else TypeResource.MOVIE_RELATED.ordinal
 
-    override fun type(castBean: MovieCastsModel.CastBean): Int = TypeResource.MOVIE_CAST.ordinal
+    override fun type(castBean: FilmCastsModel.CastBean): Int = TypeResource.MOVIE_CAST.ordinal
 
-    override fun type(crewBean: MovieCastsModel.CrewBean): Int = TypeResource.MOVIE_CREW.ordinal
+    override fun type(crewBean: FilmCastsModel.CrewBean): Int = TypeResource.MOVIE_CREW.ordinal
 
-    override fun type(castBean: CreditsModel.CastBean): Int = TypeResource.CAST.ordinal
+    override fun type(castBean: CreditsInFilmModel.CastInFilmBean): Int = TypeResource.CAST.ordinal
 
-    override fun type(crewBean: CreditsModel.CrewBean): Int = TypeResource.CREW.ordinal
+    override fun type(crewBean: CreditsInFilmModel.CrewInFilmBean): Int = TypeResource.CREW.ordinal
 
-    override fun type(movieVideosModel: MovieVideosModel): Int = TypeResource.MOVIE_VIDEO.ordinal
+    override fun type(movieVideosModel: FilmVideoModel): Int = TypeResource.MOVIE_VIDEO.ordinal
 
     override fun type(tvBriefModel: TvBriefModel): Int = TypeResource.TV_LIST.ordinal
 
-    override fun type(castBriefModel: CastListResModel.CastBriefBean): Int = TypeResource.CAST_LIST.ordinal
+    override fun type(castBriefModel: CastBriefModel): Int = TypeResource.CAST_LIST.ordinal
 
     override fun createViewHolder(type: Int, itemView: View): BaseViewHolder = when (type) {
         TypeResource.MOVIE_LIST.ordinal -> MovieListViewHolder(itemView)

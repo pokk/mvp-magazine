@@ -11,12 +11,12 @@ import javax.inject.Singleton;
 
 import taiwan.no1.app.data.entities.CreditsInFilmEntity;
 import taiwan.no1.app.domain.mapper.IBeanMapper;
-import taiwan.no1.app.mvp.models.CreditsModel;
-import taiwan.no1.app.mvp.models.CreditsModel.CastBean;
-import taiwan.no1.app.mvp.models.CreditsModel.CrewBean;
+import taiwan.no1.app.mvp.models.CreditsInFilmModel;
+import taiwan.no1.app.mvp.models.CreditsInFilmModel.CastInFilmBean;
+import taiwan.no1.app.mvp.models.CreditsInFilmModel.CrewInFilmBean;
 
 /**
- * Mapper class used to transform between {@link CreditsModel} (in the kotlin layer) and {@link CreditsInFilmEntity}
+ * Mapper class used to transform between {@link CreditsInFilmModel} (in the kotlin layer) and {@link CreditsInFilmEntity}
  * (in the data layer).
  * 
  * @author Jieyi
@@ -24,7 +24,7 @@ import taiwan.no1.app.mvp.models.CreditsModel.CrewBean;
  */
 
 @Singleton
-public class CreditsMapper implements IBeanMapper<CreditsModel, CreditsInFilmEntity> {
+public class CreditsMapper implements IBeanMapper<CreditsInFilmModel, CreditsInFilmEntity> {
     @Inject
     public CreditsMapper() {
     }
@@ -35,7 +35,7 @@ public class CreditsMapper implements IBeanMapper<CreditsModel, CreditsInFilmEnt
     @NonNull
     @Override
     @Deprecated
-    public CreditsInFilmEntity transformFrom(@NonNull CreditsModel model) {
+    public CreditsInFilmEntity transformFrom(@NonNull CreditsInFilmModel model) {
         throw new Error("No-op");
     }
 
@@ -44,35 +44,35 @@ public class CreditsMapper implements IBeanMapper<CreditsModel, CreditsInFilmEnt
      */
     @NonNull
     @Override
-    public CreditsModel transformTo(@NonNull CreditsInFilmEntity entity) {
-        List<CastBean> castBeen = Queryable.from(entity.getCast())
-                                           .map(data -> new CreditsModel.CastBean(data.isAdult(),
-                                                                                  data.getCharacter(),
-                                                                                  data.getCredit_id(),
-                                                                                  data.getId(),
-                                                                                  data.getOriginal_title(),
-                                                                                  data.getPoster_path(),
-                                                                                  data.getRelease_date(),
-                                                                                  data.getTitle(),
-                                                                                  data.getMedia_type(),
-                                                                                  data.getEpisode_count(),
-                                                                                  data.getFirst_air_date(),
-                                                                                  data.getName(),
-                                                                                  data.getOriginal_name()))
-                                           .toList();
-        List<CrewBean> crewBeen = Queryable.from(entity.getCrew())
-                                           .map(data -> new CreditsModel.CrewBean(data.isAdult(),
-                                                                                  data.getCredit_id(),
-                                                                                  data.getDepartment(),
-                                                                                  data.getId(),
-                                                                                  data.getJob(),
-                                                                                  data.getOriginal_title(),
-                                                                                  data.getPoster_path(),
-                                                                                  data.getRelease_date(),
-                                                                                  data.getTitle(),
-                                                                                  data.getMedia_type()))
-                                           .toList();
+    public CreditsInFilmModel transformTo(@NonNull CreditsInFilmEntity entity) {
+        List<CastInFilmBean> castBeen = Queryable.from(entity.getCast())
+                                                 .map(data -> new CreditsInFilmModel.CastInFilmBean(data.isAdult(),
+                                                                                                    data.getCharacter(),
+                                                                                                    data.getCredit_id(),
+                                                                                                    data.getId(),
+                                                                                                    data.getOriginal_title(),
+                                                                                                    data.getPoster_path(),
+                                                                                                    data.getRelease_date(),
+                                                                                                    data.getTitle(),
+                                                                                                    data.getMedia_type(),
+                                                                                                    data.getEpisode_count(),
+                                                                                                    data.getFirst_air_date(),
+                                                                                                    data.getName(),
+                                                                                                    data.getOriginal_name()))
+                                                 .toList();
+        List<CrewInFilmBean> crewBeen = Queryable.from(entity.getCrew())
+                                                 .map(data -> new CreditsInFilmModel.CrewInFilmBean(data.isAdult(),
+                                                                                                    data.getCredit_id(),
+                                                                                                    data.getDepartment(),
+                                                                                                    data.getId(),
+                                                                                                    data.getJob(),
+                                                                                                    data.getOriginal_title(),
+                                                                                                    data.getPoster_path(),
+                                                                                                    data.getRelease_date(),
+                                                                                                    data.getTitle(),
+                                                                                                    data.getMedia_type()))
+                                                 .toList();
 
-        return new CreditsModel(castBeen, crewBeen);
+        return new CreditsInFilmModel(castBeen, crewBeen);
     }
 }

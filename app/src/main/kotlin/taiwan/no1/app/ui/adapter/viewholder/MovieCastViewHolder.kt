@@ -9,7 +9,7 @@ import com.hwangjr.rxbus.RxBus
 import com.touchin.constant.RxbusTag
 import taiwan.no1.app.R
 import taiwan.no1.app.api.config.MovieDBConfig
-import taiwan.no1.app.mvp.models.MovieCastsModel
+import taiwan.no1.app.mvp.models.FilmCastsModel
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.fragments.CastDetailFragment
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
@@ -29,7 +29,7 @@ class MovieCastViewHolder(view: View): BaseViewHolder(view) {
     val tvName by bindView<TextView>(R.id.tv_name)
 
     override fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
-        (model as MovieCastsModel.CastBean).let {
+        (model as FilmCastsModel.CastBean).let {
             ViewUtils.loadBitmapToView(this.mContext.applicationContext,
                     MovieDBConfig.BASE_IMAGE_URL + it.profile_path,
                     listener = GlideResizeTargetListener(this.ivCast, this.item))

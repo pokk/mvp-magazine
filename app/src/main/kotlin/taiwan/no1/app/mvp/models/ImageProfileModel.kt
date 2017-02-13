@@ -9,18 +9,18 @@ import android.os.Parcelable
  * @since   1/1/17
  */
 
-data class ImageInfoModel(val aspect_ratio: Double = 0.toDouble(),
-                          val file_path: String? = null,
-                          val height: Int = 0,
-                          val iso_639_1: String? = null,
-                          val vote_average: Double = 0.toDouble(),
-                          val vote_count: Int = 0,
-                          val width: Int = 0): Parcelable {
+data class ImageProfileModel(val aspect_ratio: Double = 0.toDouble(),
+                             val file_path: String? = null,
+                             val height: Int = 0,
+                             val iso_639_1: String? = null,
+                             val vote_average: Double = 0.toDouble(),
+                             val vote_count: Int = 0,
+                             val width: Int = 0): Parcelable {
     //region Parcelable
     companion object {
-        @JvmField val CREATOR: Parcelable.Creator<ImageInfoModel> = object: Parcelable.Creator<ImageInfoModel> {
-            override fun createFromParcel(source: Parcel): ImageInfoModel = ImageInfoModel(source)
-            override fun newArray(size: Int): Array<ImageInfoModel?> = arrayOfNulls(size)
+        @JvmField val CREATOR: Parcelable.Creator<ImageProfileModel> = object: Parcelable.Creator<ImageProfileModel> {
+            override fun createFromParcel(source: Parcel): ImageProfileModel = ImageProfileModel(source)
+            override fun newArray(size: Int): Array<ImageProfileModel?> = arrayOfNulls(size)
         }
     }
 

@@ -9,8 +9,8 @@ import taiwan.no1.app.ui.adapter.viewholder.viewtype.IViewTypeFactory
  * @since 12/29/16
  */
 
-data class MovieCastsModel(val cast: List<CastBean>? = null,
-                           val crew: List<CrewBean>? = null): Parcelable {
+data class FilmCastsModel(val cast: List<CastBean>? = null,
+                          val crew: List<CrewBean>? = null): Parcelable {
     data class CastBean(val cast_id: Int = 0,
                         val character: String? = null,
                         val credit_id: String? = null,
@@ -88,9 +88,9 @@ data class MovieCastsModel(val cast: List<CastBean>? = null,
 
     //region Parcelable
     companion object {
-        @JvmField val CREATOR: Parcelable.Creator<MovieCastsModel> = object: Parcelable.Creator<MovieCastsModel> {
-            override fun createFromParcel(source: Parcel): MovieCastsModel = MovieCastsModel(source)
-            override fun newArray(size: Int): Array<MovieCastsModel?> = arrayOfNulls(size)
+        @JvmField val CREATOR: Parcelable.Creator<FilmCastsModel> = object: Parcelable.Creator<FilmCastsModel> {
+            override fun createFromParcel(source: Parcel): FilmCastsModel = FilmCastsModel(source)
+            override fun newArray(size: Int): Array<FilmCastsModel?> = arrayOfNulls(size)
         }
     }
 

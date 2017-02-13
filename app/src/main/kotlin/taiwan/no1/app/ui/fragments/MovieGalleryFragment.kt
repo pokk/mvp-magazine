@@ -26,7 +26,7 @@ import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.contracts.MovieGalleryContract
-import taiwan.no1.app.mvp.models.ImageInfoModel
+import taiwan.no1.app.mvp.models.ImageProfileModel
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.HorizontalPagerAdapter
 import javax.inject.Inject
@@ -51,7 +51,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
          *
          * @return A new instance of [fragment] MovieGalleryFragment.
          */
-        fun newInstance(movies: List<ImageInfoModel>):
+        fun newInstance(movies: List<ImageProfileModel>):
                 MovieGalleryFragment = MovieGalleryFragment().apply {
             this.arguments = Bundle().apply {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -76,8 +76,8 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
 
     //region Local variables
     // Get the arguments from the bundle here.
-    private val argMovieImages: List<ImageInfoModel> by lazy {
-        this.arguments.getParcelableArray(ARG_PARAM_IMAGES).toList() as List<ImageInfoModel>
+    private val argMovieImages: List<ImageProfileModel> by lazy {
+        this.arguments.getParcelableArray(ARG_PARAM_IMAGES).toList() as List<ImageProfileModel>
     }
     //endregion
 
@@ -157,7 +157,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
         this.presenter.updatePageOfNumber()
     }
 
-    override fun showPosters(moviePosters: List<ImageInfoModel>) {
+    override fun showPosters(moviePosters: List<ImageProfileModel>) {
         this.hicvpGallery.apply {
             this@MovieGalleryFragment.presenter.updateOldItemIndex(this.currentItem)
             this.adapter = HorizontalPagerAdapter(this.context, false, moviePosters)

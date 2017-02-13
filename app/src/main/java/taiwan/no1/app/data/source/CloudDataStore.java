@@ -11,13 +11,14 @@ import javax.inject.Inject;
 import rx.Observable;
 import taiwan.no1.app.R;
 import taiwan.no1.app.api.service.MovieDBService;
+import taiwan.no1.app.data.entities.CastBriefEntity;
 import taiwan.no1.app.data.entities.CastDetailEntity;
-import taiwan.no1.app.data.entities.CastListResEntity;
+import taiwan.no1.app.data.entities.MovieBriefEntity;
 import taiwan.no1.app.data.entities.MovieDetailEntity;
-import taiwan.no1.app.data.entities.MovieListResEntity;
 import taiwan.no1.app.data.entities.MovieListWithDateResEntity;
+import taiwan.no1.app.data.entities.SearchListResEntity;
 import taiwan.no1.app.data.entities.TVDetailEntity;
-import taiwan.no1.app.data.entities.TvListResEntity;
+import taiwan.no1.app.data.entities.TvBriefEntity;
 import taiwan.no1.app.internal.di.components.NetComponent;
 
 /**
@@ -64,7 +65,7 @@ public class CloudDataStore implements IDataStore {
      */
     @Nullable
     @Override
-    public Observable<MovieListResEntity> moviesEntities(final Movies category, final int page) {
+    public Observable<SearchListResEntity<MovieBriefEntity>> moviesEntities(final Movies category, final int page) {
         Map<String, String> query = new ArrayMap<String, String>() {{
             put("api_key", api_key);
             put("page", String.valueOf(page));
@@ -146,7 +147,7 @@ public class CloudDataStore implements IDataStore {
      */
     @Nullable
     @Override
-    public Observable<TvListResEntity> TvsEntities(final Tvs category, final int page) {
+    public Observable<SearchListResEntity<TvBriefEntity>> TvsEntities(final Tvs category, final int page) {
         Map<String, String> query = new ArrayMap<String, String>() {{
             put("api_key", api_key);
             put("page", String.valueOf(page));
@@ -189,7 +190,7 @@ public class CloudDataStore implements IDataStore {
      */
     @Nullable
     @Override
-    public Observable<CastListResEntity> popularCastEntities(final int page) {
+    public Observable<SearchListResEntity<CastBriefEntity>> popularCastEntities(final int page) {
         Map<String, String> query = new ArrayMap<String, String>() {{
             put("api_key", api_key);
             put("page", String.valueOf(page));

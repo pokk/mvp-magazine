@@ -27,10 +27,10 @@ data class TvDetailModel(val backdrop_path: String? = null,
                          val type: String? = null,
                          val vote_average: Double = 0.toDouble(),
                          val vote_count: Int = 0,
-                         val videos: MovieDetailModel.VideosBean? = null,
-                         val images: MovieImagesModel? = null,
+                         val videos: CommonBean.VideosBean? = null,
+                         val images: FilmImagesModel? = null,
                          val similar: MovieListResModel? = null,
-                         val credits: CreditsModel? = null,
+                         val credits: CreditsInFilmModel? = null,
                          val created_by: List<CreatedByBean>? = null,
                          val episode_run_time: List<Int>? = null,
                          val genres: List<GenresBean>? = null,
@@ -158,6 +158,7 @@ data class TvDetailModel(val backdrop_path: String? = null,
         //endregion
     }
 
+    //region Parcelable
     companion object {
         @JvmField val CREATOR: Parcelable.Creator<TvDetailModel> = object: Parcelable.Creator<TvDetailModel> {
             override fun createFromParcel(source: Parcel): TvDetailModel = TvDetailModel(source)
@@ -183,25 +184,16 @@ data class TvDetailModel(val backdrop_path: String? = null,
             source.readString(),
             source.readDouble(),
             source.readInt(),
-            source.readParcelable<MovieDetailModel.VideosBean?>(MovieDetailModel.VideosBean::class.java.classLoader),
-            source.readParcelable<MovieImagesModel?>(MovieImagesModel::class.java.classLoader),
+            source.readParcelable<CommonBean.VideosBean?>(CommonBean.VideosBean::class.java.classLoader),
+            source.readParcelable<FilmImagesModel?>(FilmImagesModel::class.java.classLoader),
             source.readParcelable<MovieListResModel?>(MovieListResModel::class.java.classLoader),
-            source.readParcelable<CreditsModel?>(CreditsModel::class.java.classLoader),
+            source.readParcelable<CreditsInFilmModel?>(CreditsInFilmModel::class.java.classLoader),
             source.createTypedArrayList(CreatedByBean.CREATOR),
-            ArrayList<Int>().apply {
-                source.readList(this,
-                        Int::class.java.classLoader)
-            },
+            ArrayList<Int>().apply { source.readList(this, Int::class.java.classLoader) },
             source.createTypedArrayList(GenresBean.CREATOR),
-            ArrayList<String>().apply {
-                source.readList(this,
-                        String::class.java.classLoader)
-            },
+            ArrayList<String>().apply { source.readList(this, String::class.java.classLoader) },
             source.createTypedArrayList(NetworksBean.CREATOR),
-            ArrayList<String>().apply {
-                source.readList(this,
-                        String::class.java.classLoader)
-            },
+            ArrayList<String>().apply { source.readList(this, String::class.java.classLoader) },
             source.createTypedArrayList(ProductionCompaniesBean.CREATOR),
             source.createTypedArrayList(SeasonsBean.CREATOR))
 
@@ -239,4 +231,5 @@ data class TvDetailModel(val backdrop_path: String? = null,
         dest?.writeTypedList(production_companies)
         dest?.writeTypedList(seasons)
     }
+    //endregion
 }

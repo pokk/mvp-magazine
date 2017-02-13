@@ -7,10 +7,10 @@ import javax.inject.Singleton;
 
 import taiwan.no1.app.data.entities.ImageProfileEntity;
 import taiwan.no1.app.domain.mapper.IBeanMapper;
-import taiwan.no1.app.mvp.models.ImageInfoModel;
+import taiwan.no1.app.mvp.models.ImageProfileModel;
 
 /**
- * Mapper class used to transform between {@link ImageInfoModel} (in the kotlin layer) and {@link ImageProfileEntity}
+ * Mapper class used to transform between {@link ImageProfileModel} (in the kotlin layer) and {@link ImageProfileEntity}
  * (in the data layer).
  * 
  * @author Jieyi
@@ -18,7 +18,7 @@ import taiwan.no1.app.mvp.models.ImageInfoModel;
  */
 
 @Singleton
-public class ImageInfoMapper implements IBeanMapper<ImageInfoModel, ImageProfileEntity> {
+public class ImageInfoMapper implements IBeanMapper<ImageProfileModel, ImageProfileEntity> {
     @Inject
     public ImageInfoMapper() {
     }
@@ -29,7 +29,7 @@ public class ImageInfoMapper implements IBeanMapper<ImageInfoModel, ImageProfile
     @NonNull
     @Override
     @Deprecated
-    public ImageProfileEntity transformFrom(@NonNull ImageInfoModel model) {
+    public ImageProfileEntity transformFrom(@NonNull ImageProfileModel model) {
         throw new Error("No-op");
     }
 
@@ -38,13 +38,13 @@ public class ImageInfoMapper implements IBeanMapper<ImageInfoModel, ImageProfile
      */
     @NonNull
     @Override
-    public ImageInfoModel transformTo(@NonNull ImageProfileEntity entity) {
-        return new ImageInfoModel(entity.getAspect_ratio(),
-                                  entity.getFile_path(),
-                                  entity.getHeight(),
-                                  entity.getIso_639_1(),
-                                  entity.getVote_average(),
-                                  entity.getVote_count(),
-                                  entity.getWidth());
+    public ImageProfileModel transformTo(@NonNull ImageProfileEntity entity) {
+        return new ImageProfileModel(entity.getAspect_ratio(),
+                                     entity.getFile_path(),
+                                     entity.getHeight(),
+                                     entity.getIso_639_1(),
+                                     entity.getVote_average(),
+                                     entity.getVote_count(),
+                                     entity.getWidth());
     }
 }

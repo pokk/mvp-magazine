@@ -9,7 +9,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import taiwan.no1.app.data.entities.TvListResEntity;
 import taiwan.no1.app.domain.mapper.IBeanMapper;
 import taiwan.no1.app.mvp.models.TvBriefModel;
 import taiwan.no1.app.mvp.models.TvListResModel;

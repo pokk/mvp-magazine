@@ -13,9 +13,9 @@ public class TvSeasonDetailEntity extends TvSeasonBriefEntity {
     private String _id;
     private String name;
     private String overview;
-    private test.ImagesBean images;
-    private test.VideosBean videos;
-    private test.CreditsBean credits;
+    private FilmImagesEntity images;
+    private CommonEntity.ResultsListEntity<FilmVideosEntity> videos;
+    private FilmCastsEntity credits;
     private List<TvEpisodeDetailEntity> episodes;
 
     //region Getter and Setter
@@ -43,27 +43,27 @@ public class TvSeasonDetailEntity extends TvSeasonBriefEntity {
         this.overview = overview;
     }
 
-    public test.ImagesBean getImages() {
+    public FilmImagesEntity getImages() {
         return images;
     }
 
-    public void setImages(test.ImagesBean images) {
+    public void setImages(FilmImagesEntity images) {
         this.images = images;
     }
 
-    public test.VideosBean getVideos() {
+    public CommonEntity.ResultsListEntity<FilmVideosEntity> getVideos() {
         return videos;
     }
 
-    public void setVideos(test.VideosBean videos) {
+    public void setVideos(CommonEntity.ResultsListEntity<FilmVideosEntity> videos) {
         this.videos = videos;
     }
 
-    public test.CreditsBean getCredits() {
+    public FilmCastsEntity getCredits() {
         return credits;
     }
 
-    public void setCredits(test.CreditsBean credits) {
+    public void setCredits(FilmCastsEntity credits) {
         this.credits = credits;
     }
 

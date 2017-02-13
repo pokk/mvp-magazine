@@ -13,8 +13,8 @@ import taiwan.no1.app.data.entities.CastDetailEntity;
 import taiwan.no1.app.domain.mapper.IBeanMapper;
 import taiwan.no1.app.mvp.models.CastDetailModel;
 import taiwan.no1.app.mvp.models.CastImagesModel;
-import taiwan.no1.app.mvp.models.CreditsModel;
-import taiwan.no1.app.mvp.models.ImageInfoModel;
+import taiwan.no1.app.mvp.models.CreditsInFilmModel;
+import taiwan.no1.app.mvp.models.ImageProfileModel;
 
 /**
  * Mapper class used to transform between {@link CastDetailModel} (in the kotlin layer) and {@link CastDetailEntity}
@@ -49,10 +49,10 @@ public class CastDetailMapper implements IBeanMapper<CastDetailModel, CastDetail
     @NonNull
     @Override
     public CastDetailModel transformTo(@NonNull CastDetailEntity entity) {
-        List<ImageInfoModel> imageInfoModels = Queryable.from(entity.getImages().getProfiles())
-                                                        .map(this.imageInfoMapper::transformTo)
-                                                        .toList();
-        CreditsModel creditsModels = this.creditsMapper.transformTo(entity.getCombined_credits());
+        List<ImageProfileModel> imageInfoModels = Queryable.from(entity.getImages().getProfiles())
+                                                           .map(this.imageInfoMapper::transformTo)
+                                                           .toList();
+        CreditsInFilmModel creditsModels = this.creditsMapper.transformTo(entity.getCombined_credits());
 
         return new CastDetailModel(entity.isAdult(),
                                    entity.getBiography(),

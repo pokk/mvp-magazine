@@ -6,13 +6,14 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 import rx.Observable;
+import taiwan.no1.app.data.entities.CastBriefEntity;
 import taiwan.no1.app.data.entities.CastDetailEntity;
-import taiwan.no1.app.data.entities.CastListResEntity;
+import taiwan.no1.app.data.entities.MovieBriefEntity;
 import taiwan.no1.app.data.entities.MovieDetailEntity;
-import taiwan.no1.app.data.entities.MovieListResEntity;
 import taiwan.no1.app.data.entities.MovieListWithDateResEntity;
+import taiwan.no1.app.data.entities.SearchListResEntity;
 import taiwan.no1.app.data.entities.TVDetailEntity;
-import taiwan.no1.app.data.entities.TvListResEntity;
+import taiwan.no1.app.data.entities.TvBriefEntity;
 
 /**
  * TmDB http api request interface set by using {@link retrofit2.Retrofit}.
@@ -23,10 +24,10 @@ import taiwan.no1.app.data.entities.TvListResEntity;
 
 public interface MovieDBService {
     @GET("movie/popular")
-    Observable<MovieListResEntity> popularMovieList(@QueryMap Map<String, String> queries);
+    Observable<SearchListResEntity<MovieBriefEntity>> popularMovieList(@QueryMap Map<String, String> queries);
 
     @GET("movie/top_rated")
-    Observable<MovieListResEntity> topRatedMovieList(@QueryMap Map<String, String> queries);
+    Observable<SearchListResEntity<MovieBriefEntity>> topRatedMovieList(@QueryMap Map<String, String> queries);
 
     @GET("movie/now_playing")
     Observable<MovieListWithDateResEntity> nowPlayingMovieList(@QueryMap Map<String, String> queries);
@@ -41,20 +42,20 @@ public interface MovieDBService {
     Observable<CastDetailEntity> castDetail(@Path("id") int id, @QueryMap Map<String, String> queries);
 
     @GET("tv/airing_today")
-    Observable<TvListResEntity> airingTodayTvList(@QueryMap Map<String, String> queries);
+    Observable<SearchListResEntity<TvBriefEntity>> airingTodayTvList(@QueryMap Map<String, String> queries);
 
     @GET("tv/on_the_air")
-    Observable<TvListResEntity> onTheAirTvList(@QueryMap Map<String, String> queries);
+    Observable<SearchListResEntity<TvBriefEntity>> onTheAirTvList(@QueryMap Map<String, String> queries);
 
     @GET("tv/popular")
-    Observable<TvListResEntity> popularTvList(@QueryMap Map<String, String> queries);
+    Observable<SearchListResEntity<TvBriefEntity>> popularTvList(@QueryMap Map<String, String> queries);
 
     @GET("tv/top_rated")
-    Observable<TvListResEntity> topRatedTvList(@QueryMap Map<String, String> queries);
+    Observable<SearchListResEntity<TvBriefEntity>> topRatedTvList(@QueryMap Map<String, String> queries);
 
     @GET("tv/{id}")
     Observable<TVDetailEntity> tvDetail(@Path("id") int id, @QueryMap Map<String, String> queries);
 
     @GET("person/popular")
-    Observable<CastListResEntity> popularCastList(@QueryMap Map<String, String> queries);
+    Observable<SearchListResEntity<CastBriefEntity>> popularCastList(@QueryMap Map<String, String> queries);
 }

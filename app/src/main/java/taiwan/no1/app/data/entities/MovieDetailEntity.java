@@ -33,7 +33,7 @@ public class MovieDetailEntity {
     private int vote_count;
     private CommonEntity.ResultsListEntity<FilmVideosEntity> videos;
     private FilmImagesEntity images;
-    private MovieListResEntity similar;
+    private SearchListResEntity<MovieBriefEntity> similar;
     private FilmCastsEntity casts;
     private List<CommonEntity.BaseBean> genres;
     private List<CommonEntity.BaseBean> production_companies;
@@ -142,11 +142,11 @@ public class MovieDetailEntity {
         this.images = images;
     }
 
-    public MovieListResEntity getSimilar() {
+    public SearchListResEntity<MovieBriefEntity> getSimilar() {
         return this.similar;
     }
 
-    public void setSimilar(MovieListResEntity similar) {
+    public void setSimilar(SearchListResEntity<MovieBriefEntity> similar) {
         this.similar = similar;
     }
 

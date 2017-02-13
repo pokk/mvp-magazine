@@ -23,7 +23,7 @@ data class CastDetailModel(val isAdult: Boolean = false,
                            val profile_path: String? = null,
                            val also_known_as: List<String>? = null,
                            val images: CastImagesModel? = null,
-                           val combined_credits: CreditsModel? = null): Parcelable {
+                           val combined_credits: CreditsInFilmModel? = null): Parcelable {
     //region Parcelable
     companion object {
         @JvmField val CREATOR: Parcelable.Creator<CastDetailModel> = object: Parcelable.Creator<CastDetailModel> {
@@ -48,7 +48,7 @@ data class CastDetailModel(val isAdult: Boolean = false,
                 source.readList(this, String::class.java.classLoader)
             },
             source.readParcelable<CastImagesModel?>(CastImagesModel::class.java.classLoader),
-            source.readParcelable<CreditsModel?>(CreditsModel::class.java.classLoader))
+            source.readParcelable<CreditsInFilmModel?>(CreditsInFilmModel::class.java.classLoader))
 
     override fun describeContents() = 0
 

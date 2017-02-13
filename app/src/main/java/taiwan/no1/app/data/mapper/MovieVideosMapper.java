@@ -7,10 +7,10 @@ import javax.inject.Singleton;
 
 import taiwan.no1.app.data.entities.FilmVideosEntity;
 import taiwan.no1.app.domain.mapper.IBeanMapper;
-import taiwan.no1.app.mvp.models.MovieVideosModel;
+import taiwan.no1.app.mvp.models.FilmVideoModel;
 
 /**
- * Mapper class used to transform between {@link MovieVideosModel} (in the kotlin layer) and {@link FilmVideosEntity}
+ * Mapper class used to transform between {@link FilmVideoModel} (in the kotlin layer) and {@link FilmVideosEntity}
  * (in the data layer).
  * 
  * @author Jieyi
@@ -18,7 +18,7 @@ import taiwan.no1.app.mvp.models.MovieVideosModel;
  */
 
 @Singleton
-public class MovieVideosMapper implements IBeanMapper<MovieVideosModel, FilmVideosEntity> {
+public class MovieVideosMapper implements IBeanMapper<FilmVideoModel, FilmVideosEntity> {
     @Inject
     public MovieVideosMapper() {
     }
@@ -29,7 +29,7 @@ public class MovieVideosMapper implements IBeanMapper<MovieVideosModel, FilmVide
     @NonNull
     @Override
     @Deprecated
-    public FilmVideosEntity transformFrom(@NonNull MovieVideosModel model) {
+    public FilmVideosEntity transformFrom(@NonNull FilmVideoModel model) {
         throw new Error("No-op");
     }
 
@@ -38,14 +38,14 @@ public class MovieVideosMapper implements IBeanMapper<MovieVideosModel, FilmVide
      */
     @NonNull
     @Override
-    public MovieVideosModel transformTo(@NonNull FilmVideosEntity entity) {
-        return new MovieVideosModel(entity.getId(),
-                                    entity.getIso_639_1(),
-                                    entity.getIso_3166_1(),
-                                    entity.getKey(),
-                                    entity.getName(),
-                                    entity.getSite(),
-                                    entity.getSize(),
-                                    entity.getType());
+    public FilmVideoModel transformTo(@NonNull FilmVideosEntity entity) {
+        return new FilmVideoModel(entity.getId(),
+                                  entity.getIso_639_1(),
+                                  entity.getIso_3166_1(),
+                                  entity.getKey(),
+                                  entity.getName(),
+                                  entity.getSite(),
+                                  entity.getSize(),
+                                  entity.getType());
     }
 }

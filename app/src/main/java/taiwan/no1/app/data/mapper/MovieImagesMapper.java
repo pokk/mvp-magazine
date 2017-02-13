@@ -11,11 +11,11 @@ import javax.inject.Singleton;
 
 import taiwan.no1.app.data.entities.FilmImagesEntity;
 import taiwan.no1.app.domain.mapper.IBeanMapper;
-import taiwan.no1.app.mvp.models.ImageInfoModel;
-import taiwan.no1.app.mvp.models.MovieImagesModel;
+import taiwan.no1.app.mvp.models.FilmImagesModel;
+import taiwan.no1.app.mvp.models.ImageProfileModel;
 
 /**
- * Mapper class used to transform between {@link MovieImagesModel} (in the kotlin layer) an {@link FilmImagesEntity}
+ * Mapper class used to transform between {@link FilmImagesModel} (in the kotlin layer) an {@link FilmImagesEntity}
  * (in the data layer).
  * 
  * @author Jieyi
@@ -23,7 +23,7 @@ import taiwan.no1.app.mvp.models.MovieImagesModel;
  */
 
 @Singleton
-public class MovieImagesMapper implements IBeanMapper<MovieImagesModel, FilmImagesEntity> {
+public class MovieImagesMapper implements IBeanMapper<FilmImagesModel, FilmImagesEntity> {
     @Inject ImageInfoMapper imageInfoMapper;
 
     @Inject
@@ -36,7 +36,7 @@ public class MovieImagesMapper implements IBeanMapper<MovieImagesModel, FilmImag
     @NonNull
     @Override
     @Deprecated
-    public FilmImagesEntity transformFrom(@NonNull MovieImagesModel model) {
+    public FilmImagesEntity transformFrom(@NonNull FilmImagesModel model) {
         throw new Error("No-op");
     }
 
@@ -45,9 +45,13 @@ public class MovieImagesMapper implements IBeanMapper<MovieImagesModel, FilmImag
      */
     @NonNull
     @Override
-    public MovieImagesModel transformTo(@NonNull FilmImagesEntity entity) {
-        List<ImageInfoModel> backdrops = Queryable.from(entity.getBackdrops()).map(this.imageInfoMapper::transformTo).toList();
-        List<ImageInfoModel> posters = Queryable.from(entity.getPosters()).map(this.imageInfoMapper::transformTo).toList();
-        return new MovieImagesModel(backdrops, posters);
+    public FilmImagesModel transformTo(@NonNull FilmImagesEntity entity) {
+        List<ImageProfileModel> backdrops = Queryable.from(entity.getBackdrops())
+                                                     .map(this.imageInfoMapper::transformTo)
+                                                     .toList();
+        List<ImageProfileModel> posters = Queryable.from(entity.getPosters())
+                                                   .map(this.imageInfoMapper::transformTo)
+                                                   .toList();
+        return new FilmImagesModel(backdrops, posters);
     }
 }

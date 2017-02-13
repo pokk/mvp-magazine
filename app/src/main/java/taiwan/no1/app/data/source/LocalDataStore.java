@@ -3,13 +3,14 @@ package taiwan.no1.app.data.source;
 import android.support.annotation.Nullable;
 
 import rx.Observable;
+import taiwan.no1.app.data.entities.CastBriefEntity;
 import taiwan.no1.app.data.entities.CastDetailEntity;
-import taiwan.no1.app.data.entities.CastListResEntity;
+import taiwan.no1.app.data.entities.MovieBriefEntity;
 import taiwan.no1.app.data.entities.MovieDetailEntity;
-import taiwan.no1.app.data.entities.MovieListResEntity;
 import taiwan.no1.app.data.entities.MovieListWithDateResEntity;
+import taiwan.no1.app.data.entities.SearchListResEntity;
 import taiwan.no1.app.data.entities.TVDetailEntity;
-import taiwan.no1.app.data.entities.TvListResEntity;
+import taiwan.no1.app.data.entities.TvBriefEntity;
 
 /**
  * @author Jieyi
@@ -20,7 +21,7 @@ public class LocalDataStore implements IDataStore {
     @Nullable
     @Override
     @Deprecated
-    public Observable<MovieListResEntity> moviesEntities(CloudDataStore.Movies category, int page) {
+    public Observable<SearchListResEntity<MovieBriefEntity>> moviesEntities(CloudDataStore.Movies category, int page) {
         throw new Error("No-op");
     }
 
@@ -48,7 +49,7 @@ public class LocalDataStore implements IDataStore {
     @Nullable
     @Override
     @Deprecated
-    public Observable<TvListResEntity> TvsEntities(CloudDataStore.Tvs category, int page) {
+    public Observable<SearchListResEntity<TvBriefEntity>> TvsEntities(CloudDataStore.Tvs category, int page) {
         throw new Error("No-op");
     }
 
@@ -62,7 +63,7 @@ public class LocalDataStore implements IDataStore {
     @Nullable
     @Override
     @Deprecated
-    public Observable<CastListResEntity> popularCastEntities(int page) {
+    public Observable<SearchListResEntity<CastBriefEntity>> popularCastEntities(int page) {
         throw new Error("No-op");
     }
 }

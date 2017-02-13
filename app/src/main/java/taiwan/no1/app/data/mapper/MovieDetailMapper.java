@@ -12,11 +12,11 @@ import javax.inject.Singleton;
 import taiwan.no1.app.data.entities.MovieDetailEntity;
 import taiwan.no1.app.domain.mapper.IBeanMapper;
 import taiwan.no1.app.mvp.models.CommonBean;
-import taiwan.no1.app.mvp.models.MovieCastsModel;
+import taiwan.no1.app.mvp.models.FilmCastsModel;
+import taiwan.no1.app.mvp.models.FilmImagesModel;
+import taiwan.no1.app.mvp.models.FilmVideoModel;
 import taiwan.no1.app.mvp.models.MovieDetailModel;
-import taiwan.no1.app.mvp.models.MovieImagesModel;
 import taiwan.no1.app.mvp.models.MovieListResModel;
-import taiwan.no1.app.mvp.models.MovieVideosModel;
 
 /**
  * Mapper class used to transform between {@link MovieDetailModel} (in the kotlin layer) an {@link MovieDetailEntity}
@@ -71,12 +71,12 @@ public class MovieDetailMapper implements IBeanMapper<MovieDetailModel, MovieDet
                                                                       .map(data -> new CommonBean.LanguagesBean(data.getIso_639_1(),
                                                                                                                 data.getName()))
                                                                       .toList();
-        List<MovieVideosModel> movieVideosModels = Queryable.from(entity.getVideos().getResults())
-                                                            .map(this.movieVideosMapper::transformTo)
-                                                            .toList();
+        List<FilmVideoModel> movieVideosModels = Queryable.from(entity.getVideos().getResults())
+                                                          .map(this.movieVideosMapper::transformTo)
+                                                          .toList();
         MovieListResModel movieListResModel = this.movieListResMapper.transformTo(entity.getSimilar());
-        MovieCastsModel movieCastsModel = this.movieCastsMapper.transformTo(entity.getCasts());
-        MovieImagesModel movieImagesModel = this.movieImagesMapper.transformTo(entity.getImages());
+        FilmCastsModel movieCastsModel = this.movieCastsMapper.transformTo(entity.getCasts());
+        FilmImagesModel movieImagesModel = this.movieImagesMapper.transformTo(entity.getImages());
         MovieDetailModel.BelongsToCollectionBean belongsToCollectionBean = new MovieDetailModel.BelongsToCollectionBean(
                 entity.getBelongs_to_collection().getId(),
                 entity.getBelongs_to_collection().getName(),

@@ -1,6 +1,6 @@
 package taiwan.no1.app.mvp.contracts
 
-import taiwan.no1.app.mvp.models.CreditsModel
+import taiwan.no1.app.mvp.models.CreditsInFilmModel
 import taiwan.no1.app.mvp.presenters.IPresenter
 import taiwan.no1.app.mvp.views.IFragmentView
 import taiwan.no1.app.mvp.views.IView
@@ -23,6 +23,6 @@ interface CastDetailContract {
         fun showCastProPic(proPicUri: String)
         fun showCastBase(gender: String, name: String)
         fun showCastDetail(bio: String, birthday: String, bron: String, homepage: String, deathday: String)
-        fun showRelatedMovie(casts: List<CreditsModel.CastBean>)
+        fun showRelatedMovie(casts: List<CreditsInFilmModel.CastInFilmBean>)
     }
 }

@@ -14,19 +14,19 @@ import taiwan.no1.app.ui.adapter.viewholder.BaseViewHolder
 interface IViewTypeFactory {
     fun type(movieBriefModel: MovieBriefModel, isMain: Boolean = true): Int
 
-    fun type(castBean: MovieCastsModel.CastBean): Int
+    fun type(castBean: FilmCastsModel.CastBean): Int
 
-    fun type(crewBean: MovieCastsModel.CrewBean): Int
+    fun type(crewBean: FilmCastsModel.CrewBean): Int
 
-    fun type(castBean: CreditsModel.CastBean): Int
+    fun type(castBean: CreditsInFilmModel.CastInFilmBean): Int
 
-    fun type(crewBean: CreditsModel.CrewBean): Int
+    fun type(crewBean: CreditsInFilmModel.CrewInFilmBean): Int
 
-    fun type(movieVideosModel: MovieVideosModel): Int
+    fun type(movieVideosModel: FilmVideoModel): Int
 
     fun type(tvBriefModel: TvBriefModel): Int
 
-    fun type(castBriefModel: CastListResModel.CastBriefBean): Int
+    fun type(castBriefModel: CastBriefModel): Int
 
     /**
      * Creating a view holder.

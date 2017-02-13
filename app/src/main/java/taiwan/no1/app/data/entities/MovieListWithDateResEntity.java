@@ -1,11 +1,12 @@
 package taiwan.no1.app.data.entities;
 
+
 /**
  * @author Jieyi
  * @since 12/31/16
  */
 
-public class MovieListWithDateResEntity extends MovieListResEntity {
+public class MovieListWithDateResEntity extends SearchListResEntity<MovieBriefEntity> {
     private MovieDatesEntity dates;
 
     //region Getter and Setter

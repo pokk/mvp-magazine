@@ -13,7 +13,7 @@ import com.hwangjr.rxbus.RxBus
 import com.touchin.constant.RxbusTag
 import taiwan.no1.app.R
 import taiwan.no1.app.api.config.MovieDBConfig
-import taiwan.no1.app.mvp.models.ImageInfoModel
+import taiwan.no1.app.mvp.models.ImageProfileModel
 import taiwan.no1.app.ui.listeners.GlideResizeTargetListener
 import taiwan.no1.app.utilies.ViewUtils
 
@@ -25,7 +25,7 @@ import taiwan.no1.app.utilies.ViewUtils
 
 class HorizontalPagerAdapter(val context: Context,
                              val isTwoWay: Boolean,
-                             val imageLists: List<ImageInfoModel>): PagerAdapter() {
+                             val imageLists: List<ImageProfileModel>): PagerAdapter() {
     private val layoutInflater: LayoutInflater by lazy { LayoutInflater.from(this.context) }
     // Checking the first photo is finished loading flag.
     private var isFirstLoaded: Boolean = false

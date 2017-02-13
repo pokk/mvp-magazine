@@ -10,21 +10,21 @@ import taiwan.no1.app.ui.adapter.viewholder.viewtype.IViewTypeFactory
  * @since   12/31/16
  */
 
-data class MovieVideosModel(val id: String? = null,
-                            val iso_639_1: String? = null,
-                            val iso_3166_1: String? = null,
-                            val key: String? = null,
-                            val name: String? = null,
-                            val site: String? = null,
-                            val size: Int = 0,
-                            val type: String? = null): IVisitable, Parcelable {
+data class FilmVideoModel(val id: String? = null,
+                          val iso_639_1: String? = null,
+                          val iso_3166_1: String? = null,
+                          val key: String? = null,
+                          val name: String? = null,
+                          val site: String? = null,
+                          val size: Int = 0,
+                          val type: String? = null): IVisitable, Parcelable {
     override fun type(typeFactory: IViewTypeFactory): Int = typeFactory.type(this)
 
     //region Parcelable
     companion object {
-        @JvmField val CREATOR: Parcelable.Creator<MovieVideosModel> = object: Parcelable.Creator<MovieVideosModel> {
-            override fun createFromParcel(source: Parcel): MovieVideosModel = MovieVideosModel(source)
-            override fun newArray(size: Int): Array<MovieVideosModel?> = arrayOfNulls(size)
+        @JvmField val CREATOR: Parcelable.Creator<FilmVideoModel> = object: Parcelable.Creator<FilmVideoModel> {
+            override fun createFromParcel(source: Parcel): FilmVideoModel = FilmVideoModel(source)
+            override fun newArray(size: Int): Array<FilmVideoModel?> = arrayOfNulls(size)
         }
     }
 

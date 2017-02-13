@@ -21,7 +21,7 @@ import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.contracts.CastDetailContract
-import taiwan.no1.app.mvp.models.CreditsModel
+import taiwan.no1.app.mvp.models.CreditsInFilmModel
 import taiwan.no1.app.mvp.models.IVisitable
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
@@ -184,7 +184,7 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
         })
     }
 
-    override fun showRelatedMovie(casts: List<CreditsModel.CastBean>) {
+    override fun showRelatedMovie(casts: List<CreditsInFilmModel.CastInFilmBean>) {
         // Inflate the related movie section.
         this.showViewStub(this.stubRelated, { this.showCardItems(this.rvRelated, casts) })
     }

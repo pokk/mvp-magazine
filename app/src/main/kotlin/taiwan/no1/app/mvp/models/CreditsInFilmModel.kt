@@ -11,28 +11,28 @@ import java.util.*
  * @since   2017/01/04
  */
 
-data class CreditsModel(val cast: List<CastBean>? = null,
-                        val crew: List<CrewBean>? = null): Parcelable {
-    data class CastBean(val isAdult: Boolean = false,
-                        val character: String? = null,
-                        val credit_id: String? = null,
-                        val id: Int = 0,
-                        val original_title: String? = null,
-                        val poster_path: String? = null,
-                        val release_date: String? = null,
-                        val title: String? = null,
-                        val media_type: String? = null,
-                        val episode_count: Int = 0,
-                        val first_air_date: String? = null,
-                        val name: String? = null,
-                        val original_name: String? = null): IVisitable, Parcelable {
+data class CreditsInFilmModel(val cast: List<CastInFilmBean>? = null,
+                              val crew: List<CrewInFilmBean>? = null): Parcelable {
+    data class CastInFilmBean(val isAdult: Boolean = false,
+                              val character: String? = null,
+                              val credit_id: String? = null,
+                              val id: Int = 0,
+                              val original_title: String? = null,
+                              val poster_path: String? = null,
+                              val release_date: String? = null,
+                              val title: String? = null,
+                              val media_type: String? = null,
+                              val episode_count: Int = 0,
+                              val first_air_date: String? = null,
+                              val name: String? = null,
+                              val original_name: String? = null): IVisitable, Parcelable {
         override fun type(typeFactory: IViewTypeFactory): Int = typeFactory.type(this)
 
         //region Parcelable
         companion object {
-            @JvmField val CREATOR: Parcelable.Creator<CastBean> = object: Parcelable.Creator<CastBean> {
-                override fun createFromParcel(source: Parcel): CastBean = CastBean(source)
-                override fun newArray(size: Int): Array<CastBean?> = arrayOfNulls(size)
+            @JvmField val CREATOR: Parcelable.Creator<CastInFilmBean> = object: Parcelable.Creator<CastInFilmBean> {
+                override fun createFromParcel(source: Parcel): CastInFilmBean = CastInFilmBean(source)
+                override fun newArray(size: Int): Array<CastInFilmBean?> = arrayOfNulls(size)
             }
         }
 
@@ -70,23 +70,23 @@ data class CreditsModel(val cast: List<CastBean>? = null,
         //endregion
     }
 
-    data class CrewBean(val isAdult: Boolean = false,
-                        val credit_id: String? = null,
-                        val department: String? = null,
-                        val id: Int = 0,
-                        val job: String? = null,
-                        val original_title: String? = null,
-                        val poster_path: String? = null,
-                        val release_date: String? = null,
-                        val title: String? = null,
-                        val media_type: String? = null): IVisitable, Parcelable {
+    data class CrewInFilmBean(val isAdult: Boolean = false,
+                              val credit_id: String? = null,
+                              val department: String? = null,
+                              val id: Int = 0,
+                              val job: String? = null,
+                              val original_title: String? = null,
+                              val poster_path: String? = null,
+                              val release_date: String? = null,
+                              val title: String? = null,
+                              val media_type: String? = null): IVisitable, Parcelable {
         override fun type(typeFactory: IViewTypeFactory): Int = typeFactory.type(this)
 
         //region Parcelable
         companion object {
-            @JvmField val CREATOR: Parcelable.Creator<CrewBean> = object: Parcelable.Creator<CrewBean> {
-                override fun createFromParcel(source: Parcel): CrewBean = CrewBean(source)
-                override fun newArray(size: Int): Array<CrewBean?> = arrayOfNulls(size)
+            @JvmField val CREATOR: Parcelable.Creator<CrewInFilmBean> = object: Parcelable.Creator<CrewInFilmBean> {
+                override fun createFromParcel(source: Parcel): CrewInFilmBean = CrewInFilmBean(source)
+                override fun newArray(size: Int): Array<CrewInFilmBean?> = arrayOfNulls(size)
             }
         }
 
@@ -120,15 +120,15 @@ data class CreditsModel(val cast: List<CastBean>? = null,
 
     //region Parcelable
     companion object {
-        @JvmField val CREATOR: Parcelable.Creator<CreditsModel> = object: Parcelable.Creator<CreditsModel> {
-            override fun createFromParcel(source: Parcel): CreditsModel = CreditsModel(source)
-            override fun newArray(size: Int): Array<CreditsModel?> = arrayOfNulls(size)
+        @JvmField val CREATOR: Parcelable.Creator<CreditsInFilmModel> = object: Parcelable.Creator<CreditsInFilmModel> {
+            override fun createFromParcel(source: Parcel): CreditsInFilmModel = CreditsInFilmModel(source)
+            override fun newArray(size: Int): Array<CreditsInFilmModel?> = arrayOfNulls(size)
         }
     }
 
-    constructor(source: Parcel): this(ArrayList<CastBean>().apply {
-        source.readList(this, CastBean::class.java.classLoader)
-    }, ArrayList<CrewBean>().apply { source.readList(this, CrewBean::class.java.classLoader) })
+    constructor(source: Parcel): this(ArrayList<CastInFilmBean>().apply {
+        source.readList(this, CastInFilmBean::class.java.classLoader)
+    }, ArrayList<CrewInFilmBean>().apply { source.readList(this, CrewInFilmBean::class.java.classLoader) })
 
     override fun describeContents() = 0
 

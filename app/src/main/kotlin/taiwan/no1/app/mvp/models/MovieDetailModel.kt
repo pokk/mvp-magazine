@@ -2,7 +2,6 @@ package taiwan.no1.app.mvp.models
 
 import android.os.Parcel
 import android.os.Parcelable
-import java.util.*
 
 /**
  *
@@ -31,10 +30,10 @@ data class MovieDetailModel(val isAdult: Boolean = false,
                             val isVideo: Boolean = false,
                             val vote_average: Double = 0.toDouble(),
                             val vote_count: Int = 0,
-                            val videos: VideosBean? = null,
-                            val images: MovieImagesModel? = null,
+                            val videos: CommonBean.VideosBean? = null,
+                            val images: FilmImagesModel? = null,
                             val similar: MovieListResModel? = null,
-                            val casts: MovieCastsModel? = null,
+                            val casts: FilmCastsModel? = null,
                             val genres: List<CommonBean.BaseBean>? = null,
                             val production_companies: List<CommonBean.BaseBean>? = null,
                             val production_countries: List<CommonBean.CountriesBean>? = null,
@@ -69,27 +68,6 @@ data class MovieDetailModel(val isAdult: Boolean = false,
         //endregion
     }
 
-    data class VideosBean(val results: List<MovieVideosModel>? = null): Parcelable {
-        //region Parcelable
-        companion object {
-            @JvmField val CREATOR: Parcelable.Creator<VideosBean> = object: Parcelable.Creator<VideosBean> {
-                override fun createFromParcel(source: Parcel): VideosBean = VideosBean(source)
-                override fun newArray(size: Int): Array<VideosBean?> = arrayOfNulls(size)
-            }
-        }
-
-        constructor(source: Parcel): this(ArrayList<MovieVideosModel>().apply {
-            source.readList(this, MovieVideosModel::class.java.classLoader)
-        })
-
-        override fun describeContents() = 0
-
-        override fun writeToParcel(dest: Parcel?, flags: Int) {
-            dest?.writeList(results)
-        }
-        //endregion
-    }
-
     //region Parcelable
     companion object {
         @JvmField val CREATOR: Parcelable.Creator<MovieDetailModel> = object: Parcelable.Creator<MovieDetailModel> {
@@ -119,10 +97,10 @@ data class MovieDetailModel(val isAdult: Boolean = false,
             1 == source.readInt(),
             source.readDouble(),
             source.readInt(),
-            source.readParcelable<VideosBean?>(VideosBean::class.java.classLoader),
-            source.readParcelable<MovieImagesModel?>(MovieImagesModel::class.java.classLoader),
+            source.readParcelable<CommonBean.VideosBean?>(CommonBean.VideosBean::class.java.classLoader),
+            source.readParcelable<FilmImagesModel?>(FilmImagesModel::class.java.classLoader),
             source.readParcelable<MovieListResModel?>(MovieListResModel::class.java.classLoader),
-            source.readParcelable<MovieCastsModel?>(MovieCastsModel::class.java.classLoader),
+            source.readParcelable<FilmCastsModel?>(FilmCastsModel::class.java.classLoader),
             source.createTypedArrayList(CommonBean.BaseBean.CREATOR),
             source.createTypedArrayList(CommonBean.BaseBean.CREATOR),
             source.createTypedArrayList(CommonBean.CountriesBean.CREATOR),

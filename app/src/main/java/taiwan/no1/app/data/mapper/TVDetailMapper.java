@@ -11,10 +11,10 @@ import javax.inject.Singleton;
 
 import taiwan.no1.app.data.entities.TVDetailEntity;
 import taiwan.no1.app.domain.mapper.IBeanMapper;
+import taiwan.no1.app.mvp.models.FilmImagesModel;
+import taiwan.no1.app.mvp.models.FilmVideoModel;
 import taiwan.no1.app.mvp.models.MovieDetailModel;
-import taiwan.no1.app.mvp.models.MovieImagesModel;
 import taiwan.no1.app.mvp.models.MovieListResModel;
-import taiwan.no1.app.mvp.models.MovieVideosModel;
 import taiwan.no1.app.mvp.models.TvDetailModel;
 
 /**
@@ -51,11 +51,11 @@ public class TVDetailMapper implements IBeanMapper<TvDetailModel, TVDetailEntity
     @NonNull
     @Override
     public TvDetailModel transformTo(@NonNull TVDetailEntity entity) {
-        List<MovieVideosModel> movieVideosModels = Queryable.from(entity.getVideos().getResults())
-                                                            .map(tvVideosMapper::transformTo)
-                                                            .toList();
+        List<FilmVideoModel> movieVideosModels = Queryable.from(entity.getVideos().getResults())
+                                                          .map(tvVideosMapper::transformTo)
+                                                          .toList();
 
-        MovieImagesModel tvImagesModel = this.tvImagesMapper.transformTo(entity.getImages());
+        FilmImagesModel tvImagesModel = this.tvImagesMapper.transformTo(entity.getImages());
 
         MovieListResModel tvListResModel = this.tvListResMapper.transformTo(entity.getSimilar());
 

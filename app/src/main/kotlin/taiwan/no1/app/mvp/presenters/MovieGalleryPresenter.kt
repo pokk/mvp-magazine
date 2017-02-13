@@ -7,7 +7,7 @@ import android.widget.ImageView
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
 import taiwan.no1.app.R
 import taiwan.no1.app.mvp.contracts.MovieGalleryContract
-import taiwan.no1.app.mvp.models.ImageInfoModel
+import taiwan.no1.app.mvp.models.ImageProfileModel
 import taiwan.no1.app.ui.adapter.HorizontalPagerAdapter
 import taiwan.no1.app.utilies.ViewUtils
 
@@ -19,7 +19,7 @@ import taiwan.no1.app.utilies.ViewUtils
 class MovieGalleryPresenter: BasePresenter<MovieGalleryContract.View>(), MovieGalleryContract.Presenter {
     private var imageSwitcherRatio: Double = 1.0
     private var oldAdapterItemIndex: Int = 0
-    private var moviePostersInfo: List<ImageInfoModel> = emptyList()
+    private var moviePostersInfo: List<ImageProfileModel> = emptyList()
     private var isFirstImageFinished: Boolean = false
 
     //region Presenter implementation
@@ -39,7 +39,7 @@ class MovieGalleryPresenter: BasePresenter<MovieGalleryContract.View>(), MovieGa
         this.oldAdapterItemIndex = oldIndex
     }
 
-    override fun updatePosters(moviePosters: List<ImageInfoModel>) {
+    override fun updatePosters(moviePosters: List<ImageProfileModel>) {
         // TODO: 2/12/17 Need to do deep-copy.
         this.moviePostersInfo = moviePosters
         this.view.showPosters(this.moviePostersInfo)

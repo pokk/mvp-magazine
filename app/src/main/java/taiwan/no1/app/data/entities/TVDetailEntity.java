@@ -29,8 +29,7 @@ public class TVDetailEntity {
     private int vote_count;
     private CommonEntity.ResultsListEntity<FilmVideosEntity> videos;
     private FilmImagesEntity images;
-    // TODO: 2017/02/13 可以被合併起來...
-    private MovieListResEntity similar;
+    private SearchListResEntity<MovieBriefEntity> similar;
     private FilmCastsEntity credits;
     private List<CreatedByBean> created_by;
     private List<Integer> episode_run_time;
@@ -202,11 +201,11 @@ public class TVDetailEntity {
         this.images = images;
     }
 
-    public MovieListResEntity getSimilar() {
+    public SearchListResEntity<MovieBriefEntity> getSimilar() {
         return similar;
     }
 
-    public void setSimilar(MovieListResEntity similar) {
+    public void setSimilar(SearchListResEntity<MovieBriefEntity> similar) {
         this.similar = similar;
     }
 

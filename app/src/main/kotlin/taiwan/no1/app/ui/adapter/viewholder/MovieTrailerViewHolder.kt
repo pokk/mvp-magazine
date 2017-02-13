@@ -7,7 +7,7 @@ import butterknife.bindView
 import com.hwangjr.rxbus.RxBus
 import com.touchin.constant.RxbusTag.ACTIVITY_NAVIGATOR
 import taiwan.no1.app.R
-import taiwan.no1.app.mvp.models.MovieVideosModel
+import taiwan.no1.app.mvp.models.FilmVideoModel
 import taiwan.no1.app.ui.activities.VideoActivity
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.utilies.AppLog
@@ -24,7 +24,7 @@ class MovieTrailerViewHolder(val view: View): BaseViewHolder(view) {
     private val ivTrailer by bindView<ImageView>(R.id.iv_trailer)
 
     override fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
-        (model as MovieVideosModel).let {
+        (model as FilmVideoModel).let {
             YoutubeExtract(it.key ?: "").startExtracting(object: YoutubeExtract.YouTubeExtractorListener {
                 override fun onSuccess(result: YoutubeExtract.YouTubeExtractorResult) {
                     item.setOnClickListener {

@@ -16,7 +16,7 @@ import com.intrusoft.squint.DiagonalView
 import com.touchin.constant.RxbusTag
 import taiwan.no1.app.R
 import taiwan.no1.app.api.config.MovieDBConfig
-import taiwan.no1.app.mvp.models.ImageInfoModel
+import taiwan.no1.app.mvp.models.ImageProfileModel
 import taiwan.no1.app.ui.fragments.MovieGalleryFragment
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_SHARED_ELEMENTS
@@ -30,8 +30,8 @@ import taiwan.no1.app.utilies.ViewUtils
  */
 
 class DropMoviePagerAdapter(val context: Context,
-                            val dropPosterList: List<ImageInfoModel>, // For showing in the ViewPager.
-                            val posterList: List<ImageInfoModel>, // For throwing to the next fragment.
+                            val dropPosterList: List<ImageProfileModel>, // For showing in the ViewPager.
+                            val posterList: List<ImageProfileModel>, // For throwing to the next fragment.
                             val iv: ImageView,
                             val argFromFragment: Int): PagerAdapter() {
     private val layoutInflater: LayoutInflater by lazy { LayoutInflater.from(this.context) }
