@@ -176,7 +176,7 @@ public class CloudDataStore implements IDataStore {
     public Observable<TVDetailEntity> tvDetailEntities(final int id) {
         Map<String, String> query = new ArrayMap<String, String>() {{
             put("api_key", api_key);
-            put("append_to_response", "videos,images,similar,casts");
+            put("append_to_response", "videos,images,similar,credits");
         }};
 
         return this.movieDBService.tvDetail(id, query);

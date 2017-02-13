@@ -1,11 +1,13 @@
 package taiwan.no1.app.data.entities;
 
 /**
+ * A movie, tv's trailer video data class.
+ *
  * @author Jieyi
  * @since 12/31/16
  */
 
-public class MovieVideosEntity {
+public class FilmVideosEntity {
     private String id;
     private String iso_639_1;
     private String iso_3166_1;
@@ -15,6 +17,7 @@ public class MovieVideosEntity {
     private int size;
     private String type;
 
+    //region Getter and Setter
     public String getId() { return id;}
 
     public void setId(String id) { this.id = id;}
@@ -46,10 +49,11 @@ public class MovieVideosEntity {
     public String getType() { return type;}
 
     public void setType(String type) { this.type = type;}
+    //endregion
 
     @Override
     public String toString() {
-        return "ResultsBean{" +
+        return "FilmVideosEntity{" +
                 "id='" + id + '\'' +
                 ", iso_639_1='" + iso_639_1 + '\'' +
                 ", iso_3166_1='" + iso_3166_1 + '\'' +

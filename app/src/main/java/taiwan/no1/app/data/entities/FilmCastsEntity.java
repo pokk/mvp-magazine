@@ -9,10 +9,13 @@ import java.util.List;
  * @since 12/29/16
  */
 
-public class MovieCastsEntity {
+public class FilmCastsEntity {
+    // The casts information in a movie.
     private List<CastBean> cast;
+    // The crews information in a movie.
     private List<CrewBean> crew;
 
+    //region Getter and Setter
     public List<CastBean> getCast() { return cast;}
 
     public void setCast(List<CastBean> cast) { this.cast = cast;}
@@ -20,6 +23,7 @@ public class MovieCastsEntity {
     public List<CrewBean> getCrew() { return crew;}
 
     public void setCrew(List<CrewBean> crew) { this.crew = crew;}
+    //endregion
 
     public static class CastBean {
         private int cast_id;
@@ -30,6 +34,7 @@ public class MovieCastsEntity {
         private int order;
         private String profile_path;
 
+        //region Getter and Setter
         public int getCast_id() { return cast_id;}
 
         public void setCast_id(int cast_id) { this.cast_id = cast_id;}
@@ -57,6 +62,7 @@ public class MovieCastsEntity {
         public String getProfile_path() { return profile_path;}
 
         public void setProfile_path(String profile_path) { this.profile_path = profile_path;}
+        //endregion
 
         @Override
         public String toString() {
@@ -80,6 +86,7 @@ public class MovieCastsEntity {
         private String name;
         private String profile_path;
 
+        //region Getter and Setter
         public String getCredit_id() { return credit_id;}
 
         public void setCredit_id(String credit_id) { this.credit_id = credit_id;}
@@ -103,6 +110,7 @@ public class MovieCastsEntity {
         public String getProfile_path() { return profile_path;}
 
         public void setProfile_path(String profile_path) { this.profile_path = profile_path;}
+        //endregion
 
         @Override
         public String toString() {
@@ -119,7 +127,7 @@ public class MovieCastsEntity {
 
     @Override
     public String toString() {
-        return "MovieCastsEntity{" +
+        return "FilmCastsEntity{" +
                 "cast=" + cast +
                 ", crew=" + crew +
                 '}';

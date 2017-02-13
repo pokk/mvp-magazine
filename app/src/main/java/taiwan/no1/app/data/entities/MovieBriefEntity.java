@@ -1,17 +1,20 @@
 package taiwan.no1.app.data.entities;
 
 /**
+ * A brief movie information from the searching list data class. 
+ * 
  * @author Jieyi
  * @since 12/31/16
  */
 
-public class MovieBriefEntity extends BriefEntity {
+public class MovieBriefEntity extends CommonEntity.FilmBriefEntity {
     private boolean adult;
     private String release_date;
     private String original_title;
     private String title;
     private boolean video;
 
+    //region Getter and Setter
     public boolean isAdult() { return adult;}
 
     public void setAdult(boolean adult) { this.adult = adult;}
@@ -31,6 +34,7 @@ public class MovieBriefEntity extends BriefEntity {
     public boolean isVideo() { return video;}
 
     public void setVideo(boolean video) { this.video = video;}
+    //endregion
 
     @Override
     public String toString() {

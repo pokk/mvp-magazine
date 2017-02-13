@@ -12,9 +12,11 @@ import java.util.List;
 public class MovieListResEntity extends ListResEntity {
     private List<MovieBriefEntity> results;
 
+    //region Getter and Setter
     public List<MovieBriefEntity> getMovieEntities() { return results;}
 
     public void setResults(List<MovieBriefEntity> results) { this.results = results;}
+    //endregion
 
     @Override
     public String toString() {

@@ -3,23 +3,29 @@ package taiwan.no1.app.data.entities;
 import java.util.List;
 
 /**
+ * The related movie, tv and combined of a cast data class.
+ *
  * @author Jieyi
  * @since 2017/01/04
  */
 
-public class CreditsEntity {
-    private List<CastBean> cast;
-    private List<CrewBean> crew;
+public class CreditsInFilmEntity {
+    // Casting a role in a related movie or tv list.
+    private List<CastInFilmBean> cast;
+    // Taking a crew in a related movie or tv list. 
+    private List<CrewInFlimBean> crew;
 
-    public List<CastBean> getCast() { return cast;}
+    //region Getter and Setter
+    public List<CastInFilmBean> getCast() { return cast;}
 
-    public void setCast(List<CastBean> cast) { this.cast = cast;}
+    public void setCast(List<CastInFilmBean> cast) { this.cast = cast;}
 
-    public List<CrewBean> getCrew() { return crew;}
+    public List<CrewInFlimBean> getCrew() { return crew;}
 
-    public void setCrew(List<CrewBean> crew) { this.crew = crew;}
+    public void setCrew(List<CrewInFlimBean> crew) { this.crew = crew;}
+    //endregion
 
-    public static class CastBean {
+    public static class CastInFilmBean {
         private boolean adult;
         private String character;
         private String credit_id;
@@ -34,6 +40,7 @@ public class CreditsEntity {
         private String name;
         private String original_name;
 
+        //region Getter and Setter
         public boolean isAdult() { return adult;}
 
         public void setAdult(boolean adult) { this.adult = adult;}
@@ -85,6 +92,7 @@ public class CreditsEntity {
         public String getOriginal_name() { return original_name;}
 
         public void setOriginal_name(String original_name) { this.original_name = original_name;}
+        //endregion
 
         @Override
         public String toString() {
@@ -106,7 +114,7 @@ public class CreditsEntity {
         }
     }
 
-    public static class CrewBean {
+    public static class CrewInFlimBean {
         private boolean adult;
         private String credit_id;
         private String department;
@@ -118,6 +126,7 @@ public class CreditsEntity {
         private String title;
         private String media_type;
 
+        //region Getter and Setter
         public boolean isAdult() { return adult;}
 
         public void setAdult(boolean adult) { this.adult = adult;}
@@ -157,6 +166,7 @@ public class CreditsEntity {
         public String getMedia_type() { return media_type;}
 
         public void setMedia_type(String media_type) { this.media_type = media_type;}
+        //endregion
 
         @Override
         public String toString() {

@@ -5,12 +5,12 @@ import android.support.annotation.NonNull;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import taiwan.no1.app.data.entities.MovieVideosEntity;
+import taiwan.no1.app.data.entities.FilmVideosEntity;
 import taiwan.no1.app.domain.mapper.IBeanMapper;
 import taiwan.no1.app.mvp.models.MovieVideosModel;
 
 /**
- * Mapper class used to transform between {@link MovieVideosModel} (in the kotlin layer) and {@link MovieVideosEntity}
+ * Mapper class used to transform between {@link MovieVideosModel} (in the kotlin layer) and {@link FilmVideosEntity}
  * (in the data layer).
  * 
  * @author Jieyi
@@ -18,7 +18,7 @@ import taiwan.no1.app.mvp.models.MovieVideosModel;
  */
 
 @Singleton
-public class MovieVideosMapper implements IBeanMapper<MovieVideosModel, MovieVideosEntity> {
+public class MovieVideosMapper implements IBeanMapper<MovieVideosModel, FilmVideosEntity> {
     @Inject
     public MovieVideosMapper() {
     }
@@ -29,7 +29,7 @@ public class MovieVideosMapper implements IBeanMapper<MovieVideosModel, MovieVid
     @NonNull
     @Override
     @Deprecated
-    public MovieVideosEntity transformFrom(@NonNull MovieVideosModel model) {
+    public FilmVideosEntity transformFrom(@NonNull MovieVideosModel model) {
         throw new Error("No-op");
     }
 
@@ -38,7 +38,7 @@ public class MovieVideosMapper implements IBeanMapper<MovieVideosModel, MovieVid
      */
     @NonNull
     @Override
-    public MovieVideosModel transformTo(@NonNull MovieVideosEntity entity) {
+    public MovieVideosModel transformTo(@NonNull FilmVideosEntity entity) {
         return new MovieVideosModel(entity.getId(),
                                     entity.getIso_639_1(),
                                     entity.getIso_3166_1(),

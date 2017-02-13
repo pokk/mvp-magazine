@@ -9,6 +9,7 @@ public class MovieDatesEntity {
     private String maximum;
     private String minimum;
 
+    //region Getter and Setter
     public String getMaximum() { return maximum;}
 
     public void setMaximum(String maximum) { this.maximum = maximum;}
@@ -16,6 +17,7 @@ public class MovieDatesEntity {
     public String getMinimum() { return minimum;}
 
     public void setMinimum(String minimum) { this.minimum = minimum;}
+    //endregion
 
     @Override
     public String toString() {

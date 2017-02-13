@@ -9,14 +9,14 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import taiwan.no1.app.data.entities.CreditsEntity;
+import taiwan.no1.app.data.entities.CreditsInFilmEntity;
 import taiwan.no1.app.domain.mapper.IBeanMapper;
 import taiwan.no1.app.mvp.models.CreditsModel;
 import taiwan.no1.app.mvp.models.CreditsModel.CastBean;
 import taiwan.no1.app.mvp.models.CreditsModel.CrewBean;
 
 /**
- * Mapper class used to transform between {@link CreditsModel} (in the kotlin layer) and {@link CreditsEntity}
+ * Mapper class used to transform between {@link CreditsModel} (in the kotlin layer) and {@link CreditsInFilmEntity}
  * (in the data layer).
  * 
  * @author Jieyi
@@ -24,7 +24,7 @@ import taiwan.no1.app.mvp.models.CreditsModel.CrewBean;
  */
 
 @Singleton
-public class CreditsMapper implements IBeanMapper<CreditsModel, CreditsEntity> {
+public class CreditsMapper implements IBeanMapper<CreditsModel, CreditsInFilmEntity> {
     @Inject
     public CreditsMapper() {
     }
@@ -35,7 +35,7 @@ public class CreditsMapper implements IBeanMapper<CreditsModel, CreditsEntity> {
     @NonNull
     @Override
     @Deprecated
-    public CreditsEntity transformFrom(@NonNull CreditsModel model) {
+    public CreditsInFilmEntity transformFrom(@NonNull CreditsModel model) {
         throw new Error("No-op");
     }
 
@@ -44,7 +44,7 @@ public class CreditsMapper implements IBeanMapper<CreditsModel, CreditsEntity> {
      */
     @NonNull
     @Override
-    public CreditsModel transformTo(@NonNull CreditsEntity entity) {
+    public CreditsModel transformTo(@NonNull CreditsInFilmEntity entity) {
         List<CastBean> castBeen = Queryable.from(entity.getCast())
                                            .map(data -> new CreditsModel.CastBean(data.isAdult(),
                                                                                   data.getCharacter(),

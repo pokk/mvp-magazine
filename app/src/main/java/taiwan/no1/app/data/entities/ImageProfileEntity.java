@@ -1,11 +1,13 @@
 package taiwan.no1.app.data.entities;
 
 /**
+ * Cast's image detail information data class.
+ *
  * @author Jieyi
  * @since 1/1/17
  */
 
-public class ImageInfoEntity {
+public class ImageProfileEntity {
     private double aspect_ratio;
     private String file_path;
     private int height;
@@ -14,6 +16,7 @@ public class ImageInfoEntity {
     private int vote_count;
     private int width;
 
+    //region Getter and Setter
     public double getAspect_ratio() { return aspect_ratio;}
 
     public void setAspect_ratio(double aspect_ratio) { this.aspect_ratio = aspect_ratio;}
@@ -41,14 +44,15 @@ public class ImageInfoEntity {
     public int getWidth() { return width;}
 
     public void setWidth(int width) { this.width = width;}
+    //endregion
 
     @Override
     public String toString() {
-        return "ImageInfoEntity{" +
+        return "ImageProfileEntity{" +
                 "aspect_ratio=" + aspect_ratio +
                 ", file_path='" + file_path + '\'' +
                 ", height=" + height +
-                ", iso_639_1=" + iso_639_1 +
+                ", iso_639_1='" + iso_639_1 + '\'' +
                 ", vote_average=" + vote_average +
                 ", vote_count=" + vote_count +
                 ", width=" + width +

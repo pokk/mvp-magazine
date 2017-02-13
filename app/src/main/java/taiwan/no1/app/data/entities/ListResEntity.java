@@ -1,6 +1,8 @@
 package taiwan.no1.app.data.entities;
 
 /**
+ * The response list with extra information data class.
+ * 
  * @author Jieyi
  * @since 2/4/17
  */
@@ -10,6 +12,7 @@ public class ListResEntity {
     private int total_results;
     private int total_pages;
 
+    //region Getter and Setter
     public int getPage() {
         return page;
     }
@@ -33,6 +36,7 @@ public class ListResEntity {
     public void setTotal_pages(int total_pages) {
         this.total_pages = total_pages;
     }
+    //endregion
 
     @Override
     public String toString() {

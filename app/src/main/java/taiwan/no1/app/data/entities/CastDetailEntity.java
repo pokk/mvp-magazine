@@ -3,7 +3,7 @@ package taiwan.no1.app.data.entities;
 import java.util.List;
 
 /**
- * Movie cast detail information.
+ * A movie cast detail information data class.
  *
  * @author Jieyi
  * @since 12/29/16
@@ -24,8 +24,9 @@ public class CastDetailEntity {
     private String profile_path;
     private List<String> also_known_as;
     private CastImagesEntity images;
-    private CreditsEntity combined_credits;
+    private CreditsInFilmEntity combined_credits;
 
+    //region Getter and Setter
     public boolean isAdult() { return adult;}
 
     public void setAdult(boolean adult) { this.adult = adult;}
@@ -86,13 +87,14 @@ public class CastDetailEntity {
         this.images = images;
     }
 
-    public CreditsEntity getCombined_credits() {
+    public CreditsInFilmEntity getCombined_credits() {
         return combined_credits;
     }
 
-    public void setCombined_credits(CreditsEntity combined_credits) {
+    public void setCombined_credits(CreditsInFilmEntity combined_credits) {
         this.combined_credits = combined_credits;
     }
+    //endregion
 
     @Override
     public String toString() {

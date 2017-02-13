@@ -31,15 +31,16 @@ public class MovieDetailEntity {
     private boolean video;
     private double vote_average;
     private int vote_count;
-    private VideosBean videos;
-    private MovieImagesEntity images;
+    private CommonEntity.ResultsListEntity<FilmVideosEntity> videos;
+    private FilmImagesEntity images;
     private MovieListResEntity similar;
-    private MovieCastsEntity casts;
-    private List<GenresBean> genres;
-    private List<ProductionCompaniesBean> production_companies;
-    private List<ProductionCountriesBean> production_countries;
-    private List<SpokenLanguagesBean> spoken_languages;
+    private FilmCastsEntity casts;
+    private List<CommonEntity.BaseBean> genres;
+    private List<CommonEntity.BaseBean> production_companies;
+    private List<CommonEntity.CountriesBean> production_countries;
+    private List<CommonEntity.LanguagesBean> spoken_languages;
 
+    //region Getter and Setter
     public boolean isAdult() { return adult;}
 
     public void setAdult(boolean adult) { this.adult = adult;}
@@ -125,38 +126,19 @@ public class MovieDetailEntity {
 
     public void setVote_count(int vote_count) { this.vote_count = vote_count;}
 
-    public List<GenresBean> getGenres() { return genres;}
-
-    public void setGenres(List<GenresBean> genres) { this.genres = genres;}
-
-    public List<ProductionCompaniesBean> getProduction_companies() { return production_companies;}
-
-    public void setProduction_companies(
-            List<ProductionCompaniesBean> production_companies) { this.production_companies = production_companies;}
-
-    public List<ProductionCountriesBean> getProduction_countries() { return production_countries;}
-
-    public void setProduction_countries(
-            List<ProductionCountriesBean> production_countries) { this.production_countries = production_countries;}
-
-    public List<SpokenLanguagesBean> getSpoken_languages() { return spoken_languages;}
-
-    public void setSpoken_languages(
-            List<SpokenLanguagesBean> spoken_languages) { this.spoken_languages = spoken_languages;}
-
-    public VideosBean getVideos() {
+    public CommonEntity.ResultsListEntity<FilmVideosEntity> getVideos() {
         return this.videos;
     }
 
-    public void setVideos(VideosBean videos) {
+    public void setVideos(CommonEntity.ResultsListEntity<FilmVideosEntity> videos) {
         this.videos = videos;
     }
 
-    public MovieImagesEntity getImages() {
+    public FilmImagesEntity getImages() {
         return this.images;
     }
 
-    public void setImages(MovieImagesEntity images) {
+    public void setImages(FilmImagesEntity images) {
         this.images = images;
     }
 
@@ -168,13 +150,46 @@ public class MovieDetailEntity {
         this.similar = similar;
     }
 
-    public MovieCastsEntity getCasts() {
+    public FilmCastsEntity getCasts() {
         return this.casts;
     }
 
-    public void setCasts(MovieCastsEntity casts) {
+    public void setCasts(FilmCastsEntity casts) {
         this.casts = casts;
     }
+
+    public List<CommonEntity.BaseBean> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<CommonEntity.BaseBean> genres) {
+        this.genres = genres;
+    }
+
+    public List<CommonEntity.BaseBean> getProduction_companies() {
+        return production_companies;
+    }
+
+    public void setProduction_companies(List<CommonEntity.BaseBean> production_companies) {
+        this.production_companies = production_companies;
+    }
+
+    public List<CommonEntity.CountriesBean> getProduction_countries() {
+        return production_countries;
+    }
+
+    public void setProduction_countries(List<CommonEntity.CountriesBean> production_countries) {
+        this.production_countries = production_countries;
+    }
+
+    public List<CommonEntity.LanguagesBean> getSpoken_languages() {
+        return spoken_languages;
+    }
+
+    public void setSpoken_languages(List<CommonEntity.LanguagesBean> spoken_languages) {
+        this.spoken_languages = spoken_languages;
+    }
+    //endregion
 
     public static class BelongsToCollectionBean {
         private int id;
@@ -182,6 +197,7 @@ public class MovieDetailEntity {
         private String poster_path;
         private String backdrop_path;
 
+        //region Getter and Setter
         public int getId() { return id;}
 
         public void setId(int id) { this.id = id;}
@@ -197,6 +213,7 @@ public class MovieDetailEntity {
         public String getBackdrop_path() { return backdrop_path;}
 
         public void setBackdrop_path(String backdrop_path) { this.backdrop_path = backdrop_path;}
+        //endregion
 
         @Override
         public String toString() {
@@ -205,105 +222,6 @@ public class MovieDetailEntity {
                     ", name='" + name + '\'' +
                     ", poster_path='" + poster_path + '\'' +
                     ", backdrop_path='" + backdrop_path + '\'' +
-                    '}';
-        }
-    }
-
-    public static class GenresBean {
-        private int id;
-        private String name;
-
-        public int getId() { return id;}
-
-        public void setId(int id) { this.id = id;}
-
-        public String getName() { return name;}
-
-        public void setName(String name) { this.name = name;}
-
-        @Override
-        public String toString() {
-            return "GenresBean{" +
-                    "id=" + id +
-                    ", name='" + name + '\'' +
-                    '}';
-        }
-    }
-
-    public static class ProductionCompaniesBean {
-        private String name;
-        private int id;
-
-        public String getName() { return name;}
-
-        public void setName(String name) { this.name = name;}
-
-        public int getId() { return id;}
-
-        public void setId(int id) { this.id = id;}
-
-        @Override
-        public String toString() {
-            return "ProductionCompaniesBean{" +
-                    "name='" + name + '\'' +
-                    ", id=" + id +
-                    '}';
-        }
-    }
-
-    public static class ProductionCountriesBean {
-        private String iso_3166_1;
-        private String name;
-
-        public String getIso_3166_1() { return iso_3166_1;}
-
-        public void setIso_3166_1(String iso_3166_1) { this.iso_3166_1 = iso_3166_1;}
-
-        public String getName() { return name;}
-
-        public void setName(String name) { this.name = name;}
-
-        @Override
-        public String toString() {
-            return "ProductionCountriesBean{" +
-                    "iso_3166_1='" + iso_3166_1 + '\'' +
-                    ", name='" + name + '\'' +
-                    '}';
-        }
-    }
-
-    public static class SpokenLanguagesBean {
-        private String iso_639_1;
-        private String name;
-
-        public String getIso_639_1() { return iso_639_1;}
-
-        public void setIso_639_1(String iso_639_1) { this.iso_639_1 = iso_639_1;}
-
-        public String getName() { return name;}
-
-        public void setName(String name) { this.name = name;}
-
-        @Override
-        public String toString() {
-            return "SpokenLanguagesBean{" +
-                    "iso_639_1='" + iso_639_1 + '\'' +
-                    ", name='" + name + '\'' +
-                    '}';
-        }
-    }
-
-    public static class VideosBean {
-        private List<MovieVideosEntity> results;
-
-        public List<MovieVideosEntity> getResults() { return results;}
-
-        public void setResults(List<MovieVideosEntity> results) { this.results = results;}
-
-        @Override
-        public String toString() {
-            return "VideosBean{" +
-                    "results=" + results +
                     '}';
         }
     }

@@ -3,16 +3,19 @@ package taiwan.no1.app.data.entities;
 import java.util.List;
 
 /**
+ * A brief tv information from the searching list data class. 
+ * 
  * @author Jieyi
  * @since 2/4/17
  */
 
-public class TvBriefEntity extends BriefEntity {
+public class TvBriefEntity extends CommonEntity.FilmBriefEntity {
     private String first_air_date;
     private String name;
     private String original_name;
     private List<String> origin_country;
 
+    //region Getter and Setter
     public String getFirst_air_date() { return first_air_date;}
 
     public void setFirst_air_date(String first_air_date) { this.first_air_date = first_air_date;}
@@ -28,6 +31,7 @@ public class TvBriefEntity extends BriefEntity {
     public List<String> getOrigin_country() { return origin_country;}
 
     public void setOrigin_country(List<String> origin_country) { this.origin_country = origin_country;}
+    //endregion
 
     @Override
     public String toString() {

@@ -9,19 +9,19 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import taiwan.no1.app.data.entities.TVSeasonsEntity;
+import taiwan.no1.app.data.entities.TvSeasonDetailEntity;
 import taiwan.no1.app.domain.mapper.IBeanMapper;
 import taiwan.no1.app.mvp.models.TvSeasonsModel;
 
 /**
- * Mapper class used to transform between {@link TvSeasonsModel} (in the kotlin layer) and {@link TVSeasonsEntity}
+ * Mapper class used to transform between {@link TvSeasonsModel} (in the kotlin layer) and {@link TvSeasonDetailEntity}
  * (in the data layer).
  * <p>
  * Created by weian on 2017/1/21.
  */
 
 @Singleton
-public class TVSeasonsMapper implements IBeanMapper<TvSeasonsModel, TVSeasonsEntity> {
+public class TVSeasonsMapper implements IBeanMapper<TvSeasonsModel, TvSeasonDetailEntity> {
     @Inject
     public TVSeasonsMapper() {
     }
@@ -32,7 +32,7 @@ public class TVSeasonsMapper implements IBeanMapper<TvSeasonsModel, TVSeasonsEnt
     @NonNull
     @Override
     @Deprecated
-    public TVSeasonsEntity transformFrom(@NonNull TvSeasonsModel model) {
+    public TvSeasonDetailEntity transformFrom(@NonNull TvSeasonsModel model) {
         return null;
     }
 
@@ -41,7 +41,7 @@ public class TVSeasonsMapper implements IBeanMapper<TvSeasonsModel, TVSeasonsEnt
      */
     @NonNull
     @Override
-    public TvSeasonsModel transformTo(@NonNull TVSeasonsEntity entity) {
+    public TvSeasonsModel transformTo(@NonNull TvSeasonDetailEntity entity) {
         List<TvSeasonsModel.EpisodesBean> tvEpisodesBean = Queryable.from(entity.getEpisodes())
                                                                     .map(data -> new TvSeasonsModel.EpisodesBean())
                                                                     .toList();

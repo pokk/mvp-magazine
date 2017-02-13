@@ -58,6 +58,7 @@ class MovieGalleryPresenter: BasePresenter<MovieGalleryContract.View>(), MovieGa
             val presentItem: Bitmap? = this.extractBitmap(hicvp, hicvp.realItem)
 
             if (null == presentItem) {
+                // TODO: 2017/02/13 Here we may use a subscript.
                 // FIXED: 2017/02/10 Fixed way as below... Scroll -> attachBgd(Presenter) -> [if (img is null)] ->
                 // FIXED: Notify(PagerAdapter) -> Finished loading -> attachBgd(Presenter) again.
                 // Notify to the adapter.

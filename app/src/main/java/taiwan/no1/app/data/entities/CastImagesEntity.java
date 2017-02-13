@@ -3,16 +3,20 @@ package taiwan.no1.app.data.entities;
 import java.util.List;
 
 /**
+ * A movie cast's images data class.
+ * 
  * @author Jieyi
  * @since 1/1/17
  */
 
 public class CastImagesEntity {
-    private List<ImageInfoEntity> profiles;
+    private List<ImageProfileEntity> profiles;
 
-    public List<ImageInfoEntity> getProfiles() { return profiles;}
+    //region Getter and Setter
+    public List<ImageProfileEntity> getProfiles() { return profiles;}
 
-    public void setProfiles(List<ImageInfoEntity> profiles) { this.profiles = profiles;}
+    public void setProfiles(List<ImageProfileEntity> profiles) { this.profiles = profiles;}
+    //endregion
 
     @Override
     public String toString() {
