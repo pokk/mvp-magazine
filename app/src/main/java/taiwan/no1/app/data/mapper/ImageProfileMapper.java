@@ -18,9 +18,9 @@ import taiwan.no1.app.mvp.models.ImageProfileModel;
  */
 
 @Singleton
-public class ImageInfoMapper implements IBeanMapper<ImageProfileModel, ImageProfileEntity> {
+public class ImageProfileMapper implements IBeanMapper<ImageProfileModel, ImageProfileEntity> {
     @Inject
-    public ImageInfoMapper() {
+    public ImageProfileMapper() {
     }
 
     /**

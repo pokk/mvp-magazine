@@ -12,8 +12,8 @@ import taiwan.no1.app.data.entities.MovieBriefEntity;
 import taiwan.no1.app.data.entities.MovieDetailEntity;
 import taiwan.no1.app.data.entities.MovieListWithDateResEntity;
 import taiwan.no1.app.data.entities.SearchListResEntity;
-import taiwan.no1.app.data.entities.TestDetailEntity;
 import taiwan.no1.app.data.entities.TvBriefEntity;
+import taiwan.no1.app.data.entities.TvDetailEntity;
 
 /**
  * TmDB http api request interface set by using {@link retrofit2.Retrofit}.
@@ -54,7 +54,7 @@ public interface MovieDBService {
     Observable<SearchListResEntity<TvBriefEntity>> topRatedTvList(@QueryMap Map<String, String> queries);
 
     @GET("tv/{id}")
-    Observable<TestDetailEntity> tvDetail(@Path("id") int id, @QueryMap Map<String, String> queries);
+    Observable<TvDetailEntity> tvDetail(@Path("id") int id, @QueryMap Map<String, String> queries);
 
     @GET("person/popular")
     Observable<SearchListResEntity<CastBriefEntity>> popularCastList(@QueryMap Map<String, String> queries);

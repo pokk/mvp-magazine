@@ -18,9 +18,9 @@ import taiwan.no1.app.mvp.models.FilmVideoModel;
  */
 
 @Singleton
-public class MovieVideosMapper implements IBeanMapper<FilmVideoModel, FilmVideosEntity> {
+public class FilmVideosMapper implements IBeanMapper<FilmVideoModel, FilmVideosEntity> {
     @Inject
-    public MovieVideosMapper() {
+    public FilmVideosMapper() {
     }
 
     /**

@@ -18,15 +18,15 @@ import taiwan.no1.app.mvp.models.CreditsInFilmModel.CrewInFilmBean;
 /**
  * Mapper class used to transform between {@link CreditsInFilmModel} (in the kotlin layer) and {@link CreditsInFilmEntity}
  * (in the data layer).
- * 
+ *
  * @author Jieyi
  * @since 2017/01/04
  */
 
 @Singleton
-public class CreditsMapper implements IBeanMapper<CreditsInFilmModel, CreditsInFilmEntity> {
+public class CreditsInFilmMapper implements IBeanMapper<CreditsInFilmModel, CreditsInFilmEntity> {
     @Inject
-    public CreditsMapper() {
+    public CreditsInFilmMapper() {
     }
 
     /**

@@ -17,8 +17,8 @@ import taiwan.no1.app.data.entities.MovieBriefEntity;
 import taiwan.no1.app.data.entities.MovieDetailEntity;
 import taiwan.no1.app.data.entities.MovieListWithDateResEntity;
 import taiwan.no1.app.data.entities.SearchListResEntity;
-import taiwan.no1.app.data.entities.TestDetailEntity;
 import taiwan.no1.app.data.entities.TvBriefEntity;
+import taiwan.no1.app.data.entities.TvDetailEntity;
 import taiwan.no1.app.internal.di.components.NetComponent;
 
 /**
@@ -174,7 +174,7 @@ public class CloudDataStore implements IDataStore {
      */
     @Nullable
     @Override
-    public Observable<TestDetailEntity> tvDetailEntities(final int id) {
+    public Observable<TvDetailEntity> tvDetailEntities(final int id) {
         Map<String, String> query = new ArrayMap<String, String>() {{
             put("api_key", api_key);
             put("append_to_response", "videos,images,similar,credits");

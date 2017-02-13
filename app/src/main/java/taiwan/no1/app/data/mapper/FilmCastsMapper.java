@@ -24,9 +24,9 @@ import taiwan.no1.app.mvp.models.FilmCastsModel.CrewBean;
  */
 
 @Singleton
-public class MovieCastsMapper implements IBeanMapper<FilmCastsModel, FilmCastsEntity> {
+public class FilmCastsMapper implements IBeanMapper<FilmCastsModel, FilmCastsEntity> {
     @Inject
-    public MovieCastsMapper() {
+    public FilmCastsMapper() {
     }
 
     /**

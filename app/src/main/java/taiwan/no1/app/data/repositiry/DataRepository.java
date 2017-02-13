@@ -13,11 +13,11 @@ import taiwan.no1.app.data.entities.MovieBriefEntity;
 import taiwan.no1.app.data.entities.TvBriefEntity;
 import taiwan.no1.app.data.mapper.CastDetailMapper;
 import taiwan.no1.app.data.mapper.CastListResMapper;
+import taiwan.no1.app.data.mapper.FilmCastsMapper;
 import taiwan.no1.app.data.mapper.MovieBriefMapper;
-import taiwan.no1.app.data.mapper.MovieCastsMapper;
 import taiwan.no1.app.data.mapper.MovieDetailMapper;
-import taiwan.no1.app.data.mapper.TestDetailMapper;
 import taiwan.no1.app.data.mapper.TvBriefMapper;
+import taiwan.no1.app.data.mapper.TvDetailMapper;
 import taiwan.no1.app.data.mapper.TvListResMapper;
 import taiwan.no1.app.data.source.CloudDataStore;
 import taiwan.no1.app.data.source.IDataStore;
@@ -41,11 +41,11 @@ public class DataRepository implements IRepository {
     private final DataStoreFactory dataStoreFactory;
     @Inject MovieBriefMapper moviesMapper;
     @Inject MovieDetailMapper movieDetailMapper;
-    @Inject MovieCastsMapper movieCastsMapper;
+    @Inject FilmCastsMapper movieCastsMapper;
     @Inject CastDetailMapper castDetailMapper;
     @Inject TvListResMapper tvListResMapper;
     @Inject TvBriefMapper tvBriefMapper;
-    @Inject TestDetailMapper tvDetailMapper;
+    @Inject TvDetailMapper tvDetailMapper;
     @Inject CastListResMapper castListResMapper;
 
     @Inject

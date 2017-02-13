@@ -26,8 +26,8 @@ import taiwan.no1.app.mvp.models.ImageProfileModel;
 
 @Singleton
 public class CastDetailMapper implements IBeanMapper<CastDetailModel, CastDetailEntity> {
-    @Inject ImageInfoMapper imageInfoMapper;
-    @Inject CreditsMapper creditsMapper;
+    @Inject ImageProfileMapper imageInfoMapper;
+    @Inject CreditsInFilmMapper creditsMapper;
 
     @Inject
     public CastDetailMapper() {

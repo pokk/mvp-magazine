@@ -24,7 +24,7 @@ import taiwan.no1.app.mvp.models.TvEpisodesModel;
 
 @Singleton
 public class TvEpisodeDetailMapper implements IBeanMapper<TvEpisodesModel, TvEpisodeDetailEntity> {
-    @Inject MovieVideosMapper tvVideosMapper;
+    @Inject FilmVideosMapper tvVideosMapper;
 
     @Inject
     public TvEpisodeDetailMapper() {

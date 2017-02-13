@@ -30,15 +30,15 @@ data class TvDetailModel(val backdrop_path: String? = null,
                          val videos: CommonBean.VideosBean? = null,
                          val images: FilmImagesModel? = null,
                          val similar: MovieListResModel? = null,
-                         val credits: CreditsInFilmModel? = null,
+                         val credits: FilmCastsModel? = null,
                          val created_by: List<CreatedByBean>? = null,
                          val episode_run_time: List<Int>? = null,
-                         val genres: List<GenresBean>? = null,
+                         val genres: List<CommonBean.BaseBean>? = null,
                          val languages: List<String>? = null,
-                         val networks: List<NetworksBean>? = null,
+                         val networks: List<CommonBean.BaseBean>? = null,
                          val origin_country: List<String>? = null,
-                         val production_companies: List<ProductionCompaniesBean>? = null,
-                         val seasons: List<SeasonsBean>? = null): Parcelable {
+                         val production_companies: List<CommonBean.CountriesBean>? = null,
+                         val seasons: List<TvBriefModel>? = null): Parcelable {
     class CreatedByBean(val id: Int = 0,
                         val name: String? = null,
                         val profile_path: String? = null): Parcelable {
@@ -62,102 +62,6 @@ data class TvDetailModel(val backdrop_path: String? = null,
         //endregion
     }
 
-    class GenresBean(val id: Int = 0,
-                     val name: String? = null): Parcelable {
-        //region Parcelable
-        companion object {
-            @JvmField val CREATOR: Parcelable.Creator<GenresBean> = object: Parcelable.Creator<GenresBean> {
-                override fun createFromParcel(source: Parcel): GenresBean = GenresBean(source)
-                override fun newArray(size: Int): Array<GenresBean?> = arrayOfNulls(size)
-            }
-        }
-
-        constructor(source: Parcel): this(source.readInt(), source.readString())
-
-        override fun describeContents() = 0
-
-        override fun writeToParcel(dest: Parcel?, flags: Int) {
-            dest?.writeInt(id)
-            dest?.writeString(name)
-        }
-        //endregion
-    }
-
-    class NetworksBean(val id: Int = 0,
-                       val name: String? = null): Parcelable {
-        //region Parcelable
-        companion object {
-            @JvmField val CREATOR: Parcelable.Creator<NetworksBean> = object: Parcelable.Creator<NetworksBean> {
-                override fun createFromParcel(source: Parcel): NetworksBean = NetworksBean(source)
-                override fun newArray(size: Int): Array<NetworksBean?> = arrayOfNulls(size)
-            }
-        }
-
-        constructor(source: Parcel): this(source.readInt(), source.readString())
-
-        override fun describeContents() = 0
-
-        override fun writeToParcel(dest: Parcel?, flags: Int) {
-            dest?.writeInt(id)
-            dest?.writeString(name)
-        }
-        //endregion
-    }
-
-    class ProductionCompaniesBean(val name: String? = null,
-                                  val id: Int = 0): Parcelable {
-        //region Parcelable
-        companion object {
-            @JvmField val CREATOR: Parcelable.Creator<ProductionCompaniesBean> = object: Parcelable.Creator<ProductionCompaniesBean> {
-                override fun createFromParcel(source: Parcel): ProductionCompaniesBean = ProductionCompaniesBean(
-                        source)
-
-                override fun newArray(size: Int): Array<ProductionCompaniesBean?> = arrayOfNulls(size)
-            }
-        }
-
-        constructor(source: Parcel): this(source.readString(), source.readInt())
-
-        override fun describeContents() = 0
-
-        override fun writeToParcel(dest: Parcel?, flags: Int) {
-            dest?.writeString(name)
-            dest?.writeInt(id)
-        }
-        //endregion
-    }
-
-    class SeasonsBean(val air_date: String? = null,
-                      val episode_count: Int = 0,
-                      val id: Int = 0,
-                      val poster_path: String? = null,
-                      val season_number: Int = 0): Parcelable {
-        //region Parcelable
-        companion object {
-            @JvmField val CREATOR: Parcelable.Creator<SeasonsBean> = object: Parcelable.Creator<SeasonsBean> {
-                override fun createFromParcel(source: Parcel): SeasonsBean = SeasonsBean(source)
-                override fun newArray(size: Int): Array<SeasonsBean?> = arrayOfNulls(size)
-            }
-        }
-
-        constructor(source: Parcel): this(source.readString(),
-                source.readInt(),
-                source.readInt(),
-                source.readString(),
-                source.readInt())
-
-        override fun describeContents() = 0
-
-        override fun writeToParcel(dest: Parcel?, flags: Int) {
-            dest?.writeString(air_date)
-            dest?.writeInt(episode_count)
-            dest?.writeInt(id)
-            dest?.writeString(poster_path)
-            dest?.writeInt(season_number)
-        }
-        //endregion
-    }
-
     //region Parcelable
     companion object {
         @JvmField val CREATOR: Parcelable.Creator<TvDetailModel> = object: Parcelable.Creator<TvDetailModel> {
@@ -170,7 +74,7 @@ data class TvDetailModel(val backdrop_path: String? = null,
             source.readString(),
             source.readString(),
             source.readInt(),
-            1.equals(source.readInt()),
+            1 == source.readInt(),
             source.readString(),
             source.readString(),
             source.readInt(),
@@ -187,15 +91,15 @@ data class TvDetailModel(val backdrop_path: String? = null,
             source.readParcelable<CommonBean.VideosBean?>(CommonBean.VideosBean::class.java.classLoader),
             source.readParcelable<FilmImagesModel?>(FilmImagesModel::class.java.classLoader),
             source.readParcelable<MovieListResModel?>(MovieListResModel::class.java.classLoader),
-            source.readParcelable<CreditsInFilmModel?>(CreditsInFilmModel::class.java.classLoader),
+            source.readParcelable<FilmCastsModel?>(FilmCastsModel::class.java.classLoader),
             source.createTypedArrayList(CreatedByBean.CREATOR),
             ArrayList<Int>().apply { source.readList(this, Int::class.java.classLoader) },
-            source.createTypedArrayList(GenresBean.CREATOR),
+            source.createTypedArrayList(CommonBean.BaseBean.CREATOR),
             ArrayList<String>().apply { source.readList(this, String::class.java.classLoader) },
-            source.createTypedArrayList(NetworksBean.CREATOR),
+            source.createTypedArrayList(CommonBean.BaseBean.CREATOR),
             ArrayList<String>().apply { source.readList(this, String::class.java.classLoader) },
-            source.createTypedArrayList(ProductionCompaniesBean.CREATOR),
-            source.createTypedArrayList(SeasonsBean.CREATOR))
+            source.createTypedArrayList(CommonBean.CountriesBean.CREATOR),
+            source.createTypedArrayList(TvBriefModel.CREATOR))
 
     override fun describeContents() = 0
 

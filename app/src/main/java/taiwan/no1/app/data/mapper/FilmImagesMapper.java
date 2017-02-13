@@ -17,17 +17,17 @@ import taiwan.no1.app.mvp.models.ImageProfileModel;
 /**
  * Mapper class used to transform between {@link FilmImagesModel} (in the kotlin layer) an {@link FilmImagesEntity}
  * (in the data layer).
- * 
+ *
  * @author Jieyi
  * @since 12/31/16
  */
 
 @Singleton
-public class MovieImagesMapper implements IBeanMapper<FilmImagesModel, FilmImagesEntity> {
-    @Inject ImageInfoMapper imageInfoMapper;
+public class FilmImagesMapper implements IBeanMapper<FilmImagesModel, FilmImagesEntity> {
+    @Inject ImageProfileMapper imageInfoMapper;
 
     @Inject
-    public MovieImagesMapper() {
+    public FilmImagesMapper() {
     }
 
     /**

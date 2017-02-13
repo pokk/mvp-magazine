@@ -28,10 +28,10 @@ import taiwan.no1.app.mvp.models.MovieListResModel;
 
 @Singleton
 public class MovieDetailMapper implements IBeanMapper<MovieDetailModel, MovieDetailEntity> {
-    @Inject MovieVideosMapper movieVideosMapper;
+    @Inject FilmVideosMapper movieVideosMapper;
     @Inject MovieListResMapper movieListResMapper;
-    @Inject MovieCastsMapper movieCastsMapper;
-    @Inject MovieImagesMapper movieImagesMapper;
+    @Inject FilmCastsMapper movieCastsMapper;
+    @Inject FilmImagesMapper movieImagesMapper;
 
     @Inject
     public MovieDetailMapper() {
@@ -103,8 +103,7 @@ public class MovieDetailMapper implements IBeanMapper<MovieDetailModel, MovieDet
                                     entity.getTitle(),
                                     entity.isVideo(),
                                     entity.getVote_average(),
-                                    entity.getVote_count(),
-                                    new MovieDetailModel.VideosBean(movieVideosModels),
+                                    entity.getVote_count(), new CommonBean.VideosBean(movieVideosModels),
                                     movieImagesModel,
                                     movieListResModel,
                                     movieCastsModel,

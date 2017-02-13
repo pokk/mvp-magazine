@@ -8,7 +8,7 @@ import java.util.List;
  * @since 2017/1/11
  */
 
-public class TestDetailEntity {
+public class TvDetailEntity {
     private String backdrop_path;
     private String first_air_date;
     private String homepage;

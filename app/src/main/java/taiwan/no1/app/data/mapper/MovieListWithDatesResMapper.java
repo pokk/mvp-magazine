@@ -47,7 +47,7 @@ public class MovieListWithDatesResMapper implements IBeanMapper<MovieListWithDat
     @NonNull
     @Override
     public MovieListWithDateResModel transformTo(@NonNull MovieListWithDateResEntity entity) {
-        List<MovieBriefModel> movieBriefModel = Queryable.from(entity.getMovieEntities())
+        List<MovieBriefModel> movieBriefModel = Queryable.from(entity.getResults())
                                                          .map(this.movieBriefMapper::transformTo)
                                                          .toList();
 

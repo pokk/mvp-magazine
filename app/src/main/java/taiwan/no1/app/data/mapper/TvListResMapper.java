@@ -9,20 +9,22 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import taiwan.no1.app.data.entities.SearchListResEntity;
+import taiwan.no1.app.data.entities.TvBriefEntity;
 import taiwan.no1.app.domain.mapper.IBeanMapper;
 import taiwan.no1.app.mvp.models.TvBriefModel;
 import taiwan.no1.app.mvp.models.TvListResModel;
 
 /**
- * Mapper class used to transform between {@link TvListResModel} (in the kotlin layer) and {@link TvListResEntity}
- * (in the data layer).
- * 
+ * Mapper class used to transform between {@link TvListResModel} (in the kotlin layer) and
+ * {@link SearchListResEntity<TvBriefEntity>} (in the data layer).
+ *
  * @author Jieyi
  * @since 1/1/17
  */
 
 @Singleton
-public class TvListResMapper implements IBeanMapper<TvListResModel, TvListResEntity> {
+public class TvListResMapper implements IBeanMapper<TvListResModel, SearchListResEntity<TvBriefEntity>> {
     @Inject TvBriefMapper tvBriefMapper;
 
     @Inject
@@ -35,7 +37,7 @@ public class TvListResMapper implements IBeanMapper<TvListResModel, TvListResEnt
     @NonNull
     @Override
     @Deprecated
-    public TvListResEntity transformFrom(@NonNull TvListResModel model) {
+    public SearchListResEntity<TvBriefEntity> transformFrom(@NonNull TvListResModel model) {
         throw new Error("No-op");
     }
 
@@ -44,8 +46,10 @@ public class TvListResMapper implements IBeanMapper<TvListResModel, TvListResEnt
      */
     @NonNull
     @Override
-    public TvListResModel transformTo(@NonNull TvListResEntity entity) {
-        List<TvBriefModel> tvBriefModels = Queryable.from(entity.getResults()).map(this.tvBriefMapper::transformTo).toList();
+    public TvListResModel transformTo(@NonNull SearchListResEntity<TvBriefEntity> entity) {
+        List<TvBriefModel> tvBriefModels = Queryable.from(entity.getResults())
+                                                    .map(this.tvBriefMapper::transformTo)
+                                                    .toList();
 
         return new TvListResModel(entity.getPage(), entity.getTotal_results(), entity.getTotal_pages(), tvBriefModels);
     }

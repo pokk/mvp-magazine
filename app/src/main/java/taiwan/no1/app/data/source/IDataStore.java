@@ -9,8 +9,8 @@ import taiwan.no1.app.data.entities.MovieBriefEntity;
 import taiwan.no1.app.data.entities.MovieDetailEntity;
 import taiwan.no1.app.data.entities.MovieListWithDateResEntity;
 import taiwan.no1.app.data.entities.SearchListResEntity;
-import taiwan.no1.app.data.entities.TestDetailEntity;
 import taiwan.no1.app.data.entities.TvBriefEntity;
+import taiwan.no1.app.data.entities.TvDetailEntity;
 
 /**
  * Interface that represents a data store from where data is retrieved.
@@ -73,10 +73,10 @@ public interface IDataStore {
      * Retrieve a detail tv information by the tv id.
      *
      * @param id tv id.
-     * @return an {@link rx.Observable} which will emit a {@link TestDetailEntity}.
+     * @return an {@link rx.Observable} which will emit a {@link TvDetailEntity}.
      */
     @Nullable
-    Observable<TestDetailEntity> tvDetailEntities(final int id);
+    Observable<TvDetailEntity> tvDetailEntities(final int id);
 
     /**
      * Retrieve a list of the popular cast information.
