@@ -9,7 +9,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import taiwan.no1.app.data.entities.TVDetailEntity;
+import taiwan.no1.app.data.entities.TestDetailEntity;
 import taiwan.no1.app.domain.mapper.IBeanMapper;
 import taiwan.no1.app.mvp.models.FilmImagesModel;
 import taiwan.no1.app.mvp.models.FilmVideoModel;
@@ -18,21 +18,21 @@ import taiwan.no1.app.mvp.models.MovieListResModel;
 import taiwan.no1.app.mvp.models.TvDetailModel;
 
 /**
- * Mapper class used to transform between {@link TvDetailModel} (in the kotlin layer) and {@link TVDetailEntity}
+ * Mapper class used to transform between {@link TvDetailModel} (in the kotlin layer) and {@link TestDetailEntity}
  * (in the data layer).
  * <p>
  * Created by weian on 2017/1/12.
  */
 
 @Singleton
-public class TVDetailMapper implements IBeanMapper<TvDetailModel, TVDetailEntity> {
+public class TestDetailMapper implements IBeanMapper<TvDetailModel, TestDetailEntity> {
     @Inject MovieVideosMapper tvVideosMapper;
     @Inject MovieImagesMapper tvImagesMapper;
     @Inject MovieListResMapper tvListResMapper;
     @Inject CreditsMapper creditsMapper;
 
     @Inject
-    public TVDetailMapper() {
+    public TestDetailMapper() {
     }
 
     /**
@@ -41,7 +41,7 @@ public class TVDetailMapper implements IBeanMapper<TvDetailModel, TVDetailEntity
     @NonNull
     @Override
     @Deprecated
-    public TVDetailEntity transformFrom(@NonNull TvDetailModel model) {
+    public TestDetailEntity transformFrom(@NonNull TvDetailModel model) {
         return null;
     }
 
@@ -50,7 +50,7 @@ public class TVDetailMapper implements IBeanMapper<TvDetailModel, TVDetailEntity
      */
     @NonNull
     @Override
-    public TvDetailModel transformTo(@NonNull TVDetailEntity entity) {
+    public TvDetailModel transformTo(@NonNull TestDetailEntity entity) {
         List<FilmVideoModel> movieVideosModels = Queryable.from(entity.getVideos().getResults())
                                                           .map(tvVideosMapper::transformTo)
                                                           .toList();

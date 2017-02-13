@@ -16,7 +16,7 @@ import taiwan.no1.app.data.mapper.CastListResMapper;
 import taiwan.no1.app.data.mapper.MovieBriefMapper;
 import taiwan.no1.app.data.mapper.MovieCastsMapper;
 import taiwan.no1.app.data.mapper.MovieDetailMapper;
-import taiwan.no1.app.data.mapper.TVDetailMapper;
+import taiwan.no1.app.data.mapper.TestDetailMapper;
 import taiwan.no1.app.data.mapper.TvBriefMapper;
 import taiwan.no1.app.data.mapper.TvListResMapper;
 import taiwan.no1.app.data.source.CloudDataStore;
@@ -45,7 +45,7 @@ public class DataRepository implements IRepository {
     @Inject CastDetailMapper castDetailMapper;
     @Inject TvListResMapper tvListResMapper;
     @Inject TvBriefMapper tvBriefMapper;
-    @Inject TVDetailMapper tvDetailMapper;
+    @Inject TestDetailMapper tvDetailMapper;
     @Inject CastListResMapper castListResMapper;
 
     @Inject

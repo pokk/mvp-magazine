@@ -21,9 +21,9 @@ import taiwan.no1.app.mvp.models.TvSeasonsModel;
  */
 
 @Singleton
-public class TVSeasonsMapper implements IBeanMapper<TvSeasonsModel, TvSeasonDetailEntity> {
+public class TvSeasonDetailMapper implements IBeanMapper<TvSeasonsModel, TvSeasonDetailEntity> {
     @Inject
-    public TVSeasonsMapper() {
+    public TvSeasonDetailMapper() {
     }
 
     /**

@@ -9,7 +9,7 @@ import taiwan.no1.app.data.entities.MovieBriefEntity;
 import taiwan.no1.app.data.entities.MovieDetailEntity;
 import taiwan.no1.app.data.entities.MovieListWithDateResEntity;
 import taiwan.no1.app.data.entities.SearchListResEntity;
-import taiwan.no1.app.data.entities.TVDetailEntity;
+import taiwan.no1.app.data.entities.TestDetailEntity;
 import taiwan.no1.app.data.entities.TvBriefEntity;
 
 /**
@@ -56,7 +56,7 @@ public class LocalDataStore implements IDataStore {
     @Nullable
     @Override
     @Deprecated
-    public Observable<TVDetailEntity> tvDetailEntities(final int id) {
+    public Observable<TestDetailEntity> tvDetailEntities(final int id) {
         throw new Error("No-op");
     }
 

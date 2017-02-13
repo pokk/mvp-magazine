@@ -12,7 +12,7 @@ import taiwan.no1.app.data.entities.MovieBriefEntity;
 import taiwan.no1.app.data.entities.MovieDetailEntity;
 import taiwan.no1.app.data.entities.MovieListWithDateResEntity;
 import taiwan.no1.app.data.entities.SearchListResEntity;
-import taiwan.no1.app.data.entities.TVDetailEntity;
+import taiwan.no1.app.data.entities.TestDetailEntity;
 import taiwan.no1.app.data.entities.TvBriefEntity;
 
 /**
@@ -54,7 +54,7 @@ public interface MovieDBService {
     Observable<SearchListResEntity<TvBriefEntity>> topRatedTvList(@QueryMap Map<String, String> queries);
 
     @GET("tv/{id}")
-    Observable<TVDetailEntity> tvDetail(@Path("id") int id, @QueryMap Map<String, String> queries);
+    Observable<TestDetailEntity> tvDetail(@Path("id") int id, @QueryMap Map<String, String> queries);
 
     @GET("person/popular")
     Observable<SearchListResEntity<CastBriefEntity>> popularCastList(@QueryMap Map<String, String> queries);
