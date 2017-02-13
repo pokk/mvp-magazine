@@ -4,17 +4,20 @@ import android.os.Parcel
 import android.os.Parcelable
 
 /**
- * Created by weian on 2017/1/21.
+ *
+ * @author  weian
+ * @since   2017/1/21
  */
 
 data class TvSeasonsModel(val _id: String? = null,
                           val air_date: String? = null,
                           val name: String? = null,
                           val overview: String? = null,
+                          val episode_count: Int = 0,
                           val id: Int = 0,
                           val poster_path: String? = null,
                           val season_number: Int = 0,
-                          val filmImagesModel: FilmImagesModel? = null,
+                          val images: FilmImagesModel? = null,
                           val videos: CommonBean.VideosBean? = null,
                           val credits: FilmCastsModel? = null,
                           val episodes: List<TvEpisodesModel>? = null): Parcelable {
@@ -31,6 +34,7 @@ data class TvSeasonsModel(val _id: String? = null,
             source.readString(),
             source.readString(),
             source.readInt(),
+            source.readInt(),
             source.readString(),
             source.readInt(),
             source.readParcelable<FilmImagesModel?>(FilmImagesModel::class.java.classLoader),
@@ -45,10 +49,11 @@ data class TvSeasonsModel(val _id: String? = null,
         dest?.writeString(air_date)
         dest?.writeString(name)
         dest?.writeString(overview)
+        dest?.writeInt(episode_count)
         dest?.writeInt(id)
         dest?.writeString(poster_path)
         dest?.writeInt(season_number)
-        dest?.writeParcelable(filmImagesModel, 0)
+        dest?.writeParcelable(images, 0)
         dest?.writeParcelable(videos, 0)
         dest?.writeParcelable(credits, 0)
         dest?.writeTypedList(episodes)

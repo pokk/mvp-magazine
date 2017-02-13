@@ -77,15 +77,16 @@ public class MovieDetailMapper implements IBeanMapper<MovieDetailModel, MovieDet
         MovieListResModel movieListResModel = this.movieListResMapper.transformTo(entity.getSimilar());
         FilmCastsModel movieCastsModel = this.movieCastsMapper.transformTo(entity.getCasts());
         FilmImagesModel movieImagesModel = this.movieImagesMapper.transformTo(entity.getImages());
-        MovieDetailModel.BelongsToCollectionBean belongsToCollectionBean = new MovieDetailModel.BelongsToCollectionBean(
-                entity.getBelongs_to_collection().getId(),
-                entity.getBelongs_to_collection().getName(),
-                entity.getBelongs_to_collection().getPoster_path(),
-                entity.getBelongs_to_collection().getBackdrop_path());
+        MovieDetailModel.BelongsToCollectionBean belongsToCollectionBean = null != entity.getBelongs_to_collection() ?
+                new MovieDetailModel.BelongsToCollectionBean(entity.getBelongs_to_collection().getId(),
+                                                             entity.getBelongs_to_collection().getName(),
+                                                             entity.getBelongs_to_collection().getPoster_path(),
+                                                             entity.getBelongs_to_collection().getBackdrop_path()) :
+                null;
 
         return new MovieDetailModel(entity.isAdult(),
                                     entity.getBackdrop_path(),
-                                    null != entity.getBelongs_to_collection() ? belongsToCollectionBean : null,
+                                    belongsToCollectionBean,
                                     entity.getBudget(),
                                     entity.getHomepage(),
                                     entity.getId(),
@@ -103,7 +104,8 @@ public class MovieDetailMapper implements IBeanMapper<MovieDetailModel, MovieDet
                                     entity.getTitle(),
                                     entity.isVideo(),
                                     entity.getVote_average(),
-                                    entity.getVote_count(), new CommonBean.VideosBean(movieVideosModels),
+                                    entity.getVote_count(),
+                                    new CommonBean.VideosBean(movieVideosModels),
                                     movieImagesModel,
                                     movieListResModel,
                                     movieCastsModel,

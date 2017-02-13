@@ -17,6 +17,7 @@ import taiwan.no1.app.mvp.models.FilmImagesModel;
 import taiwan.no1.app.mvp.models.FilmVideoModel;
 import taiwan.no1.app.mvp.models.MovieListResModel;
 import taiwan.no1.app.mvp.models.TvDetailModel;
+import taiwan.no1.app.mvp.models.TvSeasonsModel;
 
 /**
  * Mapper class used to transform between {@link TvDetailModel} (in the kotlin layer) and {@link TvDetailEntity}
@@ -31,6 +32,7 @@ public class TvDetailMapper implements IBeanMapper<TvDetailModel, TvDetailEntity
     @Inject FilmImagesMapper filmImagesMapper;
     @Inject FilmCastsMapper filmCastsMapper;
     @Inject MovieListResMapper movieListResMapper;
+    @Inject TvSeasonDetailMapper tvSeasonDetailMapper;
 
     @Inject
     public TvDetailMapper() {
@@ -55,13 +57,9 @@ public class TvDetailMapper implements IBeanMapper<TvDetailModel, TvDetailEntity
         List<FilmVideoModel> filmVideoModels = Queryable.from(entity.getVideos().getResults())
                                                         .map(filmVideosMapper::transformTo)
                                                         .toList();
-
         FilmImagesModel filmImagesModel = this.filmImagesMapper.transformTo(entity.getImages());
-
         MovieListResModel movieListResModel = this.movieListResMapper.transformTo(entity.getSimilar());
-
         FilmCastsModel filmCastsModel = this.filmCastsMapper.transformTo(entity.getCredits());
-
         List<TvDetailModel.CreatedByBean> createdByBeans = Queryable.from(entity.getCreated_by())
                                                                     .map(data -> new TvDetailModel.CreatedByBean())
                                                                     .toList();
@@ -69,24 +67,28 @@ public class TvDetailMapper implements IBeanMapper<TvDetailModel, TvDetailEntity
                                                         .map(data -> new CommonBean.BaseBean(data.getId(),
                                                                                              data.getName()))
                                                         .toList();
-
         List<CommonBean.BaseBean> networksBeen = Queryable.from(entity.getNetworks())
                                                           .map(data -> new CommonBean.BaseBean(data.getId(),
                                                                                                data.getName()))
                                                           .toList();
-
         List<CommonBean.BaseBean> productionCompaniesBeen = Queryable.from(entity.getProduction_companies())
                                                                      .map(data -> new CommonBean.BaseBean(data.getId(),
                                                                                                           data.getName()))
                                                                      .toList();
-
-        //        List<TvDetailModel.SeasonsBean> seasonsBeen = Queryable.from(entity.getSeasons())
-        //                                                               .map(data -> new TvDetailModel.SeasonsBean(data.getAir_date(),
-        //                                                                                                          data.getEpisode_count(),
-        //                                                                                                          data.getId(),
-        //                                                                                                          data.getPoster_path(),
-        //                                                                                                          data.getSeason_number()))
-        //                                                               .toList();
+        List<TvSeasonsModel> tvSeasonsModels = Queryable.from(entity.getSeasons())
+                                                        .map(data -> new TvSeasonsModel("",
+                                                                                        data.getAir_date(),
+                                                                                        "",
+                                                                                        "",
+                                                                                        data.getEpisode_count(),
+                                                                                        data.getId(),
+                                                                                        data.getPoster_path(),
+                                                                                        data.getSeason_number(),
+                                                                                        null,
+                                                                                        null,
+                                                                                        null,
+                                                                                        null))
+                                                        .toList();
 
         return new TvDetailModel(entity.getBackdrop_path(),
                                  entity.getFirst_air_date(),
@@ -116,7 +118,6 @@ public class TvDetailMapper implements IBeanMapper<TvDetailModel, TvDetailEntity
                                  entity.getLanguages(),
                                  networksBeen,
                                  entity.getOrigin_country(),
-                                 productionCompaniesBeen,
-                                 seasonsBeen);
+                                 productionCompaniesBeen, tvSeasonsModels);
     }
 }

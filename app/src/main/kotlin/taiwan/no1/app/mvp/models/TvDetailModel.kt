@@ -37,8 +37,8 @@ data class TvDetailModel(val backdrop_path: String? = null,
                          val languages: List<String>? = null,
                          val networks: List<CommonBean.BaseBean>? = null,
                          val origin_country: List<String>? = null,
-                         val production_companies: List<CommonBean.CountriesBean>? = null,
-                         val seasons: List<TvBriefModel>? = null): Parcelable {
+                         val production_companies: List<CommonBean.BaseBean>? = null,
+                         val seasons: List<TvSeasonsModel>? = null): Parcelable {
     class CreatedByBean(val id: Int = 0,
                         val name: String? = null,
                         val profile_path: String? = null): Parcelable {
@@ -98,8 +98,8 @@ data class TvDetailModel(val backdrop_path: String? = null,
             ArrayList<String>().apply { source.readList(this, String::class.java.classLoader) },
             source.createTypedArrayList(CommonBean.BaseBean.CREATOR),
             ArrayList<String>().apply { source.readList(this, String::class.java.classLoader) },
-            source.createTypedArrayList(CommonBean.CountriesBean.CREATOR),
-            source.createTypedArrayList(TvBriefModel.CREATOR))
+            source.createTypedArrayList(CommonBean.BaseBean.CREATOR),
+            source.createTypedArrayList(TvSeasonsModel.CREATOR))
 
     override fun describeContents() = 0
 

@@ -3,10 +3,12 @@ package taiwan.no1.app.mvp.models
 import android.os.Parcel
 import android.os.Parcelable
 
-
 /**
- * Created by weian on 2017/1/21.
+ *
+ * @author  weian
+ * @since   2017/1/21
  */
+
 data class TvEpisodesModel(val air_date: String? = null,
                            val episode_number: Int = 0,
                            val name: String? = null,

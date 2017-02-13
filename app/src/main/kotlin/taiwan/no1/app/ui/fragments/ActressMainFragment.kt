@@ -9,8 +9,7 @@ import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.contracts.ActressMainContract
-import taiwan.no1.app.mvp.models.CastListResModel
-import taiwan.no1.app.mvp.models.CastListResModel.CastBriefBean
+import taiwan.no1.app.mvp.models.CastBriefModel
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.adapter.itemdecorator.GridSpacingItemDecorator
@@ -50,7 +49,7 @@ class ActressMainFragment: BaseFragment(), ActressMainContract.View, IMainFragme
     //endregion
 
     //region Local variables
-    private var castList: ArrayList<CastBriefBean>? = null
+    private var castList: ArrayList<CastBriefModel>? = null
     private var pageIndex: Int = 1
     private var loading: Boolean = true
 
@@ -145,7 +144,7 @@ class ActressMainFragment: BaseFragment(), ActressMainContract.View, IMainFragme
     override fun getCurrentDisplayFragment(): Fragment = this
 
     //region Presenter implementations
-    override fun showCastBriefList(castList: List<CastListResModel.CastBriefBean>) {
+    override fun showCastBriefList(castList: List<CastBriefModel>) {
         castList.isEmpty()
         this.castList = ArrayList(if (null == this.castList || this.castList!!.isEmpty())
             castList

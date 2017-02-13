@@ -54,7 +54,6 @@ public class FilmCastsMapper implements IBeanMapper<FilmCastsModel, FilmCastsEnt
                                                                                     data.getOrder(),
                                                                                     data.getProfile_path()))
                                            .toList();
-
         List<CrewBean> crewBeen = Queryable.from(entity.getCrew())
                                            .map(data -> new FilmCastsModel.CrewBean(data.getCredit_id(),
                                                                                     data.getDepartment(),

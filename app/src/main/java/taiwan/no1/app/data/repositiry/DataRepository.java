@@ -60,11 +60,10 @@ public class DataRepository implements IRepository {
         switch (category) {
             case POPULAR:
             case TOP_RATED:
-                return store.moviesEntities(category, page).map(entity -> transitionMovie(entity.getMovieEntities()));
+                return store.moviesEntities(category, page).map(entity -> transitionMovie(entity.getResults()));
             case NOW_PLAYING:
             case UP_COMING:
-                return store.moviesWithDateEntities(category, page)
-                            .map(entity -> transitionMovie(entity.getMovieEntities()));
+                return store.moviesWithDateEntities(category, page).map(entity -> transitionMovie(entity.getResults()));
         }
 
         throw new Error("Movies doesn't have this type!");
