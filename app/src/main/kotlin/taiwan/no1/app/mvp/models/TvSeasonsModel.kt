@@ -18,7 +18,7 @@ data class TvSeasonsModel(val _id: String? = null,
                           val poster_path: String? = null,
                           val season_number: Int = 0,
                           val images: FilmImagesModel? = null,
-                          val videos: CommonBean.VideosBean? = null,
+                          val videos: CommonModel.VideosBean? = null,
                           val credits: FilmCastsModel? = null,
                           val episodes: List<TvEpisodesModel>? = null): Parcelable {
     //region Parcelable
@@ -38,7 +38,7 @@ data class TvSeasonsModel(val _id: String? = null,
             source.readString(),
             source.readInt(),
             source.readParcelable<FilmImagesModel?>(FilmImagesModel::class.java.classLoader),
-            source.readParcelable<CommonBean.VideosBean?>(CommonBean.VideosBean::class.java.classLoader),
+            source.readParcelable<CommonModel.VideosBean?>(CommonModel.VideosBean::class.java.classLoader),
             source.readParcelable<FilmCastsModel?>(FilmCastsModel::class.java.classLoader),
             source.createTypedArrayList(TvEpisodesModel.CREATOR))
 

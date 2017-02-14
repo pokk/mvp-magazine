@@ -11,7 +11,7 @@ import javax.inject.Singleton;
 
 import taiwan.no1.app.data.entities.MovieDetailEntity;
 import taiwan.no1.app.domain.mapper.IBeanMapper;
-import taiwan.no1.app.mvp.models.CommonBean;
+import taiwan.no1.app.mvp.models.CommonModel;
 import taiwan.no1.app.mvp.models.FilmCastsModel;
 import taiwan.no1.app.mvp.models.FilmImagesModel;
 import taiwan.no1.app.mvp.models.FilmVideoModel;
@@ -54,23 +54,24 @@ public class MovieDetailMapper implements IBeanMapper<MovieDetailModel, MovieDet
     @Override
     public MovieDetailModel transformTo(@NonNull MovieDetailEntity entity) {
         // We may not use all of information, then we will remove some redundant information.
-        List<CommonBean.BaseBean> genresBeen = Queryable.from(entity.getGenres())
-                                                        .map(data -> new CommonBean.BaseBean(data.getId(),
-                                                                                             data.getName()))
-                                                        .toList();
-        List<CommonBean.BaseBean> productionCompaniesBeen = Queryable.from(entity.getProduction_companies())
-                                                                     .map(data -> new CommonBean.BaseBean(data.getId(),
-                                                                                                          data.getName()))
-                                                                     .toList();
-        List<CommonBean.CountriesBean> productionCountriesBeen = Queryable.from(entity.getProduction_countries())
-                                                                          .map(data -> new CommonBean.CountriesBean(data.getIso_3166_1(),
-                                                                                                                    data.getName()))
-                                                                          .toList();
-
-        List<CommonBean.LanguagesBean> spokenLanguagesBeen = Queryable.from(entity.getSpoken_languages())
-                                                                      .map(data -> new CommonBean.LanguagesBean(data.getIso_639_1(),
-                                                                                                                data.getName()))
+        List<CommonModel.BaseBean> genresBeen = Queryable.from(entity.getGenres())
+                                                         .map(data -> new CommonModel.BaseBean(data.getId(),
+                                                                                               data.getName()))
+                                                         .toList();
+        List<CommonModel.BaseBean> productionCompaniesBeen = Queryable.from(entity.getProduction_companies())
+                                                                      .map(data -> new CommonModel.BaseBean(data.getId(),
+                                                                                                            data.getName()))
                                                                       .toList();
+        List<CommonModel.CountriesBean> productionCountriesBeen = Queryable.from(entity.getProduction_countries())
+                                                                           .map(data -> new CommonModel.CountriesBean(
+                                                                                   data.getIso_3166_1(),
+                                                                                   data.getName()))
+                                                                           .toList();
+
+        List<CommonModel.LanguagesBean> spokenLanguagesBeen = Queryable.from(entity.getSpoken_languages())
+                                                                       .map(data -> new CommonModel.LanguagesBean(data.getIso_639_1(),
+                                                                                                                  data.getName()))
+                                                                       .toList();
         List<FilmVideoModel> movieVideosModels = Queryable.from(entity.getVideos().getResults())
                                                           .map(this.movieVideosMapper::transformTo)
                                                           .toList();
@@ -104,8 +105,7 @@ public class MovieDetailMapper implements IBeanMapper<MovieDetailModel, MovieDet
                                     entity.getTitle(),
                                     entity.isVideo(),
                                     entity.getVote_average(),
-                                    entity.getVote_count(),
-                                    new CommonBean.VideosBean(movieVideosModels),
+                                    entity.getVote_count(), new CommonModel.VideosBean(movieVideosModels),
                                     movieImagesModel,
                                     movieListResModel,
                                     movieCastsModel,

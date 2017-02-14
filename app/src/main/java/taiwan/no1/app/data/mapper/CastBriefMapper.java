@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 
 import com.innahema.collections.query.queriables.Queryable;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -44,11 +46,14 @@ public class CastBriefMapper implements IBeanMapper<CastBriefModel, CastBriefEnt
     @Override
     public CastBriefModel transformTo(@NonNull CastBriefEntity entity) {
         // We may not use all of information, then we will remove some redundant information.
+        List<CastBriefModel.KnownForBean> knownForBean = Queryable.from(entity.getKnown_for())
+                                                                  .map(castKnownForMapper::transformTo)
+                                                                  .toList();
+
         return new CastBriefModel(entity.getProfile_path(),
                                   entity.isAdult(),
                                   entity.getId(),
                                   entity.getName(),
-                                  entity.getPopularity(),
-                                  Queryable.from(entity.getKnown_for()).map(castKnownForMapper::transformTo).toList());
+                                  entity.getPopularity(), knownForBean);
     }
 }

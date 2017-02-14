@@ -11,7 +11,7 @@ import javax.inject.Singleton;
 
 import taiwan.no1.app.data.entities.TvDetailEntity;
 import taiwan.no1.app.domain.mapper.IBeanMapper;
-import taiwan.no1.app.mvp.models.CommonBean;
+import taiwan.no1.app.mvp.models.CommonModel;
 import taiwan.no1.app.mvp.models.FilmCastsModel;
 import taiwan.no1.app.mvp.models.FilmImagesModel;
 import taiwan.no1.app.mvp.models.FilmVideoModel;
@@ -45,7 +45,7 @@ public class TvDetailMapper implements IBeanMapper<TvDetailModel, TvDetailEntity
     @Override
     @Deprecated
     public TvDetailEntity transformFrom(@NonNull TvDetailModel model) {
-        return null;
+        throw new Error("No-op");
     }
 
     /**
@@ -63,18 +63,18 @@ public class TvDetailMapper implements IBeanMapper<TvDetailModel, TvDetailEntity
         List<TvDetailModel.CreatedByBean> createdByBeans = Queryable.from(entity.getCreated_by())
                                                                     .map(data -> new TvDetailModel.CreatedByBean())
                                                                     .toList();
-        List<CommonBean.BaseBean> genresBeen = Queryable.from(entity.getGenres())
-                                                        .map(data -> new CommonBean.BaseBean(data.getId(),
-                                                                                             data.getName()))
-                                                        .toList();
-        List<CommonBean.BaseBean> networksBeen = Queryable.from(entity.getNetworks())
-                                                          .map(data -> new CommonBean.BaseBean(data.getId(),
+        List<CommonModel.BaseBean> genresBeen = Queryable.from(entity.getGenres())
+                                                         .map(data -> new CommonModel.BaseBean(data.getId(),
                                                                                                data.getName()))
-                                                          .toList();
-        List<CommonBean.BaseBean> productionCompaniesBeen = Queryable.from(entity.getProduction_companies())
-                                                                     .map(data -> new CommonBean.BaseBean(data.getId(),
-                                                                                                          data.getName()))
-                                                                     .toList();
+                                                         .toList();
+        List<CommonModel.BaseBean> networksBeen = Queryable.from(entity.getNetworks())
+                                                           .map(data -> new CommonModel.BaseBean(data.getId(),
+                                                                                                 data.getName()))
+                                                           .toList();
+        List<CommonModel.BaseBean> productionCompaniesBeen = Queryable.from(entity.getProduction_companies())
+                                                                      .map(data -> new CommonModel.BaseBean(data.getId(),
+                                                                                                            data.getName()))
+                                                                      .toList();
         List<TvSeasonsModel> tvSeasonsModels = Queryable.from(entity.getSeasons())
                                                         .map(data -> new TvSeasonsModel("",
                                                                                         data.getAir_date(),
@@ -107,8 +107,7 @@ public class TvDetailMapper implements IBeanMapper<TvDetailModel, TvDetailEntity
                                  entity.getStatus(),
                                  entity.getType(),
                                  entity.getVote_average(),
-                                 entity.getVote_count(),
-                                 new CommonBean.VideosBean(filmVideoModels),
+                                 entity.getVote_count(), new CommonModel.VideosBean(filmVideoModels),
                                  filmImagesModel,
                                  movieListResModel,
                                  filmCastsModel,

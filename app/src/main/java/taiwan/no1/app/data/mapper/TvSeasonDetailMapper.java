@@ -11,7 +11,7 @@ import javax.inject.Singleton;
 
 import taiwan.no1.app.data.entities.TvSeasonDetailEntity;
 import taiwan.no1.app.domain.mapper.IBeanMapper;
-import taiwan.no1.app.mvp.models.CommonBean;
+import taiwan.no1.app.mvp.models.CommonModel;
 import taiwan.no1.app.mvp.models.FilmCastsModel;
 import taiwan.no1.app.mvp.models.FilmImagesModel;
 import taiwan.no1.app.mvp.models.FilmVideoModel;
@@ -43,7 +43,7 @@ public class TvSeasonDetailMapper implements IBeanMapper<TvSeasonsModel, TvSeaso
     @Override
     @Deprecated
     public TvSeasonDetailEntity transformFrom(@NonNull TvSeasonsModel model) {
-        return null;
+        throw new Error("No-op");
     }
 
     /**
@@ -69,8 +69,7 @@ public class TvSeasonDetailMapper implements IBeanMapper<TvSeasonsModel, TvSeaso
                                   entity.getId(),
                                   entity.getPoster_path(),
                                   entity.getSeason_number(),
-                                  filmImagesModel,
-                                  new CommonBean.VideosBean(filmVideoModels),
+                                  filmImagesModel, new CommonModel.VideosBean(filmVideoModels),
                                   filmCastsModel,
                                   tvEpisodesModels);
     }

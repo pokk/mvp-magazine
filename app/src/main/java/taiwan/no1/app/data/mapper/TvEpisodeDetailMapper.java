@@ -12,7 +12,7 @@ import javax.inject.Singleton;
 import taiwan.no1.app.data.entities.FilmCastsEntity;
 import taiwan.no1.app.data.entities.TvEpisodeDetailEntity;
 import taiwan.no1.app.domain.mapper.IBeanMapper;
-import taiwan.no1.app.mvp.models.CommonBean;
+import taiwan.no1.app.mvp.models.CommonModel;
 import taiwan.no1.app.mvp.models.FilmCastsModel;
 import taiwan.no1.app.mvp.models.FilmVideoModel;
 import taiwan.no1.app.mvp.models.ImageProfileModel;
@@ -42,7 +42,7 @@ public class TvEpisodeDetailMapper implements IBeanMapper<TvEpisodesModel, TvEpi
     @Override
     @Deprecated
     public TvEpisodeDetailEntity transformFrom(@NonNull TvEpisodesModel model) {
-        return null;
+        throw new Error("No-op");
     }
 
     /**
@@ -74,7 +74,7 @@ public class TvEpisodeDetailMapper implements IBeanMapper<TvEpisodesModel, TvEpi
                                    entity.getStill_path(),
                                    entity.getVote_count(),
                                    new TvEpisodesModel.ImageBean(imageProfileModels),
-                                   new CommonBean.VideosBean(tvMovieVideosModel),
+                                   new CommonModel.VideosBean(tvMovieVideosModel),
                                    filmCastsModel,
                                    tempFilmCastsModel.getCrew(),
                                    tempFilmCastsModel.getCast());

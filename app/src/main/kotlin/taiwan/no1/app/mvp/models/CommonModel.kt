@@ -10,7 +10,7 @@ import java.util.*
  * @since   2/12/17
  */
 
-object CommonBean {
+object CommonModel {
     data class BaseBean(val id: Int = 0,
                         val name: String? = null): Parcelable {
         //region Parcelable
