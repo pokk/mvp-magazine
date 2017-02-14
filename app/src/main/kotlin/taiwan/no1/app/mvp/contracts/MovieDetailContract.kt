@@ -3,7 +3,7 @@ package taiwan.no1.app.mvp.contracts
 import taiwan.no1.app.mvp.models.FilmCastsModel
 import taiwan.no1.app.mvp.models.FilmVideoModel
 import taiwan.no1.app.mvp.models.ImageProfileModel
-import taiwan.no1.app.mvp.models.MovieBriefModel
+import taiwan.no1.app.mvp.models.movie.MovieBriefModel
 import taiwan.no1.app.mvp.presenters.IPresenter
 import taiwan.no1.app.mvp.views.IFragmentView
 import taiwan.no1.app.mvp.views.IView

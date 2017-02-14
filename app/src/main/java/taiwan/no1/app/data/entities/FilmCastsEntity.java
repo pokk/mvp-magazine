@@ -3,7 +3,7 @@ package taiwan.no1.app.data.entities;
 import java.util.List;
 
 /**
- * Related the movie with the casts information.
+ * Related the movie with the casts information data class.
  *
  * @author Jieyi
  * @since 12/29/16

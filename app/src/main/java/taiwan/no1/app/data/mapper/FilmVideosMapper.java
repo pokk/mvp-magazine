@@ -10,7 +10,7 @@ import taiwan.no1.app.domain.mapper.IBeanMapper;
 import taiwan.no1.app.mvp.models.FilmVideoModel;
 
 /**
- * Mapper class used to transform between {@link FilmVideoModel} (in the kotlin layer) and {@link FilmVideosEntity}
+ * Base mapper class used to transform between {@link FilmVideoModel} (in the kotlin layer) and {@link FilmVideosEntity}
  * (in the data layer).
  * 
  * @author Jieyi

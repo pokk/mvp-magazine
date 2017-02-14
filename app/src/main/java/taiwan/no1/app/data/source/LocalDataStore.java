@@ -3,14 +3,14 @@ package taiwan.no1.app.data.source;
 import android.support.annotation.Nullable;
 
 import rx.Observable;
-import taiwan.no1.app.data.entities.CastBriefEntity;
-import taiwan.no1.app.data.entities.CastDetailEntity;
-import taiwan.no1.app.data.entities.MovieBriefEntity;
-import taiwan.no1.app.data.entities.MovieDetailEntity;
-import taiwan.no1.app.data.entities.MovieListWithDateResEntity;
-import taiwan.no1.app.data.entities.SearchListResEntity;
-import taiwan.no1.app.data.entities.TvBriefEntity;
-import taiwan.no1.app.data.entities.TvDetailEntity;
+import taiwan.no1.app.data.entities.ListResEntity;
+import taiwan.no1.app.data.entities.cast.CastBriefEntity;
+import taiwan.no1.app.data.entities.cast.CastDetailEntity;
+import taiwan.no1.app.data.entities.movie.MovieBriefEntity;
+import taiwan.no1.app.data.entities.movie.MovieDetailEntity;
+import taiwan.no1.app.data.entities.movie.MovieListWithDateResEntity;
+import taiwan.no1.app.data.entities.tv.TvBriefEntity;
+import taiwan.no1.app.data.entities.tv.TvDetailEntity;
 
 /**
  * @author Jieyi
@@ -21,7 +21,7 @@ public class LocalDataStore implements IDataStore {
     @Nullable
     @Override
     @Deprecated
-    public Observable<SearchListResEntity<MovieBriefEntity>> moviesEntities(CloudDataStore.Movies category, int page) {
+    public Observable<ListResEntity<MovieBriefEntity>> moviesEntities(CloudDataStore.Movies category, int page) {
         throw new Error("No-op");
     }
 
@@ -49,7 +49,7 @@ public class LocalDataStore implements IDataStore {
     @Nullable
     @Override
     @Deprecated
-    public Observable<SearchListResEntity<TvBriefEntity>> TvsEntities(CloudDataStore.Tvs category, int page) {
+    public Observable<ListResEntity<TvBriefEntity>> TvsEntities(CloudDataStore.Tvs category, int page) {
         throw new Error("No-op");
     }
 
@@ -63,7 +63,7 @@ public class LocalDataStore implements IDataStore {
     @Nullable
     @Override
     @Deprecated
-    public Observable<SearchListResEntity<CastBriefEntity>> popularCastEntities(int page) {
+    public Observable<ListResEntity<CastBriefEntity>> popularCastEntities(int page) {
         throw new Error("No-op");
     }
 }

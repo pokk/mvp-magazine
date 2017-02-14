@@ -3,14 +3,14 @@ package taiwan.no1.app.data.source;
 import android.support.annotation.Nullable;
 
 import rx.Observable;
-import taiwan.no1.app.data.entities.CastBriefEntity;
-import taiwan.no1.app.data.entities.CastDetailEntity;
-import taiwan.no1.app.data.entities.MovieBriefEntity;
-import taiwan.no1.app.data.entities.MovieDetailEntity;
-import taiwan.no1.app.data.entities.MovieListWithDateResEntity;
-import taiwan.no1.app.data.entities.SearchListResEntity;
-import taiwan.no1.app.data.entities.TvBriefEntity;
-import taiwan.no1.app.data.entities.TvDetailEntity;
+import taiwan.no1.app.data.entities.ListResEntity;
+import taiwan.no1.app.data.entities.cast.CastBriefEntity;
+import taiwan.no1.app.data.entities.cast.CastDetailEntity;
+import taiwan.no1.app.data.entities.movie.MovieBriefEntity;
+import taiwan.no1.app.data.entities.movie.MovieDetailEntity;
+import taiwan.no1.app.data.entities.movie.MovieListWithDateResEntity;
+import taiwan.no1.app.data.entities.tv.TvBriefEntity;
+import taiwan.no1.app.data.entities.tv.TvDetailEntity;
 
 /**
  * Interface that represents a data store from where data is retrieved.
@@ -25,11 +25,10 @@ public interface IDataStore {
      *
      * @param category from {@link CloudDataStore.Movies}.
      * @param page     a number of page from remote database.
-     * @return an {@link rx.Observable} which will emit a {@link SearchListResEntity<MovieBriefEntity>}.
+     * @return an {@link rx.Observable} which will emit a {@link ListResEntity <MovieBriefEntity>}.
      */
     @Nullable
-    Observable<SearchListResEntity<MovieBriefEntity>> moviesEntities(final CloudDataStore.Movies category,
-                                                                     final int page);
+    Observable<ListResEntity<MovieBriefEntity>> moviesEntities(final CloudDataStore.Movies category, final int page);
 
     /**
      * Retrieve a list of movie information by specific category, the response forms are difference between the above.
@@ -64,10 +63,10 @@ public interface IDataStore {
      *
      * @param category from {@link CloudDataStore.Tvs}.
      * @param page     a number of page from remote database.
-     * @return an {@link rx.Observable} which will emit a {@link SearchListResEntity<TvBriefEntity>}.
+     * @return an {@link rx.Observable} which will emit a {@link ListResEntity <TvBriefEntity>}.
      */
     @Nullable
-    Observable<SearchListResEntity<TvBriefEntity>> TvsEntities(final CloudDataStore.Tvs category, final int page);
+    Observable<ListResEntity<TvBriefEntity>> TvsEntities(final CloudDataStore.Tvs category, final int page);
 
     /**
      * Retrieve a detail tv information by the tv id.
@@ -82,8 +81,8 @@ public interface IDataStore {
      * Retrieve a list of the popular cast information.
      *
      * @param page a number of page from remote database.
-     * @return an {@link rx.Observable} which will emit a {@link SearchListResEntity<CastBriefEntity>}.
+     * @return an {@link rx.Observable} which will emit a {@link ListResEntity <CastBriefEntity>}.
      */
     @Nullable
-    Observable<SearchListResEntity<CastBriefEntity>> popularCastEntities(final int page);
+    Observable<ListResEntity<CastBriefEntity>> popularCastEntities(final int page);
 }

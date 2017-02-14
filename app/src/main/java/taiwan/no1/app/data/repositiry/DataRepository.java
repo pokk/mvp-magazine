@@ -9,26 +9,26 @@ import java.util.List;
 import javax.inject.Inject;
 
 import rx.Observable;
-import taiwan.no1.app.data.entities.MovieBriefEntity;
-import taiwan.no1.app.data.entities.TvBriefEntity;
-import taiwan.no1.app.data.mapper.CastDetailMapper;
-import taiwan.no1.app.data.mapper.CastListResMapper;
+import taiwan.no1.app.data.entities.movie.MovieBriefEntity;
+import taiwan.no1.app.data.entities.tv.TvBriefEntity;
 import taiwan.no1.app.data.mapper.FilmCastsMapper;
-import taiwan.no1.app.data.mapper.MovieBriefMapper;
-import taiwan.no1.app.data.mapper.MovieDetailMapper;
-import taiwan.no1.app.data.mapper.TvBriefMapper;
-import taiwan.no1.app.data.mapper.TvDetailMapper;
-import taiwan.no1.app.data.mapper.TvListResMapper;
+import taiwan.no1.app.data.mapper.cast.CastDetailMapper;
+import taiwan.no1.app.data.mapper.cast.CastListResMapper;
+import taiwan.no1.app.data.mapper.movie.MovieBriefMapper;
+import taiwan.no1.app.data.mapper.movie.MovieDetailMapper;
+import taiwan.no1.app.data.mapper.tv.TvBriefMapper;
+import taiwan.no1.app.data.mapper.tv.TvDetailMapper;
+import taiwan.no1.app.data.mapper.tv.TvListResMapper;
 import taiwan.no1.app.data.source.CloudDataStore;
 import taiwan.no1.app.data.source.IDataStore;
 import taiwan.no1.app.data.source.factory.DataStoreFactory;
 import taiwan.no1.app.domain.repository.IRepository;
-import taiwan.no1.app.mvp.models.CastDetailModel;
-import taiwan.no1.app.mvp.models.CastListResModel;
-import taiwan.no1.app.mvp.models.MovieBriefModel;
-import taiwan.no1.app.mvp.models.MovieDetailModel;
-import taiwan.no1.app.mvp.models.TvBriefModel;
-import taiwan.no1.app.mvp.models.TvDetailModel;
+import taiwan.no1.app.mvp.models.cast.CastDetailModel;
+import taiwan.no1.app.mvp.models.cast.CastListResModel;
+import taiwan.no1.app.mvp.models.movie.MovieBriefModel;
+import taiwan.no1.app.mvp.models.movie.MovieDetailModel;
+import taiwan.no1.app.mvp.models.tv.TvBriefModel;
+import taiwan.no1.app.mvp.models.tv.TvDetailModel;
 
 /**
  * Low layer pure entity convert to kotlin layer data model from the repositories.

@@ -96,7 +96,7 @@ public class CreditsInFilmEntity {
 
         @Override
         public String toString() {
-            return "CastBean{" +
+            return "CastInFilmBean{" +
                     "adult=" + adult +
                     ", character='" + character + '\'' +
                     ", credit_id='" + credit_id + '\'' +
@@ -170,14 +170,14 @@ public class CreditsInFilmEntity {
 
         @Override
         public String toString() {
-            return "CrewBean{" +
+            return "CrewInFlimBean{" +
                     "adult=" + adult +
                     ", credit_id='" + credit_id + '\'' +
                     ", department='" + department + '\'' +
                     ", id=" + id +
                     ", job='" + job + '\'' +
                     ", original_title='" + original_title + '\'' +
-                    ", poster_path=" + poster_path +
+                    ", poster_path='" + poster_path + '\'' +
                     ", release_date='" + release_date + '\'' +
                     ", title='" + title + '\'' +
                     ", media_type='" + media_type + '\'' +
@@ -187,7 +187,7 @@ public class CreditsInFilmEntity {
 
     @Override
     public String toString() {
-        return "CreditsEntity{" +
+        return "CreditsInFilmEntity{" +
                 "cast=" + cast +
                 ", crew=" + crew +
                 '}';

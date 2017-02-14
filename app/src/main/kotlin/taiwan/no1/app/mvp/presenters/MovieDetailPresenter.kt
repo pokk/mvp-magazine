@@ -4,7 +4,7 @@ import rx.lang.kotlin.subscriber
 import taiwan.no1.app.api.config.MovieDBConfig
 import taiwan.no1.app.domain.usecase.MovieDetail
 import taiwan.no1.app.mvp.contracts.MovieDetailContract
-import taiwan.no1.app.mvp.models.MovieDetailModel
+import taiwan.no1.app.mvp.models.movie.MovieDetailModel
 import taiwan.no1.app.utilies.AppLog
 import taiwan.no1.app.utilies.TimeUtils
 import kotlin.comparisons.compareBy

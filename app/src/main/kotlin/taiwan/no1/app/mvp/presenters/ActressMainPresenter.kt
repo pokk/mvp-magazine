@@ -3,7 +3,7 @@ package taiwan.no1.app.mvp.presenters
 import rx.lang.kotlin.subscriber
 import taiwan.no1.app.domain.usecase.CastLists
 import taiwan.no1.app.mvp.contracts.ActressMainContract
-import taiwan.no1.app.mvp.models.CastListResModel
+import taiwan.no1.app.mvp.models.cast.CastListResModel
 import taiwan.no1.app.utilies.AppLog
 import java.util.*
 

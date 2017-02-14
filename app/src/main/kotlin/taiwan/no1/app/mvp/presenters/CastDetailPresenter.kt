@@ -7,7 +7,7 @@ import taiwan.no1.app.api.config.MovieDBConfig
 import taiwan.no1.app.constant.Constant
 import taiwan.no1.app.domain.usecase.CastDetail
 import taiwan.no1.app.mvp.contracts.CastDetailContract
-import taiwan.no1.app.mvp.models.CastDetailModel
+import taiwan.no1.app.mvp.models.cast.CastDetailModel
 import taiwan.no1.app.ui.fragments.MovieGalleryFragment
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_TAG

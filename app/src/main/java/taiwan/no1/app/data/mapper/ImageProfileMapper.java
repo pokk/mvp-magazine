@@ -10,7 +10,7 @@ import taiwan.no1.app.domain.mapper.IBeanMapper;
 import taiwan.no1.app.mvp.models.ImageProfileModel;
 
 /**
- * Mapper class used to transform between {@link ImageProfileModel} (in the kotlin layer) and {@link ImageProfileEntity}
+ * Base mapper class used to transform between {@link ImageProfileModel} (in the kotlin layer) and {@link ImageProfileEntity}
  * (in the data layer).
  * 
  * @author Jieyi

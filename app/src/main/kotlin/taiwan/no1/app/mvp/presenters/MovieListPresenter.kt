@@ -4,7 +4,7 @@ import rx.lang.kotlin.subscriber
 import taiwan.no1.app.data.source.CloudDataStore
 import taiwan.no1.app.domain.usecase.MovieLists
 import taiwan.no1.app.mvp.contracts.MovieListContract
-import taiwan.no1.app.mvp.models.MovieBriefModel
+import taiwan.no1.app.mvp.models.movie.MovieBriefModel
 import taiwan.no1.app.utilies.AppLog
 
 /**

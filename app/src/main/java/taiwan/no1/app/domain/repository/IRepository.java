@@ -6,13 +6,13 @@ import java.util.List;
 
 import rx.Observable;
 import taiwan.no1.app.data.source.CloudDataStore;
-import taiwan.no1.app.mvp.models.CastDetailModel;
-import taiwan.no1.app.mvp.models.CastListResModel;
-import taiwan.no1.app.mvp.models.MovieBriefModel;
-import taiwan.no1.app.mvp.models.MovieDetailModel;
-import taiwan.no1.app.mvp.models.TvBriefModel;
-import taiwan.no1.app.mvp.models.TvDetailModel;
-import taiwan.no1.app.mvp.models.TvListResModel;
+import taiwan.no1.app.mvp.models.cast.CastDetailModel;
+import taiwan.no1.app.mvp.models.cast.CastListResModel;
+import taiwan.no1.app.mvp.models.movie.MovieBriefModel;
+import taiwan.no1.app.mvp.models.movie.MovieDetailModel;
+import taiwan.no1.app.mvp.models.tv.TvBriefModel;
+import taiwan.no1.app.mvp.models.tv.TvDetailModel;
+import taiwan.no1.app.mvp.models.tv.TvListResModel;
 
 /**
  * Interface that represents a Repository for getting a movie related data.

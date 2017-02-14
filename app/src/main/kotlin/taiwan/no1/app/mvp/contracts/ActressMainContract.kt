@@ -1,6 +1,6 @@
 package taiwan.no1.app.mvp.contracts
 
-import taiwan.no1.app.mvp.models.CastBriefModel
+import taiwan.no1.app.mvp.models.cast.CastBriefModel
 import taiwan.no1.app.mvp.presenters.IPresenter
 import taiwan.no1.app.mvp.views.IFragmentView
 import taiwan.no1.app.mvp.views.IView

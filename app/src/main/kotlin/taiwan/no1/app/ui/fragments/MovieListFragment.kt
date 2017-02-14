@@ -12,7 +12,7 @@ import taiwan.no1.app.data.source.CloudDataStore
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.contracts.MovieListContract
-import taiwan.no1.app.mvp.models.MovieBriefModel
+import taiwan.no1.app.mvp.models.movie.MovieBriefModel
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.customize.LoadMoreRecyclerView

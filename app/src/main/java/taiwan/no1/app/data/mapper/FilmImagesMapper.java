@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.innahema.collections.query.queriables.Queryable;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -24,7 +25,7 @@ import taiwan.no1.app.mvp.models.ImageProfileModel;
 
 @Singleton
 public class FilmImagesMapper implements IBeanMapper<FilmImagesModel, FilmImagesEntity> {
-    @Inject ImageProfileMapper imageInfoMapper;
+    @Inject ImageProfileMapper imageProfileMapper;
 
     @Inject
     public FilmImagesMapper() {
@@ -46,12 +47,13 @@ public class FilmImagesMapper implements IBeanMapper<FilmImagesModel, FilmImages
     @NonNull
     @Override
     public FilmImagesModel transformTo(@NonNull FilmImagesEntity entity) {
-        List<ImageProfileModel> backdrops = Queryable.from(entity.getBackdrops())
-                                                     .map(this.imageInfoMapper::transformTo)
-                                                     .toList();
-        List<ImageProfileModel> posters = Queryable.from(entity.getPosters())
-                                                   .map(this.imageInfoMapper::transformTo)
-                                                   .toList();
+        List<ImageProfileModel> backdrops = null != entity.getBackdrops() ?
+                Queryable.from(entity.getBackdrops()).map(this.imageProfileMapper::transformTo).toList() :
+                Collections.emptyList();
+        List<ImageProfileModel> posters = null != entity.getPosters() ?
+                Queryable.from(entity.getPosters()).map(this.imageProfileMapper::transformTo).toList() :
+                Collections.emptyList();
+
         return new FilmImagesModel(backdrops, posters);
     }
 }

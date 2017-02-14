@@ -1,7 +1,7 @@
 package taiwan.no1.app.data.entities;
 
 /**
- * Cast's image detail information data class.
+ * The photo detail information data class.
  *
  * @author Jieyi
  * @since 1/1/17

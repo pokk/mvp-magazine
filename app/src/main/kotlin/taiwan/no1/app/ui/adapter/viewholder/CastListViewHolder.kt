@@ -13,7 +13,7 @@ import com.hwangjr.rxbus.RxBus
 import com.touchin.constant.RxbusTag
 import taiwan.no1.app.R
 import taiwan.no1.app.api.config.MovieDBConfig
-import taiwan.no1.app.mvp.models.CastBriefModel
+import taiwan.no1.app.mvp.models.cast.CastBriefModel
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.customize.AdjustHeightImageView
 import taiwan.no1.app.ui.fragments.CastDetailFragment

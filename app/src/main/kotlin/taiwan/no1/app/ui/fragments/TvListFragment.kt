@@ -9,7 +9,7 @@ import taiwan.no1.app.data.source.CloudDataStore
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.contracts.TvListContract
-import taiwan.no1.app.mvp.models.TvBriefModel
+import taiwan.no1.app.mvp.models.tv.TvBriefModel
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.customize.LoadMoreRecyclerView

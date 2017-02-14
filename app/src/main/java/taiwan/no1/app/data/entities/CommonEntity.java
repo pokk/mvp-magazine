@@ -3,7 +3,7 @@ package taiwan.no1.app.data.entities;
 import java.util.List;
 
 /**
- * Common data class.
+ * Collect all common data class.
  *
  * @author jieyi
  * @since 2017/02/13

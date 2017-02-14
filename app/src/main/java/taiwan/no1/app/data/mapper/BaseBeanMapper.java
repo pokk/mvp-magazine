@@ -10,7 +10,7 @@ import taiwan.no1.app.domain.mapper.IBeanMapper;
 import taiwan.no1.app.mvp.models.CommonModel;
 
 /**
- * Mapper class used to transform between {@link CommonModel.BaseBean} (in the kotlin layer) and
+ * Base mapper class used to transform between {@link CommonModel.BaseBean} (in the kotlin layer) and
  * {@link CommonEntity.BaseBean} (in the data layer).
  *
  * @author Jieyi

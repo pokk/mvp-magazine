@@ -11,14 +11,14 @@ import javax.inject.Inject;
 import rx.Observable;
 import taiwan.no1.app.R;
 import taiwan.no1.app.api.service.MovieDBService;
-import taiwan.no1.app.data.entities.CastBriefEntity;
-import taiwan.no1.app.data.entities.CastDetailEntity;
-import taiwan.no1.app.data.entities.MovieBriefEntity;
-import taiwan.no1.app.data.entities.MovieDetailEntity;
-import taiwan.no1.app.data.entities.MovieListWithDateResEntity;
-import taiwan.no1.app.data.entities.SearchListResEntity;
-import taiwan.no1.app.data.entities.TvBriefEntity;
-import taiwan.no1.app.data.entities.TvDetailEntity;
+import taiwan.no1.app.data.entities.ListResEntity;
+import taiwan.no1.app.data.entities.cast.CastBriefEntity;
+import taiwan.no1.app.data.entities.cast.CastDetailEntity;
+import taiwan.no1.app.data.entities.movie.MovieBriefEntity;
+import taiwan.no1.app.data.entities.movie.MovieDetailEntity;
+import taiwan.no1.app.data.entities.movie.MovieListWithDateResEntity;
+import taiwan.no1.app.data.entities.tv.TvBriefEntity;
+import taiwan.no1.app.data.entities.tv.TvDetailEntity;
 import taiwan.no1.app.internal.di.components.NetComponent;
 
 /**
@@ -65,7 +65,7 @@ public class CloudDataStore implements IDataStore {
      */
     @Nullable
     @Override
-    public Observable<SearchListResEntity<MovieBriefEntity>> moviesEntities(final Movies category, final int page) {
+    public Observable<ListResEntity<MovieBriefEntity>> moviesEntities(final Movies category, final int page) {
         Map<String, String> query = new ArrayMap<String, String>() {{
             put("api_key", api_key);
             put("page", String.valueOf(page));
@@ -147,7 +147,7 @@ public class CloudDataStore implements IDataStore {
      */
     @Nullable
     @Override
-    public Observable<SearchListResEntity<TvBriefEntity>> TvsEntities(final Tvs category, final int page) {
+    public Observable<ListResEntity<TvBriefEntity>> TvsEntities(final Tvs category, final int page) {
         Map<String, String> query = new ArrayMap<String, String>() {{
             put("api_key", api_key);
             put("page", String.valueOf(page));
@@ -190,7 +190,7 @@ public class CloudDataStore implements IDataStore {
      */
     @Nullable
     @Override
-    public Observable<SearchListResEntity<CastBriefEntity>> popularCastEntities(final int page) {
+    public Observable<ListResEntity<CastBriefEntity>> popularCastEntities(final int page) {
         Map<String, String> query = new ArrayMap<String, String>() {{
             put("api_key", api_key);
             put("page", String.valueOf(page));

@@ -17,7 +17,11 @@ import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.contracts.MovieDetailContract
-import taiwan.no1.app.mvp.models.*
+import taiwan.no1.app.mvp.models.FilmCastsModel
+import taiwan.no1.app.mvp.models.FilmVideoModel
+import taiwan.no1.app.mvp.models.IVisitable
+import taiwan.no1.app.mvp.models.ImageProfileModel
+import taiwan.no1.app.mvp.models.movie.MovieBriefModel
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.adapter.DropMoviePagerAdapter

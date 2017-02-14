@@ -1,7 +1,7 @@
 package taiwan.no1.app.mvp.contracts
 
 import taiwan.no1.app.data.source.CloudDataStore
-import taiwan.no1.app.mvp.models.TvBriefModel
+import taiwan.no1.app.mvp.models.tv.TvBriefModel
 import taiwan.no1.app.mvp.presenters.IPresenter
 import taiwan.no1.app.mvp.views.IFragmentView
 import taiwan.no1.app.mvp.views.IView

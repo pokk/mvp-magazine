@@ -1,49 +1,32 @@
 package taiwan.no1.app.data.entities;
 
+import java.util.List;
+
+import taiwan.no1.app.data.entities.cast.CastBriefEntity;
+import taiwan.no1.app.data.entities.movie.MovieBriefEntity;
+import taiwan.no1.app.data.entities.tv.TvBriefEntity;
+
 /**
- * The response list with extra information data class.
- * 
- * @author Jieyi
- * @since 2/4/17
+ * A brief {@link TvBriefEntity} or {@link MovieBriefEntity} or {@link CastBriefEntity} information from the searching
+ * list data class.
+ *
+ * @author jieyi
+ * @since 2017/02/13
  */
 
-public class ListResEntity {
-    private int page;
-    private int total_results;
-    private int total_pages;
+public class ListResEntity<L> extends BaseListResEntity {
+    private List<L> results;
 
     //region Getter and Setter
-    public int getPage() {
-        return page;
+    public List<L> getResults() {
+        return results;
     }
 
-    public void setPage(int page) {
-        this.page = page;
-    }
-
-    public int getTotal_results() {
-        return total_results;
-    }
-
-    public void setTotal_results(int total_results) {
-        this.total_results = total_results;
-    }
-
-    public int getTotal_pages() {
-        return total_pages;
-    }
-
-    public void setTotal_pages(int total_pages) {
-        this.total_pages = total_pages;
-    }
+    public void setResults(List<L> results) { this.results = results;}
     //endregion
 
     @Override
     public String toString() {
-        return "ListResEntity{" +
-                "page=" + page +
-                ", total_results=" + total_results +
-                ", total_pages=" + total_pages +
-                '}';
+        return "SearchListResEntity{" + super.toString() + "results=" + results + '}';
     }
 }

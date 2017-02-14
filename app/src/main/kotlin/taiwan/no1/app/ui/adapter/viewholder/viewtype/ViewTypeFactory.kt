@@ -2,7 +2,12 @@ package taiwan.no1.app.ui.adapter.viewholder.viewtype
 
 import android.view.View
 import taiwan.no1.app.R
-import taiwan.no1.app.mvp.models.*
+import taiwan.no1.app.mvp.models.CreditsInFilmModel
+import taiwan.no1.app.mvp.models.FilmCastsModel
+import taiwan.no1.app.mvp.models.FilmVideoModel
+import taiwan.no1.app.mvp.models.cast.CastBriefModel
+import taiwan.no1.app.mvp.models.movie.MovieBriefModel
+import taiwan.no1.app.mvp.models.tv.TvBriefModel
 import taiwan.no1.app.ui.adapter.viewholder.*
 
 /**
