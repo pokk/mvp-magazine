@@ -2,6 +2,7 @@ package taiwan.no1.app.data.source;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringDef;
 import android.support.v4.util.ArrayMap;
 
 import java.util.Map;
@@ -17,6 +18,7 @@ import taiwan.no1.app.data.entities.cast.CastDetailEntity;
 import taiwan.no1.app.data.entities.movie.MovieBriefEntity;
 import taiwan.no1.app.data.entities.movie.MovieDetailEntity;
 import taiwan.no1.app.data.entities.movie.MovieListWithDateResEntity;
+import taiwan.no1.app.data.entities.search.SearchMovieEntity;
 import taiwan.no1.app.data.entities.tv.TvBriefEntity;
 import taiwan.no1.app.data.entities.tv.TvDetailEntity;
 import taiwan.no1.app.internal.di.components.NetComponent;
@@ -197,5 +199,33 @@ public class CloudDataStore implements IDataStore {
         }};
 
         return this.movieDBService.popularCastList(query);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see <a href="https://developers.themoviedb.org/3/search/search-movies">Search-Movies</a>
+     */
+    @Nullable
+    @Override
+    public Observable<SearchMovieEntity> searchMovieEntities(String language,
+                                                             String query,
+                                                             int page,
+                                                             boolean include_adult,
+                                                             String region,
+                                                             int year,
+                                                             int primary_release_year) {
+        Map<String, String> q = new ArrayMap<String, String>() {{
+            put("api_key", api_key);
+            put("language", language);
+            put("query", query);
+            put("page", String.valueOf(page));
+            put("include_adult", String.valueOf(include_adult));
+            put("region", region);
+            put("year", String.valueOf(year));
+            put("primary_release_year", String.valueOf(primary_release_year));
+        }};
+
+        return this.movieDBService.searchMovie(q);
     }
 }

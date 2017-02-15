@@ -10,6 +10,7 @@ import taiwan.no1.app.mvp.models.cast.CastDetailModel;
 import taiwan.no1.app.mvp.models.cast.CastListResModel;
 import taiwan.no1.app.mvp.models.movie.MovieBriefModel;
 import taiwan.no1.app.mvp.models.movie.MovieDetailModel;
+import taiwan.no1.app.mvp.models.search.SearchMovieModel;
 import taiwan.no1.app.mvp.models.tv.TvBriefModel;
 import taiwan.no1.app.mvp.models.tv.TvDetailModel;
 import taiwan.no1.app.mvp.models.tv.TvListResModel;
@@ -69,4 +70,25 @@ public interface IRepository {
      */
     @NonNull
     Observable<CastListResModel> casts(final int page);
+
+    /**
+     * Get an {@link Observable} which will emit a {@link SearchMovieModel}.
+     *
+     * @param language
+     * @param query
+     * @param page
+     * @param include_adult
+     * @param region
+     * @param year
+     * @param primary_release_year
+     * @return {@link Observable}
+     */
+    @NonNull
+    Observable<SearchMovieModel> searchMovie(final String language,
+                                             final String query,
+                                             final int page,
+                                             final boolean include_adult,
+                                             final String region,
+                                             final int year,
+                                             final int primary_release_year);
 }

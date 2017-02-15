@@ -9,8 +9,10 @@ import taiwan.no1.app.data.entities.cast.CastDetailEntity;
 import taiwan.no1.app.data.entities.movie.MovieBriefEntity;
 import taiwan.no1.app.data.entities.movie.MovieDetailEntity;
 import taiwan.no1.app.data.entities.movie.MovieListWithDateResEntity;
+import taiwan.no1.app.data.entities.search.SearchMovieEntity;
 import taiwan.no1.app.data.entities.tv.TvBriefEntity;
 import taiwan.no1.app.data.entities.tv.TvDetailEntity;
+import taiwan.no1.app.domain.usecase.SearchMovie;
 
 /**
  * Interface that represents a data store from where data is retrieved.
@@ -85,4 +87,25 @@ public interface IDataStore {
      */
     @Nullable
     Observable<ListResEntity<CastBriefEntity>> popularCastEntities(final int page);
+
+    /**
+     * search for movies
+     *
+     * @param language Pass a ISO 639-1 value to display translated data for the fields that support it.
+     * @param query Pass a text query to search. This value should be URI encoded.
+     * @param page Specify which page to query.
+     * @param include_adult Choose whether to inlcude adult (pornography) content in the results.
+     * @param region Specify a ISO 3166-1 code to filter release dates.
+     * @param year Release year.
+     * @param primary_release_year Primary release year.
+     * @return
+     */
+    @Nullable
+    Observable<SearchMovieEntity> searchMovieEntities(final String language,
+                                                      final String query,
+                                                      final int page,
+                                                      final boolean include_adult,
+                                                      final String region,
+                                                      final int year,
+                                                      final int primary_release_year);
 }
