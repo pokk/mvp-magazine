@@ -130,6 +130,7 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
             this.movieList = savedInstanceState.getParcelableArrayList(ARG_PARAM_INSTANCE_MOVIES)
         }
 
+        // FIXME: 2017/02/15 It will crash after back from video activity.
         if (null != this.movieList) {
             (this.rvMovies.adapter as CommonRecyclerAdapter).models = this.movieList!!
         }

@@ -50,7 +50,6 @@ class VideoActivity: YouTubeBaseActivity() {
     private val argUri: String by lazy { this.intent.extras.getString(ARG_PARAM_VIDEO_URI) }
 
     //region Fragment lifecycle
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_video)
