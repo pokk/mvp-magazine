@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.CallSuper
 import android.support.v4.app.Fragment
-import android.view.View
 import com.hwangjr.rxbus.RxBus
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.annotation.Tag
@@ -21,6 +20,7 @@ import taiwan.no1.app.internal.di.components.AppComponent
 import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.views.IActivityView
 import taiwan.no1.app.mvp.views.IView
+import taiwan.no1.app.utilies.FragmentUtils
 import javax.inject.Inject
 
 /**
@@ -37,7 +37,7 @@ abstract class BaseActivity: RxAppCompatActivity(), IView, IActivityView {
     protected var busEvent = object {
         @Subscribe(tags = arrayOf(Tag(RxbusTag.FRAGMENT_NAVIGATOR)))
         fun navigateFragment(fragment: Fragment) {
-            addFragment(R.id.main_container, fragment, true)
+            FragmentUtils.addFragment(supportFragmentManager, R.id.main_container, fragment, true)
         }
 
         @Subscribe(tags = arrayOf(Tag(RxbusTag.ACTIVITY_NAVIGATOR)))
@@ -127,62 +127,5 @@ abstract class BaseActivity: RxAppCompatActivity(), IView, IActivityView {
      */
     protected fun initialInjector() {
         this.getComponent().inject(BaseActivity@ this)
-    }
-
-    /**
-     * Adds a [Fragment] to this activity's layout.
-     *
-     * @param containerViewId The container view to where add the fragment.
-     * @param fragment The fragment to be added.
-     * @param needBack Set that it can back to previous fragment.
-     * @param sharedElement
-     * @param shareElementName
-     */
-    protected fun addFragment(containerViewId: Int,
-                              fragment: Fragment,
-                              needBack: Boolean,
-                              sharedElement: View? = null,
-                              shareElementName: String? = null) {
-        Preconditions.checkNotNull(containerViewId)
-        Preconditions.checkNotNull(fragment)
-        Preconditions.checkNotNull(needBack)
-
-        val fragmentTransaction = this.supportFragmentManager.beginTransaction()
-        fragmentTransaction.replace(containerViewId, fragment, fragment.javaClass.name)
-
-        if (null != sharedElement && null != shareElementName) {
-            fragmentTransaction.addSharedElement(sharedElement, shareElementName)
-        }
-
-        // https://developer.android.com/training/implementing-navigation/temporal.html#back-fragments
-        if (needBack) {
-            fragmentTransaction.addToBackStack(fragment.javaClass.name)
-        }
-
-        fragmentTransaction.commit()
-    }
-
-    /**
-     * Get a fragment from queue by the tag.
-     *
-     * @param tag [Fragment]'s tag.
-     * @return [Fragment]
-     */
-    protected fun findFragmentByTag(tag: String): Fragment? {
-        return this.supportFragmentManager.findFragmentByTag(tag)
-    }
-
-    /**
-     * Pop a [Fragment] from [getSupportFragmentManager].
-     */
-    protected fun popFragment() {
-        this.supportFragmentManager.popBackStack()
-    }
-
-    /**
-     * Clear all [Fragment] in the stack.
-     */
-    protected fun popAllFragment() {
-        (0..this.supportFragmentManager.backStackEntryCount - 1).forEach { this.popFragment() }
     }
 }

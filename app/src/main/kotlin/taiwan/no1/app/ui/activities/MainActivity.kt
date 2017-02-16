@@ -25,6 +25,7 @@ import taiwan.no1.app.ui.fragments.TvMainFragment
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_SHARED_ELEMENTS
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_TAG
+import taiwan.no1.app.utilies.FragmentUtils
 import java.util.*
 import javax.inject.Inject
 
@@ -69,9 +70,7 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
         this.getCurrentPresentFragment().let {
             it.childFragmentManager?.let {
                 // Pop back from current presenter fragment.
-                if (0 < it.backStackEntryCount)
-                    it.popBackStack()
-                else
+                if (!FragmentUtils.popFragment(it))
                     super.onBackPressed()
             }
         } ?: super.onBackPressed()
@@ -87,9 +86,9 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
 //            addFragment(R.id.fragment_container, MoviePopularFragment.newInstance(), false, null, null)
         }
 
-        this.popAllFragment()
+        FragmentUtils.popAllFragment(this.supportFragmentManager)
         this.bottombarMenu.setOnTabSelectListener {
-            this.addFragment(R.id.rl_main_container, when (it) {
+            FragmentUtils.addFragment(this.supportFragmentManager, R.id.rl_main_container, when (it) {
                 R.id.tab_movies -> MovieMainFragment.newInstance().apply { currentTag = this.javaClass.name }
                 R.id.tab_tv_dramas -> TvMainFragment.newInstance().apply { currentTag = this.javaClass.name }
                 R.id.tab_people -> ActressMainFragment.newInstance().apply { currentTag = this.javaClass.name }
@@ -101,10 +100,10 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
     /**
      * Get the current present fragment as according to the bottom bar.
      *
-     * @return
+     * @return [Fragment]
      */
-    private fun getCurrentPresentFragment(): Fragment =
-            (this.findFragmentByTag(this.currentTag) as IMainFragment).getCurrentDisplayFragment()
+    private fun getCurrentPresentFragment(): Fragment = (FragmentUtils.findFragmentByTag(this.supportFragmentManager,
+            this.currentTag) as IMainFragment).getCurrentDisplayFragment()
 
     //region RxBus
     @Subscribe(tags = arrayOf(Tag(RxbusTag.FRAGMENT_CHILD_NAVIGATOR)))
@@ -128,13 +127,7 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
                 container = R.id.main_container
             }
             // Do the transaction a fragment.
-            fragmentManager.beginTransaction().apply {
-                this.replace(container, fragment, fragment.javaClass.name)
-                this.addToBackStack(fragment.javaClass.name)
-                shareElements?.forEach {
-                    addSharedElement(it.key, it.value)
-                }
-            }.commit()
+            FragmentUtils.addFragment(fragmentManager, container, fragment, true, shareElements)
         }
     }
     //endregion
