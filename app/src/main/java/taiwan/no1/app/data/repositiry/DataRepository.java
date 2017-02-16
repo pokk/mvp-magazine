@@ -16,6 +16,7 @@ import taiwan.no1.app.data.mapper.cast.CastDetailMapper;
 import taiwan.no1.app.data.mapper.cast.CastListResMapper;
 import taiwan.no1.app.data.mapper.movie.MovieBriefMapper;
 import taiwan.no1.app.data.mapper.movie.MovieDetailMapper;
+import taiwan.no1.app.data.mapper.search.SearchMovieMapper;
 import taiwan.no1.app.data.mapper.tv.TvBriefMapper;
 import taiwan.no1.app.data.mapper.tv.TvDetailMapper;
 import taiwan.no1.app.data.mapper.tv.TvListResMapper;
@@ -27,6 +28,7 @@ import taiwan.no1.app.mvp.models.cast.CastDetailModel;
 import taiwan.no1.app.mvp.models.cast.CastListResModel;
 import taiwan.no1.app.mvp.models.movie.MovieBriefModel;
 import taiwan.no1.app.mvp.models.movie.MovieDetailModel;
+import taiwan.no1.app.mvp.models.search.SearchMovieModel;
 import taiwan.no1.app.mvp.models.tv.TvBriefModel;
 import taiwan.no1.app.mvp.models.tv.TvDetailModel;
 
@@ -47,6 +49,7 @@ public class DataRepository implements IRepository {
     @Inject TvBriefMapper tvBriefMapper;
     @Inject TvDetailMapper tvDetailMapper;
     @Inject CastListResMapper castListResMapper;
+    @Inject SearchMovieMapper searchMovieMapper;
 
     @Inject
     DataRepository(DataStoreFactory dataStoreFactory) {
@@ -109,5 +112,19 @@ public class DataRepository implements IRepository {
     @Override
     public Observable<CastListResModel> casts(int id) {
         return this.dataStoreFactory.createCloud().popularCastEntities(id).map(this.castListResMapper::transformTo);
+    }
+
+    @NonNull
+    @Override
+    public Observable<SearchMovieModel> searchMovies(String language,
+                                                     String query,
+                                                     int page,
+                                                     boolean include_adult,
+                                                     String region,
+                                                     int year,
+                                                     int primary_release_year) {
+        return this.dataStoreFactory.createCloud().searchMovieEntities(language,
+                query, page, include_adult, region, year, primary_release_year)
+                .map(this.searchMovieMapper::transformTo);
     }
 }

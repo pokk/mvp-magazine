@@ -10,6 +10,7 @@ import taiwan.no1.app.mvp.models.cast.CastDetailModel;
 import taiwan.no1.app.mvp.models.cast.CastListResModel;
 import taiwan.no1.app.mvp.models.movie.MovieBriefModel;
 import taiwan.no1.app.mvp.models.movie.MovieDetailModel;
+import taiwan.no1.app.mvp.models.search.SearchMovieModel;
 import taiwan.no1.app.mvp.models.tv.TvBriefModel;
 import taiwan.no1.app.mvp.models.tv.TvDetailModel;
 import taiwan.no1.app.mvp.models.tv.TvListResModel;
@@ -69,4 +70,25 @@ public interface IRepository {
      */
     @NonNull
     Observable<CastListResModel> casts(final int page);
+
+    /**
+     * Get an {@link Observable} which will emit a {@link List<SearchMovieModel>}.
+     *
+     * @param language Pass a ISO 639-1 value to display translated data for the fields that support it.
+     * @param query Pass a text query to search. This value should be URI encoded.
+     * @param page Specify which page to query.
+     * @param include_adult Choose whether to include adult (pornography) content in the results.
+     * @param region Specify a ISO 3166-1 code to filter release dates.
+     * @param year Release year.
+     * @param primary_release_year Primary release year.
+     * @return {@link Observable}
+     */
+    @NonNull
+    Observable<SearchMovieModel> searchMovies(final String language,
+                                              final String query,
+                                              final int page,
+                                              final boolean include_adult,
+                                              final String region,
+                                              final int year,
+                                              final int primary_release_year);
 }
