@@ -13,6 +13,7 @@ import taiwan.no1.app.data.entities.movie.MovieBriefEntity;
 import taiwan.no1.app.data.entities.movie.MovieDetailEntity;
 import taiwan.no1.app.data.entities.movie.MovieListWithDateResEntity;
 import taiwan.no1.app.data.entities.search.SearchMovieEntity;
+import taiwan.no1.app.data.entities.search.SearchTvShowsEntity;
 import taiwan.no1.app.data.entities.tv.TvBriefEntity;
 import taiwan.no1.app.data.entities.tv.TvDetailEntity;
 
@@ -62,4 +63,7 @@ public interface MovieDBService {
 
     @GET("search/movie")
     Observable<SearchMovieEntity> searchMovies(@QueryMap Map<String, String> queries);
+
+    @GET("search/tv")
+    Observable<SearchTvShowsEntity> searchTvShows(@QueryMap Map<String, String> queries);
 }

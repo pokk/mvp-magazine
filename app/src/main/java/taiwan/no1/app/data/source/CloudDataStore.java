@@ -18,6 +18,7 @@ import taiwan.no1.app.data.entities.movie.MovieBriefEntity;
 import taiwan.no1.app.data.entities.movie.MovieDetailEntity;
 import taiwan.no1.app.data.entities.movie.MovieListWithDateResEntity;
 import taiwan.no1.app.data.entities.search.SearchMovieEntity;
+import taiwan.no1.app.data.entities.search.SearchTvShowsEntity;
 import taiwan.no1.app.data.entities.tv.TvBriefEntity;
 import taiwan.no1.app.data.entities.tv.TvDetailEntity;
 import taiwan.no1.app.internal.di.components.NetComponent;
@@ -226,5 +227,27 @@ public class CloudDataStore implements IDataStore {
         }};
 
         return this.movieDBService.searchMovies(q);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see <a href="https://developers.themoviedb.org/3/search/search-tv-shows">Search-TV-Shows</>
+     */
+    @Nullable
+    @Override
+    public Observable<SearchTvShowsEntity> searchTvShowsEntities(String language,
+                                                                 String query,
+                                                                 int page,
+                                                                 int first_air_date_year) {
+        Map<String, String> q = new ArrayMap<String, String>() {{
+            put("api_key", api_key);
+            put("language", language);
+            put("query", query);
+            put("page", String.valueOf(page));
+            put("first_air_date_year", String.valueOf(first_air_date_year));
+        }};
+
+        return this.movieDBService.searchTvShows(q);
     }
 }

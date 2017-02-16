@@ -17,6 +17,7 @@ import taiwan.no1.app.data.mapper.cast.CastListResMapper;
 import taiwan.no1.app.data.mapper.movie.MovieBriefMapper;
 import taiwan.no1.app.data.mapper.movie.MovieDetailMapper;
 import taiwan.no1.app.data.mapper.search.SearchMovieMapper;
+import taiwan.no1.app.data.mapper.search.SearchTvShowsMapper;
 import taiwan.no1.app.data.mapper.tv.TvBriefMapper;
 import taiwan.no1.app.data.mapper.tv.TvDetailMapper;
 import taiwan.no1.app.data.mapper.tv.TvListResMapper;
@@ -29,6 +30,7 @@ import taiwan.no1.app.mvp.models.cast.CastListResModel;
 import taiwan.no1.app.mvp.models.movie.MovieBriefModel;
 import taiwan.no1.app.mvp.models.movie.MovieDetailModel;
 import taiwan.no1.app.mvp.models.search.SearchMovieModel;
+import taiwan.no1.app.mvp.models.search.SearchTvShowsModel;
 import taiwan.no1.app.mvp.models.tv.TvBriefModel;
 import taiwan.no1.app.mvp.models.tv.TvDetailModel;
 
@@ -50,6 +52,7 @@ public class DataRepository implements IRepository {
     @Inject TvDetailMapper tvDetailMapper;
     @Inject CastListResMapper castListResMapper;
     @Inject SearchMovieMapper searchMovieMapper;
+    @Inject SearchTvShowsMapper searchTvShowsMapper;
 
     @Inject
     DataRepository(DataStoreFactory dataStoreFactory) {
@@ -126,5 +129,16 @@ public class DataRepository implements IRepository {
         return this.dataStoreFactory.createCloud().searchMovieEntities(language,
                 query, page, include_adult, region, year, primary_release_year)
                 .map(this.searchMovieMapper::transformTo);
+    }
+
+    @NonNull
+    @Override
+    public Observable<SearchTvShowsModel> searchTvShows(String language,
+                                                        String query,
+                                                        int page,
+                                                        int first_air_date_year) {
+        return this.dataStoreFactory.createCloud().searchTvShowsEntities(
+                language, query, page, first_air_date_year)
+                .map(this.searchTvShowsMapper::transformTo);
     }
 }

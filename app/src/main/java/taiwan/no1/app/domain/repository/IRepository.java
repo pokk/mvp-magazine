@@ -11,6 +11,7 @@ import taiwan.no1.app.mvp.models.cast.CastListResModel;
 import taiwan.no1.app.mvp.models.movie.MovieBriefModel;
 import taiwan.no1.app.mvp.models.movie.MovieDetailModel;
 import taiwan.no1.app.mvp.models.search.SearchMovieModel;
+import taiwan.no1.app.mvp.models.search.SearchTvShowsModel;
 import taiwan.no1.app.mvp.models.tv.TvBriefModel;
 import taiwan.no1.app.mvp.models.tv.TvDetailModel;
 import taiwan.no1.app.mvp.models.tv.TvListResModel;
@@ -91,4 +92,19 @@ public interface IRepository {
                                               final String region,
                                               final int year,
                                               final int primary_release_year);
+
+    /**
+     * Get an {@link Observable} which will emit a {@link List<SearchTvShowsModel>}.
+     *
+     * @param language Pass a ISO 639-1 value to display translated data for the fields that support it.
+     * @param query Pass a text query to search. This value should be URI encoded.
+     * @param page Specify which page to query.
+     * @param first_air_date_year Specify first air date or year.
+     * @return {@link Observable}
+     */
+    @NonNull
+    Observable<SearchTvShowsModel> searchTvShows(final String language,
+                                                 final String query,
+                                                 final int page,
+                                                 final int first_air_date_year);
 }

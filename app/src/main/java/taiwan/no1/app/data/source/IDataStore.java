@@ -10,6 +10,7 @@ import taiwan.no1.app.data.entities.movie.MovieBriefEntity;
 import taiwan.no1.app.data.entities.movie.MovieDetailEntity;
 import taiwan.no1.app.data.entities.movie.MovieListWithDateResEntity;
 import taiwan.no1.app.data.entities.search.SearchMovieEntity;
+import taiwan.no1.app.data.entities.search.SearchTvShowsEntity;
 import taiwan.no1.app.data.entities.tv.TvBriefEntity;
 import taiwan.no1.app.data.entities.tv.TvDetailEntity;
 
@@ -107,4 +108,19 @@ public interface IDataStore {
                                                       String region,
                                                       int year,
                                                       int primary_release_year);
+
+    /**
+     * Search for tv shows.
+     *
+     * @param language Pass a ISO 639-1 value to display translated data for the fields that support it.
+     * @param query Pass a text query to search. This value should be URI encoded.
+     * @param page Specify which page to query.
+     * @param first_air_date_year Specify first air date or year.
+     * @return an {@link rx.Observable} which will emit a {@link SearchTvShowsEntity}.
+     */
+    @Nullable
+    Observable<SearchTvShowsEntity> searchTvShowsEntities(String language,
+                                                          String query,
+                                                          int page,
+                                                          int first_air_date_year);
 }
