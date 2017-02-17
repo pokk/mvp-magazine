@@ -6,7 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import butterknife.bindView
 import taiwan.no1.app.R
-import taiwan.no1.app.api.config.MovieDBConfig
+import taiwan.no1.app.api.config.TMDBConfig
 import taiwan.no1.app.mvp.models.FilmCastsModel
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.listeners.GlideResizeTargetListener
@@ -26,7 +26,7 @@ class MovieCrewViewHolder(view: View): BaseViewHolder(view) {
     override fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
         (model as FilmCastsModel.CrewBean).let {
             ViewUtils.loadBitmapToView(this.mContext.applicationContext,
-                    MovieDBConfig.BASE_IMAGE_URL + it.profile_path,
+                    TMDBConfig.BASE_IMAGE_URL + it.profile_path,
                     listener = GlideResizeTargetListener(this.ivCast, this.item))
             this.tvCharacter.text = it.job
             this.tvName.text = it.name

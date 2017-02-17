@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import taiwan.no1.app.data.entities.search.SearchMovieEntity;
 import taiwan.no1.app.domain.mapper.IBeanMapper;
 import taiwan.no1.app.mvp.models.search.SearchMovieModel;
@@ -17,6 +19,10 @@ import taiwan.no1.app.mvp.models.search.SearchMovieModel;
  */
 
 public class SearchMovieMapper implements IBeanMapper<SearchMovieModel, SearchMovieEntity> {
+    @Inject
+    public SearchMovieMapper() {
+    }
+
     @NonNull
     @Override
     public SearchMovieEntity transformFrom(@NonNull SearchMovieModel model) {

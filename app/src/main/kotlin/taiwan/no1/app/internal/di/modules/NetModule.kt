@@ -13,7 +13,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import taiwan.no1.app.api.RestfulApiFactory
 import taiwan.no1.app.api.config.IApiConfig
-import taiwan.no1.app.api.service.MovieDBService
+import taiwan.no1.app.api.service.TMDBService
 import javax.inject.Singleton
 
 /**
@@ -60,13 +60,10 @@ class NetModule(val context: Context) {
 
     @Provides
     @Singleton
-    fun provideRetrofit2(baseBuilder: Retrofit.Builder,
-                         restfulApiFactory: RestfulApiFactory): MovieDBService {
+    fun provideRetrofit2(baseBuilder: Retrofit.Builder, restfulApiFactory: RestfulApiFactory): TMDBService {
         val config: IApiConfig = restfulApiFactory.createMovieDBConfig()
-        val retrofit: Retrofit = baseBuilder.
-                baseUrl(config.apiBaseUrl).
-                build()
+        val retrofit: Retrofit = baseBuilder.baseUrl(config.apiBaseUrl).build()
 
-        return retrofit.create(MovieDBService::class.java)
+        return retrofit.create(TMDBService::class.java)
     }
 }

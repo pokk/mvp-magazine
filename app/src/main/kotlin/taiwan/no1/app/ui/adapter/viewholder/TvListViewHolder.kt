@@ -13,7 +13,7 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.hwangjr.rxbus.RxBus
 import com.touchin.constant.RxbusTag
 import taiwan.no1.app.R
-import taiwan.no1.app.api.config.MovieDBConfig
+import taiwan.no1.app.api.config.TMDBConfig
 import taiwan.no1.app.constant.Constant
 import taiwan.no1.app.mvp.models.tv.TvBriefModel
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
@@ -45,10 +45,10 @@ class TvListViewHolder(val view: View): BaseViewHolder(view) {
             } ?: 0
 
             ViewUtils.loadBitmapToView(this.mContext.applicationContext,
-                    MovieDBConfig.BASE_IMAGE_URL + it.poster_path,
+                    TMDBConfig.BASE_IMAGE_URL + it.poster_path,
                     this.ivPoster, isFitCenter = false)
             ViewUtils.loadBitmapToView(this.mContext.applicationContext,
-                    MovieDBConfig.BASE_IMAGE_URL + it.backdrop_path,
+                    TMDBConfig.BASE_IMAGE_URL + it.backdrop_path,
                     listener = object: BitmapImageViewTarget(this.ivBackdrop) {
                         // After finished loading the pic from remote.
                         override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {

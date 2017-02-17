@@ -22,7 +22,7 @@ public class DataStoreFactory {
     private final Context context;
 
     @Inject
-    DataStoreFactory(Context context) {
+    public DataStoreFactory(Context context) {
         this.context = context;
     }
 

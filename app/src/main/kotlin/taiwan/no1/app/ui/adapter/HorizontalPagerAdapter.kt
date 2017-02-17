@@ -12,7 +12,7 @@ import com.bumptech.glide.request.animation.GlideAnimation
 import com.hwangjr.rxbus.RxBus
 import com.touchin.constant.RxbusTag
 import taiwan.no1.app.R
-import taiwan.no1.app.api.config.MovieDBConfig
+import taiwan.no1.app.api.config.TMDBConfig
 import taiwan.no1.app.mvp.models.ImageProfileModel
 import taiwan.no1.app.ui.listeners.GlideResizeTargetListener
 import taiwan.no1.app.utilies.ViewUtils
@@ -62,7 +62,7 @@ class HorizontalPagerAdapter(val context: Context,
         //        }
 
         ViewUtils.loadBitmapToView(this.context.applicationContext,
-                MovieDBConfig.BASE_IMAGE_URL + this.imageLists[position].file_path,
+                TMDBConfig.BASE_IMAGE_URL + this.imageLists[position].file_path,
                 listener = object: GlideResizeTargetListener(ivPoster, cvFrame) {
                     override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
                         super.onResourceReady(resource, glideAnimation)

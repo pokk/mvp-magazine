@@ -10,7 +10,7 @@ import javax.inject.Inject;
 
 import rx.Observable;
 import taiwan.no1.app.R;
-import taiwan.no1.app.api.service.MovieDBService;
+import taiwan.no1.app.api.service.TMDBService;
 import taiwan.no1.app.data.entities.ListResEntity;
 import taiwan.no1.app.data.entities.cast.CastBriefEntity;
 import taiwan.no1.app.data.entities.cast.CastDetailEntity;
@@ -31,7 +31,7 @@ import taiwan.no1.app.internal.di.components.NetComponent;
  */
 
 public class CloudDataStore implements IDataStore {
-    @Inject MovieDBService movieDBService;
+    @Inject TMDBService tmdbService;
 
     private final Context context;
     private final String api_key;
@@ -75,9 +75,9 @@ public class CloudDataStore implements IDataStore {
 
         switch (category) {
             case POPULAR:
-                return this.movieDBService.popularMovieList(query);
+                return this.tmdbService.popularMovieList(query);
             case TOP_RATED:
-                return this.movieDBService.topRatedMovieList(query);
+                return this.tmdbService.topRatedMovieList(query);
         }
 
         throw new Error("Movies doesn't have this type!");
@@ -99,9 +99,9 @@ public class CloudDataStore implements IDataStore {
 
         switch (category) {
             case NOW_PLAYING:
-                return this.movieDBService.nowPlayingMovieList(query);
+                return this.tmdbService.nowPlayingMovieList(query);
             case UP_COMING:
-                return this.movieDBService.upComingMovieList(query);
+                return this.tmdbService.upComingMovieList(query);
         }
 
         throw new Error("Movies doesn't have this type!");
@@ -120,7 +120,7 @@ public class CloudDataStore implements IDataStore {
             put("append_to_response", "videos,images,similar,casts");
         }};
 
-        return this.movieDBService.movieDetail(id, query);
+        return this.tmdbService.movieDetail(id, query);
     }
 
     /**
@@ -136,7 +136,7 @@ public class CloudDataStore implements IDataStore {
             put("append_to_response", "images,combined_credits");
         }};
 
-        return this.movieDBService.castDetail(id, query);
+        return this.tmdbService.castDetail(id, query);
     }
 
     /**
@@ -157,13 +157,13 @@ public class CloudDataStore implements IDataStore {
 
         switch (category) {
             case ON_THE_AIR:
-                return this.movieDBService.onTheAirTvList(query);
+                return this.tmdbService.onTheAirTvList(query);
             case AIRING_TODAY:
-                return this.movieDBService.airingTodayTvList(query);
+                return this.tmdbService.airingTodayTvList(query);
             case POPULAR:
-                return this.movieDBService.popularTvList(query);
+                return this.tmdbService.popularTvList(query);
             case TOP_RATED:
-                return this.movieDBService.topRatedTvList(query);
+                return this.tmdbService.topRatedTvList(query);
         }
 
         throw new Error("Tvs doesn't have this type!");
@@ -182,7 +182,7 @@ public class CloudDataStore implements IDataStore {
             put("append_to_response", "videos,images,similar,credits");
         }};
 
-        return this.movieDBService.tvDetail(id, query);
+        return this.tmdbService.tvDetail(id, query);
     }
 
     /**
@@ -198,7 +198,7 @@ public class CloudDataStore implements IDataStore {
             put("page", String.valueOf(page));
         }};
 
-        return this.movieDBService.popularCastList(query);
+        return this.tmdbService.popularCastList(query);
     }
 
     /**
@@ -208,12 +208,8 @@ public class CloudDataStore implements IDataStore {
      */
     @Nullable
     @Override
-    public Observable<SearchMovieEntity> searchMovieEntities(String language,
-                                                             String query,
-                                                             int page,
-                                                             boolean include_adult,
-                                                             String region,
-                                                             int year,
+    public Observable<SearchMovieEntity> searchMovieEntities(String language, String query, int page,
+                                                             boolean include_adult, String region, int year,
                                                              int primary_release_year) {
         Map<String, String> q = new ArrayMap<String, String>() {{
             put("api_key", api_key);
@@ -226,7 +222,7 @@ public class CloudDataStore implements IDataStore {
             put("primary_release_year", String.valueOf(primary_release_year));
         }};
 
-        return this.movieDBService.searchMovies(q);
+        return this.tmdbService.searchMovies(q);
     }
 
     /**
@@ -236,9 +232,7 @@ public class CloudDataStore implements IDataStore {
      */
     @Nullable
     @Override
-    public Observable<SearchTvShowsEntity> searchTvShowsEntities(String language,
-                                                                 String query,
-                                                                 int page,
+    public Observable<SearchTvShowsEntity> searchTvShowsEntities(String language, String query, int page,
                                                                  int first_air_date_year) {
         Map<String, String> q = new ArrayMap<String, String>() {{
             put("api_key", api_key);
@@ -248,6 +242,6 @@ public class CloudDataStore implements IDataStore {
             put("first_air_date_year", String.valueOf(first_air_date_year));
         }};
 
-        return this.movieDBService.searchTvShows(q);
+        return this.tmdbService.searchTvShows(q);
     }
 }

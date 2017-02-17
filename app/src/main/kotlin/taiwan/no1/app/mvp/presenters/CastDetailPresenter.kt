@@ -3,7 +3,7 @@ package taiwan.no1.app.mvp.presenters
 import com.hwangjr.rxbus.RxBus
 import com.touchin.constant.RxbusTag
 import rx.lang.kotlin.subscriber
-import taiwan.no1.app.api.config.MovieDBConfig
+import taiwan.no1.app.api.config.TMDBConfig
 import taiwan.no1.app.constant.Constant
 import taiwan.no1.app.domain.usecase.CastDetail
 import taiwan.no1.app.mvp.contracts.CastDetailContract
@@ -32,8 +32,8 @@ class CastDetailPresenter constructor(val castDetailCase: CastDetail):
         this.castDetailModel?.let {
             val posterUrl: String = it.images?.let { it.profiles?.let { if (it.size > 1) it[1].file_path else it[0].file_path } } ?: ""
 
-            this.view.showCastPoster(MovieDBConfig.BASE_IMAGE_URL + posterUrl)
-            this.view.showCastProPic(MovieDBConfig.BASE_IMAGE_URL + it.profile_path)
+            this.view.showCastPoster(TMDBConfig.BASE_IMAGE_URL + posterUrl)
+            this.view.showCastProPic(TMDBConfig.BASE_IMAGE_URL + it.profile_path)
             this.view.showCastBase(Constant.Gender.values()[it.gender].jobName, it.name ?: "")
             this.view.showCastDetail(it.biography ?: "",
                     it.birthday ?: "",

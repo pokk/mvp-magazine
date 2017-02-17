@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import taiwan.no1.app.data.entities.search.SearchTvShowsEntity;
 import taiwan.no1.app.domain.mapper.IBeanMapper;
 import taiwan.no1.app.mvp.models.search.SearchTvShowsModel;
@@ -17,6 +19,9 @@ import taiwan.no1.app.mvp.models.search.SearchTvShowsModel;
  */
 
 public class SearchTvShowsMapper implements IBeanMapper<SearchTvShowsModel, SearchTvShowsEntity> {
+    @Inject
+    public SearchTvShowsMapper() {
+    }
 
     /**
      * Implement {@inheritDoc}

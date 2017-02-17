@@ -8,7 +8,7 @@ import butterknife.bindView
 import com.hwangjr.rxbus.RxBus
 import com.touchin.constant.RxbusTag
 import taiwan.no1.app.R
-import taiwan.no1.app.api.config.MovieDBConfig
+import taiwan.no1.app.api.config.TMDBConfig
 import taiwan.no1.app.mvp.models.movie.MovieBriefModel
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.fragments.MovieDetailFragment
@@ -33,7 +33,7 @@ class MovieListViewHolder(val view: View): BaseViewHolder(view) {
         // Cast the model data type to MovieBriefModel.
         (model as MovieBriefModel).let {
             ViewUtils.loadBitmapToView(this.mContext.applicationContext,
-                    MovieDBConfig.BASE_IMAGE_URL + it.poster_path,
+                    TMDBConfig.BASE_IMAGE_URL + it.poster_path,
                     this.ivPoster, isFitCenter = false)
             this.tvRelease.text = it.release_date
             this.tvTitle.text = it.title

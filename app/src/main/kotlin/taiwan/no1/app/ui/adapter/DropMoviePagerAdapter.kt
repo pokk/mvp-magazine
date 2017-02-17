@@ -15,7 +15,7 @@ import com.hwangjr.rxbus.RxBus
 import com.intrusoft.squint.DiagonalView
 import com.touchin.constant.RxbusTag
 import taiwan.no1.app.R
-import taiwan.no1.app.api.config.MovieDBConfig
+import taiwan.no1.app.api.config.TMDBConfig
 import taiwan.no1.app.mvp.models.ImageProfileModel
 import taiwan.no1.app.ui.fragments.MovieGalleryFragment
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
@@ -46,7 +46,7 @@ class DropMoviePagerAdapter(val context: Context,
                 false) as DiagonalView
 
         ViewUtils.loadBitmapToView(this.context.applicationContext,
-                MovieDBConfig.BASE_IMAGE_URL + this.dropPosterList[position].file_path,
+                TMDBConfig.BASE_IMAGE_URL + this.dropPosterList[position].file_path,
                 dvDropPoster, object: BitmapImageViewTarget(dvDropPoster) {
             override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
                 dvDropPoster.solidColor = Color.TRANSPARENT

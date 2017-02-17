@@ -3,13 +3,13 @@ package taiwan.no1.app.api.config;
 import android.support.annotation.NonNull;
 
 /**
- * TmDB provides movies, tvs, casts information api configuration.
+ * TmDb provides movies, tvs, casts information api configuration.
  *
  * @author Jieyi
  * @since 12/10/16
  */
 
-public class MovieDBConfig implements IApiConfig {
+public class TMDBConfig implements IApiConfig {
     // Image prefix base http url.
     public final static String BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
     // All basic http api url of TmDB. 

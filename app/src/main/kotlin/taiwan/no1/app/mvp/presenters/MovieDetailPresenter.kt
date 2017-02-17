@@ -1,7 +1,7 @@
 package taiwan.no1.app.mvp.presenters
 
 import rx.lang.kotlin.subscriber
-import taiwan.no1.app.api.config.MovieDBConfig
+import taiwan.no1.app.api.config.TMDBConfig
 import taiwan.no1.app.domain.usecase.MovieDetail
 import taiwan.no1.app.mvp.contracts.MovieDetailContract
 import taiwan.no1.app.mvp.models.movie.MovieDetailModel
@@ -31,7 +31,7 @@ class MovieDetailPresenter constructor(val movieDetailCase: MovieDetail):
 
             this.view.showMoviePosters(it.images?.backdrops ?: emptyList(),
                     it.images?.posters?.filter { "en" == it.iso_639_1 } ?: emptyList())
-            this.view.showMovieCover(MovieDBConfig.BASE_IMAGE_URL + it.poster_path)
+            this.view.showMovieCover(TMDBConfig.BASE_IMAGE_URL + it.poster_path)
             this.view.showMovieBase(it.title ?: "",
                     it.release_date ?: "",
                     "  ${runtime.hours} h ${runtime.mins} m",

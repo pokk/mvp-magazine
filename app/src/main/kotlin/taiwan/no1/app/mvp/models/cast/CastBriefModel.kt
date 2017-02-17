@@ -7,7 +7,9 @@ import taiwan.no1.app.ui.adapter.viewholder.viewtype.IViewTypeFactory
 import java.util.*
 
 /**
- * Created by jieyi on 2017/02/13.
+ *
+ * @author  jieyi
+ * @since   2017/02/13
  */
 
 data class CastBriefModel(val profile_path: String? = null,

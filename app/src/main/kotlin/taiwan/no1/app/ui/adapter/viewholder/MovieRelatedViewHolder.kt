@@ -8,7 +8,7 @@ import butterknife.bindView
 import com.hwangjr.rxbus.RxBus
 import com.touchin.constant.RxbusTag
 import taiwan.no1.app.R
-import taiwan.no1.app.api.config.MovieDBConfig
+import taiwan.no1.app.api.config.TMDBConfig
 import taiwan.no1.app.mvp.models.movie.MovieBriefModel
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.fragments.MovieDetailFragment
@@ -32,7 +32,7 @@ class MovieRelatedViewHolder(view: View): BaseViewHolder(view) {
     override fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
         (model as MovieBriefModel).let {
             ViewUtils.loadBitmapToView(this.mContext.applicationContext,
-                    MovieDBConfig.BASE_IMAGE_URL + it.poster_path,
+                    TMDBConfig.BASE_IMAGE_URL + it.poster_path,
                     listener = GlideResizeTargetListener(this.ivPoster, this.item))
             this.tvRelease.text = it.release_date
             this.tvName.text = it.title

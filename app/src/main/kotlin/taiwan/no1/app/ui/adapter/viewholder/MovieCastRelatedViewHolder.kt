@@ -8,7 +8,7 @@ import butterknife.bindView
 import com.hwangjr.rxbus.RxBus
 import com.touchin.constant.RxbusTag
 import taiwan.no1.app.R
-import taiwan.no1.app.api.config.MovieDBConfig
+import taiwan.no1.app.api.config.TMDBConfig
 import taiwan.no1.app.mvp.models.CreditsInFilmModel
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.fragments.MovieDetailFragment
@@ -37,7 +37,7 @@ class MovieCastRelatedViewHolder(view: View): BaseViewHolder(view) {
     override fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
         (model as CreditsInFilmModel.CastInFilmBean).let {
             ViewUtils.loadBitmapToView(this.mContext.applicationContext,
-                    MovieDBConfig.BASE_IMAGE_URL + it.poster_path,
+                    TMDBConfig.BASE_IMAGE_URL + it.poster_path,
                     listener = GlideResizeTargetListener(this.ivPoster, this.item))
             this.tvReleaseDate.text = it.release_date
             this.tvMovieTitle.text = it.title

@@ -24,7 +24,7 @@ import taiwan.no1.app.data.entities.tv.TvDetailEntity;
  * @since 12/29/16
  */
 
-public interface MovieDBService {
+public interface TMDBService {
     @GET("movie/popular")
     Observable<ListResEntity<MovieBriefEntity>> popularMovieList(@QueryMap Map<String, String> queries);
 

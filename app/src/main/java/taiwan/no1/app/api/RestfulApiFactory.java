@@ -6,7 +6,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import taiwan.no1.app.api.config.IApiConfig;
-import taiwan.no1.app.api.config.MovieDBConfig;
+import taiwan.no1.app.api.config.TMDBConfig;
 
 /**
  * Factory that creates different implementations of {@link IApiConfig}.
@@ -25,10 +25,10 @@ public class RestfulApiFactory {
     /**
      * Create a new http service configuration.
      *
-     * @return TmDB http service config.
+     * @return TmDb http service config.
      */
     @NonNull
     public IApiConfig createMovieDBConfig() {
-        return new MovieDBConfig();
+        return new TMDBConfig();
     }
 }
