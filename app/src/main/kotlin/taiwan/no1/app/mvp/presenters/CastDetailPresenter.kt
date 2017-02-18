@@ -30,18 +30,18 @@ class CastDetailPresenter constructor(val castDetailCase: CastDetail):
         this.castDetailModel = it
 
         this.castDetailModel?.let {
-            val posterUrl: String = it.images?.let { it.profiles?.let { if (it.size > 1) it[1].file_path else it[0].file_path } } ?: ""
+            val posterUrl: String = it.images?.let { it.profiles?.let { if (it.size > 1) it[1].file_path else it[0].file_path } }.orEmpty()
 
             this.view.showCastPoster(TMDBConfig.BASE_IMAGE_URL + posterUrl)
             this.view.showCastProPic(TMDBConfig.BASE_IMAGE_URL + it.profile_path)
-            this.view.showCastBase(Constant.Gender.values()[it.gender].jobName, it.name ?: "")
-            this.view.showCastDetail(it.biography ?: "",
-                    it.birthday ?: "",
-                    it.place_of_birth ?: "",
-                    it.homepage ?: "",
-                    it.deathday ?: "")
+            this.view.showCastBase(Constant.Gender.values()[it.gender].jobName, it.name.orEmpty())
+            this.view.showCastDetail(it.biography.orEmpty(),
+                    it.birthday.orEmpty(),
+                    it.place_of_birth.orEmpty(),
+                    it.homepage.orEmpty(),
+                    it.deathday.orEmpty())
             this.view.showRelatedMovie(it.combined_credits?.cast?.filter { it.media_type == "movie" }?.
-                    sortedWith(compareBy({ it.release_date }))?.reversed() ?: emptyList())
+                    sortedWith(compareBy({ it.release_date }))?.reversed().orEmpty())
         }
     }
     //endregion
@@ -60,7 +60,7 @@ class CastDetailPresenter constructor(val castDetailCase: CastDetail):
     override fun enterToGallery(fromFragment: Int) {
         RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
                 Pair(NAVIGATOR_ARG_FRAGMENT,
-                        MovieGalleryFragment.newInstance(this.castDetailModel?.images?.profiles ?: emptyList())),
+                        MovieGalleryFragment.newInstance(this.castDetailModel?.images?.profiles.orEmpty())),
                 Pair(NAVIGATOR_ARG_TAG, fromFragment)))
     }
     //endregion

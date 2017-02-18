@@ -29,23 +29,23 @@ class MovieDetailPresenter constructor(val movieDetailCase: MovieDetail):
         this.movieDetailInfo?.let {
             val runtime: TimeUtils.DateTime = TimeUtils.number2Time(it.runtime.toDouble(), TimeUtils.TimeType.Min)
 
-            this.view.showMoviePosters(it.images?.backdrops ?: emptyList(),
-                    it.images?.posters?.filter { "en" == it.iso_639_1 } ?: emptyList())
+            this.view.showMoviePosters(it.images?.backdrops.orEmpty(),
+                    it.images?.posters?.filter { "en" == it.iso_639_1 }.orEmpty())
             this.view.showMovieCover(TMDBConfig.BASE_IMAGE_URL + it.poster_path)
-            this.view.showMovieBase(it.title ?: "",
-                    it.release_date ?: "",
+            this.view.showMovieBase(it.title.orEmpty(),
+                    it.release_date.orEmpty(),
                     "  ${runtime.hours} h ${runtime.mins} m",
                     it.vote_average / 2)
-            this.view.showMovieDetail(it.overview ?: "",
-                    it.status ?: "",
-                    it.original_language ?: "",
-                    it.production_countries?.let { it.flatMap { listOf(it.name) }.joinToString("") } ?: "")
-            this.view.showMovieCasts(it.casts?.cast?.filter { null != it.profile_path } ?: emptyList())
-            this.view.showMovieCrews(it.casts?.crew?.filter { null != it.profile_path } ?: emptyList())
+            this.view.showMovieDetail(it.overview.orEmpty(),
+                    it.status.orEmpty(),
+                    it.original_language.orEmpty(),
+                    it.production_countries?.let { it.flatMap { listOf(it.name) }.joinToString("") }.orEmpty())
+            this.view.showMovieCasts(it.casts?.cast?.filter { null != it.profile_path }.orEmpty())
+            this.view.showMovieCrews(it.casts?.crew?.filter { null != it.profile_path }.orEmpty())
             this.view.showRelatedMovies(it.similar?.movieBriefModel?.let {
                 it.map { it.apply { it.isMainView = false } }.sortedWith(compareBy({ it.release_date })).reversed()
-            } ?: emptyList())
-            this.view.showMovieTrailers(it.videos?.results ?: emptyList())
+            }.orEmpty())
+            this.view.showMovieTrailers(it.videos?.results.orEmpty())
         }
     }
     //endregion

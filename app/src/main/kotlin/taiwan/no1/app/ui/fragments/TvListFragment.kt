@@ -120,25 +120,20 @@ class TvListFragment: BaseFragment(), TvListContract.View {
             this.tvList = savedInstanceState.getParcelableArrayList(ARG_PARAM_INSTANCE_TVS)
         }
 
-        if (null != this.tvList) {
-            (this.rvTvs.adapter as CommonRecyclerAdapter).models = this.tvList!!
+        this.rvTvs.let {
+            it.layoutManager = LinearLayoutManager(this.context)
+            it.setHasFixedSize(true)
+            // Just give a empty adapter.
+            it.adapter = CommonRecyclerAdapter(this.tvList.orEmpty(), this.hashCode())
+            it.setOnBottomListener(object: LoadMoreRecyclerView.OnBottomListener {
+                override fun onBottom() {
+                    presenter.requestListTvs(argTvCategory, pageIndex++)
+                }
+            })
         }
-        else {
-            this.rvTvs.let {
-                it.layoutManager = LinearLayoutManager(this.context)
-                it.setHasFixedSize(true)
-                // Just give a empty adapter.
-                it.adapter = CommonRecyclerAdapter(Collections.emptyList(), this.hashCode())
-                it.setOnBottomListener(object: LoadMoreRecyclerView.OnBottomListener {
-                    override fun onBottom() {
-                        presenter.requestListTvs(argTvCategory, pageIndex++)
-                    }
-                })
-            }
 
-            // Request the movie data.
-            this.argTvCategory.let { this.presenter.requestListTvs(it, pageIndex++) }
-        }
+        // Request the movie data.
+        this.argTvCategory.let { this.presenter.requestListTvs(it, pageIndex++) }
     }
     //endregion
 

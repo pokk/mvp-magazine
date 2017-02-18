@@ -24,16 +24,16 @@ class VideoActivity: YouTubeBaseActivity() {
     //region Static initialization
     companion object Factory {
         // The key name of the fragment initialization parameters.
-        private val ARG_PARAM_VIDEO_URI: String = "param_video_uri"
+        private val ARG_PARAM_YOUTUBE_KEY: String = "param_youtube_key"
 
         /**
          * Use this factory method to create a new instance of this activity using the provided parameters.
          *
          * @return A new [Intent] for starting a VideoActivity.
          */
-        fun newInstance(from: Context, uri: String): Intent = Intent(from, VideoActivity::class.java).apply {
+        fun newInstance(from: Context, youtubeKey: String): Intent = Intent(from, VideoActivity::class.java).apply {
             this.putExtras(Bundle().apply {
-                this.putString(ARG_PARAM_VIDEO_URI, uri)
+                this.putString(ARG_PARAM_YOUTUBE_KEY, youtubeKey)
             })
         }
     }
@@ -47,7 +47,7 @@ class VideoActivity: YouTubeBaseActivity() {
     //endregion
 
     // Get the arguments from the bundle here.
-    private val argUri: String by lazy { this.intent.extras.getString(ARG_PARAM_VIDEO_URI) }
+    private val argYoutubeKey: String by lazy { this.intent.extras.getString(ARG_PARAM_YOUTUBE_KEY) }
 
     //region Fragment lifecycle
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,7 +60,7 @@ class VideoActivity: YouTubeBaseActivity() {
         this.ytpvTrailer.initialize(this.getString(R.string.youtube_api_key), object: OnInitializedListener {
             override fun onInitializationSuccess(provider: Provider, player: YouTubePlayer, wasRestored: Boolean) {
                 if (!wasRestored) {
-                    player.loadVideo(argUri)
+                    player.loadVideo(argYoutubeKey)
                     player.setPlayerStyle(YouTubePlayer.PlayerStyle.CHROMELESS)
                 }
             }

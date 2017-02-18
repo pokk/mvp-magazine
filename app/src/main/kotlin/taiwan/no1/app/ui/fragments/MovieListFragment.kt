@@ -130,26 +130,21 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
             this.movieList = savedInstanceState.getParcelableArrayList(ARG_PARAM_INSTANCE_MOVIES)
         }
 
-        // FIXME: 2017/02/15 It will crash after back from video activity.
-        if (null != this.movieList) {
-            (this.rvMovies.adapter as CommonRecyclerAdapter).models = this.movieList!!
+        // FIXED: 2/17/17 All of the components will recreate again when this view destroy so we must re-init again.
+        this.rvMovies.let {
+            it.layoutManager = LinearLayoutManager(this.context)
+            it.setHasFixedSize(true)
+            // Just give a empty adapter.
+            it.adapter = CommonRecyclerAdapter(this.movieList.orEmpty(), this.hashCode())
+            it.setOnBottomListener(object: LoadMoreRecyclerView.OnBottomListener {
+                override fun onBottom() {
+                    presenter.requestListMovies(argMovieCategory, pageIndex++)
+                }
+            })
         }
-        else {
-            this.rvMovies.let {
-                it.layoutManager = LinearLayoutManager(this.context)
-                it.setHasFixedSize(true)
-                // Just give a empty adapter.
-                it.adapter = CommonRecyclerAdapter(Collections.emptyList(), this.hashCode())
-                it.setOnBottomListener(object: LoadMoreRecyclerView.OnBottomListener {
-                    override fun onBottom() {
-                        presenter.requestListMovies(argMovieCategory, pageIndex++)
-                    }
-                })
-            }
 
-            // Request the movie data.
-            this.argMovieCategory.let { this.presenter.requestListMovies(it, pageIndex++) }
-        }
+        // Request the movie data.
+        this.argMovieCategory.let { this.presenter.requestListMovies(it, pageIndex++) }
     }
     //endregion
 

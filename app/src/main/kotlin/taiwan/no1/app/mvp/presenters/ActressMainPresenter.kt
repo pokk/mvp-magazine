@@ -5,7 +5,6 @@ import taiwan.no1.app.domain.usecase.CastLists
 import taiwan.no1.app.mvp.contracts.ActressMainContract
 import taiwan.no1.app.mvp.models.cast.CastListResModel
 import taiwan.no1.app.utilies.AppLog
-import java.util.*
 
 /**
  *
@@ -26,7 +25,7 @@ class ActressMainPresenter(val castCase: CastLists):
             AppLog.e(it.message)
             AppLog.e(it)
         }.onNext {
-            view.showCastBriefList(it.results ?: Collections.emptyList())
+            view.showCastBriefList(it.results.orEmpty())
         })
     }
     //endregion

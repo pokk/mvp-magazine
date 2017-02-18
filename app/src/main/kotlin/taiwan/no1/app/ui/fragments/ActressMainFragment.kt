@@ -113,26 +113,21 @@ class ActressMainFragment: BaseFragment(), ActressMainContract.View, IMainFragme
         savedInstanceState?.let {
             this.castList = savedInstanceState.getParcelableArrayList(ARG_PARAM_INSTANCE_CASTS)
         }
-        if (null != this.castList) {
-            (this.rvCasts.adapter as CommonRecyclerAdapter).models = this.castList!!
+        // FIXED: 2/11/17 Using the customize image view to fit the photo ratio.
+        this.rvCasts.let {
+            it.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            it.setHasFixedSize(true)
+            it.addItemDecoration(GridSpacingItemDecorator(2, 20, false))
+            // Just give a empty adapter.
+            it.adapter = CommonRecyclerAdapter(this.castList.orEmpty(), this.hashCode())
+            it.setOnBottomListener(object: LoadMoreRecyclerView.OnBottomListener {
+                override fun onBottom() {
+                    presenter.requestListCasts(pageIndex++)
+                }
+            })
         }
-        else {
-            // FIXED: 2/11/17 Using the customize image view to fit the photo ratio.
-            this.rvCasts.let {
-                it.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-                it.setHasFixedSize(true)
-                it.addItemDecoration(GridSpacingItemDecorator(2, 20, false))
-                // Just give a empty adapter.
-                it.adapter = CommonRecyclerAdapter(Collections.emptyList(), this.hashCode())
-                it.setOnBottomListener(object: LoadMoreRecyclerView.OnBottomListener {
-                    override fun onBottom() {
-                        presenter.requestListCasts(pageIndex++)
-                    }
-                })
-            }
-            // Request the movie data.
-            this.presenter.requestListCasts(pageIndex++)
-        }
+        // Request the movie data.
+        this.presenter.requestListCasts(pageIndex++)
     }
     //endregion
 

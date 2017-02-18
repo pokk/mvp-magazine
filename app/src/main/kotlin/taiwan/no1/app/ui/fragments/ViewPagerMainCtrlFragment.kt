@@ -11,6 +11,7 @@ import com.jakewharton.rxbinding.support.v4.view.pageSelections
 import taiwan.no1.app.R
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.MainViewPager
+import taiwan.no1.app.utilies.AppLog
 
 /**
  *
@@ -44,6 +45,15 @@ abstract class ViewPagerMainCtrlFragment: BaseFragment(), IMainFragment {
      * @param savedInstanceState the previous fragment data status after the system calls [onPause].
      */
     override fun init(savedInstanceState: Bundle?) {
+        savedInstanceState?.let {
+            this.fragmentList.forEach {
+                AppLog.w(it)
+                it.childFragmentManager.let {
+                    AppLog.w(it.backStackEntryCount)
+                }
+            }
+        }
+
         this.ntsTabMenu.setViewPager(this.vpContainer.apply {
             var flagClearPrevFragment: Boolean = false
 

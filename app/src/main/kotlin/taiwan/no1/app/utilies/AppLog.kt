@@ -14,7 +14,6 @@ object AppLog {
     private const val COLON: String = ":"
     private const val LEFT_PARENTHESIS: String = "("
     private const val RIGHT_PARENTHESIS: String = ")"
-    private const val NULL_STRING: String = ""
     private const val SPACE_STRING: String = " "
     private const val TAG: String = "MY_LOG"  // TAG
     private val IS_DEBUG: Boolean = java.lang.Boolean.TRUE  // Debug mode's switch, default is turn off.
@@ -152,7 +151,7 @@ object AppLog {
      * @param msg log message.
      * @return meta information + msg.
      */
-    private fun getLogMsg(msg: String?): String = getMetaInfo(null == msg) + COLON + (msg ?: NULL_STRING)
+    private fun getLogMsg(msg: String?): String = getMetaInfo(null == msg) + COLON + (msg.orEmpty())
 
     /**
      * Combine the meta information and exception msg.
