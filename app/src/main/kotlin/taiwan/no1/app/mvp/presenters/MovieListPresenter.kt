@@ -6,6 +6,7 @@ import taiwan.no1.app.domain.usecase.MovieLists
 import taiwan.no1.app.mvp.contracts.MovieListContract
 import taiwan.no1.app.mvp.models.movie.MovieBriefModel
 import taiwan.no1.app.utilies.AppLog
+import java.util.*
 
 /**
  *
@@ -15,6 +16,7 @@ import taiwan.no1.app.utilies.AppLog
 
 class MovieListPresenter constructor(val moviesCase: MovieLists):
         BasePresenter<MovieListContract.View>(), MovieListContract.Presenter {
+    private var movieBriefModelList: List<MovieBriefModel> = emptyList()
 
     //region Presenter implementation
     override fun init(view: MovieListContract.View) {
@@ -29,8 +31,11 @@ class MovieListPresenter constructor(val moviesCase: MovieLists):
             AppLog.e(it.message)
             AppLog.e(it)
         }.onNext {
-            view.showMovieBriefList(it)
+            this.movieBriefModelList += it
+            view.showMovieBriefList(this.movieBriefModelList)
         })
     }
+
+    override fun getMovieList(): ArrayList<MovieBriefModel> = ArrayList(this.movieBriefModelList)
     //endregion
 }

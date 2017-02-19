@@ -6,12 +6,15 @@ import taiwan.no1.app.domain.usecase.TvLists
 import taiwan.no1.app.mvp.contracts.TvListContract
 import taiwan.no1.app.mvp.models.tv.TvBriefModel
 import taiwan.no1.app.utilies.AppLog
+import java.util.*
 
 /**
  * @author  Jieyi
  * @since   1/7/17
  */
 class TvListPresenter constructor(val tvCase: TvLists): BasePresenter<TvListContract.View>(), TvListContract.Presenter {
+    private var tvBriefModelList: List<TvBriefModel> = emptyList()
+
     //region Presenter implementation
     override fun init(view: TvListContract.View) {
         super.init(view)
@@ -25,8 +28,11 @@ class TvListPresenter constructor(val tvCase: TvLists): BasePresenter<TvListCont
             AppLog.e(it.message)
             AppLog.e(it)
         }.onNext {
-            view.showTvBriefList(it)
+            this.tvBriefModelList += it
+            view.showTvBriefList(this.tvBriefModelList)
         })
     }
+
+    override fun getTvList(): ArrayList<TvBriefModel> = ArrayList(this.tvBriefModelList)
     //endregion
 }

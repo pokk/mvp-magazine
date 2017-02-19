@@ -25,6 +25,7 @@ import taiwan.no1.app.ui.fragments.TvMainFragment
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_SHARED_ELEMENTS
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_TAG
+import taiwan.no1.app.utilies.AppLog
 import taiwan.no1.app.utilies.FragmentUtils
 import java.util.*
 import javax.inject.Inject
@@ -42,9 +43,9 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
     //region View variables
     private val rlMainContainer by bindView<RelativeLayout>(R.id.rl_main_container)
     private val bottombarMenu by bindView<BottomBar>(R.id.bb_menu)
+    //endregion
 
     private var currentTag: String = ""
-    //endregion
 
     //region Activity life cycle
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,13 +82,10 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
      */
     private fun initFragment(savedInstanceState: Bundle?) {
         //apply background bitmap if we have one
-
-        if (savedInstanceState == null) {
-//            addFragment(R.id.fragment_container, MoviePopularFragment.newInstance(), false, null, null)
-        }
-
         FragmentUtils.popAllFragment(this.supportFragmentManager)
+        // FIXME: 2/19/17 Add too many fragments when change the tab. 這邊觀念怪怪的！怎麼push跟pop
         this.bottombarMenu.setOnTabSelectListener {
+            AppLog.w(this.supportFragmentManager.backStackEntryCount)
             FragmentUtils.addFragment(this.supportFragmentManager, R.id.rl_main_container, when (it) {
                 R.id.tab_movies -> MovieMainFragment.newInstance().apply { currentTag = this.javaClass.name }
                 R.id.tab_tv_dramas -> TvMainFragment.newInstance().apply { currentTag = this.javaClass.name }
@@ -113,6 +111,16 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
         val tag: Int = mapArgs[NAVIGATOR_ARG_TAG] as Int
         val shareElements: HashMap<View, String>? = mapArgs[NAVIGATOR_ARG_SHARED_ELEMENTS] as? HashMap<View, String>
 
+        this.supportFragmentManager.fragments.forEachIndexed { i, fragment ->
+            AppLog.d(i, fragment)
+            fragment.fragmentManager.fragments.forEachIndexed { i, fragment ->
+                AppLog.w(i, fragment)
+            }
+        }
+
+        AppLog.w(tag)
+
+        // FIXME: 2/19/17 Tag is difference from present fragment.
         // To avoid the same fragment but different hash code's fragment add the fragment.
         if (tag == presentFragment.hashCode()) {
             val fragmentManager: FragmentManager

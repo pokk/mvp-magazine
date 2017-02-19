@@ -164,7 +164,9 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
             // Set the current blur image in viewpager's background.
             // FIXED: 2/1/17 Sometimes the page's been selected but the present item is still not changed.
             // FIXED: So I'm using finding the item's specific tag to fix it.
-            this.pageSelections().subscribe { this@MovieGalleryFragment.presenter.attachBackgroundFrom(this) }
+            this.pageSelections().compose(this@MovieGalleryFragment.bindToLifecycle<Int>()).subscribe {
+                this@MovieGalleryFragment.presenter.attachBackgroundFrom(this)
+            }
         }
     }
 

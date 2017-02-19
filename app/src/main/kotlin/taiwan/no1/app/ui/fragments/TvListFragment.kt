@@ -13,7 +13,6 @@ import taiwan.no1.app.mvp.models.tv.TvBriefModel
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.customize.LoadMoreRecyclerView
-import java.util.*
 import javax.inject.Inject
 
 /**
@@ -51,7 +50,6 @@ class TvListFragment: BaseFragment(), TvListContract.View {
     //endregion
 
     //region Local variables
-    private var tvList: ArrayList<TvBriefModel>? = null
     private var maxPageIndex: Int = 1
     private var pageIndex: Int = 1
     private var loading: Boolean = true
@@ -76,7 +74,7 @@ class TvListFragment: BaseFragment(), TvListContract.View {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        outState.putParcelableArrayList(ARG_PARAM_INSTANCE_TVS, this.tvList)
+        outState.putParcelableArrayList(ARG_PARAM_INSTANCE_TVS, this.presenter.getTvList())
     }
 
     override fun onDestroy() {
@@ -116,37 +114,29 @@ class TvListFragment: BaseFragment(), TvListContract.View {
      * @param savedInstanceState the previous fragment data status after the system calls [onPause].
      */
     override fun init(savedInstanceState: Bundle?) {
+        var tvList: List<TvBriefModel>? = null
         savedInstanceState?.let {
-            this.tvList = savedInstanceState.getParcelableArrayList(ARG_PARAM_INSTANCE_TVS)
+            tvList = savedInstanceState.getParcelableArrayList(ARG_PARAM_INSTANCE_TVS)
         }
 
-        this.rvTvs.let {
-            it.layoutManager = LinearLayoutManager(this.context)
-            it.setHasFixedSize(true)
-            // Just give a empty adapter.
-            it.adapter = CommonRecyclerAdapter(this.tvList.orEmpty(), this.hashCode())
-            it.setOnBottomListener(object: LoadMoreRecyclerView.OnBottomListener {
-                override fun onBottom() {
-                    presenter.requestListTvs(argTvCategory, pageIndex++)
-                }
-            })
+        this.rvTvs.apply {
+            this.layoutManager = LinearLayoutManager(this.context)
+            this.setHasFixedSize(true)
+            // Just give a empty adapter for initializing.
+            this.adapter = CommonRecyclerAdapter(tvList.orEmpty(), this.hashCode())
+            this.setOnBottomListener { this@TvListFragment.presenter.requestListTvs(argTvCategory, pageIndex++) }
         }
 
         // Request the movie data.
-        this.argTvCategory.let { this.presenter.requestListTvs(it, pageIndex++) }
+        this.presenter.requestListTvs(this.argTvCategory, pageIndex++)
     }
     //endregion
 
     //region Presenter implementations
     override fun showTvBriefList(tvList: List<TvBriefModel>) {
-        this.tvList = ArrayList(if (null == this.tvList || this.tvList!!.isEmpty())
-            tvList
-        else
-            this.tvList!! + tvList)
-
         // Because the view pager will load the fragment first, if we just set the data directly, views won't
         // be showed. To avoid it, the adapter will be reset.
-        this.tvList?.let { (this.rvTvs.adapter as CommonRecyclerAdapter).addItem(it) }
+        (this.rvTvs.adapter as CommonRecyclerAdapter).addItem(tvList)
         // Switch on loading new movie page.
         this.loading = true
     }

@@ -11,7 +11,6 @@ import com.jakewharton.rxbinding.support.v4.view.pageSelections
 import taiwan.no1.app.R
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.MainViewPager
-import taiwan.no1.app.utilies.AppLog
 
 /**
  *
@@ -45,14 +44,14 @@ abstract class ViewPagerMainCtrlFragment: BaseFragment(), IMainFragment {
      * @param savedInstanceState the previous fragment data status after the system calls [onPause].
      */
     override fun init(savedInstanceState: Bundle?) {
-        savedInstanceState?.let {
-            this.fragmentList.forEach {
-                AppLog.w(it)
-                it.childFragmentManager.let {
-                    AppLog.w(it.backStackEntryCount)
-                }
-            }
-        }
+//        savedInstanceState?.let {
+//            this.fragmentList.forEach {
+//                AppLog.w(it)
+//                it.childFragmentManager.let {
+//                    AppLog.w(it.backStackEntryCount)
+//                }
+//            }
+//        }
 
         this.ntsTabMenu.setViewPager(this.vpContainer.apply {
             var flagClearPrevFragment: Boolean = false
@@ -62,12 +61,12 @@ abstract class ViewPagerMainCtrlFragment: BaseFragment(), IMainFragment {
             currItemPos = this.currentItem
             prevItemPos = this.currentItem
             // View pager's listener.
-            this.pageSelections().compose(bindToLifecycle<Int>()).subscribe {
+            this.pageSelections().compose(this@ViewPagerMainCtrlFragment.bindToLifecycle<Int>()).subscribe {
                 currItemPos = it
                 // After change the page, the flag will be opened for clearing the previous stack fragments.
                 flagClearPrevFragment = true
             }
-            this.pageScrollStateChanges().compose(bindToLifecycle<Int>()).subscribe {
+            this.pageScrollStateChanges().compose(this@ViewPagerMainCtrlFragment.bindToLifecycle<Int>()).subscribe {
                 // This is a trigger of changing views.
                 if (ViewPager.SCROLL_STATE_SETTLING == it)
                     flagClearPrevFragment = false

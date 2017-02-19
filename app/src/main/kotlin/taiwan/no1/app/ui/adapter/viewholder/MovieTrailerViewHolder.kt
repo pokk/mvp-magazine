@@ -29,6 +29,7 @@ class MovieTrailerViewHolder(val view: View): BaseViewHolder(view) {
 
     override fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
         (model as FilmVideoModel).let {
+            // FIXME: 2/18/17 memory leak.
             this.yttnvTrailer.initialize(this.mContext.getString(R.string.youtube_api_key),
                     object: OnInitializedListener {
                         override fun onInitializationSuccess(thumbnailView: YouTubeThumbnailView,

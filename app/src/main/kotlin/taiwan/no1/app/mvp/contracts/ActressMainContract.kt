@@ -4,6 +4,7 @@ import taiwan.no1.app.mvp.models.cast.CastBriefModel
 import taiwan.no1.app.mvp.presenters.IPresenter
 import taiwan.no1.app.mvp.views.IFragmentView
 import taiwan.no1.app.mvp.views.IView
+import java.util.*
 
 /**
  * This specifies the contract between the [IPresenter] and the [IView].
@@ -16,6 +17,7 @@ import taiwan.no1.app.mvp.views.IView
 interface ActressMainContract {
     interface Presenter: IPresenter<View> {
         fun requestListCasts(page: Int = 1)
+        fun getCastList(): ArrayList<CastBriefModel>
     }
 
     interface View: IView, IFragmentView {

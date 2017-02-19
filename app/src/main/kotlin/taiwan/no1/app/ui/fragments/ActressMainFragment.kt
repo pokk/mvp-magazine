@@ -14,7 +14,6 @@ import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.adapter.itemdecorator.GridSpacingItemDecorator
 import taiwan.no1.app.ui.customize.LoadMoreRecyclerView
-import java.util.*
 import javax.inject.Inject
 
 /**
@@ -49,7 +48,6 @@ class ActressMainFragment: BaseFragment(), ActressMainContract.View, IMainFragme
     //endregion
 
     //region Local variables
-    private var castList: ArrayList<CastBriefModel>? = null
     private var pageIndex: Int = 1
     private var loading: Boolean = true
 
@@ -70,7 +68,7 @@ class ActressMainFragment: BaseFragment(), ActressMainContract.View, IMainFragme
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        outState.putParcelableArrayList(ARG_PARAM_INSTANCE_CASTS, this.castList)
+        outState.putParcelableArrayList(ARG_PARAM_INSTANCE_CASTS, this.presenter.getCastList())
     }
 
     override fun onDestroy() {
@@ -110,21 +108,18 @@ class ActressMainFragment: BaseFragment(), ActressMainContract.View, IMainFragme
      * @param savedInstanceState the previous fragment data status after the system calls [onPause].
      */
     override fun init(savedInstanceState: Bundle?) {
+        var castList: List<CastBriefModel>? = null
         savedInstanceState?.let {
-            this.castList = savedInstanceState.getParcelableArrayList(ARG_PARAM_INSTANCE_CASTS)
+            castList = savedInstanceState.getParcelableArrayList(ARG_PARAM_INSTANCE_CASTS)
         }
         // FIXED: 2/11/17 Using the customize image view to fit the photo ratio.
-        this.rvCasts.let {
-            it.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-            it.setHasFixedSize(true)
-            it.addItemDecoration(GridSpacingItemDecorator(2, 20, false))
+        this.rvCasts.apply {
+            this.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            this.setHasFixedSize(true)
+            this.addItemDecoration(GridSpacingItemDecorator(2, 20, false))
             // Just give a empty adapter.
-            it.adapter = CommonRecyclerAdapter(this.castList.orEmpty(), this.hashCode())
-            it.setOnBottomListener(object: LoadMoreRecyclerView.OnBottomListener {
-                override fun onBottom() {
-                    presenter.requestListCasts(pageIndex++)
-                }
-            })
+            this.adapter = CommonRecyclerAdapter(castList.orEmpty(), this.hashCode())
+            this.setOnBottomListener { presenter.requestListCasts(pageIndex++) }
         }
         // Request the movie data.
         this.presenter.requestListCasts(pageIndex++)
@@ -140,15 +135,9 @@ class ActressMainFragment: BaseFragment(), ActressMainContract.View, IMainFragme
 
     //region Presenter implementations
     override fun showCastBriefList(castList: List<CastBriefModel>) {
-        castList.isEmpty()
-        this.castList = ArrayList(if (null == this.castList || this.castList!!.isEmpty())
-            castList
-        else
-            this.castList!! + castList)
-
         // Because the view pager will load the fragment first, if we just set the data directly, views won't
         // be showed. To avoid it, the adapter will be reset.
-        this.castList?.let { (this.rvCasts.adapter as CommonRecyclerAdapter).addItem(it) }
+        (this.rvCasts.adapter as CommonRecyclerAdapter).addItem(castList)
         // Switch on loading new cast page.
         this.loading = true
     }

@@ -3,8 +3,10 @@ package taiwan.no1.app.mvp.presenters
 import rx.lang.kotlin.subscriber
 import taiwan.no1.app.domain.usecase.CastLists
 import taiwan.no1.app.mvp.contracts.ActressMainContract
+import taiwan.no1.app.mvp.models.cast.CastBriefModel
 import taiwan.no1.app.mvp.models.cast.CastListResModel
 import taiwan.no1.app.utilies.AppLog
+import java.util.*
 
 /**
  *
@@ -13,6 +15,8 @@ import taiwan.no1.app.utilies.AppLog
  */
 class ActressMainPresenter(val castCase: CastLists):
         BasePresenter<ActressMainContract.View>(), ActressMainContract.Presenter {
+    private var castBriefModelList: List<CastBriefModel> = emptyList()
+
     //region Presenter implementation
     override fun init(view: ActressMainContract.View) {
         super.init(view)
@@ -25,8 +29,13 @@ class ActressMainPresenter(val castCase: CastLists):
             AppLog.e(it.message)
             AppLog.e(it)
         }.onNext {
-            view.showCastBriefList(it.results.orEmpty())
+            it.results?.let {
+                this.castBriefModelList += it
+                view.showCastBriefList(this.castBriefModelList)
+            }
         })
     }
+
+    override fun getCastList(): ArrayList<CastBriefModel> = ArrayList(this.castBriefModelList)
     //endregion
 }

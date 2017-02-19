@@ -170,10 +170,14 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     }
 
     override fun showMovieBase(movieTitle: String, releaseDate: String, runtime: String, score: Double) {
-        this.tvTitle.setBackgroundColor(Color.TRANSPARENT)
-        this.tvTitle.text = movieTitle
-        this.tvReleaseDate.setBackgroundColor(Color.TRANSPARENT)
-        this.tvReleaseDate.text = releaseDate
+        this.tvTitle.apply {
+            this.setBackgroundColor(Color.TRANSPARENT)
+            this.text = movieTitle
+        }
+        this.tvReleaseDate.apply {
+            this.setBackgroundColor(Color.TRANSPARENT)
+            this.text = releaseDate
+        }
         this.tvTime.text = runtime
         this.ssvStarRate.score = score
     }

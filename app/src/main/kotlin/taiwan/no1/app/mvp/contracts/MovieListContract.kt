@@ -5,6 +5,7 @@ import taiwan.no1.app.mvp.models.movie.MovieBriefModel
 import taiwan.no1.app.mvp.presenters.IPresenter
 import taiwan.no1.app.mvp.views.IFragmentView
 import taiwan.no1.app.mvp.views.IView
+import java.util.*
 
 /**
  * This specifies the contract between the [IPresenter] and the [IView].
@@ -16,6 +17,7 @@ import taiwan.no1.app.mvp.views.IView
 interface MovieListContract {
     interface Presenter: IPresenter<View> {
         fun requestListMovies(category: CloudDataStore.Movies, page: Int = 1)
+        fun getMovieList(): ArrayList<MovieBriefModel>
     }
 
     interface View: IView, IFragmentView {

@@ -24,6 +24,7 @@ class MovieDetailPresenter constructor(val movieDetailCase: MovieDetail):
         AppLog.e(it.message)
         AppLog.e(it)
     }.onNext {
+        // TODO: 2/19/17 Here might be memory leak!?
         this.movieDetailInfo = it
 
         this.movieDetailInfo?.let {

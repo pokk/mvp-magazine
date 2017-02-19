@@ -16,7 +16,7 @@ import taiwan.no1.app.mvp.models.movie.MovieBriefModel
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.customize.LoadMoreRecyclerView
-import java.util.*
+import taiwan.no1.app.utilies.AppLog
 import javax.inject.Inject
 
 /**
@@ -46,6 +46,8 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
                 }
             }
 
+            AppLog.w(category, hashCode())
+            
             this.arguments = Bundle().apply {
                 this.putSerializable(ARG_PARAM_CATEGORY, category)
             }
@@ -61,7 +63,6 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
     //endregion
 
     //region Local variables
-    private var movieList: ArrayList<MovieBriefModel>? = null
     private var maxPageIndex: Int = 1
     private var pageIndex: Int = 1
     private var loading: Boolean = true
@@ -86,7 +87,7 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        outState.putParcelableArrayList(ARG_PARAM_INSTANCE_MOVIES, this.movieList)
+        outState.putParcelableArrayList(ARG_PARAM_INSTANCE_MOVIES, this.presenter.getMovieList())
     }
 
     override fun onDestroy() {
@@ -126,21 +127,23 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
      * @param savedInstanceState the previous fragment data status after the system calls [onPause].
      */
     override fun init(savedInstanceState: Bundle?) {
+        AppLog.w(argMovieCategory, this.hashCode())
+        var movieList: List<MovieBriefModel>? = null
         savedInstanceState?.let {
-            this.movieList = savedInstanceState.getParcelableArrayList(ARG_PARAM_INSTANCE_MOVIES)
+            movieList = savedInstanceState.getParcelableArrayList(ARG_PARAM_INSTANCE_MOVIES)
         }
 
         // FIXED: 2/17/17 All of the components will recreate again when this view destroy so we must re-init again.
-        this.rvMovies.let {
-            it.layoutManager = LinearLayoutManager(this.context)
-            it.setHasFixedSize(true)
+        this.rvMovies.apply {
+            this.layoutManager = LinearLayoutManager(this.context)
+            this.setHasFixedSize(true)
             // Just give a empty adapter.
-            it.adapter = CommonRecyclerAdapter(this.movieList.orEmpty(), this.hashCode())
-            it.setOnBottomListener(object: LoadMoreRecyclerView.OnBottomListener {
-                override fun onBottom() {
-                    presenter.requestListMovies(argMovieCategory, pageIndex++)
-                }
-            })
+            AppLog.w(hashCode())
+
+            this.adapter = CommonRecyclerAdapter(movieList.orEmpty(), this.hashCode())
+            this.setOnBottomListener {
+                this@MovieListFragment.presenter.requestListMovies(argMovieCategory, pageIndex++)
+            }
         }
 
         // Request the movie data.
@@ -150,14 +153,9 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
 
     //region Presenter implementations
     override fun showMovieBriefList(movieList: List<MovieBriefModel>) {
-        this.movieList = ArrayList(if (null == this.movieList || this.movieList!!.isEmpty())
-            movieList
-        else
-            this.movieList!! + movieList)
-
         // Because the view pager will load the fragment first, if we just set the data directly, views won't
         // be showed. To avoid it, the adapter will be reset.
-        this.movieList?.let { (this.rvMovies.adapter as CommonRecyclerAdapter).addItem(it) }
+        (this.rvMovies.adapter as CommonRecyclerAdapter).addItem(movieList)
         // Switch on loading new movie page.
         this.loading = true
     }

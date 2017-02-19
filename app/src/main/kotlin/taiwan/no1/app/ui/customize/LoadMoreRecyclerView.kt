@@ -47,5 +47,13 @@ class LoadMoreRecyclerView: RecyclerView {
         this.onBottomListener = onBottomListener
     }
 
+    fun setOnBottomListener(onBottomEvent: () -> Unit) {
+        this.onBottomListener = object: OnBottomListener {
+            override fun onBottom() {
+                onBottomEvent()
+            }
+        }
+    }
+
     private fun isOnBottom() = this.computeVerticalScrollExtent() + this.computeVerticalScrollOffset() >= this.computeVerticalScrollRange()
 }
