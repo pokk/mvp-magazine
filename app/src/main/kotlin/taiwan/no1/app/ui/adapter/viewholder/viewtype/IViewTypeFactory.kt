@@ -40,5 +40,5 @@ interface IViewTypeFactory {
      * @param itemView a view after inflating.
      * @return [BaseViewHolder] of recycler view holder.
      */
-    fun createViewHolder(type: Int, itemView: View): BaseViewHolder
+    fun createViewHolder(type: Int, itemView: View): BaseViewHolder<*>
 }

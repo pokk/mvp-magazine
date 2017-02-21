@@ -20,7 +20,7 @@ import javax.inject.Inject
  * @since   1/7/17
  */
 
-class MovieCrewViewHolder(view: View): BaseViewHolder(view), MovieCrewAdapterContract.View {
+class MovieCrewViewHolder(view: View): BaseViewHolder<FilmCastsModel.CrewBean>(view), MovieCrewAdapterContract.View {
     @Inject
     lateinit var presenter: MovieCrewAdapterContract.Presenter
     @Inject
@@ -31,10 +31,10 @@ class MovieCrewViewHolder(view: View): BaseViewHolder(view), MovieCrewAdapterCon
     val tvCharacter by bindView<TextView>(R.id.tv_character)
     val tvName by bindView<TextView>(R.id.tv_name)
 
-    override fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
+    override fun initView(model: FilmCastsModel.CrewBean, position: Int, adapter: CommonRecyclerAdapter) {
         super.initView(model, position, adapter)
-        
-        (model as FilmCastsModel.CrewBean).let {
+
+        model.let {
             ViewUtils.loadBitmapToView(this.mContext,
                     TMDBConfig.BASE_IMAGE_URL + it.profile_path,
                     listener = GlideResizeTargetListener(this.ivCast, this.item))

@@ -21,7 +21,7 @@ import javax.inject.Inject
  */
 
 class CommonRecyclerAdapter(var models: List<IVisitable>, val fragmentTag: Int = -1):
-        RecyclerView.Adapter<BaseViewHolder>() {
+        RecyclerView.Adapter<BaseViewHolder<IVisitable>>() {
     @Inject
     lateinit var typeFactory: IViewTypeFactory
     // Keeping the YouTube loaders from TrailerViewHolder.
@@ -31,17 +31,18 @@ class CommonRecyclerAdapter(var models: List<IVisitable>, val fragmentTag: Int =
         AdapterComponent.Initializer.init(App.appComponent()).inject(CommonRecyclerAdapter@ this)
     }
 
-    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BaseViewHolder<IVisitable>, position: Int) {
         holder.initView(this.models[position], position, this)
         // YouTube thumbnail is used only by TrailerViewHolder.
-        if (holder is MovieTrailerViewHolder)
-            holder.setYouTubeLoaderContainerListener { this@CommonRecyclerAdapter.loaderContainer.add(it) }
+        (holder as? MovieTrailerViewHolder)?.setYouTubeLoaderContainerListener {
+            this@CommonRecyclerAdapter.loaderContainer.add(it)
+        }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<IVisitable> {
         val itemView: View = View.inflate(parent.context, ViewTypeFactory.TypeResource.values()[viewType].id, null)
 
-        return this.typeFactory.createViewHolder(viewType, itemView)
+        return this.typeFactory.createViewHolder(viewType, itemView) as BaseViewHolder<IVisitable>
     }
 
     override fun getItemCount(): Int = this.models.size

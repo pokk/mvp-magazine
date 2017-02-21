@@ -30,21 +30,21 @@ import javax.inject.Inject
  * @since   1/7/17
  */
 
-class CastListViewHolder(val view: View): BaseViewHolder(view), CastListAdapterContract.View {
+class CastListViewHolder(val view: View): BaseViewHolder<CastBriefModel>(view), CastListAdapterContract.View {
     @Inject
     lateinit var presenter: CastListAdapterContract.Presenter
     @Inject
     lateinit var imageLoader: IImageLoader
-    
+
     private val item by bindView<CardView>(R.id.item_cast_brief)
     private val ivPoster by bindView<AdjustHeightImageView>(R.id.iv_cast_poster)
     private val tvName by bindView<TextView>(R.id.tv_name)
 
-    override fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
+    override fun initView(model: CastBriefModel, position: Int, adapter: CommonRecyclerAdapter) {
         super.initView(model, position, adapter)
 
         // Cast the model data type to MovieBriefModel.
-        (model as CastBriefModel).let {
+        model.let {
             ViewUtils.loadBitmapToView(this.mContext,
                     TMDBConfig.BASE_IMAGE_URL + it.profile_path,
                     listener = object: BitmapImageViewTarget(this.ivPoster) {

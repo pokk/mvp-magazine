@@ -25,21 +25,21 @@ import javax.inject.Inject
  * @since   1/7/17
  */
 
-class MovieCastViewHolder(view: View): BaseViewHolder(view), MovieCastAdapterContract.View {
+class MovieCastViewHolder(view: View): BaseViewHolder<FilmCastsModel.CastBean>(view), MovieCastAdapterContract.View {
     @Inject
     lateinit var presenter: MovieCastAdapterContract.Presenter
     @Inject
     lateinit var imageLoader: IImageLoader
-    
+
     val item by bindView<CardView>(R.id.item_cast)
     val ivCast by bindView<ImageView>(R.id.iv_cast)
     val tvCharacter by bindView<TextView>(R.id.tv_character)
     val tvName by bindView<TextView>(R.id.tv_name)
 
-    override fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
+    override fun initView(model: FilmCastsModel.CastBean, position: Int, adapter: CommonRecyclerAdapter) {
         super.initView(model, position, adapter)
-        
-        (model as FilmCastsModel.CastBean).let {
+
+        model.let {
             ViewUtils.loadBitmapToView(this.mContext,
                     TMDBConfig.BASE_IMAGE_URL + it.profile_path,
                     listener = GlideResizeTargetListener(this.ivCast, this.item))

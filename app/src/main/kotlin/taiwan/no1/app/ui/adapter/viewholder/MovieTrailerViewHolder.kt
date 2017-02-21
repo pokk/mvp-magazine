@@ -23,12 +23,12 @@ import javax.inject.Inject
  * @since   1/7/17
  */
 
-class MovieTrailerViewHolder(val view: View): BaseViewHolder(view), TrailerAdapterContract.View {
+class MovieTrailerViewHolder(val view: View): BaseViewHolder<FilmVideoModel>(view), TrailerAdapterContract.View {
     @Inject
     lateinit var presenter: TrailerAdapterContract.Presenter
     @Inject
     lateinit var imageLoader: IImageLoader
-    
+
     private val item by bindView<CardView>(R.id.item_trailer)
     private val yttnvTrailer by bindView<YouTubeThumbnailView>(R.id.yttnv_trailer)
     private lateinit var containerListener: youTubeLoaderContainerListener
@@ -37,14 +37,13 @@ class MovieTrailerViewHolder(val view: View): BaseViewHolder(view), TrailerAdapt
         fun keepLoader(loader: YouTubeThumbnailLoader)
     }
 
-    override fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
+    override fun initView(model: FilmVideoModel, position: Int, adapter: CommonRecyclerAdapter) {
         super.initView(model, position, adapter)
 
-        model as FilmVideoModel
         // FIXED: 2/21/17 Keep each of YouTubeThumbnailLoaders into the adapter. When the fragment which keep this
         // FIXED: ViewHolder is destroyed by lifecycle, let it release loaders thru the adapter's release method.
         this.yttnvTrailer.initialize(this.mContext.getString(R.string.youtube_api_key),
-                object: YouTubeThumbnailInitListener(model.key ?: "") {
+                object: YouTubeThumbnailInitListener(model.key.orEmpty()) {
                     override fun onInitializationSuccess(thumbnailView: YouTubeThumbnailView,
                                                          loader: YouTubeThumbnailLoader) {
                         if (this.youTubeKey.isNotEmpty()) {

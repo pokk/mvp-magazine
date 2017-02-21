@@ -30,7 +30,7 @@ import javax.inject.Inject
  * @since   1/7/17
  */
 
-class TvListViewHolder(val view: View): BaseViewHolder(view), TvListAdapterContract.View {
+class TvListViewHolder(val view: View): BaseViewHolder<TvBriefModel>(view), TvListAdapterContract.View {
     @Inject
     lateinit var presenter: TvListAdapterContract.Presenter
     @Inject
@@ -44,12 +44,12 @@ class TvListViewHolder(val view: View): BaseViewHolder(view), TvListAdapterContr
     private val tvRelease by bindView<TextView>(R.id.tv_release_date)
     private val tvGenres by bindView<TextView>(R.id.tv_genres)
 
-    override fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
+    override fun initView(model: TvBriefModel, position: Int, adapter: CommonRecyclerAdapter) {
         super.initView(model, position, adapter)
 
         this.tvGenres.text = ""
         // Cast the model data type to MovieBriefModel.
-        (model as TvBriefModel).let {
+        model.let {
             val maxLengthOfGenres: Int = it.genre_ids?.let {
                 if (it.size >= 3) 3 else it.size
             } ?: 0

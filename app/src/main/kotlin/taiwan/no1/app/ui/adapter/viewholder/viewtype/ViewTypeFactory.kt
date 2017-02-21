@@ -48,7 +48,7 @@ class ViewTypeFactory: IViewTypeFactory {
 
     override fun type(castBriefModel: CastBriefModel): Int = TypeResource.CAST_LIST.ordinal
 
-    override fun createViewHolder(type: Int, itemView: View): BaseViewHolder = when (type) {
+    override fun createViewHolder(type: Int, itemView: View): BaseViewHolder<*> = when (type) {
         TypeResource.MOVIE_LIST.ordinal -> MovieListViewHolder(itemView)
         TypeResource.MOVIE_CAST.ordinal -> MovieCastViewHolder(itemView)
         TypeResource.MOVIE_CREW.ordinal -> MovieCrewViewHolder(itemView)

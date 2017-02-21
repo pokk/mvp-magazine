@@ -26,7 +26,7 @@ import javax.inject.Inject
  */
 
 @PerFragment
-class MovieListViewHolder(val view: View): BaseViewHolder(view), MovieListAdapterContract.View {
+class MovieListViewHolder(val view: View): BaseViewHolder<MovieBriefModel>(view), MovieListAdapterContract.View {
     @Inject
     lateinit var presenter: MovieListAdapterContract.Presenter
     @Inject
@@ -39,11 +39,11 @@ class MovieListViewHolder(val view: View): BaseViewHolder(view), MovieListAdapte
     private val tvVote by bindView<TextView>(R.id.tv_vote)
     private val tvContent by bindView<TextView>(R.id.tv_brief_content)
 
-    override fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
+    override fun initView(model: MovieBriefModel, position: Int, adapter: CommonRecyclerAdapter) {
         super.initView(model, position, adapter)
 
         // Cast the model data type to MovieBriefModel.
-        (model as MovieBriefModel).let {
+        model.let {
             ViewUtils.loadBitmapToView(this.mContext,
                     TMDBConfig.BASE_IMAGE_URL + it.poster_path,
                     this.ivPoster, isFitCenter = false)
