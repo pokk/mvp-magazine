@@ -21,17 +21,18 @@ object FragmentUtils {
      * @param fragment The fragment to be added.
      * @param needBack Set that it can back to previous fragment.
      * @param sharedElements Shared element objects and ids from layout xml [android:transitionName].
+     * @return the identifier of this transaction's back stack entry.
      */
     fun addFragment(manager: FragmentManager,
                     containerViewId: Int,
                     fragment: Fragment,
                     needBack: Boolean = false,
-                    sharedElements: HashMap<View, String>? = null) {
+                    sharedElements: HashMap<View, String>? = null): Int {
         Preconditions.checkNotNull(containerViewId)
         Preconditions.checkNotNull(fragment)
         Preconditions.checkNotNull(needBack)
 
-        manager.beginTransaction().apply {
+        return manager.beginTransaction().apply {
             this.replace(containerViewId, fragment, fragment.javaClass.name)
             sharedElements?.forEach { this.addSharedElement(it.key, it.value) }
             // https://developer.android.com/training/implementing-navigation/temporal.html#back-fragments
@@ -70,5 +71,18 @@ object FragmentUtils {
      */
     fun popAllFragment(manager: FragmentManager) {
         (0..manager.backStackEntryCount - 1).forEach { AppLog.w(FragmentUtils.popFragment(manager)) }
+    }
+
+    fun removeFragment(manager: FragmentManager, fragment: Fragment) {
+        manager.beginTransaction().remove(fragment).commitNow()
+    }
+
+    fun removeRecursiveFragment(manager: FragmentManager) {
+        manager.fragments?.forEach {
+            it?.let {
+                it.childFragmentManager?.let { removeRecursiveFragment(it) }
+                FragmentUtils.removeFragment(manager, it)
+            }
+        }
     }
 }

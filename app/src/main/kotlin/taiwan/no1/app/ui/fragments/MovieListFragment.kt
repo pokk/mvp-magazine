@@ -16,7 +16,6 @@ import taiwan.no1.app.mvp.models.movie.MovieBriefModel
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.customize.LoadMoreRecyclerView
-import taiwan.no1.app.utilies.AppLog
 import javax.inject.Inject
 
 /**
@@ -46,8 +45,6 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
                 }
             }
 
-            AppLog.w(category, hashCode())
-            
             this.arguments = Bundle().apply {
                 this.putSerializable(ARG_PARAM_CATEGORY, category)
             }
@@ -127,7 +124,6 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
      * @param savedInstanceState the previous fragment data status after the system calls [onPause].
      */
     override fun init(savedInstanceState: Bundle?) {
-        AppLog.w(argMovieCategory, this.hashCode())
         var movieList: List<MovieBriefModel>? = null
         savedInstanceState?.let {
             movieList = savedInstanceState.getParcelableArrayList(ARG_PARAM_INSTANCE_MOVIES)
@@ -138,9 +134,7 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
             this.layoutManager = LinearLayoutManager(this.context)
             this.setHasFixedSize(true)
             // Just give a empty adapter.
-            AppLog.w(hashCode())
-
-            this.adapter = CommonRecyclerAdapter(movieList.orEmpty(), this.hashCode())
+            this.adapter = CommonRecyclerAdapter(movieList.orEmpty(), this@MovieListFragment.hashCode())
             this.setOnBottomListener {
                 this@MovieListFragment.presenter.requestListMovies(argMovieCategory, pageIndex++)
             }

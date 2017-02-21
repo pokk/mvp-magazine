@@ -123,7 +123,7 @@ class TvListFragment: BaseFragment(), TvListContract.View {
             this.layoutManager = LinearLayoutManager(this.context)
             this.setHasFixedSize(true)
             // Just give a empty adapter for initializing.
-            this.adapter = CommonRecyclerAdapter(tvList.orEmpty(), this.hashCode())
+            this.adapter = CommonRecyclerAdapter(tvList.orEmpty(), this@TvListFragment.hashCode())
             this.setOnBottomListener { this@TvListFragment.presenter.requestListTvs(argTvCategory, pageIndex++) }
         }
 

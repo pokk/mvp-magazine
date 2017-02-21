@@ -118,8 +118,8 @@ class ActressMainFragment: BaseFragment(), ActressMainContract.View, IMainFragme
             this.setHasFixedSize(true)
             this.addItemDecoration(GridSpacingItemDecorator(2, 20, false))
             // Just give a empty adapter.
-            this.adapter = CommonRecyclerAdapter(castList.orEmpty(), this.hashCode())
-            this.setOnBottomListener { presenter.requestListCasts(pageIndex++) }
+            this.adapter = CommonRecyclerAdapter(castList.orEmpty(), this@ActressMainFragment.hashCode())
+            this.setOnBottomListener { this@ActressMainFragment.presenter.requestListCasts(pageIndex++) }
         }
         // Request the movie data.
         this.presenter.requestListCasts(pageIndex++)
