@@ -11,8 +11,7 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget
  * Glide of third-party library.
  *
  * @author  jieyi
- * @version 0.0.1
- * @since   2017/01/19
+ * @since   1/19/17
  */
 
 class GlideImageLoader(val context: Context): IImageLoader {

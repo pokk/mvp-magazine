@@ -6,8 +6,7 @@ import android.content.Context
  * Third-party image loader's factory.
  *
  * @author  jieyi
- * @version 0.0.1
- * @since   2017/01/19
+ * @since   1/19/17
  */
 
 class ImageLoaderFactory {

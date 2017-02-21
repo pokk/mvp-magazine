@@ -8,7 +8,6 @@ import taiwan.no1.app.mvp.views.IView
  * This specifies the contract between the [IPresenter] and the [IView].
  *
  * @author  Jieyi
- * @version 0.0.1
  * @since   1/15/17
  */
 

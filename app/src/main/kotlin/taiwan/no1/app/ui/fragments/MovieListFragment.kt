@@ -19,8 +19,8 @@ import taiwan.no1.app.ui.customize.LoadMoreRecyclerView
 import javax.inject.Inject
 
 /**
- * @author Jieyi
- * @since 12/6/16
+ * @author  Jieyi
+ * @since   12/6/16
  */
 
 @PerFragment
@@ -124,24 +124,24 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
      * @param savedInstanceState the previous fragment data status after the system calls [onPause].
      */
     override fun init(savedInstanceState: Bundle?) {
-        var movieList: List<MovieBriefModel>? = null
-        savedInstanceState?.let {
+        var movieList: List<MovieBriefModel> = emptyList()
+        // FIXED: 2/21/17 After this was destroyed, the data will restore from instance state.
+        if (null == savedInstanceState)
+            this.argMovieCategory.let { this.presenter.requestListMovies(it) }  // Request the movies data.
+        else {
             movieList = savedInstanceState.getParcelableArrayList(ARG_PARAM_INSTANCE_MOVIES)
+            this.presenter.restoreMovieList(movieList)
         }
 
         // FIXED: 2/17/17 All of the components will recreate again when this view destroy so we must re-init again.
         this.rvMovies.apply {
             this.layoutManager = LinearLayoutManager(this.context)
             this.setHasFixedSize(true)
-            // Just give a empty adapter.
-            this.adapter = CommonRecyclerAdapter(movieList.orEmpty(), this@MovieListFragment.hashCode())
+            this.adapter = CommonRecyclerAdapter(movieList, this@MovieListFragment.hashCode())
             this.setOnBottomListener {
                 this@MovieListFragment.presenter.requestListMovies(argMovieCategory, pageIndex++)
             }
         }
-
-        // Request the movie data.
-        this.argMovieCategory.let { this.presenter.requestListMovies(it, pageIndex++) }
     }
     //endregion
 

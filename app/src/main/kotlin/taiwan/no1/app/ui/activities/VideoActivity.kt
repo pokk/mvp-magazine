@@ -19,7 +19,7 @@ import taiwan.no1.app.internal.di.annotations.PerActivity
  * @since   1/15/17
  */
 @PerActivity
-// TODO: 2017/02/15 Add the YouTube activity to MVP activity.
+// TODO: 2/15/17 Add the YouTube activity to MVP activity.
 class VideoActivity: YouTubeBaseActivity() {
     //region Static initialization
     companion object Factory {

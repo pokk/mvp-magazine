@@ -31,8 +31,8 @@ import java.util.*
 import javax.inject.Inject
 
 /**
- * @author Jieyi
- * @since 12/6/16
+ * @author  Jieyi
+ * @since   12/6/16
  */
 
 @PerActivity
@@ -96,7 +96,6 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
         this.supportFragmentManager.fragments?.get(0)?.let { this@MainActivity.currentTag = it.javaClass.name }
 
         this.bottombarMenu.setOnTabSelectListener {
-
             // TODO: 2/21/17 Here will waste memory. Becz of repeating creating and removing every single switching.
             if (!isFirst) {
                 // Clear all fragments from the fragment manager.

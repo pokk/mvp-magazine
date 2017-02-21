@@ -11,7 +11,7 @@ import taiwan.no1.app.data.entities.FilmVideosEntity;
  * Detail season data of a tv information data class inherit {@link TvSeasonBriefEntity}.
  *
  * @author weian
- * @since 2017/1/21
+ * @since 1/21/17
  */
 
 public class TvSeasonDetailEntity extends TvSeasonBriefEntity {

@@ -34,8 +34,8 @@ class LoadMoreRecyclerView: RecyclerView {
                 super.onScrolled(recyclerView, dx, dy)
 
                 this@LoadMoreRecyclerView.onBottomListener?.let {
-                    // TODO: 2017/02/07 Add the states of loading, completed, failure, ....
-                    // TODO: 2017/02/07 Add animations of pulling up.
+                    // TODO: 2/7/17 Add the states of loading, completed, failure, ....
+                    // TODO: 2/7/17 Add animations of pulling up.
                     if (isOnBottom())
                         it.onBottom()
                 }

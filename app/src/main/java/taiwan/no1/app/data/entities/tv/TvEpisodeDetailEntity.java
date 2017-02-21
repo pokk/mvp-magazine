@@ -11,7 +11,7 @@ import taiwan.no1.app.data.entities.ImageProfileEntity;
  * The episode detail from a season of tv information data class.
  *
  * @author weian
- * @since 2017/1/21
+ * @since 1/21/17
  */
 
 public class TvEpisodeDetailEntity {

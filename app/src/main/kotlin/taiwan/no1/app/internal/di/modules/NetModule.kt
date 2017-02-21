@@ -19,7 +19,7 @@ import javax.inject.Singleton
 /**
  *
  * @author  Jieyi
- * @since   2016/12/06
+ * @since   12/6/16
  */
 
 @Module

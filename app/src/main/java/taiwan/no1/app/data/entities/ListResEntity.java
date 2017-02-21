@@ -11,7 +11,7 @@ import taiwan.no1.app.data.entities.tv.TvBriefEntity;
  * list data class.
  *
  * @author jieyi
- * @since 2017/02/13
+ * @since 2/13/17
  */
 
 public class ListResEntity<L> extends BaseListResEntity {

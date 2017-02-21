@@ -11,13 +11,13 @@ import java.util.*
  * This specifies the contract between the [IPresenter] and the [IView].
  *
  * @author  Jieyi
- * @version 0.0.1
  * @since   1/7/17
  */
 
 interface TvListContract {
     interface Presenter: IPresenter<View> {
         fun requestListTvs(category: CloudDataStore.Tvs, page: Int = 1)
+        fun restoreTvList(tvList: List<TvBriefModel>)
         fun getTvList(): ArrayList<TvBriefModel>
     }
 

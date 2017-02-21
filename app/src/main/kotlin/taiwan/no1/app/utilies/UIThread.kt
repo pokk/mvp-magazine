@@ -11,7 +11,7 @@ import javax.inject.Singleton
  * Android UI thread.
  *
  * @author  Jieyi
- * @since   2016/12/06
+ * @since   12/6/16
  */
 
 @Singleton

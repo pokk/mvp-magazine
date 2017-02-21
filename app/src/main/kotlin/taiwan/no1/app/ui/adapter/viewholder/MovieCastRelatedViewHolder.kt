@@ -25,7 +25,7 @@ import javax.inject.Inject
  */
 
 class MovieCastRelatedViewHolder(view: View): BaseViewHolder(view) {
-    // FIXME: 2017/01/19 not be injected.
+    // FIXME: 1/19/17 not be injected.
     @Inject
     lateinit var imageLoader: IImageLoader
 

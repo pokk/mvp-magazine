@@ -108,21 +108,23 @@ class ActressMainFragment: BaseFragment(), ActressMainContract.View, IMainFragme
      * @param savedInstanceState the previous fragment data status after the system calls [onPause].
      */
     override fun init(savedInstanceState: Bundle?) {
-        var castList: List<CastBriefModel>? = null
-        savedInstanceState?.let {
+        var castList: List<CastBriefModel> = emptyList()
+        if (null == savedInstanceState)
+            this.presenter.requestListCasts()  // Request the casts data.
+        else {
             castList = savedInstanceState.getParcelableArrayList(ARG_PARAM_INSTANCE_CASTS)
+            this.presenter.restoreCastList(castList)
         }
+
         // FIXED: 2/11/17 Using the customize image view to fit the photo ratio.
         this.rvCasts.apply {
             this.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             this.setHasFixedSize(true)
             this.addItemDecoration(GridSpacingItemDecorator(2, 20, false))
             // Just give a empty adapter.
-            this.adapter = CommonRecyclerAdapter(castList.orEmpty(), this@ActressMainFragment.hashCode())
+            this.adapter = CommonRecyclerAdapter(castList, this@ActressMainFragment.hashCode())
             this.setOnBottomListener { this@ActressMainFragment.presenter.requestListCasts(pageIndex++) }
         }
-        // Request the movie data.
-        this.presenter.requestListCasts(pageIndex++)
     }
     //endregion
 

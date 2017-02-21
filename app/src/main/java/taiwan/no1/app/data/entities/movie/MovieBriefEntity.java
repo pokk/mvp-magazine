@@ -4,7 +4,7 @@ import taiwan.no1.app.data.entities.CommonEntity;
 
 /**
  * A brief movie information from the searching list data class. 
- * 
+ *
  * @author Jieyi
  * @since 12/31/16
  */

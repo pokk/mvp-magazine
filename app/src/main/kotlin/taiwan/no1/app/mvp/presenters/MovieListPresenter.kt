@@ -36,6 +36,10 @@ class MovieListPresenter constructor(val moviesCase: MovieLists):
         })
     }
 
+    override fun restoreMovieList(movieList: List<MovieBriefModel>) {
+        this.movieBriefModelList = movieList.toList()
+    }
+
     override fun getMovieList(): ArrayList<MovieBriefModel> = ArrayList(this.movieBriefModelList)
     //endregion
 }

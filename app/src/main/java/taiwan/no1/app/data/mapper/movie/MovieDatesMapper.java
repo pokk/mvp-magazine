@@ -12,7 +12,7 @@ import taiwan.no1.app.mvp.models.movie.MovieDatesModel;
 /**
  * Base mapper class used to transform between {@link MovieDatesModel} (in the kotlin layer) and {@link MovieDatesEntity}
  * (in the data layer).
- * 
+ *
  * @author Jieyi
  * @since 12/31/16
  */

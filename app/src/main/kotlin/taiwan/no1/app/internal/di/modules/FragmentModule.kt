@@ -10,7 +10,7 @@ import taiwan.no1.app.mvp.presenters.*
 /**
  *
  * @author  Jieyi
- * @since   2016/12/20
+ * @since   12/20/16
  */
 
 @Module

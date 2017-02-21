@@ -36,6 +36,10 @@ class ActressMainPresenter(val castCase: CastLists):
         })
     }
 
+    override fun restoreCastList(castList: List<CastBriefModel>) {
+        this.castBriefModelList = castList.toList()
+    }
+
     override fun getCastList(): ArrayList<CastBriefModel> = ArrayList(this.castBriefModelList)
     //endregion
 }

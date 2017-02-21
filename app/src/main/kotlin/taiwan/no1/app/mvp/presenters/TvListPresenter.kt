@@ -33,6 +33,10 @@ class TvListPresenter constructor(val tvCase: TvLists): BasePresenter<TvListCont
         })
     }
 
+    override fun restoreTvList(tvList: List<TvBriefModel>) {
+        this.tvBriefModelList = tvList.toList()
+    }
+
     override fun getTvList(): ArrayList<TvBriefModel> = ArrayList(this.tvBriefModelList)
     //endregion
 }

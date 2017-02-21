@@ -114,21 +114,21 @@ class TvListFragment: BaseFragment(), TvListContract.View {
      * @param savedInstanceState the previous fragment data status after the system calls [onPause].
      */
     override fun init(savedInstanceState: Bundle?) {
-        var tvList: List<TvBriefModel>? = null
-        savedInstanceState?.let {
+        var tvList: List<TvBriefModel> = emptyList()
+        if (null == savedInstanceState)
+            this.argTvCategory.let { this.presenter.requestListTvs(it) }  // Request the tvs data.
+        else {
             tvList = savedInstanceState.getParcelableArrayList(ARG_PARAM_INSTANCE_TVS)
+            this.presenter.restoreTvList(tvList)
         }
 
         this.rvTvs.apply {
             this.layoutManager = LinearLayoutManager(this.context)
             this.setHasFixedSize(true)
             // Just give a empty adapter for initializing.
-            this.adapter = CommonRecyclerAdapter(tvList.orEmpty(), this@TvListFragment.hashCode())
+            this.adapter = CommonRecyclerAdapter(tvList, this@TvListFragment.hashCode())
             this.setOnBottomListener { this@TvListFragment.presenter.requestListTvs(argTvCategory, pageIndex++) }
         }
-
-        // Request the movie data.
-        this.presenter.requestListTvs(this.argTvCategory, pageIndex++)
     }
     //endregion
 

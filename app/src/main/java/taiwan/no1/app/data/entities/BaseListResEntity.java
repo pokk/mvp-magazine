@@ -2,7 +2,7 @@ package taiwan.no1.app.data.entities;
 
 /**
  * The response list with extra information data class.
- * 
+ *
  * @author Jieyi
  * @since 2/4/17
  */

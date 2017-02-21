@@ -58,8 +58,8 @@ class MovieGalleryPresenter: BasePresenter<MovieGalleryContract.View>(), MovieGa
             val presentItem: Bitmap? = this.extractBitmap(hicvp, hicvp.realItem)
 
             if (null == presentItem) {
-                // TODO: 2017/02/13 Here we may use a subscript.
-                // FIXED: 2017/02/10 Fixed way as below... Scroll -> attachBgd(Presenter) -> [if (img is null)] ->
+                // TODO: 2/13/17 Here we may use a subscript.
+                // FIXED: 2/10/17 Fixed way as below... Scroll -> attachBgd(Presenter) -> [if (img is null)] ->
                 // FIXED: Notify(PagerAdapter) -> Finished loading -> attachBgd(Presenter) again.
                 // Notify to the adapter.
                 (hicvp.adapter as HorizontalPagerAdapter).notifyNotFinishLoadingYet = true
@@ -72,7 +72,7 @@ class MovieGalleryPresenter: BasePresenter<MovieGalleryContract.View>(), MovieGa
         }
     }
 
-    // FIXED: 2017/02/10 Changed the Glide listener to BitmapImageViewTarget then we can check the drawable type as well.
+    // FIXED: 2/10/17 Changed the Glide listener to BitmapImageViewTarget then we can check the drawable type as well.
     override fun extractBitmap(hicvp: HorizontalInfiniteCycleViewPager, index: Int): Bitmap? =
             ((this.findViewPagerItem(hicvp, index)?.
                     findViewById(R.id.img_item) as ImageView).drawable as? BitmapDrawable)?.bitmap

@@ -8,8 +8,7 @@ import taiwan.no1.app.R
 
 /**
  * @author  jieyi
- * @version 0.0.1
- * @since   2017/01/25
+ * @since   1/25/17
  */
 
 class StarScoreView: View {

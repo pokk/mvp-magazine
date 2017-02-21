@@ -4,7 +4,7 @@ package taiwan.no1.app.data.entities.tv;
  * Brief season data of a tv information data class.
  *
  * @author jieyi
- * @since 2017/02/13
+ * @since 2/13/17
  */
 
 public class TvSeasonBriefEntity {

@@ -12,7 +12,7 @@ import taiwan.no1.app.mvp.models.FilmVideoModel;
 /**
  * Base mapper class used to transform between {@link FilmVideoModel} (in the kotlin layer) and {@link FilmVideosEntity}
  * (in the data layer).
- * 
+ *
  * @author Jieyi
  * @since 12/31/16
  */

@@ -6,7 +6,7 @@ import java.util.List;
  * The related movie, tv and combined of a cast data class.
  *
  * @author Jieyi
- * @since 2017/01/04
+ * @since 1/4/17
  */
 
 public class CreditsInFilmEntity {

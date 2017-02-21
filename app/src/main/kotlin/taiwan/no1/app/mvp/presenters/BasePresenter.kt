@@ -8,7 +8,7 @@ import taiwan.no1.app.mvp.views.IView
  * Base fragment for collecting common methods here.
  *
  * @author  Jieyi
- * @since   2016/12/20
+ * @since   12/20/16
  */
 
 open class BasePresenter<V: IView>: IPresenter<V> {

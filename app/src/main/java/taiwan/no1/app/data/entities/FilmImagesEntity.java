@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * A movie's or tv's backdrops and posters list data class.
- * 
+ *
  * @author Jieyi
  * @since 12/31/16
  */

@@ -6,7 +6,7 @@ import java.util.List;
  * Collect all common data class.
  *
  * @author jieyi
- * @since 2017/02/13
+ * @since 2/13/17
  */
 
 public class CommonEntity {

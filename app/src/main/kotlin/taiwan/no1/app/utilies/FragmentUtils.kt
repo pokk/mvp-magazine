@@ -7,9 +7,8 @@ import dagger.internal.Preconditions
 import java.util.*
 
 /**
- *
  * @author  jieyi
- * @since   2017/02/15
+ * @since   2/15/17
  */
 
 object FragmentUtils {

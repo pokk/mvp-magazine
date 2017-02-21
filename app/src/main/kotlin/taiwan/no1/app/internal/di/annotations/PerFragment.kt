@@ -7,7 +7,7 @@ import javax.inject.Scope
  * memorized in the correct component.
  *
  * @author  Jieyi
- * @since   2016/12/20
+ * @since   12/20/16
  */
 
 @Scope

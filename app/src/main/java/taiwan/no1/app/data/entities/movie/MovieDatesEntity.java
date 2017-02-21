@@ -2,7 +2,7 @@ package taiwan.no1.app.data.entities.movie;
 
 /**
  * Movie's date data class.
- * 
+ *
  * @author Jieyi
  * @since 12/31/16
  */

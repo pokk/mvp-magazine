@@ -26,7 +26,7 @@ import taiwan.no1.app.mvp.models.tv.TvSeasonsModel;
  * Mapper class used to transform between {@link TvSeasonsModel} (in the kotlin layer) and {@link TvSeasonDetailEntity}
  * (in the data layer).
  * <p>
- * Created by weian on 2017/1/21.
+ * Created by weian on 1/21/17.
  */
 
 @Singleton

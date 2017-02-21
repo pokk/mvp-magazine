@@ -66,7 +66,7 @@ class HorizontalPagerAdapter(val context: Context,
                 listener = object: GlideResizeTargetListener(ivPoster, cvFrame) {
                     override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
                         super.onResourceReady(resource, glideAnimation)
-                        // FIXED: 2017/02/10 It won't crash after switched to other photos.
+                        // FIXED: 2/10/17 It won't crash after switched to other photos.
                         if (notifyNotFinishLoadingYet) {
                             RxBus.get().post(RxbusTag.FRAGMENT_FINISHED_LOADING_IMG, position.toString())
                             notifyNotFinishLoadingYet = false

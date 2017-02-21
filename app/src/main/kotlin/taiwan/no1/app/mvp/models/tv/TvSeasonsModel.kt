@@ -9,7 +9,7 @@ import taiwan.no1.app.mvp.models.FilmImagesModel
 /**
  *
  * @author  weian
- * @since   2017/1/21
+ * @since   1/21/17
  */
 
 data class TvSeasonsModel(val _id: String? = null,

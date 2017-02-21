@@ -36,7 +36,7 @@ class MovieTrailerViewHolder(val view: View): BaseViewHolder(view) {
                                                              loader: YouTubeThumbnailLoader) {
                             it.key?.let {
                                 loader.apply {
-                                    // TODO: 2017/02/15 ThumbnailLoader must release after this view is destroyed.
+                                    // TODO: 2/15/17 ThumbnailLoader must release after this view is destroyed.
                                     thumbnailLoader = this
                                     this.setVideo(it)
                                 }.setOnThumbnailLoadedListener(object: OnThumbnailLoadedListener {

@@ -13,7 +13,7 @@ import taiwan.no1.app.data.entities.movie.MovieBriefEntity;
  * The tv detail information data class.
  * 
  * @author weian
- * @since 2017/1/11
+ * @since 1/11/17
  */
 
 public class TvDetailEntity {

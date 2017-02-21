@@ -17,6 +17,7 @@ import java.util.*
 interface MovieListContract {
     interface Presenter: IPresenter<View> {
         fun requestListMovies(category: CloudDataStore.Movies, page: Int = 1)
+        fun restoreMovieList(movieList: List<MovieBriefModel>)
         fun getMovieList(): ArrayList<MovieBriefModel>
     }
 

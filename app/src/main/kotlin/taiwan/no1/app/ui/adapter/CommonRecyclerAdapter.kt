@@ -34,7 +34,7 @@ class CommonRecyclerAdapter(var models: List<IVisitable>, val fragmentTag: Int =
     override fun getItemViewType(position: Int): Int = this.models[position].type(this.typeFactory)
 
     fun addItem(newModels: List<IVisitable>) {
-        // TODO: 2017/01/10 Maybe memory leak?!
+        // TODO: 1/10/17 Maybe memory leak?!
         this.models = newModels
         this.notifyDataSetChanged()
     }

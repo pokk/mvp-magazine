@@ -5,8 +5,8 @@ import android.os.Parcelable
 import taiwan.no1.app.ui.adapter.viewholder.viewtype.IViewTypeFactory
 
 /**
- * @author Jieyi
- * @since 12/29/16
+ * @author  Jieyi
+ * @since   12/29/16
  */
 
 data class FilmCastsModel(val cast: List<CastBean>? = null,

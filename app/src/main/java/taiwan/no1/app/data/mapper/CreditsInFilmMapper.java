@@ -21,7 +21,7 @@ import taiwan.no1.app.mvp.models.CreditsInFilmModel.CrewInFilmBean;
  * (in the data layer).
  *
  * @author Jieyi
- * @since 2017/01/04
+ * @since 1/4/17
  */
 
 @Singleton

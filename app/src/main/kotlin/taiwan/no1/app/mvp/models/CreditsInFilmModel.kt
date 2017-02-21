@@ -8,7 +8,7 @@ import java.util.*
 /**
  *
  * @author  Jieyi
- * @since   2017/01/04
+ * @since   1/4/17
  */
 
 data class CreditsInFilmModel(val cast: List<CastInFilmBean>? = null,

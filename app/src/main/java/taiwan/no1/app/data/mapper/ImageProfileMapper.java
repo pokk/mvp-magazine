@@ -12,7 +12,7 @@ import taiwan.no1.app.mvp.models.ImageProfileModel;
 /**
  * Base mapper class used to transform between {@link ImageProfileModel} (in the kotlin layer) and {@link ImageProfileEntity}
  * (in the data layer).
- * 
+ *
  * @author Jieyi
  * @since 12/31/16
  */

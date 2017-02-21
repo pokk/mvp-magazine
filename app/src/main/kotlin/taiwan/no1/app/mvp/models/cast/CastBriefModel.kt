@@ -9,7 +9,7 @@ import java.util.*
 /**
  *
  * @author  jieyi
- * @since   2017/02/13
+ * @since   2/13/17
  */
 
 data class CastBriefModel(val profile_path: String? = null,

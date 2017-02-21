@@ -4,8 +4,7 @@ package taiwan.no1.app.utilies
  * Time convert utility.
  *
  * @author  jieyi
- * @version 0.0.1
- * @since   2017/01/24
+ * @since   1/24/17
  */
 
 object TimeUtils {
