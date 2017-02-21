@@ -5,13 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import butterknife.bindView
 import com.google.android.youtube.player.YouTubeBaseActivity
-import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
-import com.google.android.youtube.player.YouTubePlayer.OnInitializedListener
 import com.google.android.youtube.player.YouTubePlayer.Provider
 import com.google.android.youtube.player.YouTubePlayerView
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerActivity
+import taiwan.no1.app.ui.listeners.YouTubePlayerInitListener
 
 /**
  *
@@ -57,18 +56,17 @@ class VideoActivity: YouTubeBaseActivity() {
 //        this.getComponent().inject(VideoActivity@ this)
 //        this.presenter.init(VideoActivity@ this)
 
-        this.ytpvTrailer.initialize(this.getString(R.string.youtube_api_key), object: OnInitializedListener {
-            override fun onInitializationSuccess(provider: Provider, player: YouTubePlayer, wasRestored: Boolean) {
-                if (!wasRestored) {
-                    player.loadVideo(argYoutubeKey)
-                    player.setPlayerStyle(YouTubePlayer.PlayerStyle.CHROMELESS)
-                }
-            }
-
-            override fun onInitializationFailure(provider: Provider, errorResult: YouTubeInitializationResult) {
-            }
-
-        })
+        this.ytpvTrailer.initialize(this.getString(R.string.youtube_api_key),
+                object: YouTubePlayerInitListener(argYoutubeKey) {
+                    override fun onInitializationSuccess(provider: Provider,
+                                                         player: YouTubePlayer,
+                                                         wasRestored: Boolean) {
+                        if (!wasRestored) {
+                            player.loadVideo(this.youTubeKey)
+                            player.setPlayerStyle(YouTubePlayer.PlayerStyle.CHROMELESS)
+                        }
+                    }
+                })
     }
 
     override fun onResume() {

@@ -61,7 +61,7 @@ class HorizontalPagerAdapter(val context: Context,
         //            setupItem(view, LIBRARIES[position]);
         //        }
 
-        ViewUtils.loadBitmapToView(this.context.applicationContext,
+        ViewUtils.loadBitmapToView(this.context,
                 TMDBConfig.BASE_IMAGE_URL + this.imageLists[position].file_path,
                 listener = object: GlideResizeTargetListener(ivPoster, cvFrame) {
                     override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {

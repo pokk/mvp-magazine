@@ -44,10 +44,10 @@ class TvListViewHolder(val view: View): BaseViewHolder(view) {
                 if (it.size >= 3) 3 else it.size
             } ?: 0
 
-            ViewUtils.loadBitmapToView(this.mContext.applicationContext,
+            ViewUtils.loadBitmapToView(this.mContext,
                     TMDBConfig.BASE_IMAGE_URL + it.poster_path,
                     this.ivPoster, isFitCenter = false)
-            ViewUtils.loadBitmapToView(this.mContext.applicationContext,
+            ViewUtils.loadBitmapToView(this.mContext,
                     TMDBConfig.BASE_IMAGE_URL + it.backdrop_path,
                     listener = object: BitmapImageViewTarget(this.ivBackdrop) {
                         // After finished loading the pic from remote.

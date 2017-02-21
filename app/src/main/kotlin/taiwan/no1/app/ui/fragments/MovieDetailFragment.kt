@@ -120,6 +120,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         // After super.onDestroy() is executed, the presenter will be destroy. So the presenter should be
         // executed before super.onDestroy().
         this.presenter.destroy()
+        (this.rvTrailer.adapter as CommonRecyclerAdapter).releaseYouTubeLoader()
         super.onDestroy()
     }
 //endregion

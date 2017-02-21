@@ -35,7 +35,7 @@ class CastListViewHolder(val view: View): BaseViewHolder(view) {
     override fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
         // Cast the model data type to MovieBriefModel.
         (model as CastBriefModel).let {
-            ViewUtils.loadBitmapToView(this.mContext.applicationContext,
+            ViewUtils.loadBitmapToView(this.mContext,
                     TMDBConfig.BASE_IMAGE_URL + it.profile_path,
                     listener = object: BitmapImageViewTarget(this.ivPoster) {
                         override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {

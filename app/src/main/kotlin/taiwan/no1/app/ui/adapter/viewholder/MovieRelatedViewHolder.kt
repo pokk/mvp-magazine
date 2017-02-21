@@ -31,7 +31,7 @@ class MovieRelatedViewHolder(view: View): BaseViewHolder(view) {
 
     override fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
         (model as MovieBriefModel).let {
-            ViewUtils.loadBitmapToView(this.mContext.applicationContext,
+            ViewUtils.loadBitmapToView(this.mContext,
                     TMDBConfig.BASE_IMAGE_URL + it.poster_path,
                     listener = GlideResizeTargetListener(this.ivPoster, this.item))
             this.tvRelease.text = it.release_date

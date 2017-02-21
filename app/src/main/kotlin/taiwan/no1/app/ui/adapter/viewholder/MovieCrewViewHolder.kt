@@ -25,7 +25,7 @@ class MovieCrewViewHolder(view: View): BaseViewHolder(view) {
 
     override fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
         (model as FilmCastsModel.CrewBean).let {
-            ViewUtils.loadBitmapToView(this.mContext.applicationContext,
+            ViewUtils.loadBitmapToView(this.mContext,
                     TMDBConfig.BASE_IMAGE_URL + it.profile_path,
                     listener = GlideResizeTargetListener(this.ivCast, this.item))
             this.tvCharacter.text = it.job

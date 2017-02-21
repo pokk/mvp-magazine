@@ -32,7 +32,7 @@ class MovieListViewHolder(val view: View): BaseViewHolder(view) {
     override fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
         // Cast the model data type to MovieBriefModel.
         (model as MovieBriefModel).let {
-            ViewUtils.loadBitmapToView(this.mContext.applicationContext,
+            ViewUtils.loadBitmapToView(this.mContext,
                     TMDBConfig.BASE_IMAGE_URL + it.poster_path,
                     this.ivPoster, isFitCenter = false)
             this.tvRelease.text = it.release_date
