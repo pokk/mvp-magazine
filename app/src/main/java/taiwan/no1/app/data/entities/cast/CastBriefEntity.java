@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * A brief cast information from the searching list data class.
  *
- * @author jieyi
+ * @author Jieyi
  * @since 2/13/17
  */
 

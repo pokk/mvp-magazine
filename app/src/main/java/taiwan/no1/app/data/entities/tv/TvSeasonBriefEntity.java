@@ -3,7 +3,7 @@ package taiwan.no1.app.data.entities.tv;
 /**
  * Brief season data of a tv information data class.
  *
- * @author jieyi
+ * @author Jieyi
  * @since 2/13/17
  */
 

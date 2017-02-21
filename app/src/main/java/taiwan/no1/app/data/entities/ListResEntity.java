@@ -10,7 +10,7 @@ import taiwan.no1.app.data.entities.tv.TvBriefEntity;
  * A brief {@link TvBriefEntity} or {@link MovieBriefEntity} or {@link CastBriefEntity} information from the searching
  * list data class.
  *
- * @author jieyi
+ * @author Jieyi
  * @since 2/13/17
  */
 

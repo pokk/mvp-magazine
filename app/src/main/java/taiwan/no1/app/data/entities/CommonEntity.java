@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Collect all common data class.
  *
- * @author jieyi
+ * @author Jieyi
  * @since 2/13/17
  */
 
