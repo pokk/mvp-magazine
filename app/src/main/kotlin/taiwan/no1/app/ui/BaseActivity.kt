@@ -109,10 +109,9 @@ abstract class BaseActivity: RxAppCompatActivity(), IView, IActivityView {
     /**
      * Provide the [FragmentComponent] to fragments for injecting a presenter and use cases.
      *
-     * @param obj
      * @return [FragmentComponent]
      */
-    protected fun provideFragmentComponent(obj: Any?): FragmentComponent =
+    protected fun provideFragmentComponent(): FragmentComponent =
             FragmentComponent.Initializer.init(this.getApplicationComponent())
 
     /**

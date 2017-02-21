@@ -5,7 +5,7 @@ import android.support.annotation.LayoutRes
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
-import taiwan.no1.app.mvp.contracts.TvDetailContract
+import taiwan.no1.app.mvp.contracts.fragment.TvDetailContract
 import taiwan.no1.app.ui.BaseFragment
 import javax.inject.Inject
 
@@ -64,7 +64,7 @@ class TvDetailFragment: BaseFragment(), TvDetailContract.View {
      * Inject this fragment and [FragmentComponent].
      */
     override fun inject() {
-        this.getComponent(FragmentComponent::class.java, null).inject(TvDetailFragment@ this)
+        this.getComponent(FragmentComponent::class.java).inject(TvDetailFragment@ this)
     }
 
     /**

@@ -11,7 +11,7 @@ import taiwan.no1.app.R
 import taiwan.no1.app.data.source.CloudDataStore
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
-import taiwan.no1.app.mvp.contracts.MovieListContract
+import taiwan.no1.app.mvp.contracts.fragment.MovieListContract
 import taiwan.no1.app.mvp.models.movie.MovieBriefModel
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
@@ -100,7 +100,7 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
      * Inject this fragment and [FragmentComponent].
      */
     override fun inject() {
-        this.getComponent(FragmentComponent::class.java, null).inject(MoviePopularFragment@ this)
+        this.getComponent(FragmentComponent::class.java).inject(MoviePopularFragment@ this)
     }
 
     /**

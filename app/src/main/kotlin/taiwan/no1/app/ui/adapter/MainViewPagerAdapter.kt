@@ -13,9 +13,9 @@ import taiwan.no1.app.utilies.AppLog
  * @since   1/6/17
  */
 
-class MainViewPager constructor(val context: Context,
-                                val fragmentManager: FragmentManager,
-                                val fragmentList: List<Fragment>):
+class MainViewPagerAdapter constructor(val context: Context,
+                                       val fragmentManager: FragmentManager,
+                                       val fragmentList: List<Fragment>):
         FragmentStatePagerAdapter(fragmentManager) {
     override fun getItem(position: Int): Fragment = this.fragmentList[position]
 

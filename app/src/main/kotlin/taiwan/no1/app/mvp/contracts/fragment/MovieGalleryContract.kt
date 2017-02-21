@@ -1,4 +1,4 @@
-package taiwan.no1.app.mvp.contracts
+package taiwan.no1.app.mvp.contracts.fragment
 
 import android.graphics.Bitmap
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager

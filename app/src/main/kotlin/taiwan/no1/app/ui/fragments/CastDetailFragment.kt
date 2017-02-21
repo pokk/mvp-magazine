@@ -20,7 +20,7 @@ import taiwan.no1.app.App
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
-import taiwan.no1.app.mvp.contracts.CastDetailContract
+import taiwan.no1.app.mvp.contracts.fragment.CastDetailContract
 import taiwan.no1.app.mvp.models.CreditsInFilmModel
 import taiwan.no1.app.mvp.models.IVisitable
 import taiwan.no1.app.ui.BaseFragment
@@ -119,7 +119,7 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
      * Inject this fragment and [FragmentComponent].
      */
     override fun inject() {
-        this.getComponent(FragmentComponent::class.java, null).inject(CastDetailFragment@ this)
+        this.getComponent(FragmentComponent::class.java).inject(CastDetailFragment@ this)
     }
 
     /**

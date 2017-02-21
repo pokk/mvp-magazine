@@ -15,19 +15,27 @@ import com.touchin.constant.RxbusTag
 import taiwan.no1.app.R
 import taiwan.no1.app.api.config.TMDBConfig
 import taiwan.no1.app.constant.Constant
+import taiwan.no1.app.mvp.contracts.adapter.TvListAdapterContract
 import taiwan.no1.app.mvp.models.tv.TvBriefModel
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.fragments.TvDetailFragment
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_TAG
+import taiwan.no1.app.utilies.ImageLoader.IImageLoader
 import taiwan.no1.app.utilies.ViewUtils
+import javax.inject.Inject
 
 /**
  * @author  Jieyi
  * @since   1/7/17
  */
 
-class TvListViewHolder(val view: View): BaseViewHolder(view) {
+class TvListViewHolder(val view: View): BaseViewHolder(view), TvListAdapterContract.View {
+    @Inject
+    lateinit var presenter: TvListAdapterContract.Presenter
+    @Inject
+    lateinit var imageLoader: IImageLoader
+    
     private val item by bindView<RelativeLayout>(R.id.item_tv_brief)
     private val ivPoster by bindView<ImageView>(R.id.iv_tv_poster)
     private val ivBackdrop by bindView<ImageView>(R.id.iv_tv_backdrop)
@@ -37,6 +45,8 @@ class TvListViewHolder(val view: View): BaseViewHolder(view) {
     private val tvGenres by bindView<TextView>(R.id.tv_genres)
 
     override fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
+        super.initView(model, position, adapter)
+
         this.tvGenres.text = ""
         // Cast the model data type to MovieBriefModel.
         (model as TvBriefModel).let {
@@ -81,5 +91,13 @@ class TvListViewHolder(val view: View): BaseViewHolder(view) {
                         Pair(NAVIGATOR_ARG_TAG, adapter.fragmentTag)))
             }
         }
+    }
+
+    override fun inject() {
+        this.component.inject(TvListViewHolder@ this)
+    }
+
+    override fun initPresenter() {
+        this.presenter.init(TvListViewHolder@ this)
     }
 }

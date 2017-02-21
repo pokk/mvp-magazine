@@ -2,6 +2,7 @@ package taiwan.no1.app.mvp.presenters
 
 import taiwan.no1.app.internal.di.annotations.PerActivity
 import taiwan.no1.app.mvp.contracts.MainContract
+import taiwan.no1.app.mvp.presenters.fragment.BasePresenter
 
 /**
  *

@@ -1,4 +1,4 @@
-package taiwan.no1.app.mvp.contracts
+package taiwan.no1.app.mvp.contracts.fragment
 
 import taiwan.no1.app.mvp.models.CreditsInFilmModel
 import taiwan.no1.app.mvp.presenters.IPresenter

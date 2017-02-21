@@ -1,4 +1,4 @@
-package taiwan.no1.app.mvp.presenters
+package taiwan.no1.app.mvp.presenters.fragment
 
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
 import taiwan.no1.app.R
-import taiwan.no1.app.mvp.contracts.MovieGalleryContract
+import taiwan.no1.app.mvp.contracts.fragment.MovieGalleryContract
 import taiwan.no1.app.mvp.models.ImageProfileModel
 import taiwan.no1.app.ui.adapter.HorizontalPagerAdapter
 import taiwan.no1.app.utilies.ViewUtils

@@ -1,4 +1,4 @@
-package taiwan.no1.app.mvp.presenters
+package taiwan.no1.app.mvp.presenters.fragment
 
 import com.hwangjr.rxbus.RxBus
 import com.touchin.constant.RxbusTag
@@ -6,7 +6,7 @@ import rx.lang.kotlin.subscriber
 import taiwan.no1.app.api.config.TMDBConfig
 import taiwan.no1.app.constant.Constant
 import taiwan.no1.app.domain.usecase.CastDetail
-import taiwan.no1.app.mvp.contracts.CastDetailContract
+import taiwan.no1.app.mvp.contracts.fragment.CastDetailContract
 import taiwan.no1.app.mvp.models.cast.CastDetailModel
 import taiwan.no1.app.ui.fragments.MovieGalleryFragment
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_FRAGMENT

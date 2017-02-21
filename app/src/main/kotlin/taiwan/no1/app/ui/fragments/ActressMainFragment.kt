@@ -8,7 +8,7 @@ import butterknife.bindView
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
-import taiwan.no1.app.mvp.contracts.ActressMainContract
+import taiwan.no1.app.mvp.contracts.fragment.ActressMainContract
 import taiwan.no1.app.mvp.models.cast.CastBriefModel
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
@@ -84,7 +84,7 @@ class ActressMainFragment: BaseFragment(), ActressMainContract.View, IMainFragme
      * Inject this fragment and [FragmentComponent].
      */
     override fun inject() {
-        this.getComponent(FragmentComponent::class.java, null).inject(ActressMainFragment@ this)
+        this.getComponent(FragmentComponent::class.java).inject(ActressMainFragment@ this)
     }
 
     /**

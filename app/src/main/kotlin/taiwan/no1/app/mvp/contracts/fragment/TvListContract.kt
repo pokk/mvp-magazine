@@ -1,7 +1,7 @@
-package taiwan.no1.app.mvp.contracts
+package taiwan.no1.app.mvp.contracts.fragment
 
 import taiwan.no1.app.data.source.CloudDataStore
-import taiwan.no1.app.mvp.models.movie.MovieBriefModel
+import taiwan.no1.app.mvp.models.tv.TvBriefModel
 import taiwan.no1.app.mvp.presenters.IPresenter
 import taiwan.no1.app.mvp.views.IFragmentView
 import taiwan.no1.app.mvp.views.IView
@@ -11,17 +11,17 @@ import java.util.*
  * This specifies the contract between the [IPresenter] and the [IView].
  *
  * @author  Jieyi
- * @since   12/8/16
+ * @since   1/7/17
  */
 
-interface MovieListContract {
+interface TvListContract {
     interface Presenter: IPresenter<View> {
-        fun requestListMovies(category: CloudDataStore.Movies, page: Int = 1)
-        fun restoreMovieList(movieList: List<MovieBriefModel>)
-        fun getMovieList(): ArrayList<MovieBriefModel>
+        fun requestListTvs(category: CloudDataStore.Tvs, page: Int = 1)
+        fun restoreTvList(tvList: List<TvBriefModel>)
+        fun getTvList(): ArrayList<TvBriefModel>
     }
 
     interface View: IView, IFragmentView {
-        fun showMovieBriefList(movieList: List<MovieBriefModel>)
+        fun showTvBriefList(tvList: List<TvBriefModel>)
     }
 }

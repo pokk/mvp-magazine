@@ -16,7 +16,7 @@ import taiwan.no1.app.App
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
-import taiwan.no1.app.mvp.contracts.MovieDetailContract
+import taiwan.no1.app.mvp.contracts.fragment.MovieDetailContract
 import taiwan.no1.app.mvp.models.FilmCastsModel
 import taiwan.no1.app.mvp.models.FilmVideoModel
 import taiwan.no1.app.mvp.models.IVisitable
@@ -130,7 +130,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
      * Inject this fragment and [FragmentComponent].
      */
     override fun inject() {
-        this.getComponent(FragmentComponent::class.java, null).inject(MovieDetailFragment@ this)
+        this.getComponent(FragmentComponent::class.java).inject(MovieDetailFragment@ this)
     }
 
     /**

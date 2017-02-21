@@ -9,19 +9,29 @@ import com.hwangjr.rxbus.RxBus
 import com.touchin.constant.RxbusTag
 import taiwan.no1.app.R
 import taiwan.no1.app.api.config.TMDBConfig
+import taiwan.no1.app.internal.di.annotations.PerFragment
+import taiwan.no1.app.mvp.contracts.adapter.MovieListAdapterContract
 import taiwan.no1.app.mvp.models.movie.MovieBriefModel
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.fragments.MovieDetailFragment
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_TAG
+import taiwan.no1.app.utilies.ImageLoader.IImageLoader
 import taiwan.no1.app.utilies.ViewUtils
+import javax.inject.Inject
 
 /**
  * @author  Jieyi
  * @since   1/7/17
  */
 
-class MovieListViewHolder(val view: View): BaseViewHolder(view) {
+@PerFragment
+class MovieListViewHolder(val view: View): BaseViewHolder(view), MovieListAdapterContract.View {
+    @Inject
+    lateinit var presenter: MovieListAdapterContract.Presenter
+    @Inject
+    lateinit var imageLoader: IImageLoader
+
     private val item by bindView<RelativeLayout>(R.id.item_movie_brief)
     private val ivPoster by bindView<ImageView>(R.id.iv_movie_poster)
     private val tvRelease by bindView<TextView>(R.id.tv_release)
@@ -30,6 +40,8 @@ class MovieListViewHolder(val view: View): BaseViewHolder(view) {
     private val tvContent by bindView<TextView>(R.id.tv_brief_content)
 
     override fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
+        super.initView(model, position, adapter)
+
         // Cast the model data type to MovieBriefModel.
         (model as MovieBriefModel).let {
             ViewUtils.loadBitmapToView(this.mContext,
@@ -41,11 +53,20 @@ class MovieListViewHolder(val view: View): BaseViewHolder(view) {
             this.tvContent.text = it.overview
             this.item.setOnClickListener {
                 RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
-                        Pair(NAVIGATOR_ARG_FRAGMENT, MovieDetailFragment.newInstance(model.id.toString(), adapter.fragmentTag)),
+                        Pair(NAVIGATOR_ARG_FRAGMENT,
+                                MovieDetailFragment.newInstance(model.id.toString(), adapter.fragmentTag)),
                         Pair(NAVIGATOR_ARG_TAG, adapter.fragmentTag)
 //                        Pair(NAVIGATOR_ARG_SHARED_ELEMENTS, hashMapOf(Pair(tvRelease, tvRelease.transitionName)))
                 ))
             }
         }
+    }
+
+    override fun inject() {
+        this.component.inject(MovieListViewHolder@ this)
+    }
+
+    override fun initPresenter() {
+        this.presenter.init(MovieListViewHolder@ this)
     }
 }

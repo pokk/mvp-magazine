@@ -1,8 +1,12 @@
 package taiwan.no1.app.ui.adapter.viewholder
 
 import android.content.Context
+import android.support.annotation.CallSuper
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import taiwan.no1.app.App
+import taiwan.no1.app.internal.di.components.AdapterComponent
+import taiwan.no1.app.mvp.views.IViewHolder
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 
 
@@ -13,8 +17,9 @@ import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
  * @since   1/7/17
  */
 
-abstract class BaseViewHolder(view: View): RecyclerView.ViewHolder(view) {
+abstract class BaseViewHolder(view: View): RecyclerView.ViewHolder(view), IViewHolder {
     protected val mContext: Context = view.context
+    protected val component: AdapterComponent = AdapterComponent.Initializer.init(App.appComponent())
 
     /**
      * Set the views' properties.
@@ -25,5 +30,17 @@ abstract class BaseViewHolder(view: View): RecyclerView.ViewHolder(view) {
      * @param position the index of a list.
      * @param adapter parent adapter.
      */
-    abstract fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter)
+    @CallSuper
+    open fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
+        this.inject()
+
+        this.initPresenter()
+    }
+
+    /**
+     * Injected the view holder's presenter.
+     */
+    abstract protected fun inject()
+
+    abstract protected fun initPresenter()
 }

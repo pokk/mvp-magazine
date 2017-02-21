@@ -70,7 +70,7 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
     }
     //endregion
 
-    override fun getFragmentComponent(obj: Any?): FragmentComponent = super.provideFragmentComponent(obj)
+    override fun getFragmentComponent(): FragmentComponent = super.provideFragmentComponent()
 
     override fun onBackPressed() {
         this.getCurrentPresentFragment().let {

@@ -116,11 +116,10 @@ abstract class BaseFragment: RxFragment(), IView, IFragmentView {
      * Get a use case component from a owner activity.
      *
      * @param componentType owner [BaseActivity] class name.
-     * @param obj a use case parameter.
      * @return [FragmentComponent].
      */
-    protected fun <C> getComponent(componentType: Class<C>, obj: Any?): C =
-            componentType.cast((activity as HasComponent<*>).getFragmentComponent(obj))
+    protected fun <C> getComponent(componentType: Class<C>): C =
+            componentType.cast((activity as HasComponent<*>).getFragmentComponent())
 
     /**
      * Show the [viewStub] and prevent to show again and again.

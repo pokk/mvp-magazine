@@ -1,6 +1,7 @@
 package taiwan.no1.app.mvp.presenters
 
 import taiwan.no1.app.mvp.contracts.VideoContract
+import taiwan.no1.app.mvp.presenters.fragment.BasePresenter
 
 /**
  *

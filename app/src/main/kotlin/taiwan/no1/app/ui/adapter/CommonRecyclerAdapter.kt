@@ -4,11 +4,14 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.youtube.player.YouTubeThumbnailLoader
+import taiwan.no1.app.App
+import taiwan.no1.app.internal.di.components.AdapterComponent
 import taiwan.no1.app.mvp.models.IVisitable
 import taiwan.no1.app.ui.adapter.viewholder.BaseViewHolder
 import taiwan.no1.app.ui.adapter.viewholder.MovieTrailerViewHolder
 import taiwan.no1.app.ui.adapter.viewholder.viewtype.IViewTypeFactory
 import taiwan.no1.app.ui.adapter.viewholder.viewtype.ViewTypeFactory
+import javax.inject.Inject
 
 /**
  * A common recycler view's adapter for vary view holders.
@@ -19,9 +22,14 @@ import taiwan.no1.app.ui.adapter.viewholder.viewtype.ViewTypeFactory
 
 class CommonRecyclerAdapter(var models: List<IVisitable>, val fragmentTag: Int = -1):
         RecyclerView.Adapter<BaseViewHolder>() {
-    private val typeFactory: IViewTypeFactory = ViewTypeFactory()
+    @Inject
+    lateinit var typeFactory: IViewTypeFactory
     // Keeping the YouTube loaders from TrailerViewHolder.
     private val loaderContainer: MutableList<YouTubeThumbnailLoader> = mutableListOf()
+
+    init {
+        AdapterComponent.Initializer.init(App.appComponent()).inject(CommonRecyclerAdapter@ this)
+    }
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         holder.initView(this.models[position], position, this)

@@ -1,9 +1,9 @@
-package taiwan.no1.app.mvp.presenters
+package taiwan.no1.app.mvp.presenters.fragment
 
 import rx.lang.kotlin.subscriber
 import taiwan.no1.app.api.config.TMDBConfig
 import taiwan.no1.app.domain.usecase.MovieDetail
-import taiwan.no1.app.mvp.contracts.MovieDetailContract
+import taiwan.no1.app.mvp.contracts.fragment.MovieDetailContract
 import taiwan.no1.app.mvp.models.movie.MovieDetailModel
 import taiwan.no1.app.utilies.AppLog
 import taiwan.no1.app.utilies.TimeUtils

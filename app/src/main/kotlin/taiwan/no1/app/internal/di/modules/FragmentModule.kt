@@ -4,8 +4,8 @@ import dagger.Module
 import dagger.Provides
 import taiwan.no1.app.domain.usecase.*
 import taiwan.no1.app.internal.di.annotations.PerFragment
-import taiwan.no1.app.mvp.contracts.*
-import taiwan.no1.app.mvp.presenters.*
+import taiwan.no1.app.mvp.contracts.fragment.*
+import taiwan.no1.app.mvp.presenters.fragment.*
 
 /**
  *

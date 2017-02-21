@@ -1,7 +1,8 @@
-package taiwan.no1.app.mvp.presenters
+package taiwan.no1.app.mvp.presenters.fragment
 
 import android.support.annotation.CallSuper
 import dagger.internal.Preconditions
+import taiwan.no1.app.mvp.presenters.IPresenter
 import taiwan.no1.app.mvp.views.IView
 
 /**

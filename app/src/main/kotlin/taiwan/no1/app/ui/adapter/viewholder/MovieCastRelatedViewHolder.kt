@@ -9,6 +9,7 @@ import com.hwangjr.rxbus.RxBus
 import com.touchin.constant.RxbusTag
 import taiwan.no1.app.R
 import taiwan.no1.app.api.config.TMDBConfig
+import taiwan.no1.app.mvp.contracts.adapter.MovieCastAdapterContract
 import taiwan.no1.app.mvp.models.CreditsInFilmModel
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.fragments.MovieDetailFragment
@@ -24,8 +25,9 @@ import javax.inject.Inject
  * @since   1/7/17
  */
 
-class MovieCastRelatedViewHolder(view: View): BaseViewHolder(view) {
-    // FIXME: 1/19/17 not be injected.
+class MovieCastRelatedViewHolder(view: View): BaseViewHolder(view), MovieCastAdapterContract.View {
+    @Inject
+    lateinit var presenter: MovieCastAdapterContract.Presenter
     @Inject
     lateinit var imageLoader: IImageLoader
 
@@ -35,6 +37,8 @@ class MovieCastRelatedViewHolder(view: View): BaseViewHolder(view) {
     val tvMovieTitle by bindView<TextView>(R.id.tv_name)
 
     override fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
+        super.initView(model, position, adapter)
+        
         (model as CreditsInFilmModel.CastInFilmBean).let {
             ViewUtils.loadBitmapToView(this.mContext,
                     TMDBConfig.BASE_IMAGE_URL + it.poster_path,
@@ -48,5 +52,13 @@ class MovieCastRelatedViewHolder(view: View): BaseViewHolder(view) {
                         Pair(NAVIGATOR_ARG_TAG, adapter.fragmentTag)))
             }
         }
+    }
+
+    override fun inject() {
+        this.component.inject(MovieCastRelatedViewHolder@ this)
+    }
+
+    override fun initPresenter() {
+        this.presenter.init(MovieCastRelatedViewHolder@ this)
     }
 }

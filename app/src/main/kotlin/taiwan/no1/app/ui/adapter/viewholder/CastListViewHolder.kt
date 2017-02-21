@@ -13,6 +13,7 @@ import com.hwangjr.rxbus.RxBus
 import com.touchin.constant.RxbusTag
 import taiwan.no1.app.R
 import taiwan.no1.app.api.config.TMDBConfig
+import taiwan.no1.app.mvp.contracts.adapter.CastListAdapterContract
 import taiwan.no1.app.mvp.models.cast.CastBriefModel
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.customize.AdjustHeightImageView
@@ -20,19 +21,28 @@ import taiwan.no1.app.ui.fragments.CastDetailFragment
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_TAG
+import taiwan.no1.app.utilies.ImageLoader.IImageLoader
 import taiwan.no1.app.utilies.ViewUtils
+import javax.inject.Inject
 
 /**
  * @author  Jieyi
  * @since   1/7/17
  */
 
-class CastListViewHolder(val view: View): BaseViewHolder(view) {
+class CastListViewHolder(val view: View): BaseViewHolder(view), CastListAdapterContract.View {
+    @Inject
+    lateinit var presenter: CastListAdapterContract.Presenter
+    @Inject
+    lateinit var imageLoader: IImageLoader
+    
     private val item by bindView<CardView>(R.id.item_cast_brief)
     private val ivPoster by bindView<AdjustHeightImageView>(R.id.iv_cast_poster)
     private val tvName by bindView<TextView>(R.id.tv_name)
 
     override fun initView(model: Any, position: Int, adapter: CommonRecyclerAdapter) {
+        super.initView(model, position, adapter)
+
         // Cast the model data type to MovieBriefModel.
         (model as CastBriefModel).let {
             ViewUtils.loadBitmapToView(this.mContext,
@@ -63,5 +73,13 @@ class CastListViewHolder(val view: View): BaseViewHolder(view) {
                                 hashMapOf(Pair(ivPoster, ivPoster.transitionName)))))
             }
         }
+    }
+
+    override fun inject() {
+        this.component.inject(CastListViewHolder@ this)
+    }
+
+    override fun initPresenter() {
+        this.presenter.init(CastListViewHolder@ this)
     }
 }

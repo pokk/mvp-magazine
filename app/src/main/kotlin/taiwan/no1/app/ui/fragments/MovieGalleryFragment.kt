@@ -25,7 +25,7 @@ import taiwan.no1.app.App
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
-import taiwan.no1.app.mvp.contracts.MovieGalleryContract
+import taiwan.no1.app.mvp.contracts.fragment.MovieGalleryContract
 import taiwan.no1.app.mvp.models.ImageProfileModel
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.HorizontalPagerAdapter
@@ -114,7 +114,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
      * Inject this fragment and [FragmentComponent].
      */
     override fun inject() {
-        this.getComponent(FragmentComponent::class.java, null).inject(MovieGalleryFragment@ this)
+        this.getComponent(FragmentComponent::class.java).inject(MovieGalleryFragment@ this)
     }
 
     /**
