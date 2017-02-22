@@ -19,6 +19,8 @@ import taiwan.no1.app.utilies.ImageLoader.IImageLoader
 import javax.inject.Inject
 
 /**
+ * A [BaseViewHolder] of displaying movie trailer view of the MVP architecture's V.
+ * 
  * @author  Jieyi
  * @since   1/7/17
  */
@@ -83,6 +85,7 @@ class MovieTrailerViewHolder(val view: View): BaseViewHolder<FilmVideoModel>(vie
             item.apply {
                 this.visibility = View.VISIBLE
                 this.setOnClickListener {
+                    // FIXME: 2/22/17 After goto trailer activity, the original activity's fragments will be destroyed.
                     RxBus.get().post(RxbusTag.ACTIVITY_NAVIGATOR, VideoActivity.newInstance(view.context, videoId))
                 }
             }

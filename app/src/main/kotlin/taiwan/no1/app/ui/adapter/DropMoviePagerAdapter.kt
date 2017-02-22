@@ -24,6 +24,7 @@ import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_A
 import taiwan.no1.app.utilies.ViewUtils
 
 /**
+ * A movie backdrop's adapter for adjusting the view size in each difference backdrop's size.
  *
  * @author  Jieyi
  * @since   1/12/17

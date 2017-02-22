@@ -14,6 +14,8 @@ import taiwan.no1.app.utilies.ImageLoader.IImageLoader
 import javax.inject.Inject
 
 /**
+ * A [BaseViewHolder] of displaying a related cast of the cast view of the MVP architecture's V.
+ * 
  * @author  Jieyi
  * @since   1/7/17
  */
