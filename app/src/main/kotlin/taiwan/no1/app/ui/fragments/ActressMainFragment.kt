@@ -128,14 +128,16 @@ class ActressMainFragment: BaseFragment(), ActressMainContract.View, IMainFragme
     }
     //endregion
 
+    //region IMainFragment implementation
     /**
      * Get the [Fragment] which is displaying now.
      *
      * @return current display [Fragment].
      */
     override fun getCurrentDisplayFragment(): Fragment = this
+    //endregion
 
-    //region Presenter implementations
+    //region View implementations
     override fun showCastBriefList(castList: List<CastBriefModel>) {
         // Because the view pager will load the fragment first, if we just set the data directly, views won't
         // be showed. To avoid it, the adapter will be reset.

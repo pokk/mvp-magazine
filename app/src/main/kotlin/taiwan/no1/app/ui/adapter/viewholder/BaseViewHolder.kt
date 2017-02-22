@@ -34,7 +34,7 @@ abstract class BaseViewHolder<in M: IVisitable>(view: View): RecyclerView.ViewHo
     @CallSuper
     open fun initView(model: M, position: Int, adapter: CommonRecyclerAdapter) {
         this.inject()
-        this.initPresenter()
+        this.initPresenter(model)
     }
 
     /**
@@ -42,5 +42,10 @@ abstract class BaseViewHolder<in M: IVisitable>(view: View): RecyclerView.ViewHo
      */
     abstract protected fun inject()
 
-    abstract protected fun initPresenter()
+    /**
+     * Initialize the presenter and set the specific model data at the same time.
+     *
+     * @param model model data for each presenter.
+     */
+    abstract protected fun initPresenter(model: M)
 }

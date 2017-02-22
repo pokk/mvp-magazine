@@ -1,5 +1,6 @@
 package taiwan.no1.app.mvp.contracts.adapter
 
+import taiwan.no1.app.mvp.models.FilmCastsModel
 import taiwan.no1.app.mvp.presenters.IAdapterPresenter
 import taiwan.no1.app.mvp.views.IViewHolder
 
@@ -10,7 +11,11 @@ import taiwan.no1.app.mvp.views.IViewHolder
  */
 
 interface MovieCrewAdapterContract {
-    interface Presenter: IAdapterPresenter<View>
+    interface Presenter: IAdapterPresenter<View, FilmCastsModel.CrewBean>
 
-    interface View: IViewHolder
+    interface View: IViewHolder {
+        fun showCrewProfilePhoto(uri: String)
+        fun showCrewCharacter(character: String)
+        fun showCrewName(name: String)
+    }
 }

@@ -5,19 +5,12 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import butterknife.bindView
-import com.hwangjr.rxbus.RxBus
-import com.touchin.constant.RxbusTag
 import taiwan.no1.app.R
-import taiwan.no1.app.api.config.TMDBConfig
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.mvp.contracts.adapter.MovieListAdapterContract
 import taiwan.no1.app.mvp.models.movie.MovieBriefModel
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
-import taiwan.no1.app.ui.fragments.MovieDetailFragment
-import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
-import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_TAG
 import taiwan.no1.app.utilies.ImageLoader.IImageLoader
-import taiwan.no1.app.utilies.ViewUtils
 import javax.inject.Inject
 
 /**
@@ -32,41 +25,50 @@ class MovieListViewHolder(val view: View): BaseViewHolder<MovieBriefModel>(view)
     @Inject
     lateinit var imageLoader: IImageLoader
 
+    //region View variables
     private val item by bindView<RelativeLayout>(R.id.item_movie_brief)
     private val ivPoster by bindView<ImageView>(R.id.iv_movie_poster)
     private val tvRelease by bindView<TextView>(R.id.tv_release)
     private val tvTitle by bindView<TextView>(R.id.tv_title)
     private val tvVote by bindView<TextView>(R.id.tv_vote)
     private val tvContent by bindView<TextView>(R.id.tv_brief_content)
+    //endregion
 
+    //region BaseViewHolder
     override fun initView(model: MovieBriefModel, position: Int, adapter: CommonRecyclerAdapter) {
         super.initView(model, position, adapter)
 
-        // Cast the model data type to MovieBriefModel.
-        model.let {
-            ViewUtils.loadBitmapToView(this.mContext,
-                    TMDBConfig.BASE_IMAGE_URL + it.poster_path,
-                    this.ivPoster, isFitCenter = false)
-            this.tvRelease.text = it.release_date
-            this.tvTitle.text = it.title
-            this.tvVote.text = "${it.vote_average} / 10"
-            this.tvContent.text = it.overview
-            this.item.setOnClickListener {
-                RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
-                        Pair(NAVIGATOR_ARG_FRAGMENT,
-                                MovieDetailFragment.newInstance(model.id.toString(), adapter.fragmentTag)),
-                        Pair(NAVIGATOR_ARG_TAG, adapter.fragmentTag)
-//                        Pair(NAVIGATOR_ARG_SHARED_ELEMENTS, hashMapOf(Pair(tvRelease, tvRelease.transitionName)))
-                ))
-            }
-        }
+        this.item.setOnClickListener { this.presenter.onItemClicked(adapter.fragmentTag) }
     }
 
     override fun inject() {
         this.component.inject(MovieListViewHolder@ this)
     }
 
-    override fun initPresenter() {
-        this.presenter.init(MovieListViewHolder@ this)
+    override fun initPresenter(model: MovieBriefModel) {
+        this.presenter.init(MovieListViewHolder@ this, model)
     }
+    //endregion
+
+    //region ViewHolder implementations
+    override fun showMoviePoster(uri: String) {
+        this.imageLoader.display(uri, this.ivPoster, isFitCenter = false)
+    }
+
+    override fun showMovieReleaseDate(date: String) {
+        this.tvRelease.text = date
+    }
+
+    override fun showMovieTitle(title: String) {
+        this.tvTitle.text = title
+    }
+
+    override fun showMovieVote(voteRate: String) {
+        this.tvVote.text = voteRate
+    }
+
+    override fun showMovieOverview(overview: String) {
+        this.tvContent.text = overview
+    }
+    //endregion
 }

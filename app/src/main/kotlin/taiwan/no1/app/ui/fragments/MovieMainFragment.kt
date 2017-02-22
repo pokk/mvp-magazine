@@ -41,8 +41,6 @@ class MovieMainFragment: ViewPagerMainCtrlFragment() {
     }
     //endregion
 
-    // Get the arguments from the bundle here.
-
     //region Initialization's order
     /**
      * Inject this fragment and [FragmentComponent].
@@ -65,7 +63,7 @@ class MovieMainFragment: ViewPagerMainCtrlFragment() {
     }
     //endregion
 
-    //region IMainFragment implement
+    //region IMainFragment implementation
     /**
      * Get the [Fragment] which is displaying now.
      *

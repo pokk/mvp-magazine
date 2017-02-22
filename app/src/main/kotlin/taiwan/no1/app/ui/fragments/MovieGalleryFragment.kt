@@ -175,7 +175,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
     }
     //endregion
 
-    //region Presenter implementation
+    //region View implementation
     override fun showBlurBackground(image: Bitmap) {
         Blurry.with(this.context).radius(20).sampling(4).async({
             isBackground.setImageDrawable(it as Drawable)

@@ -148,7 +148,7 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
     }
     //endregion
 
-    //region Presenter implementations
+    //region View implementations
     override fun showCastPoster(posterUri: String) {
         this.imageLoader.display(posterUri, listener = object: BitmapImageViewTarget(this.ivDropPoster) {
             override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {

@@ -29,14 +29,18 @@ class MovieTrailerViewHolder(val view: View): BaseViewHolder<FilmVideoModel>(vie
     @Inject
     lateinit var imageLoader: IImageLoader
 
+    //region View variables
     private val item by bindView<CardView>(R.id.item_trailer)
     private val yttnvTrailer by bindView<YouTubeThumbnailView>(R.id.yttnv_trailer)
+    //endregion
+    
     private lateinit var containerListener: youTubeLoaderContainerListener
 
     interface youTubeLoaderContainerListener {
         fun keepLoader(loader: YouTubeThumbnailLoader)
     }
 
+    //region BaseViewHolder
     override fun initView(model: FilmVideoModel, position: Int, adapter: CommonRecyclerAdapter) {
         super.initView(model, position, adapter)
 
@@ -61,9 +65,10 @@ class MovieTrailerViewHolder(val view: View): BaseViewHolder<FilmVideoModel>(vie
         this.component.inject(MovieTrailerViewHolder@ this)
     }
 
-    override fun initPresenter() {
-        this.presenter.init(MovieTrailerViewHolder@ this)
+    override fun initPresenter(model: FilmVideoModel) {
+        this.presenter.init(MovieTrailerViewHolder@ this, model)
     }
+    //endregion
 
     fun setYouTubeLoaderContainerListener(listener: (loader: YouTubeThumbnailLoader) -> Unit) {
         this.containerListener = object: youTubeLoaderContainerListener {

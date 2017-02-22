@@ -1,28 +1,19 @@
 package taiwan.no1.app.ui.adapter.viewholder
 
 import android.graphics.Bitmap
-import android.graphics.Color
-import android.support.v7.graphics.Palette
+import android.support.annotation.ColorInt
 import android.support.v7.widget.CardView
 import android.view.View
 import android.widget.TextView
 import butterknife.bindView
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.BitmapImageViewTarget
-import com.hwangjr.rxbus.RxBus
-import com.touchin.constant.RxbusTag
 import taiwan.no1.app.R
-import taiwan.no1.app.api.config.TMDBConfig
 import taiwan.no1.app.mvp.contracts.adapter.CastListAdapterContract
 import taiwan.no1.app.mvp.models.cast.CastBriefModel
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.customize.AdjustHeightImageView
-import taiwan.no1.app.ui.fragments.CastDetailFragment
-import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment
-import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
-import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_TAG
 import taiwan.no1.app.utilies.ImageLoader.IImageLoader
-import taiwan.no1.app.utilies.ViewUtils
 import javax.inject.Inject
 
 /**
@@ -36,50 +27,48 @@ class CastListViewHolder(val view: View): BaseViewHolder<CastBriefModel>(view), 
     @Inject
     lateinit var imageLoader: IImageLoader
 
+    //region View variables
     private val item by bindView<CardView>(R.id.item_cast_brief)
     private val ivPoster by bindView<AdjustHeightImageView>(R.id.iv_cast_poster)
     private val tvName by bindView<TextView>(R.id.tv_name)
+    //endregion
 
+    //region BaseViewHolder
     override fun initView(model: CastBriefModel, position: Int, adapter: CommonRecyclerAdapter) {
         super.initView(model, position, adapter)
 
-        // Cast the model data type to MovieBriefModel.
-        model.let {
-            ViewUtils.loadBitmapToView(this.mContext,
-                    TMDBConfig.BASE_IMAGE_URL + it.profile_path,
-                    listener = object: BitmapImageViewTarget(this.ivPoster) {
-                        override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
-                            // Extract the color from pic.
-                            Palette.from(resource).generate().let {
-                                it.getDarkVibrantColor(Color.argb(153, 79, 79, 79)).let {
-                                    // Set the fog in front of the backdrop.
-                                    tvName.setBackgroundColor(Color.argb(153,
-                                            Color.red(it),
-                                            Color.green(it),
-                                            Color.blue(it)))
-                                }
-                            }
-                            ivPoster.heightRatio = resource.height / resource.width.toFloat()
-                            super.onResourceReady(resource, glideAnimation)
-                        }
-                    })
-            this.tvName.text = it.name
-            this.item.setOnClickListener {
-                RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
-                        Pair(NAVIGATOR_ARG_FRAGMENT,
-                                CastDetailFragment.newInstance(model.id.toString(), adapter.fragmentTag)),
-                        Pair(NAVIGATOR_ARG_TAG, adapter.fragmentTag),
-                        Pair(ViewPagerMainCtrlFragment.NAVIGATOR_ARG_SHARED_ELEMENTS,
-                                hashMapOf(Pair(ivPoster, ivPoster.transitionName)))))
-            }
-        }
+        this.item.setOnClickListener { this.presenter.onItemClicked(adapter.fragmentTag) }
     }
 
     override fun inject() {
         this.component.inject(CastListViewHolder@ this)
     }
 
-    override fun initPresenter() {
-        this.presenter.init(CastListViewHolder@ this)
+    override fun initPresenter(model: CastBriefModel) {
+        this.presenter.init(CastListViewHolder@ this, model)
     }
+    //endregion
+
+    //region ViewHolder implementations
+    override fun showProfile(uri: String) {
+        this.imageLoader.display(uri, listener = object: BitmapImageViewTarget(this.ivPoster) {
+            override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
+                this@CastListViewHolder.presenter.onResourceFinished(resource)
+                super.onResourceReady(resource, glideAnimation)
+            }
+        })
+    }
+
+    override fun showTvName(name: String) {
+        this.tvName.text = name
+    }
+
+    override fun showTvNameBgColor(@ColorInt color: Int) {
+        this.tvName.setBackgroundColor(color)
+    }
+
+    override fun resetHeightRatio(ratio: Float) {
+        this.ivPoster.heightRatio = ratio
+    }
+    //endregion
 }

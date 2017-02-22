@@ -1,6 +1,8 @@
 package taiwan.no1.app.mvp.presenters.adapter
 
-import taiwan.no1.app.mvp.contracts.adapter.TrailerAdapterContract
+import taiwan.no1.app.mvp.contracts.adapter.TrailerAdapterContract.Presenter
+import taiwan.no1.app.mvp.contracts.adapter.TrailerAdapterContract.View
+import taiwan.no1.app.mvp.models.FilmVideoModel
 
 /**
  *
@@ -8,4 +10,4 @@ import taiwan.no1.app.mvp.contracts.adapter.TrailerAdapterContract
  * @since   2/21/17
  */
 
-class MovieTrailerAdapterPresenter: BaseAdapterPresenter<TrailerAdapterContract.View>(), TrailerAdapterContract.Presenter 
+class MovieTrailerAdapterPresenter: BaseAdapterPresenter<View, FilmVideoModel>(), Presenter 

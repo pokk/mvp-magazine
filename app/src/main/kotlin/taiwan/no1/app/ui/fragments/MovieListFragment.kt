@@ -145,7 +145,7 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
     }
     //endregion
 
-    //region Presenter implementations
+    //region View implementations
     override fun showMovieBriefList(movieList: List<MovieBriefModel>) {
         // Because the view pager will load the fragment first, if we just set the data directly, views won't
         // be showed. To avoid it, the adapter will be reset.

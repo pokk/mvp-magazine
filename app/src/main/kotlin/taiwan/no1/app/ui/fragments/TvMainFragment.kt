@@ -63,10 +63,12 @@ class TvMainFragment: ViewPagerMainCtrlFragment() {
     }
     //endregion
 
+    //region IMainFragment implementation
     /**
      * Get the [Fragment] which is displaying now.
      *
      * @return current display [Fragment].
      */
     override fun getCurrentDisplayFragment(): Fragment = this.fragmentList[this.vpContainer.currentItem]
+    //endregion
 }

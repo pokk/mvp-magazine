@@ -1,5 +1,6 @@
 package taiwan.no1.app.mvp.contracts.adapter
 
+import taiwan.no1.app.mvp.models.FilmCastsModel
 import taiwan.no1.app.mvp.presenters.IAdapterPresenter
 import taiwan.no1.app.mvp.views.IViewHolder
 
@@ -10,7 +11,12 @@ import taiwan.no1.app.mvp.views.IViewHolder
  */
 
 interface MovieCastAdapterContract {
-    interface Presenter: IAdapterPresenter<View>
+    interface Presenter: IAdapterPresenter<View, FilmCastsModel.CastBean> {
+        fun onItemClicked(tag: Int)
+    }
 
-    interface View: IViewHolder
+    interface View: IViewHolder {
+        fun showCastProfilePhoto(uri: String)
+        fun showCastInfo(character: String, name: String)
+    }
 }

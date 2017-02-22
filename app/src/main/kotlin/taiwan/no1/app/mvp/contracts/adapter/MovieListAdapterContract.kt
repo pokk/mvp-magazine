@@ -1,5 +1,6 @@
 package taiwan.no1.app.mvp.contracts.adapter
 
+import taiwan.no1.app.mvp.models.movie.MovieBriefModel
 import taiwan.no1.app.mvp.presenters.IAdapterPresenter
 import taiwan.no1.app.mvp.views.IViewHolder
 
@@ -10,7 +11,15 @@ import taiwan.no1.app.mvp.views.IViewHolder
  */
 
 interface MovieListAdapterContract {
-    interface Presenter: IAdapterPresenter<View>
+    interface Presenter: IAdapterPresenter<View, MovieBriefModel> {
+        fun onItemClicked(tag: Int)
+    }
 
-    interface View: IViewHolder
+    interface View: IViewHolder {
+        fun showMoviePoster(uri: String)
+        fun showMovieReleaseDate(date: String)
+        fun showMovieTitle(title: String)
+        fun showMovieVote(voteRate: String)
+        fun showMovieOverview(overview: String)
+    }
 }
