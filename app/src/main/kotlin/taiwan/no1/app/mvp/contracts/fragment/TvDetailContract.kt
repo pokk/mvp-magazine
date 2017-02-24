@@ -16,5 +16,8 @@ interface TvDetailContract {
         fun requestListTvs(id: Int = -1)
     }
 
-    interface View: IView, IFragmentView
+    interface View: IView, IFragmentView {
+        fun showTvBackdrop(uri: String)
+        fun showTvBriefInfo(title: String, status: String, rate: String, lastAirDate: String)
+    }
 }

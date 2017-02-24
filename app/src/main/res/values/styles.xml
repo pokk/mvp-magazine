@@ -124,5 +124,22 @@
         <item name="android:textColor">#F5F2EF</item>
     </style>
 
+    <style name="TvViewPagerArrow">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginBottom">60dp</item>
+        <item name="android:background">@color/colorTransport</item>
+    </style>
 
+    <style name="TvViewPagerArrow.Left">
+        <item name="android:layout_gravity">bottom|start</item>
+        <item name="android:layout_marginStart">30dp</item>
+        <item name="android:src">@drawable/ic_arrow_left</item>
+    </style>
+
+    <style name="TvViewPagerArrow.Right">
+        <item name="android:layout_gravity">bottom|end</item>
+        <item name="android:layout_marginEnd">30dp</item>
+        <item name="android:src">@drawable/ic_arrow_right</item>
+    </style>
 </resources>

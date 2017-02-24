@@ -15,6 +15,7 @@ buildscript {
         gilde_version = '3.7.0'
         bottom_bar_version = '2.0.2'
         squint_version = '3.0.1'
+        arclayout_version = '1.0.2'
         navigation_tabstrip_version = '1.0.4'
         infinite_viewpager_version = '1.0.2'
         blurry_version = '2.1.0'

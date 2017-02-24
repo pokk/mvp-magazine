@@ -1,7 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context=".ui.activities.MainActivity">
 
-</LinearLayout>
+    <android.support.v4.widget.NestedScrollView
+        style="@style/NestScrollInfo"
+        android:layout_alignParentBottom="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--<ViewStub-->
+            <!--android:id="@+id/stub_introduction"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout="@layout/layout_cast_intro"/>-->
+
+            <!--<ViewStub-->
+            <!--android:id="@+id/stub_related"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout="@layout/horizontal_content_related"/>-->
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.github.florent37.arclayout.ArcLayout
+                    android:id="@+id/al_drop_poster"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:elevation="5dp"
+                    app:arc_cropDirection="cropInside"
+                    app:arc_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/iv_drop_poster"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        tools:background="#999999"
+                        tools:ignore="ContentDescription"/>
+
+                    <ImageView
+                        android:id="@+id/iv_fog"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="#334f4f4f"
+                        tools:ignore="contentDescription"/>
+
+                    <ImageButton
+                        android:id="@+id/ib_left_slide"
+                        style="@style/TvViewPagerArrow.Left"
+                        tools:ignore="ContentDescription"/>
+
+                    <ImageButton
+                        android:id="@+id/ib_right_slide"
+                        style="@style/TvViewPagerArrow.Right"
+                        tools:ignore="ContentDescription"/>
+
+                </com.github.florent37.arclayout.ArcLayout>
+
+                <TextView
+                    android:id="@id/tv_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/rl_bottom"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginStart="150dp"
+                    android:gravity="center"
+                    android:textColor="#dddddd"
+                    tools:text="The Flash"
+                    tools:textColor="@color/colorBlack"/>
+
+                <RelativeLayout
+                    android:id="@+id/rl_bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/al_drop_poster"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorDarkGrey"/>
+
+                    <TextView
+                        android:id="@+id/tv_vote"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorDarkGrey"/>
+
+                    <TextView
+                        android:id="@+id/tv_last_air_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorDarkGrey"/>
+                </RelativeLayout>
+            </RelativeLayout>
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+</android.support.design.widget.CoordinatorLayout>

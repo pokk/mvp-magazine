@@ -1,6 +1,7 @@
 package taiwan.no1.app.mvp.presenters.fragment
 
 import rx.lang.kotlin.subscriber
+import taiwan.no1.app.api.config.TMDBConfig
 import taiwan.no1.app.domain.usecase.TVDetail
 import taiwan.no1.app.mvp.contracts.fragment.TvDetailContract
 import taiwan.no1.app.mvp.models.tv.TvDetailModel
@@ -28,6 +29,11 @@ class TvDetailPresenter constructor(val tvDetail: TVDetail):
             AppLog.e(it)
         }.onNext {
             AppLog.w(it)
+            this.view.showTvBackdrop(TMDBConfig.BASE_IMAGE_URL + it.backdrop_path)
+            this.view.showTvBriefInfo(it.name.orEmpty(),
+                    it.status.orEmpty(),
+                    it.vote_average.toString(),
+                    it.last_air_date.orEmpty())
         })
     }
     //endregion

@@ -123,7 +123,7 @@ class ActressMainFragment: BaseFragment(), ActressMainContract.View, IMainFragme
             this.addItemDecoration(GridSpacingItemDecorator(2, 20, false))
             // Just give a empty adapter.
             this.adapter = CommonRecyclerAdapter(castList, this@ActressMainFragment.hashCode())
-            this.setOnBottomListener { this@ActressMainFragment.presenter.requestListCasts(pageIndex++) }
+            this.setOnBottomListener { this@ActressMainFragment.presenter.requestListCasts(++pageIndex) }
         }
     }
     //endregion

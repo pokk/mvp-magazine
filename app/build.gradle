@@ -74,15 +74,15 @@ dependencies {
     compile "com.squareup.retrofit2:adapter-rxjava:${retrofit_2_version}"
     // Glide
     compile "com.github.bumptech.glide:glide:${gilde_version}"
-    compile 'com.squareup.picasso:picasso:2.5.2'
     /* For json format */
     // Gson
     compile "com.google.code.gson:gson:${gson_version}"
     /* For UI */
     // Bottom bar
     compile "com.roughike:bottom-bar:${bottom_bar_version}"
-    compile "com.github.IntruderShanky:Squint:${squint_version}"
     compile "com.github.devlight.navigationtabstrip:navigationtabstrip:${navigation_tabstrip_version}"
+    compile "com.github.IntruderShanky:Squint:${squint_version}"
+    compile "com.github.florent37:arclayout:${arclayout_version}"
     // Infinite view pager
     compile "com.github.devlight:infinitecycleviewpager:${infinite_viewpager_version}"
     // Blurry image

@@ -127,7 +127,7 @@ class TvListFragment: BaseFragment(), TvListContract.View {
             this.setHasFixedSize(true)
             // Just give a empty adapter for initializing.
             this.adapter = CommonRecyclerAdapter(tvList, this@TvListFragment.hashCode())
-            this.setOnBottomListener { this@TvListFragment.presenter.requestListTvs(argTvCategory, pageIndex++) }
+            this.setOnBottomListener { this@TvListFragment.presenter.requestListTvs(argTvCategory, ++pageIndex) }
         }
     }
     //endregion

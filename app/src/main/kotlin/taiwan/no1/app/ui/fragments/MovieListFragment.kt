@@ -139,7 +139,7 @@ class MovieListFragment: BaseFragment(), MovieListContract.View {
             this.setHasFixedSize(true)
             this.adapter = CommonRecyclerAdapter(movieList, this@MovieListFragment.hashCode())
             this.setOnBottomListener {
-                this@MovieListFragment.presenter.requestListMovies(argMovieCategory, pageIndex++)
+                this@MovieListFragment.presenter.requestListMovies(argMovieCategory, ++pageIndex)
             }
         }
     }
