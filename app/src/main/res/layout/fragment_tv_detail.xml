@@ -57,12 +57,10 @@
                     app:arc_cropDirection="cropInside"
                     app:arc_height="50dp">
 
-                    <ImageView
-                        android:id="@+id/iv_drop_poster"
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/vp_drop_poster"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        tools:background="#999999"
-                        tools:ignore="ContentDescription"/>
+                        android:layout_height="250dp"/>
 
                     <ImageView
                         android:id="@+id/iv_fog"

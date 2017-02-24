@@ -1,5 +1,6 @@
 package taiwan.no1.app.ui.fragments
 
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -8,10 +9,14 @@ import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.transition.TransitionInflater
+import android.view.View
 import android.view.ViewStub
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.bindView
+import com.bumptech.glide.request.animation.GlideAnimation
+import com.bumptech.glide.request.target.BitmapImageViewTarget
+import com.intrusoft.squint.DiagonalView
 import taiwan.no1.app.App
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
@@ -20,11 +25,10 @@ import taiwan.no1.app.mvp.contracts.fragment.MovieDetailContract
 import taiwan.no1.app.mvp.models.FilmCastsModel
 import taiwan.no1.app.mvp.models.FilmVideoModel
 import taiwan.no1.app.mvp.models.IVisitable
-import taiwan.no1.app.mvp.models.ImageProfileModel
 import taiwan.no1.app.mvp.models.movie.MovieBriefModel
 import taiwan.no1.app.ui.BaseFragment
+import taiwan.no1.app.ui.adapter.BackdropPagerAdapter
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
-import taiwan.no1.app.ui.adapter.DropMoviePagerAdapter
 import taiwan.no1.app.ui.adapter.itemdecorator.MovieHorizontalItemDecorator
 import taiwan.no1.app.ui.customize.StarScoreView
 import taiwan.no1.app.utilies.ImageLoader.IImageLoader
@@ -161,9 +165,19 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     //endregion
 
     //region View implementations
-    override fun showMoviePosters(backdrops: List<ImageProfileModel>, posters: List<ImageProfileModel>) {
-        this.vpDropPoster.adapter =
-                DropMoviePagerAdapter(this.context, backdrops, posters, ivMoviePoster, argFromFragment)
+    override fun showMovieBackdrops(viewList: List<View>) {
+        this.vpDropPoster.adapter = BackdropPagerAdapter(viewList)
+    }
+
+    override fun showMovieSingleBackdrop(uri: String, diagonalView: DiagonalView) {
+        this.imageLoader.display(uri, listener = object: BitmapImageViewTarget(diagonalView) {
+            override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
+                diagonalView.solidColor = Color.TRANSPARENT
+                this@MovieDetailFragment.presenter.onResourceFinished(diagonalView,
+                        this@MovieDetailFragment.argFromFragment)
+                super.onResourceReady(resource, glideAnimation)
+            }
+        }, isFitCenter = false)
     }
 
     override fun showMovieCover(posterUri: String) {

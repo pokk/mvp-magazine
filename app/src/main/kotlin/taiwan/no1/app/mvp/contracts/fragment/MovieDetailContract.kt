@@ -1,8 +1,8 @@
 package taiwan.no1.app.mvp.contracts.fragment
 
+import com.intrusoft.squint.DiagonalView
 import taiwan.no1.app.mvp.models.FilmCastsModel
 import taiwan.no1.app.mvp.models.FilmVideoModel
-import taiwan.no1.app.mvp.models.ImageProfileModel
 import taiwan.no1.app.mvp.models.movie.MovieBriefModel
 import taiwan.no1.app.mvp.presenters.IPresenter
 import taiwan.no1.app.mvp.views.IFragmentView
@@ -18,10 +18,12 @@ import taiwan.no1.app.mvp.views.IView
 interface MovieDetailContract {
     interface Presenter: IPresenter<View> {
         fun requestMovieDetail(movieId: Int)
+        fun onResourceFinished(view: android.view.View, tag: Int)
     }
 
     interface View: IView, IFragmentView {
-        fun showMoviePosters(backdrops: List<ImageProfileModel>, posters: List<ImageProfileModel>)
+        fun showMovieBackdrops(viewList: List<android.view.View>)
+        fun showMovieSingleBackdrop(uri: String, diagonalView: DiagonalView)
         fun showMovieCover(posterUri: String)
         fun showMovieBase(movieTitle: String, releaseDate: String, runtime: String, score: Double)
         fun showMovieDetail(overview: String, status: String, languages: String, productions: String)

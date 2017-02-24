@@ -23,6 +23,7 @@ import taiwan.no1.app.utilies.ViewUtils
  * @since 11/1/17
  */
 
+// TODO: 2/25/17 Need to fix this class, not input List<model>.
 class HorizontalPagerAdapter(val context: Context,
                              val isTwoWay: Boolean,
                              val imageLists: List<ImageProfileModel>): PagerAdapter() {

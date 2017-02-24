@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content">
 
                 <com.intrusoft.squint.DiagonalView
-                    android:id="@+id/dv_drop_poster"
+                    android:id="@+id/dv_backdrop"
                     android:layout_width="match_parent"
                     android:layout_height="350dp"
                     android:padding="10dp"
@@ -78,7 +78,7 @@
                     android:id="@+id/iv_person"
                     android:layout_width="200dp"
                     android:layout_height="200dp"
-                    android:layout_alignBottom="@+id/dv_drop_poster"
+                    android:layout_alignBottom="@+id/dv_backdrop"
                     android:layout_marginStart="10dp"
                     android:src="@color/lb_basic_card_content_text_color"
                     app:civ_border_color="#77ffffff"
@@ -91,7 +91,7 @@
                     style="@style/Poster.Text.Name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/dv_drop_poster"
+                    android:layout_below="@+id/dv_backdrop"
                     android:layout_toEndOf="@+id/iv_person"
                     app:layout_collapseMode="parallax"
                     tools:background="@color/colorTransport"
@@ -103,7 +103,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_above="@id/tv_name"
-                    android:layout_alignBottom="@+id/dv_drop_poster"
+                    android:layout_alignBottom="@+id/dv_backdrop"
                     android:layout_toEndOf="@+id/iv_person"
                     app:layout_collapseMode="parallax"
                     app:layout_scrollFlags="scroll|snap"

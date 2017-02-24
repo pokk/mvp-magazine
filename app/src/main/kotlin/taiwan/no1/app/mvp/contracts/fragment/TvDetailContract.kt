@@ -1,5 +1,6 @@
 package taiwan.no1.app.mvp.contracts.fragment
 
+import android.widget.ImageView
 import taiwan.no1.app.mvp.presenters.IPresenter
 import taiwan.no1.app.mvp.views.IFragmentView
 import taiwan.no1.app.mvp.views.IView
@@ -14,10 +15,12 @@ import taiwan.no1.app.mvp.views.IView
 interface TvDetailContract {
     interface Presenter: IPresenter<View> {
         fun requestListTvs(id: Int = -1)
+        fun onResourceFinished(view: android.view.View, tag: Int)
     }
 
     interface View: IView, IFragmentView {
-        fun showTvBackdrop(uri: String)
+        fun showTvBackdrops(viewList: List<android.view.View>)
+        fun showTvSingleBackdrop(uri: String, imageview: ImageView)
         fun showTvBriefInfo(title: String, status: String, rate: String, lastAirDate: String)
     }
 }

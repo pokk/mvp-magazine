@@ -1,10 +1,18 @@
 package taiwan.no1.app.mvp.presenters.fragment
 
+import android.view.View
+import com.hwangjr.rxbus.RxBus
+import com.intrusoft.squint.DiagonalView
+import com.touchin.constant.RxbusTag
 import rx.lang.kotlin.subscriber
+import taiwan.no1.app.R
 import taiwan.no1.app.api.config.TMDBConfig
 import taiwan.no1.app.domain.usecase.MovieDetail
 import taiwan.no1.app.mvp.contracts.fragment.MovieDetailContract
+import taiwan.no1.app.mvp.models.ImageProfileModel
 import taiwan.no1.app.mvp.models.movie.MovieDetailModel
+import taiwan.no1.app.ui.fragments.MovieGalleryFragment
+import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment
 import taiwan.no1.app.utilies.AppLog
 import taiwan.no1.app.utilies.TimeUtils
 import kotlin.comparisons.compareBy
@@ -17,7 +25,7 @@ import kotlin.comparisons.compareBy
 
 class MovieDetailPresenter constructor(val movieDetailCase: MovieDetail):
         BasePresenter<MovieDetailContract.View>(), MovieDetailContract.Presenter {
-    private var movieDetailInfo: MovieDetailModel? = null
+    private var movieDetailModel: MovieDetailModel? = null
 
     //region Subscribers
     private val movieDetailSub = subscriber<MovieDetailModel>().onError {
@@ -25,13 +33,12 @@ class MovieDetailPresenter constructor(val movieDetailCase: MovieDetail):
         AppLog.e(it)
     }.onNext {
         // TODO: 2/19/17 Here might be memory leak!?
-        this.movieDetailInfo = it
+        this.movieDetailModel = it
 
-        this.movieDetailInfo?.let {
+        this.movieDetailModel?.let {
             val runtime: TimeUtils.DateTime = TimeUtils.number2Time(it.runtime.toDouble(), TimeUtils.TimeType.Min)
 
-            this.view.showMoviePosters(it.images?.backdrops.orEmpty(),
-                    it.images?.posters?.filter { "en" == it.iso_639_1 }.orEmpty())
+            this.view.showMovieBackdrops(this.createViewPagerViews(it.images?.backdrops.orEmpty()))
             this.view.showMovieCover(TMDBConfig.BASE_IMAGE_URL + it.poster_path)
             this.view.showMovieBase(it.title.orEmpty(),
                     it.release_date.orEmpty(),
@@ -61,5 +68,29 @@ class MovieDetailPresenter constructor(val movieDetailCase: MovieDetail):
         request.fragmentLifecycle = this.view.getLifecycle()
         this.movieDetailCase.execute(request, this.movieDetailSub)
     }
+
+    override fun onResourceFinished(view: View, tag: Int) {
+        view.setOnClickListener {
+            val posters: List<ImageProfileModel> = this.movieDetailModel?.let {
+                it.images?.posters?.filter { "en" == it.iso_639_1 }
+            } ?: emptyList()
+
+            if (posters.isNotEmpty())
+                RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
+                        Pair(ViewPagerMainCtrlFragment.NAVIGATOR_ARG_FRAGMENT,
+                                MovieGalleryFragment.newInstance(posters)),
+                        Pair(ViewPagerMainCtrlFragment.NAVIGATOR_ARG_TAG, tag)))
+        }
+    }
     //endregion
+
+    private fun createViewPagerViews(backdrops: List<ImageProfileModel>): List<View> =
+            backdrops.map {
+                View.inflate(this.view.context(), R.layout.item_movie_backdrop, null) as DiagonalView
+            }.apply {
+                this.forEachIndexed { i, diagonalView ->
+                    this@MovieDetailPresenter.view.showMovieSingleBackdrop(TMDBConfig.BASE_IMAGE_URL + backdrops[i].file_path,
+                            diagonalView)
+                }
+            }
 }

@@ -44,7 +44,7 @@ class TvListAdapterPresenter: BaseAdapterPresenter<View, TvBriefModel>(), Presen
     override fun onItemClicked(tag: Int) {
         RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
                 Pair(ViewPagerMainCtrlFragment.NAVIGATOR_ARG_FRAGMENT,
-                        TvDetailFragment.newInstance(model.id.toString())),
+                        TvDetailFragment.newInstance(model.id.toString(), tag)),
                 Pair(ViewPagerMainCtrlFragment.NAVIGATOR_ARG_TAG, tag)))
     }
 
