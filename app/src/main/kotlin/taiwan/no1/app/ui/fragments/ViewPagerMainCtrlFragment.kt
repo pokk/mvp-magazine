@@ -9,7 +9,7 @@ import com.jakewharton.rxbinding.support.v4.view.pageScrollStateChanges
 import com.jakewharton.rxbinding.support.v4.view.pageSelections
 import taiwan.no1.app.R
 import taiwan.no1.app.ui.BaseFragment
-import taiwan.no1.app.ui.adapter.MainViewPagerAdapter
+import taiwan.no1.app.ui.adapter.MainFragmentViewPagerAdapter
 import taiwan.no1.app.utilies.FragmentUtils
 
 /**
@@ -56,7 +56,7 @@ abstract class ViewPagerMainCtrlFragment: BaseFragment(), IMainFragment {
         this.ntsTabMenu.setViewPager(this.vpContainer.apply {
             var flagClearPrevFragment: Boolean = false
 
-            this.adapter = MainViewPagerAdapter(context(),
+            this.adapter = MainFragmentViewPagerAdapter(context(),
                     this@ViewPagerMainCtrlFragment.childFragmentManager,
                     fragmentList)
             // Initial the position.

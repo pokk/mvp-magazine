@@ -5,7 +5,9 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.LayoutRes
+import android.support.v7.widget.CardView
 import android.transition.TransitionInflater
+import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.FrameLayout
@@ -13,12 +15,9 @@ import android.widget.ImageSwitcher
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.bindView
+import com.bumptech.glide.request.animation.GlideAnimation
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
-import com.hwangjr.rxbus.RxBus
-import com.hwangjr.rxbus.annotation.Subscribe
-import com.hwangjr.rxbus.annotation.Tag
 import com.jakewharton.rxbinding.support.v4.view.pageSelections
-import com.touchin.constant.RxbusTag
 import jp.wasabeef.blurry.Blurry
 import kotlinx.android.synthetic.main.fragment_gallery.*
 import taiwan.no1.app.App
@@ -28,7 +27,9 @@ import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.contracts.fragment.MovieGalleryContract
 import taiwan.no1.app.mvp.models.ImageProfileModel
 import taiwan.no1.app.ui.BaseFragment
-import taiwan.no1.app.ui.adapter.HorizontalPagerAdapter
+import taiwan.no1.app.ui.adapter.BackdropPagerAdapter
+import taiwan.no1.app.ui.listeners.GlideResizeTargetListener
+import taiwan.no1.app.utilies.ImageLoader.IImageLoader
 import javax.inject.Inject
 
 
@@ -67,6 +68,8 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
 
     @Inject
     lateinit var presenter: MovieGalleryContract.Presenter
+    @Inject
+    lateinit var imageLoader: IImageLoader
 
     //region View variables
     private val hicvpGallery by bindView<HorizontalInfiniteCycleViewPager>(R.id.hicvp_gallery)
@@ -82,13 +85,6 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
     //endregion
 
     //region Fragment lifecycle
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // Register RxBus.
-        RxBus.get().register(this)
-    }
-
     override fun onResume() {
         super.onResume()
         this.presenter.resume()
@@ -100,8 +96,6 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
     }
 
     override fun onDestroy() {
-        // Unregister RxBus.
-        RxBus.get().unregister(this)
         // After super.onDestroy() is executed, the presenter will be destroy. So the presenter should be
         // executed before super.onDestroy().
         this.presenter.destroy()
@@ -157,17 +151,32 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
         this.presenter.updatePageOfNumber()
     }
 
-    override fun showPosters(moviePosters: List<ImageProfileModel>) {
+    override fun showPosters(viewList: List<View>) {
         this.hicvpGallery.apply {
+            this.adapter = BackdropPagerAdapter(viewList)
             this@MovieGalleryFragment.presenter.updateOldItemIndex(this.currentItem)
-            this.adapter = HorizontalPagerAdapter(this.context, false, moviePosters)
-            // Set the current blur image in viewpager's background.
             // FIXED: 2/1/17 Sometimes the page's been selected but the present item is still not changed.
             // FIXED: So I'm using finding the item's specific tag to fix it.
             this.pageSelections().compose(this@MovieGalleryFragment.bindToLifecycle<Int>()).subscribe {
-                this@MovieGalleryFragment.presenter.attachBackgroundFrom(this)
+                // Set the current blur image in viewpager's background.
+                this@MovieGalleryFragment.presenter.attachBackgroundFrom(this,
+                        this@MovieGalleryFragment.isBackground.let { it.width.toDouble() / it.height.toDouble() })
             }
         }
+    }
+
+    override fun showSinglePoster(uri: String, position: Int, imageView: ImageView, cvFrame: CardView) {
+        this.imageLoader.display(uri, listener = object: GlideResizeTargetListener(imageView, cvFrame) {
+            override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
+                super.onResourceReady(resource, glideAnimation)
+
+                val isRatio: Double = this@MovieGalleryFragment.isBackground.let {
+                    it.width.toDouble() / it.height.toDouble()
+                }
+                this@MovieGalleryFragment.presenter.onResourceFinished(this@MovieGalleryFragment.hicvpGallery,
+                        isRatio, position)
+            }
+        })
     }
 
     override fun showCurrentNumOfPosters(total: String) {
@@ -180,27 +189,6 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
         Blurry.with(this.context).radius(20).sampling(4).async({
             isBackground.setImageDrawable(it as Drawable)
         })./* Here are redundant code, but it won't work without them. */from(image).into(iv_hidden)
-    }
-    //endregion
-
-    //region RxBus
-    /**
-     * Entry the gallery view after the first photo was finished loading, doing this method to resize the photo size.
-     */
-    @Subscribe(tags = arrayOf(Tag(RxbusTag.FRAGMENT_FINISHED_FIRST_IMG)))
-    fun finishedFirstLoadImg(msg: String) {
-        this.presenter.updateISAspectRatio(this.isBackground.width.toDouble() / this.isBackground.height.toDouble())
-        this.presenter.updateIsFirstImg(true)
-        this.presenter.resizeImageToFitBackground(Bitmap.createBitmap(this.presenter.extractBitmap(this.hicvpGallery,
-                this.hicvpGallery.realItem)))
-    }
-
-    /**
-     * When scrolling to the photo isn't finished. And after the photo is finished loading.
-     */
-    @Subscribe(tags = arrayOf(Tag(RxbusTag.FRAGMENT_FINISHED_LOADING_IMG)))
-    fun finishedLoadingImage(msg: String) {
-        this.presenter.attachBackgroundFrom(this.hicvpGallery)
     }
     //endregion
 }

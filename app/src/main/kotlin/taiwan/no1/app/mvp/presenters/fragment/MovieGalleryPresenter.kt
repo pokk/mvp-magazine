@@ -2,13 +2,14 @@ package taiwan.no1.app.mvp.presenters.fragment
 
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.support.v7.widget.CardView
 import android.view.View
 import android.widget.ImageView
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
 import taiwan.no1.app.R
+import taiwan.no1.app.api.config.TMDBConfig
 import taiwan.no1.app.mvp.contracts.fragment.MovieGalleryContract
 import taiwan.no1.app.mvp.models.ImageProfileModel
-import taiwan.no1.app.ui.adapter.HorizontalPagerAdapter
 import taiwan.no1.app.utilies.ViewUtils
 
 /**
@@ -17,56 +18,65 @@ import taiwan.no1.app.utilies.ViewUtils
  * @since   1/1/17
  */
 class MovieGalleryPresenter: BasePresenter<MovieGalleryContract.View>(), MovieGalleryContract.Presenter {
-    private var imageSwitcherRatio: Double = 1.0
     private var oldAdapterItemIndex: Int = 0
-    private var moviePostersInfo: List<ImageProfileModel> = emptyList()
+    private var postersInfo: List<ImageProfileModel> = emptyList()
     private var isFirstImageFinished: Boolean = false
+    // Checking the first photo is finished loading flag.
+    private var isFirstLoaded: Boolean = false
+    // The flag of that after scrolling, checking the present view's image is finished loading.
+    private var notifyNotFinishLoadingYet: Boolean = false
 
     //region Presenter implementation
     override fun init(view: MovieGalleryContract.View) {
         super.init(view)
     }
 
-    override fun updateISAspectRatio(ratio: Double) {
-        this.imageSwitcherRatio = ratio
-    }
-
-    override fun updateIsFirstImg(isFinished: Boolean) {
-        this.isFirstImageFinished = isFinished
-    }
-
     override fun updateOldItemIndex(oldIndex: Int) {
         this.oldAdapterItemIndex = oldIndex
     }
 
-    override fun updatePosters(moviePosters: List<ImageProfileModel>) {
+    override fun updatePosters(posters: List<ImageProfileModel>) {
         // TODO: 2/12/17 Need to do deep-copy.
-        this.moviePostersInfo = moviePosters
-        this.view.showPosters(this.moviePostersInfo)
+        this.postersInfo = posters
+        this.view.showPosters(this.createViewPagerViews(posters))
     }
 
     override fun updatePageOfNumber(currentNum: Int) {
-        this.view.showCurrentNumOfPosters("${currentNum + 1} / ${this.moviePostersInfo.size}")
+        this.view.showCurrentNumOfPosters("${currentNum + 1} / ${this.postersInfo.size}")
     }
 
-    override fun resizeImageToFitBackground(image: Bitmap) {
-        this.view.showBlurBackground(ViewUtils.resizeImageAsRatio(this.imageSwitcherRatio, image))
+    override fun onResourceFinished(hicvp: HorizontalInfiniteCycleViewPager, isRatio: Double, position: Int) {
+        // FIXED: 2/10/17 It won't crash after switched to other photos.
+        if (this.notifyNotFinishLoadingYet) {
+            // When scrolling to the photo isn't finished. And after the photo is finished loading.
+            this.attachBackgroundFrom(hicvp, isRatio)
+        }
+        // Notify once when entry this view.
+        if (0 == position && !this.isFirstLoaded) {
+            // Entry the gallery view after the first photo was finished loading, doing this method to resize the photo size.
+            this.isFirstImageFinished = true
+            this.view.showBlurBackground(ViewUtils.resizeImageAsRatio(isRatio,
+                    Bitmap.createBitmap(this.extractBitmap(hicvp, hicvp.realItem))))
+            this.notifyNotFinishLoadingYet = false
+            this.isFirstLoaded = true
+        }
     }
 
-    override fun attachBackgroundFrom(hicvp: HorizontalInfiniteCycleViewPager) {
+    override fun attachBackgroundFrom(hicvp: HorizontalInfiniteCycleViewPager, isRatio: Double) {
         if (this.isFirstImageFinished) {
             val presentItem: Bitmap? = this.extractBitmap(hicvp, hicvp.realItem)
 
             if (null == presentItem) {
                 // TODO: 2/13/17 Here we may use a subscript.
                 // FIXED: 2/10/17 Fixed way as below... Scroll -> attachBgd(Presenter) -> [if (img is null)] ->
-                // FIXED: Notify(PagerAdapter) -> Finished loading -> attachBgd(Presenter) again.
-                // Notify to the adapter.
-                (hicvp.adapter as HorizontalPagerAdapter).notifyNotFinishLoadingYet = true
+                // FIXED: Notify(Presenter) -> Finished loading(View Listener) -> attachBgd(Presenter) again.
+                // Notify to the presenter to set the flag.
+                this.notifyNotFinishLoadingYet = true
             }
             else {
                 this.updatePageOfNumber(hicvp.realItem)
-                this.resizeImageToFitBackground(Bitmap.createBitmap(presentItem))
+                this.view.showBlurBackground(ViewUtils.resizeImageAsRatio(isRatio,
+                        Bitmap.createBitmap(this.extractBitmap(hicvp, hicvp.realItem))))
                 this.updateOldItemIndex(hicvp.currentItem)
             }
         }
@@ -93,4 +103,19 @@ class MovieGalleryPresenter: BasePresenter<MovieGalleryContract.View>(), MovieGa
 
         return null
     }
+
+    private fun createViewPagerViews(moviePosters: List<ImageProfileModel>): List<View> =
+            moviePosters.map {
+                View.inflate(this.view.context(), R.layout.item_gallery, null)
+            }.apply {
+                this.forEachIndexed { i, view ->
+                    val ivPoster: ImageView = view.findViewById(R.id.img_item) as ImageView
+                    val cvFrame: CardView = view.findViewById(R.id.cv_frame) as CardView
+
+                    // For easy to find this view.
+                    view.tag = i
+                    this@MovieGalleryPresenter.view.showSinglePoster(TMDBConfig.BASE_IMAGE_URL + moviePosters[i].file_path,
+                            i, ivPoster, cvFrame)
+                }
+            }
 }
