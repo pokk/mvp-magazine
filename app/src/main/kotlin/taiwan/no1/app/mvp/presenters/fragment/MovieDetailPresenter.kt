@@ -84,6 +84,12 @@ class MovieDetailPresenter constructor(val movieDetailCase: MovieDetail):
     }
     //endregion
 
+    /**
+     * Creating a view list for view pager shows each of the view.
+     *
+     * @param backdrops backdrops' data.
+     * @return a view of list.
+     */
     private fun createViewPagerViews(backdrops: List<ImageProfileModel>): List<View> =
             backdrops.map {
                 View.inflate(this.view.context(), R.layout.item_movie_backdrop, null) as DiagonalView

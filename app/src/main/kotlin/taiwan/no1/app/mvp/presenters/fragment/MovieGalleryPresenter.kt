@@ -104,6 +104,12 @@ class MovieGalleryPresenter: BasePresenter<MovieGalleryContract.View>(), MovieGa
         return null
     }
 
+    /**
+     * Creating a view list for view pager shows each of the view.
+     *
+     * @param posters posters' data.
+     * @return a view of list.
+     */
     private fun createViewPagerViews(posters: List<ImageProfileModel>): List<View> =
             posters.map {
                 View.inflate(this.view.context(), R.layout.item_gallery, null)

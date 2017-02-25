@@ -142,4 +142,22 @@
         <item name="android:layout_marginEnd">30dp</item>
         <item name="android:src">@drawable/ic_arrow_right</item>
     </style>
+
+    <style name="LayoutSeparateLine">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:background">@color/colorDarkGrey</item>
+    </style>
+
+    <style name="LayoutSeparateTextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:textColor">@color/colorDarkGrey</item>
+        <item name="android:gravity">center</item>
+    </style>
+
 </resources>

@@ -1,5 +1,6 @@
 package taiwan.no1.app.mvp.contracts.fragment
 
+import android.support.annotation.IntRange
 import android.widget.ImageView
 import taiwan.no1.app.mvp.presenters.IPresenter
 import taiwan.no1.app.mvp.views.IFragmentView
@@ -16,11 +17,15 @@ interface TvDetailContract {
     interface Presenter: IPresenter<View> {
         fun requestListTvs(id: Int = -1)
         fun onResourceFinished(view: android.view.View, tag: Int)
+        fun scrollBackdropTo(index: Int)
     }
 
     interface View: IView, IFragmentView {
         fun showTvBackdrops(viewList: List<android.view.View>)
         fun showTvSingleBackdrop(uri: String, imageview: ImageView)
-        fun showTvBriefInfo(title: String, status: String, rate: String, lastAirDate: String)
+        fun setLeftSlideButton(@IntRange(from = 0, to = 8) visibility: Int)
+        fun setRightSlideButton(@IntRange(from = 0, to = 8) visibility: Int)
+        fun showTvBriefInfo(title: String, status: String, rate: String, startAirDate: String, lastAirDate: String)
+        fun showTvDetail(overview: String, homepage: String, productions: String)
     }
 }

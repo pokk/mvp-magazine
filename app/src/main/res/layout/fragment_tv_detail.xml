@@ -18,11 +18,11 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!--<ViewStub-->
-            <!--android:id="@+id/stub_introduction"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout="@layout/layout_cast_intro"/>-->
+            <ViewStub
+                android:id="@+id/stub_introduction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout="@layout/layout_tv_intro"/>
 
             <!--<ViewStub-->
             <!--android:id="@+id/stub_related"-->
@@ -94,7 +94,7 @@
                     tools:text="The Flash"
                     tools:textColor="@color/colorBlack"/>
 
-                <RelativeLayout
+                <LinearLayout
                     android:id="@+id/rl_bottom"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -103,22 +103,31 @@
 
                     <TextView
                         android:id="@+id/tv_status"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorDarkGrey"/>
+                        style="@style/LayoutSeparateTextView"/>
+
+                    <View
+                        style="@style/LayoutSeparateLine"/>
 
                     <TextView
                         android:id="@+id/tv_vote"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorDarkGrey"/>
+                        style="@style/LayoutSeparateTextView"/>
+
+                    <View
+                        style="@style/LayoutSeparateLine"/>
+
+                    <TextView
+                        android:id="@+id/tv_start_air_date"
+                        style="@style/LayoutSeparateTextView"
+                        tools:text="Start Air Date\n1986/10/24"/>
+
+                    <View
+                        style="@style/LayoutSeparateLine"/>
 
                     <TextView
                         android:id="@+id/tv_last_air_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorDarkGrey"/>
-                </RelativeLayout>
+                        style="@style/LayoutSeparateTextView"
+                        tools:text="Last Air Date\n2017/10/24"/>
+                </LinearLayout>
             </RelativeLayout>
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>

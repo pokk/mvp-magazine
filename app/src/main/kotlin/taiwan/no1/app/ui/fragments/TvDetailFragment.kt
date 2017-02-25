@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v4.view.ViewPager
 import android.view.View
+import android.view.ViewStub
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.bindView
@@ -52,10 +54,17 @@ class TvDetailFragment: BaseFragment(), TvDetailContract.View {
     lateinit var imageLoader: IImageLoader
 
     private val vpDropPoster by bindView<ViewPager>(R.id.vp_drop_poster)
+    private val ibLeft by bindView<ImageButton>(R.id.ib_left_slide)
+    private val ibRight by bindView<ImageButton>(R.id.ib_right_slide)
     private val tvTitle by bindView<TextView>(R.id.tv_title)
     private val tvStatus by bindView<TextView>(R.id.tv_status)
     private val tvVoteRate by bindView<TextView>(R.id.tv_vote)
+    private val tvStartAirDate by bindView<TextView>(R.id.tv_start_air_date)
     private val tvLastAirDate by bindView<TextView>(R.id.tv_last_air_date)
+    private val stubIntro by bindView<ViewStub>(R.id.stub_introduction)
+    private val tvOverview by bindView<TextView>(R.id.tv_overview)
+    private val tvHomepage by bindView<TextView>(R.id.tv_homepage)
+    private val tvProduction by bindView<TextView>(R.id.tv_productions)
 
     // Get the arguments from the bundle here.
     private val id: String by lazy { this.arguments.getString(ARG_PARAM_TV_ID) }
@@ -109,7 +118,28 @@ class TvDetailFragment: BaseFragment(), TvDetailContract.View {
      * @param savedInstanceState the previous fragment data status after the system calls [onPause].
      */
     override fun init(savedInstanceState: Bundle?) {
+        // TODO: 2/25/17 There may be good way to do?!
+        this.setLeftSlideButton(View.GONE)
+        this.setRightSlideButton(View.VISIBLE)
+        
         this.presenter.requestListTvs(this.id.toInt())
+        View.OnClickListener { view ->
+            this.vpDropPoster.currentItem.let {
+                when (view) {
+                    this.ibLeft -> it - 1
+                    this.ibRight -> it + 1
+                    else -> it
+                }
+            }.let { nextPosition ->
+                this.vpDropPoster.setCurrentItem(nextPosition, true)
+                this.presenter.scrollBackdropTo(nextPosition)
+            }
+        }.let {
+            this.ibLeft.setOnClickListener(it)
+            this.ibRight.setOnClickListener(it)
+        }
+//        this.ibLeft.setOnClickListener { this.vpDropPoster.setCurrentItem(this.vpDropPoster.currentItem - 1, true) }
+//        this.ibRight.setOnClickListener { this.vpDropPoster.setCurrentItem(this.vpDropPoster.currentItem + 1, true) }
     }
     //endregion
 
@@ -126,10 +156,31 @@ class TvDetailFragment: BaseFragment(), TvDetailContract.View {
         }, isFitCenter = false)
     }
 
-    override fun showTvBriefInfo(title: String, status: String, rate: String, lastAirDate: String) {
+    override fun setLeftSlideButton(visibility: Int) {
+        this.ibLeft.visibility = visibility
+    }
+
+    override fun setRightSlideButton(visibility: Int) {
+        this.ibRight.visibility = visibility
+    }
+
+    override fun showTvBriefInfo(title: String,
+                                 status: String,
+                                 rate: String,
+                                 startAirDate: String,
+                                 lastAirDate: String) {
         this.tvTitle.text = title
         this.tvStatus.text = status
         this.tvVoteRate.text = rate
+        this.tvStartAirDate.text = startAirDate
         this.tvLastAirDate.text = lastAirDate
+    }
+
+    override fun showTvDetail(overview: String, homepage: String, productions: String) {
+        this.showViewStub(this.stubIntro, {
+            this.tvOverview.text = overview
+            this.tvHomepage.text = homepage
+            this.tvProduction.text = productions
+        })
     }
 }

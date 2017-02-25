@@ -44,7 +44,9 @@ class TvDetailPresenter constructor(val tvDetail: TVDetail):
                 this.view.showTvBriefInfo(it.name.orEmpty(),
                         it.status.orEmpty(),
                         it.vote_average.toString(),
+                        it.first_air_date.orEmpty(),
                         it.last_air_date.orEmpty())
+                this.view.showTvDetail(it.overview.orEmpty(), it.homepage.orEmpty(), "")
             }
         })
     }
@@ -62,8 +64,32 @@ class TvDetailPresenter constructor(val tvDetail: TVDetail):
                         Pair(ViewPagerMainCtrlFragment.NAVIGATOR_ARG_TAG, tag)))
         }
     }
+
+    override fun scrollBackdropTo(index: Int) {
+        // TODO: 2/25/17 Seems stupid conditions judging.
+        val maxSize: Int = this.tvDetailModel?.images?.backdrops?.size ?: 0
+        if (0 >= index) {
+            this.view.setLeftSlideButton(View.GONE)
+            this.view.setRightSlideButton(View.VISIBLE)
+        }
+        else if (maxSize - 1 <= index) {
+            this.view.setRightSlideButton(View.GONE)
+            this.view.setLeftSlideButton(View.VISIBLE)
+        }
+        else {
+            this.view.setLeftSlideButton(View.VISIBLE)
+            this.view.setRightSlideButton(View.VISIBLE)
+        }
+    }
+
     //endregion
 
+    /**
+     * Creating a view list for view pager shows each of the view.
+     *
+     * @param backdrops backdrops' data.
+     * @return a view of list.
+     */
     private fun createViewPagerViews(backdrops: List<ImageProfileModel>): List<View> =
             backdrops.map {
                 View.inflate(this.view.context(), R.layout.item_tv_backdrop, null) as ImageView

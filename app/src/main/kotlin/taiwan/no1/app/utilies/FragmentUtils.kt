@@ -69,7 +69,7 @@ object FragmentUtils {
      * @param manager A [FragmentManager].
      */
     fun popAllFragment(manager: FragmentManager) {
-        (0..manager.backStackEntryCount - 1).forEach { AppLog.w(FragmentUtils.popFragment(manager)) }
+        (0..manager.backStackEntryCount - 1).forEach { FragmentUtils.popFragment(manager) }
     }
 
     fun removeFragment(manager: FragmentManager, fragment: Fragment) {
