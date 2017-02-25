@@ -143,9 +143,8 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
                 }
             }
             // Set the changing images' animation.
-            this.inAnimation = AnimationUtils.loadAnimation(MovieGalleryFragment@ this.context, android.R.anim.fade_in)
-            this.outAnimation = AnimationUtils.loadAnimation(MovieGalleryFragment@ this.context,
-                    android.R.anim.fade_out)
+            this.inAnimation = AnimationUtils.loadAnimation(this@MovieGalleryFragment.context, android.R.anim.fade_in)
+            this.outAnimation = AnimationUtils.loadAnimation(this@MovieGalleryFragment.context, android.R.anim.fade_out)
         }
         this.presenter.updatePosters(this.argMovieImages)
         this.presenter.updatePageOfNumber()
@@ -158,9 +157,11 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
             // FIXED: 2/1/17 Sometimes the page's been selected but the present item is still not changed.
             // FIXED: So I'm using finding the item's specific tag to fix it.
             this.pageSelections().compose(this@MovieGalleryFragment.bindToLifecycle<Int>()).subscribe {
+                val isRatio: Double = this@MovieGalleryFragment.isBackground.let {
+                    it.width.toDouble() / it.height.toDouble()
+                }
                 // Set the current blur image in viewpager's background.
-                this@MovieGalleryFragment.presenter.attachBackgroundFrom(this,
-                        this@MovieGalleryFragment.isBackground.let { it.width.toDouble() / it.height.toDouble() })
+                this@MovieGalleryFragment.presenter.attachBackgroundFrom(this, isRatio)
             }
         }
     }

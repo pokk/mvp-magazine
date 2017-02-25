@@ -43,7 +43,6 @@ class TvListViewHolder(val view: View): BaseViewHolder<TvBriefModel>(view), TvLi
     override fun initView(model: TvBriefModel, position: Int, adapter: CommonRecyclerAdapter) {
         super.initView(model, position, adapter)
 
-        // TODO: 2/5/17 Make the tv detail. 
         this.item.setOnClickListener { this.presenter.onItemClicked(adapter.fragmentTag) }
     }
 

@@ -66,15 +66,15 @@ class MovieGalleryPresenter: BasePresenter<MovieGalleryContract.View>(), MovieGa
         if (this.isFirstImageFinished) {
             val presentItem: Bitmap? = this.extractBitmap(hicvp, hicvp.realItem)
 
+            // In anyway we have to update the page number every single sliding.
+            this.updatePageOfNumber(hicvp.realItem)
             if (null == presentItem) {
-                // TODO: 2/13/17 Here we may use a subscript.
                 // FIXED: 2/10/17 Fixed way as below... Scroll -> attachBgd(Presenter) -> [if (img is null)] ->
                 // FIXED: Notify(Presenter) -> Finished loading(View Listener) -> attachBgd(Presenter) again.
                 // Notify to the presenter to set the flag.
                 this.notifyNotFinishLoadingYet = true
             }
             else {
-                this.updatePageOfNumber(hicvp.realItem)
                 this.view.showBlurBackground(ViewUtils.resizeImageAsRatio(isRatio,
                         Bitmap.createBitmap(this.extractBitmap(hicvp, hicvp.realItem))))
                 this.updateOldItemIndex(hicvp.currentItem)
@@ -104,17 +104,17 @@ class MovieGalleryPresenter: BasePresenter<MovieGalleryContract.View>(), MovieGa
         return null
     }
 
-    private fun createViewPagerViews(moviePosters: List<ImageProfileModel>): List<View> =
-            moviePosters.map {
+    private fun createViewPagerViews(posters: List<ImageProfileModel>): List<View> =
+            posters.map {
                 View.inflate(this.view.context(), R.layout.item_gallery, null)
             }.apply {
                 this.forEachIndexed { i, view ->
                     val ivPoster: ImageView = view.findViewById(R.id.img_item) as ImageView
                     val cvFrame: CardView = view.findViewById(R.id.cv_frame) as CardView
 
-                    // For easy to find this view.
+                    // For finding this view easily.
                     view.tag = i
-                    this@MovieGalleryPresenter.view.showSinglePoster(TMDBConfig.BASE_IMAGE_URL + moviePosters[i].file_path,
+                    this@MovieGalleryPresenter.view.showSinglePoster(TMDBConfig.BASE_IMAGE_URL + posters[i].file_path,
                             i, ivPoster, cvFrame)
                 }
             }

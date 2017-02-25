@@ -6,7 +6,7 @@ import android.util.Log
  * Log Module
  *
  * @author Jieyi
- * @since 2015/08/01
+ * @since 8/1/2015
  */
 
 object AppLog {
