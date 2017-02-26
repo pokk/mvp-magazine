@@ -7,7 +7,7 @@ import android.widget.TextView
 import butterknife.bindView
 import taiwan.no1.app.R
 import taiwan.no1.app.mvp.contracts.adapter.MovieRelatedAdapterContract
-import taiwan.no1.app.mvp.models.movie.MovieBriefModel
+import taiwan.no1.app.mvp.models.IVisitable
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.listeners.GlideResizeTargetListener
 import taiwan.no1.app.utilies.ImageLoader.IImageLoader
@@ -15,12 +15,12 @@ import javax.inject.Inject
 
 /**
  * A [BaseViewHolder] of displaying related movie of a movie view of the MVP architecture's V.
- * 
+ *
  * @author  Jieyi
  * @since   1/7/17
  */
 
-class MovieRelatedViewHolder(view: View): BaseViewHolder<MovieBriefModel>(view), MovieRelatedAdapterContract.View {
+class MovieRelatedViewHolder(view: View): BaseViewHolder<IVisitable>(view), MovieRelatedAdapterContract.View {
     @Inject
     lateinit var presenter: MovieRelatedAdapterContract.Presenter
     @Inject
@@ -34,7 +34,7 @@ class MovieRelatedViewHolder(view: View): BaseViewHolder<MovieBriefModel>(view),
     //endregion
 
     //region BaseViewHolder
-    override fun initView(model: MovieBriefModel, position: Int, adapter: CommonRecyclerAdapter) {
+    override fun initView(model: IVisitable, position: Int, adapter: CommonRecyclerAdapter) {
         super.initView(model, position, adapter)
 
         this.item.setOnClickListener { this.presenter.onItemClicked(adapter.fragmentTag) }
@@ -44,7 +44,7 @@ class MovieRelatedViewHolder(view: View): BaseViewHolder<MovieBriefModel>(view),
         this.component.inject(MovieRelatedViewHolder@ this)
     }
 
-    override fun initPresenter(model: MovieBriefModel) {
+    override fun initPresenter(model: IVisitable) {
         this.presenter.init(MovieRelatedViewHolder@ this, model)
     }
     //endregion

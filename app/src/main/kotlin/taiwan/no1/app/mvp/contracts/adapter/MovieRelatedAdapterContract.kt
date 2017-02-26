@@ -1,6 +1,6 @@
 package taiwan.no1.app.mvp.contracts.adapter
 
-import taiwan.no1.app.mvp.models.movie.MovieBriefModel
+import taiwan.no1.app.mvp.models.IVisitable
 import taiwan.no1.app.mvp.presenters.IAdapterPresenter
 import taiwan.no1.app.mvp.views.IViewHolder
 
@@ -12,7 +12,7 @@ import taiwan.no1.app.mvp.views.IViewHolder
  */
 
 interface MovieRelatedAdapterContract {
-    interface Presenter: IAdapterPresenter<View, MovieBriefModel> {
+    interface Presenter: IAdapterPresenter<View, IVisitable> {
         fun onItemClicked(tag: Int)
     }
 

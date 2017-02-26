@@ -29,7 +29,7 @@ interface IViewTypeFactory {
 
     fun type(movieVideosModel: FilmVideoModel): Int
 
-    fun type(tvBriefModel: TvBriefModel): Int
+    fun type(tvBriefModel: TvBriefModel, isMain: Boolean): Int
 
     fun type(castBriefModel: CastBriefModel): Int
 

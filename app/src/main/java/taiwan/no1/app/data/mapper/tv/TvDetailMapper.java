@@ -15,14 +15,13 @@ import taiwan.no1.app.data.mapper.BaseBeanMapper;
 import taiwan.no1.app.data.mapper.FilmCastsMapper;
 import taiwan.no1.app.data.mapper.FilmImagesMapper;
 import taiwan.no1.app.data.mapper.FilmVideosMapper;
-import taiwan.no1.app.data.mapper.movie.MovieListResMapper;
 import taiwan.no1.app.domain.mapper.IBeanMapper;
 import taiwan.no1.app.mvp.models.CommonModel;
 import taiwan.no1.app.mvp.models.FilmCastsModel;
 import taiwan.no1.app.mvp.models.FilmImagesModel;
 import taiwan.no1.app.mvp.models.FilmVideoModel;
-import taiwan.no1.app.mvp.models.movie.MovieListResModel;
 import taiwan.no1.app.mvp.models.tv.TvDetailModel;
+import taiwan.no1.app.mvp.models.tv.TvListResModel;
 import taiwan.no1.app.mvp.models.tv.TvSeasonsModel;
 
 /**
@@ -37,7 +36,8 @@ public class TvDetailMapper implements IBeanMapper<TvDetailModel, TvDetailEntity
     @Inject FilmVideosMapper filmVideosMapper;
     @Inject FilmImagesMapper filmImagesMapper;
     @Inject FilmCastsMapper filmCastsMapper;
-    @Inject MovieListResMapper movieListResMapper;
+    @Inject TvListResMapper tvListResMapper;
+    //    @Inject MovieListResMapper movieListResMapper;
     @Inject BaseBeanMapper baseBeanMapper;
 
     @Inject
@@ -64,7 +64,7 @@ public class TvDetailMapper implements IBeanMapper<TvDetailModel, TvDetailEntity
                 Queryable.from(entity.getVideos().getResults()).map(filmVideosMapper::transformTo).toList() :
                 Collections.emptyList();
         FilmImagesModel filmImagesModel = this.filmImagesMapper.transformTo(entity.getImages());
-        MovieListResModel movieListResModel = this.movieListResMapper.transformTo(entity.getSimilar());
+        TvListResModel tvListResModel = this.tvListResMapper.transformTo(entity.getSimilar());
         FilmCastsModel filmCastsModel = this.filmCastsMapper.transformTo(entity.getCredits());
         List<TvDetailModel.CreatedByBean> createdByBeans = null != entity.getCreated_by() ?
                 Queryable.from(entity.getCreated_by())
@@ -118,8 +118,7 @@ public class TvDetailMapper implements IBeanMapper<TvDetailModel, TvDetailEntity
                                  entity.getVote_average(),
                                  entity.getVote_count(),
                                  new CommonModel.VideosBean(filmVideoModels),
-                                 filmImagesModel,
-                                 movieListResModel,
+                                 filmImagesModel, tvListResModel,
                                  filmCastsModel,
                                  createdByBeans,
                                  entity.getEpisode_run_time(),

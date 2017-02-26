@@ -7,7 +7,6 @@ import taiwan.no1.app.data.entities.FilmCastsEntity;
 import taiwan.no1.app.data.entities.FilmImagesEntity;
 import taiwan.no1.app.data.entities.FilmVideosEntity;
 import taiwan.no1.app.data.entities.ListResEntity;
-import taiwan.no1.app.data.entities.movie.MovieBriefEntity;
 
 /**
  * The tv detail information data class.
@@ -37,7 +36,7 @@ public class TvDetailEntity {
     private int vote_count;
     private CommonEntity.ResultsListEntity<FilmVideosEntity> videos;
     private FilmImagesEntity images;
-    private ListResEntity<MovieBriefEntity> similar;
+    private ListResEntity<TvBriefEntity> similar;
     private FilmCastsEntity credits;
     private List<CreatedByBean> created_by;
     private List<Integer> episode_run_time;
@@ -209,11 +208,11 @@ public class TvDetailEntity {
         this.images = images;
     }
 
-    public ListResEntity<MovieBriefEntity> getSimilar() {
+    public ListResEntity<TvBriefEntity> getSimilar() {
         return similar;
     }
 
-    public void setSimilar(ListResEntity<MovieBriefEntity> similar) {
+    public void setSimilar(ListResEntity<TvBriefEntity> similar) {
         this.similar = similar;
     }
 

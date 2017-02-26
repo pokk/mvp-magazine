@@ -21,41 +21,41 @@ import taiwan.no1.app.ui.adapter.viewholder.*
 class ViewTypeFactory: IViewTypeFactory {
     enum class TypeResource(val id: Int) {
         MOVIE_LIST(R.layout.item_brief_movie),
-        MOVIE_CAST(R.layout.item_movie_casts_crews),
-        MOVIE_CREW(R.layout.item_movie_casts_crews),
-        MOVIE_RELATED(R.layout.item_movie_casts_crews),
-        MOVIE_VIDEO(R.layout.item_movie_trailers),
         TV_LIST(R.layout.item_brief_tv),
-        CAST(R.layout.item_movie_casts_crews),
-        CREW(R.layout.item_movie_casts_crews),
         CAST_LIST(R.layout.item_brief_cast),
+        CAST(R.layout.item_movie_casts_crews),
+        CASTRELATED(R.layout.item_movie_casts_crews),
+        CREW(R.layout.item_movie_casts_crews),
+        RELATED(R.layout.item_movie_casts_crews),
+        VIDEO(R.layout.item_movie_trailers),
     }
 
     override fun type(movieBriefModel: MovieBriefModel, isMain: Boolean): Int =
-            if (isMain) TypeResource.MOVIE_LIST.ordinal else TypeResource.MOVIE_RELATED.ordinal
+            if (isMain) TypeResource.MOVIE_LIST.ordinal else TypeResource.RELATED.ordinal
 
-    override fun type(castBean: FilmCastsModel.CastBean): Int = TypeResource.MOVIE_CAST.ordinal
+    override fun type(castBean: FilmCastsModel.CastBean): Int = TypeResource.CAST.ordinal
 
-    override fun type(crewBean: FilmCastsModel.CrewBean): Int = TypeResource.MOVIE_CREW.ordinal
+    override fun type(crewBean: FilmCastsModel.CrewBean): Int = TypeResource.CREW.ordinal
 
-    override fun type(castBean: CreditsInFilmModel.CastInFilmBean): Int = TypeResource.CAST.ordinal
+    override fun type(castBean: CreditsInFilmModel.CastInFilmBean): Int = TypeResource.CASTRELATED.ordinal
 
     override fun type(crewBean: CreditsInFilmModel.CrewInFilmBean): Int = TypeResource.CREW.ordinal
 
-    override fun type(movieVideosModel: FilmVideoModel): Int = TypeResource.MOVIE_VIDEO.ordinal
+    override fun type(movieVideosModel: FilmVideoModel): Int = TypeResource.VIDEO.ordinal
 
-    override fun type(tvBriefModel: TvBriefModel): Int = TypeResource.TV_LIST.ordinal
+    override fun type(tvBriefModel: TvBriefModel, isMain: Boolean): Int =
+            if (isMain) TypeResource.TV_LIST.ordinal else TypeResource.RELATED.ordinal
 
     override fun type(castBriefModel: CastBriefModel): Int = TypeResource.CAST_LIST.ordinal
 
     override fun createViewHolder(type: Int, itemView: View): BaseViewHolder<*> = when (type) {
         TypeResource.MOVIE_LIST.ordinal -> MovieListViewHolder(itemView)
-        TypeResource.MOVIE_CAST.ordinal -> MovieCastViewHolder(itemView)
-        TypeResource.MOVIE_CREW.ordinal -> MovieCrewViewHolder(itemView)
-        TypeResource.MOVIE_RELATED.ordinal -> MovieRelatedViewHolder(itemView)
-        TypeResource.MOVIE_VIDEO.ordinal -> MovieTrailerViewHolder(itemView)
+        TypeResource.CAST.ordinal -> MovieCastViewHolder(itemView)
+        TypeResource.CREW.ordinal -> MovieCrewViewHolder(itemView)
+        TypeResource.RELATED.ordinal -> MovieRelatedViewHolder(itemView)
+        TypeResource.VIDEO.ordinal -> MovieTrailerViewHolder(itemView)
         TypeResource.TV_LIST.ordinal -> TvListViewHolder(itemView)
-        TypeResource.CAST.ordinal -> MovieCastRelatedViewHolder(itemView)
+        TypeResource.CASTRELATED.ordinal -> MovieCastRelatedViewHolder(itemView)
         TypeResource.CAST_LIST.ordinal -> CastListViewHolder(itemView)
         else -> throw error("Illegal type")
     }

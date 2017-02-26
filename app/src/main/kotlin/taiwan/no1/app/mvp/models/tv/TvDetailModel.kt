@@ -5,7 +5,6 @@ import android.os.Parcelable
 import taiwan.no1.app.mvp.models.CommonModel
 import taiwan.no1.app.mvp.models.FilmCastsModel
 import taiwan.no1.app.mvp.models.FilmImagesModel
-import taiwan.no1.app.mvp.models.movie.MovieListResModel
 import java.util.*
 
 /**
@@ -33,7 +32,7 @@ data class TvDetailModel(val backdrop_path: String? = null,
                          val vote_count: Int = 0,
                          val videos: CommonModel.VideosBean? = null,
                          val images: FilmImagesModel? = null,
-                         val similar: MovieListResModel? = null,
+                         val similar: TvListResModel? = null,
                          val credits: FilmCastsModel? = null,
                          val created_by: List<CreatedByBean>? = null,
                          val episode_run_time: List<Int>? = null,
@@ -94,7 +93,7 @@ data class TvDetailModel(val backdrop_path: String? = null,
             source.readInt(),
             source.readParcelable<CommonModel.VideosBean?>(CommonModel.VideosBean::class.java.classLoader),
             source.readParcelable<FilmImagesModel?>(FilmImagesModel::class.java.classLoader),
-            source.readParcelable<MovieListResModel?>(MovieListResModel::class.java.classLoader),
+            source.readParcelable<TvListResModel?>(TvListResModel::class.java.classLoader),
             source.readParcelable<FilmCastsModel?>(FilmCastsModel::class.java.classLoader),
             source.createTypedArrayList(CreatedByBean.CREATOR),
             ArrayList<Int>().apply { source.readList(this, Int::class.java.classLoader) },

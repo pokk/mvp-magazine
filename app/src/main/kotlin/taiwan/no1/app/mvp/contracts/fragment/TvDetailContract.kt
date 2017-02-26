@@ -2,6 +2,9 @@ package taiwan.no1.app.mvp.contracts.fragment
 
 import android.support.annotation.IntRange
 import android.widget.ImageView
+import taiwan.no1.app.mvp.models.FilmCastsModel
+import taiwan.no1.app.mvp.models.FilmVideoModel
+import taiwan.no1.app.mvp.models.tv.TvBriefModel
 import taiwan.no1.app.mvp.presenters.IPresenter
 import taiwan.no1.app.mvp.views.IFragmentView
 import taiwan.no1.app.mvp.views.IView
@@ -27,5 +30,9 @@ interface TvDetailContract {
         fun setRightSlideButton(@IntRange(from = 0, to = 8) visibility: Int)
         fun showTvBriefInfo(title: String, status: String, rate: String, startAirDate: String, lastAirDate: String)
         fun showTvDetail(overview: String, homepage: String, productions: String)
+        fun showTvCasts(casts: List<FilmCastsModel.CastBean>)
+        fun showTvCrews(crews: List<FilmCastsModel.CrewBean>)
+        fun showRelatedTvs(relatedTvs: List<TvBriefModel>)
+        fun showTvTrailers(trailers: List<FilmVideoModel>)
     }
 }

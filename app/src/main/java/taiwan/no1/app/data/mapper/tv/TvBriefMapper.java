@@ -58,7 +58,7 @@ public class TvBriefMapper implements IBeanMapper<TvBriefModel, TvBriefEntity> {
                                 entity.getOriginal_name(),
                                 null != entity.getOrigin_country() ?
                                         new ArrayList<>(entity.getOrigin_country()) :
-                                        Collections.emptyList(),
+                                        Collections.emptyList(), true,
                                 null != entity.getGenre_ids() ?
                                         new ArrayList<>(entity.getGenre_ids()) :
                                         Collections.emptyList());

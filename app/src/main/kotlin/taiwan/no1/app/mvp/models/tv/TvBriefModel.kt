@@ -24,8 +24,9 @@ data class TvBriefModel(val poster_path: String? = null,
                         val name: String? = null,
                         val original_name: String? = null,
                         val origin_country: List<String>? = null,
+                        var isMainView: Boolean = true, // This is for difference view type.
                         val genre_ids: List<Int>? = null): Parcelable, IVisitable {
-    override fun type(typeFactory: IViewTypeFactory): Int = typeFactory.type(this)
+    override fun type(typeFactory: IViewTypeFactory): Int = typeFactory.type(this, this.isMainView)
 
     //region Parcelable
     companion object {
@@ -47,6 +48,7 @@ data class TvBriefModel(val poster_path: String? = null,
             source.readString(),
             source.readString(),
             ArrayList<String>().apply { source.readList(this, String::class.java.classLoader) },
+            1 == source.readInt(),
             ArrayList<Int>().apply { source.readList(this, Int::class.java.classLoader) })
 
     override fun describeContents() = 0
@@ -64,6 +66,7 @@ data class TvBriefModel(val poster_path: String? = null,
         dest?.writeString(name)
         dest?.writeString(original_name)
         dest?.writeList(origin_country)
+        dest?.writeInt((if (isMainView) 1 else 0))
         dest?.writeList(genre_ids)
     }
     //endregion

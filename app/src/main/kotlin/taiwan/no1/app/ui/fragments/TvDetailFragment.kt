@@ -4,6 +4,8 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v4.view.ViewPager
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewStub
 import android.widget.ImageButton
@@ -12,12 +14,19 @@ import android.widget.TextView
 import butterknife.bindView
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.BitmapImageViewTarget
+import com.jakewharton.rxbinding.support.v4.view.pageSelections
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.contracts.fragment.TvDetailContract
+import taiwan.no1.app.mvp.models.FilmCastsModel
+import taiwan.no1.app.mvp.models.FilmVideoModel
+import taiwan.no1.app.mvp.models.IVisitable
+import taiwan.no1.app.mvp.models.tv.TvBriefModel
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.BackdropPagerAdapter
+import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
+import taiwan.no1.app.ui.adapter.itemdecorator.MovieHorizontalItemDecorator
 import taiwan.no1.app.utilies.ImageLoader.IImageLoader
 import javax.inject.Inject
 
@@ -62,9 +71,17 @@ class TvDetailFragment: BaseFragment(), TvDetailContract.View {
     private val tvStartAirDate by bindView<TextView>(R.id.tv_start_air_date)
     private val tvLastAirDate by bindView<TextView>(R.id.tv_last_air_date)
     private val stubIntro by bindView<ViewStub>(R.id.stub_introduction)
+    private val stubCasts by bindView<ViewStub>(R.id.stub_casts)
+    private val stubCrews by bindView<ViewStub>(R.id.stub_crews)
+    private val stubRelated by bindView<ViewStub>(R.id.stub_related)
+    private val stubTrailer by bindView<ViewStub>(R.id.stub_trailer)
     private val tvOverview by bindView<TextView>(R.id.tv_overview)
     private val tvHomepage by bindView<TextView>(R.id.tv_homepage)
     private val tvProduction by bindView<TextView>(R.id.tv_productions)
+    private val rvCasts by bindView<RecyclerView>(R.id.rv_casts)
+    private val rvCrews by bindView<RecyclerView>(R.id.rv_crews)
+    private val rvRelated by bindView<RecyclerView>(R.id.rv_related)
+    private val rvTrailer by bindView<RecyclerView>(R.id.rv_trailer)
 
     // Get the arguments from the bundle here.
     private val id: String by lazy { this.arguments.getString(ARG_PARAM_TV_ID) }
@@ -118,10 +135,6 @@ class TvDetailFragment: BaseFragment(), TvDetailContract.View {
      * @param savedInstanceState the previous fragment data status after the system calls [onPause].
      */
     override fun init(savedInstanceState: Bundle?) {
-        // TODO: 2/25/17 There may be good way to do?!
-        this.setLeftSlideButton(View.GONE)
-        this.setRightSlideButton(View.VISIBLE)
-        
         this.presenter.requestListTvs(this.id.toInt())
         View.OnClickListener { view ->
             this.vpDropPoster.currentItem.let {
@@ -130,16 +143,15 @@ class TvDetailFragment: BaseFragment(), TvDetailContract.View {
                     this.ibRight -> it + 1
                     else -> it
                 }
-            }.let { nextPosition ->
-                this.vpDropPoster.setCurrentItem(nextPosition, true)
-                this.presenter.scrollBackdropTo(nextPosition)
-            }
+            }.let { nextPosition -> this.vpDropPoster.setCurrentItem(nextPosition, true) }
         }.let {
             this.ibLeft.setOnClickListener(it)
             this.ibRight.setOnClickListener(it)
         }
-//        this.ibLeft.setOnClickListener { this.vpDropPoster.setCurrentItem(this.vpDropPoster.currentItem - 1, true) }
-//        this.ibRight.setOnClickListener { this.vpDropPoster.setCurrentItem(this.vpDropPoster.currentItem + 1, true) }
+        // FIXME: 2/26/17 After back from gallery the icon will be strange.
+        this.vpDropPoster.pageSelections().compose(this.bindToLifecycle<Int>()).subscribe {
+            this.presenter.scrollBackdropTo(it)
+        }
     }
     //endregion
 
@@ -182,5 +194,38 @@ class TvDetailFragment: BaseFragment(), TvDetailContract.View {
             this.tvHomepage.text = homepage
             this.tvProduction.text = productions
         })
+    }
+
+    override fun showTvCasts(casts: List<FilmCastsModel.CastBean>) {
+        // Inflate the cast section.
+        if (casts.isNotEmpty())
+            this.showViewStub(this.stubCasts, { this.showCardItems(this.rvCasts, casts) })
+    }
+
+    override fun showTvCrews(crews: List<FilmCastsModel.CrewBean>) {
+        // Inflate the crew section.
+        if (crews.isNotEmpty())
+            this.showViewStub(this.stubCrews, { this.showCardItems(this.rvCrews, crews) })
+    }
+
+    // TODO: 2/26/17 Some problems's happened.
+    override fun showRelatedTvs(relatedTvs: List<TvBriefModel>) {
+        // Inflate the related movieList section.
+        if (relatedTvs.isNotEmpty())
+            this.showViewStub(this.stubRelated, { this.showCardItems(this.rvRelated, relatedTvs) })
+    }
+
+    override fun showTvTrailers(trailers: List<FilmVideoModel>) {
+        // Inflate the trailer movieList section.
+        if (trailers.isNotEmpty())
+            this.showViewStub(this.stubTrailer, { this.showCardItems(this.rvTrailer, trailers) })
+    }
+
+    private fun <T: IVisitable> showCardItems(recyclerView: RecyclerView, list: List<T>) {
+        recyclerView.apply {
+            this.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+            this.adapter = CommonRecyclerAdapter(list, argFromFragment)
+            this.addItemDecoration(MovieHorizontalItemDecorator(30))
+        }
     }
 }

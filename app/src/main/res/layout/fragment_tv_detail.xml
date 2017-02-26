@@ -24,11 +24,29 @@
                 android:layout_height="wrap_content"
                 android:layout="@layout/layout_tv_intro"/>
 
-            <!--<ViewStub-->
-            <!--android:id="@+id/stub_related"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout="@layout/horizontal_content_related"/>-->
+            <ViewStub
+                android:id="@+id/stub_casts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout="@layout/horizontal_content_cast"/>
+
+            <ViewStub
+                android:id="@+id/stub_crews"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout="@layout/horizontal_content_crew"/>
+
+            <ViewStub
+                android:id="@+id/stub_related"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout="@layout/horizontal_content_related"/>
+
+            <ViewStub
+                android:id="@+id/stub_trailer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout="@layout/horizontal_content_trailer"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
