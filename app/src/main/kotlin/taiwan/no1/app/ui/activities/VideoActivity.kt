@@ -19,6 +19,7 @@ import taiwan.no1.app.ui.listeners.YouTubePlayerInitListener
  */
 @PerActivity
 // TODO: 2/15/17 Add the YouTube activity to MVP activity.
+// FIXME: 2/26/17 We need to know the activity and fragment's lifecycle clearly.
 class VideoActivity: YouTubeBaseActivity() {
     //region Static initialization
     companion object Factory {
