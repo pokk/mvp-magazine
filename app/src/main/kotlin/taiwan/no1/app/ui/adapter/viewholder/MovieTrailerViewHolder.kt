@@ -52,6 +52,7 @@ class MovieTrailerViewHolder(val view: View): BaseViewHolder<FilmVideoModel>(vie
                 object: YouTubeThumbnailInitListener(model.key.orEmpty()) {
                     override fun onInitializationSuccess(thumbnailView: YouTubeThumbnailView,
                                                          loader: YouTubeThumbnailLoader) {
+                        // FIXME: 2/27/17 There are still some memory leak happened.
                         if (this.youTubeKey.isNotEmpty()) {
                             loader.apply {
                                 this@MovieTrailerViewHolder.containerListener.keepLoader(this)

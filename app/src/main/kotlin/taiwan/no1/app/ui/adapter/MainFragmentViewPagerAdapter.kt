@@ -28,7 +28,7 @@ class MainFragmentViewPagerAdapter constructor(val context: Context,
             super.finishUpdate(container)
         }
         catch (exception: Exception) {
-            AppLog.e(exception)
+            AppLog.e("This is view pager bug!!!! shrug :<")
         }
     }
 }

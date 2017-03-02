@@ -1,15 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:background="@color/colorBlack"
-             android:orientation="vertical"
-             tools:context=".ui.activities.VideoActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/colorBlack"
+              android:orientation="vertical"
+              tools:context=".ui.activities.VideoActivity">
 
     <com.google.android.youtube.player.YouTubePlayerView
         android:id="@+id/ytpv_trailer"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </com.google.android.youtube.player.YouTubePlayerView>
-</FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_video_control"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="#444444"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:weightSum="10">
+
+        <ImageButton
+            android:id="@+id/ib_play_video"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:src="@drawable/ic_play_circle"/>
+
+        <ImageButton
+            android:id="@+id/ib_pause_video"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:src="@drawable/ic_pause_circle"/>
+
+        <SeekBar
+            android:id="@+id/sb_video"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="6"
+            android:max="100"
+            android:progress="0"/>
+
+        <TextView
+            android:id="@+id/tv_play_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="2"
+            android:text="--:--"
+            android:textColor="@android:color/white"/>
+    </LinearLayout>
+</LinearLayout>

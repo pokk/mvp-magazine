@@ -26,6 +26,7 @@ import taiwan.no1.app.ui.fragments.TvMainFragment
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_SHARED_ELEMENTS
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_TAG
+import taiwan.no1.app.utilies.AppLog
 import taiwan.no1.app.utilies.FragmentUtils
 import java.util.*
 import javax.inject.Inject
@@ -46,6 +47,7 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
     //endregion
 
     lateinit var currentTag: String
+    private var isFirst: Boolean = true  // Avoid when the [BottomBarMenu] first init, it will add fragment twice times.
     private val fragments: SparseArray<Fragment> = SparseArray<Fragment>().apply {
         this.put(R.id.tab_movies, MovieMainFragment.newInstance())
         this.put(R.id.tab_tv_dramas, TvMainFragment.newInstance())
@@ -61,6 +63,13 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
         this.getComponent().inject(MainActivity@ this)
         this.presenter.init(MainActivity@ this)
         this.initFragment(savedInstanceState)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // FIXED: 3/3/17 Avoiding rotating the screen, the bottom bar's listener will reset the fragment stack. It causes
+        // FIXED: when we rotate, the view always goes to list view.
+        this.isFirst = false
     }
 
     override fun onDestroy() {
@@ -91,8 +100,8 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
                     fragments[R.id.tab_movies].apply { this@MainActivity.currentTag = this.javaClass.name })
         }
 
-        var isFirst = true  // Avoid when the [BottomBarMenu] first init, it will add fragment twice times. 
-        // When rotating the screen or fragment recreate, current tag need to be re-set.
+        // When rotating the screen or fragment recreate, current tag need to be re-set. And avoiding the currentTag
+        // isn't set when back button is pressed.
         this.supportFragmentManager.fragments?.get(0)?.let { this@MainActivity.currentTag = it.javaClass.name }
 
         this.bottombarMenu.setOnTabSelectListener {
@@ -104,7 +113,6 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
                 FragmentUtils.addFragment(this.supportFragmentManager, R.id.rl_main_container,
                         this.fragments[it].apply { this@MainActivity.currentTag = this.javaClass.name }, false)
             }
-            isFirst = false
         }
     }
 
@@ -124,6 +132,9 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
         val tag: Int = mapArgs[NAVIGATOR_ARG_TAG] as Int
         val shareElements: HashMap<View, String>? = mapArgs[NAVIGATOR_ARG_SHARED_ELEMENTS] as? HashMap<View, String>
 
+        // FIXME: 3/3/17 ?????
+        AppLog.w(presentFragment.fragmentManager)
+        
         // To avoid the same fragment but different hash code's fragment add the fragment.
         if (tag == presentFragment.hashCode()) {
             val fragmentManager: FragmentManager

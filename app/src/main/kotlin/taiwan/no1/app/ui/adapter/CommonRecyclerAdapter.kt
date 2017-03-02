@@ -64,6 +64,9 @@ class CommonRecyclerAdapter(var models: List<IVisitable>, val fragmentTag: Int =
      * For releasing all [YouTubeThumbnailLoader], they are created by .
      */
     fun releaseYouTubeLoader() {
-        this.loaderContainer.forEach { it.release() }
+        this.loaderContainer.let {
+            it.forEach { it.release() }
+            it.removeAll(it)
+        }
     }
 }

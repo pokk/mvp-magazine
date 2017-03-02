@@ -114,6 +114,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
 
     override fun onPause() {
         super.onPause()
+        this.rvTrailer.adapter?.let { (it as CommonRecyclerAdapter).releaseYouTubeLoader() }
         this.presenter.pause()
 //        this.stubIntro.inflate()
 //        this.stubCasts.inflate()
@@ -124,7 +125,6 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         // After super.onDestroy() is executed, the presenter will be destroy. So the presenter should be
         // executed before super.onDestroy().
         this.presenter.destroy()
-        this.rvTrailer.adapter?.let { (it as CommonRecyclerAdapter).releaseYouTubeLoader() }
         super.onDestroy()
     }
 //endregion

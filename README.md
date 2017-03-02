@@ -1,22 +1,19 @@
 # Description
 
-We provide movies and TV information by [TMDB](https://www.themoviedb.org/?language=en). You can use this app
-to know movies' overview or TV overview, see action stills and actors & actresses picture.
+We provide movies and TV information by [TMDB](https://www.themoviedb.org/?language=en). You can use
+this app to know movies' overview or TV overview, see action stills and actors & actresses picture.
 
-This application is based on an architecture called __*MVP*__
-architecture. Actually we don't only practice developing an application
-simply, but also create a base MVP architecture for other projects, too.
+This application is based on an architecture called __*MVP*__ architecture. Actually we don't only
+practice developing an application simply, but also create a base MVP architecture for other
+projects, too.
 
-This is the first time for us to mix two languages in this project, one
-is __Kotlin__, the other one is __Java__, we could know which parts that
-Kotlin is stronger and more convenient than Java.
+This is the first time for us to mix two languages in this project, one is __Kotlin__, the other one
+is __Java__, we could know which parts that Kotlin is stronger and more convenient than Java.
 
 ### MVP architecture
-
 We referenced the
 [Google clean architecture](https://github.com/googlesamples/android-architecture/tree/todo-mvp-clean/)
-to this application. There are three parts of clean architecture as
-below.
+to this application. There are three parts of clean architecture as below.
 
 1. __Presentation Layer__
 2. __Domain Layer__
@@ -24,8 +21,7 @@ below.
 
 ### programming language
 
-__*Kotlin*__ in __Presentation Layer__. <br> __*Java*__ in __Domain
-Layer__ and __Data Layer__.
+__*Kotlin*__ in __Presentation Layer__. <br> __*Java*__ in __Domain Layer__ and __Data Layer__.
 
 
 # Third-party library
@@ -46,8 +42,8 @@ We're using a lot of Rx family libraries.
 
 ### architecture
 
-Our architecture may not enough convenient for start-up project. If you
-have any good idea, please tell us.
+Our architecture may not enough convenient for start-up project. If you have any good idea, please
+tell us.
 
 - [x] Decouple between UseCases.
 - [x] Decouple the injection of library component.
@@ -55,7 +51,7 @@ have any good idea, please tell us.
 
 ### App
 
-- [ ] Checking movie and TV trailers.
+- [x] Checking movie and TV trailers.
 
 # License
 
@@ -74,3 +70,4 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
+

@@ -3,13 +3,19 @@ package taiwan.no1.app.ui.activities
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.ImageButton
+import android.widget.LinearLayout
+import android.widget.SeekBar
+import android.widget.TextView
 import butterknife.bindView
 import com.google.android.youtube.player.YouTubeBaseActivity
 import com.google.android.youtube.player.YouTubePlayer
+import com.google.android.youtube.player.YouTubePlayer.PlaybackEventListener
 import com.google.android.youtube.player.YouTubePlayer.Provider
 import com.google.android.youtube.player.YouTubePlayerView
+import com.jakewharton.rxbinding.widget.changes
 import taiwan.no1.app.R
-import taiwan.no1.app.internal.di.annotations.PerActivity
 import taiwan.no1.app.ui.listeners.YouTubePlayerInitListener
 
 /**
@@ -17,9 +23,6 @@ import taiwan.no1.app.ui.listeners.YouTubePlayerInitListener
  * @author  Jieyi
  * @since   1/15/17
  */
-@PerActivity
-// TODO: 2/15/17 Add the YouTube activity to MVP activity.
-// FIXME: 2/26/17 We need to know the activity and fragment's lifecycle clearly.
 class VideoActivity: YouTubeBaseActivity() {
     //region Static initialization
     companion object Factory {
@@ -39,52 +42,146 @@ class VideoActivity: YouTubeBaseActivity() {
     }
     //endregion
 
-//    @Inject
-//    lateinit var presenter: VideoContract.Presenter
-
     //region View variables
     private val ytpvTrailer by bindView<YouTubePlayerView>(R.id.ytpv_trailer)
+    private val llController by bindView<LinearLayout>(R.id.ll_video_control)
+    private val ibPlay by bindView<ImageButton>(R.id.ib_play_video)
+    private val ibPause by bindView<ImageButton>(R.id.ib_pause_video)
+    private val sbSeekTime by bindView<SeekBar>(R.id.sb_video)
+    private val tvTime by bindView<TextView>(R.id.tv_play_time)
     //endregion
 
     // Get the arguments from the bundle here.
     private val argYoutubeKey: String by lazy { this.intent.extras.getString(ARG_PARAM_YOUTUBE_KEY) }
+    private var youtubePlayer: YouTubePlayer? = null
 
     //region Fragment lifecycle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_video)
 
-//        this.getComponent().inject(VideoActivity@ this)
-//        this.presenter.init(VideoActivity@ this)
-
         this.ytpvTrailer.initialize(this.getString(R.string.youtube_api_key),
                 object: YouTubePlayerInitListener(argYoutubeKey) {
                     override fun onInitializationSuccess(provider: Provider,
                                                          player: YouTubePlayer,
                                                          wasRestored: Boolean) {
-                        if (!wasRestored) {
-                            player.loadVideo(this.youTubeKey)
-                            player.setPlayerStyle(YouTubePlayer.PlayerStyle.CHROMELESS)
+                        this@VideoActivity.youtubePlayer = player
+                        this@VideoActivity.displayCurrentTime(player)
+                        this@VideoActivity.youtubePlayer?.let {
+                            if (!wasRestored) {
+                                it.loadVideo(this.youTubeKey)
+                                it.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT)
+                            }
+
+                            // Add listeners to YouTubePlayer instance.
+                            it.setPlayerStateChangeListener(this@VideoActivity.stateChangeListener)
+                            it.setPlaybackEventListener(this@VideoActivity.playbackEventListener)
                         }
                     }
                 })
-    }
 
-    override fun onResume() {
-        super.onResume()
-//        this.presenter.resume()
-    }
+        // NOTE: We don't use it currently. Mainly using default controller by YouTube.
+        // NOTE: http://stacktips.com/tutorials/android/how-to-customize-youtubeplayer-controls-in-android.
+        this.ytpvTrailer.setOnClickListener {
+            if (View.VISIBLE == this.llController.visibility)
+                this.llController.visibility = View.GONE
+            else if (View.GONE == this.llController.visibility)
+                this.llController.visibility = View.VISIBLE
+        }
 
-    override fun onPause() {
-        super.onPause()
-//        this.presenter.pause()
+        this.sbSeekTime.changes().subscribe { progress ->
+            this.youtubePlayer?.let {
+                val lengthPlayed = it.durationMillis * progress / 100
+                it.seekToMillis(lengthPlayed)
+            }
+        }
+        View.OnClickListener { view ->
+            this.youtubePlayer?.let {
+                when (view) {
+                    this.ibPlay -> {
+                        if (!it.isPlaying)
+                            it.play()
+                    }
+                    this.ibPause -> {
+                        if (it.isPlaying)
+                            it.pause()
+                    }
+                }
+            }
+        }.let {
+            this.ibPlay.setOnClickListener(it)
+            this.ibPause.setOnClickListener(it)
+        }
     }
 
     override fun onDestroy() {
         // After super.onDestroy() is executed, the presenter will be destroy. So the presenter should be
         // executed before super.onDestroy().
-//        this.presenter.destroy()
+        this.youtubePlayer = null
+
         super.onDestroy()
     }
     //endregion
+
+    private val stateChangeListener: YouTubePlayer.PlayerStateChangeListener = object: YouTubePlayer.PlayerStateChangeListener {
+        override fun onAdStarted() {
+        }
+
+        override fun onLoading() {
+        }
+
+        override fun onLoaded(p0: String?) {
+        }
+
+        override fun onVideoStarted() {
+            this@VideoActivity.youtubePlayer?.let { displayCurrentTime(it) }
+        }
+
+        override fun onVideoEnded() {
+        }
+
+        override fun onError(p0: YouTubePlayer.ErrorReason?) {
+        }
+    }
+
+    private val playbackEventListener: PlaybackEventListener = object: PlaybackEventListener {
+        override fun onSeekTo(p0: Int) {
+        }
+
+        override fun onPlaying() {
+            this@VideoActivity.youtubePlayer?.let { displayCurrentTime(it) }
+        }
+
+        override fun onStopped() {
+        }
+
+        override fun onBuffering(p0: Boolean) {
+        }
+
+        override fun onPaused() {
+        }
+    }
+
+    private fun displayCurrentTime(player: YouTubePlayer) {
+        val formattedTime = formatTime(player.durationMillis - player.currentTimeMillis)
+        this.tvTime.text = formattedTime
+    }
+
+    private fun formatTime(millis: Int): String {
+        val seconds = millis / 1000
+        val minutes = seconds / 60
+        val hours = minutes / 60
+
+        return (if (hours == 0)
+            "--:"
+        else
+            hours.toString() + ":") + String.format("%02d:%02d", minutes % 60, seconds % 60)
+    }
+
+//    private val runnable = object: Runnable {
+//        override fun run() {
+//            displayCurrentTime()
+//            mHandler.postDelayed(this, 100)
+//        }
+//    }
 }

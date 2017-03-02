@@ -2,7 +2,7 @@
 
 buildscript {
     ext {
-        kotlin_version = '1.0.6'
+        kotlin_version = '1.1.0'
         koterknife_version = '0.1.0-SNAPSHOT'
         rx_binding_kotlin_version = '1.0.0'
         rx_lifecycle_version = '1.0'
@@ -13,7 +13,7 @@ buildscript {
         collection_query_version = '0.2.9'
         gson_version = '2.4'
         gilde_version = '3.7.0'
-        bottom_bar_version = '2.0.2'
+        bottom_bar_version = '2.1.1'
         squint_version = '3.0.1'
         arclayout_version = '1.0.2'
         navigation_tabstrip_version = '1.0.4'
