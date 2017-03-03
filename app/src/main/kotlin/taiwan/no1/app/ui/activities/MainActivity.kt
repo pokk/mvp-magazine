@@ -132,7 +132,7 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
         val tag: Int = mapArgs[NAVIGATOR_ARG_TAG] as Int
         val shareElements: HashMap<View, String>? = mapArgs[NAVIGATOR_ARG_SHARED_ELEMENTS] as? HashMap<View, String>
 
-        // FIXME: 3/3/17 ?????
+        // FIXME: 3/3/17 When actress view is rotated, the fragment manager will be null.
         AppLog.w(presentFragment.fragmentManager)
         
         // To avoid the same fragment but different hash code's fragment add the fragment.

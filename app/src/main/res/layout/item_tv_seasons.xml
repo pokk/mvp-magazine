@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    android:id="@+id/item_tv_season"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:orientation="vertical"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="5dp">
+
+    <ImageView
+        android:id="@+id/iv_tv_poster"
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        android:transitionName="tv_poster"
+        tools:ignore="ContentDescription"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_episode_count"
+            style="@style/CardDescribe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Episode Count"/>
+
+        <TextView
+            android:id="@+id/tv_season_number"
+            style="@style/CardDescribe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Season Number"/>
+
+        <TextView
+            android:id="@+id/tv_air_date"
+            style="@style/CardDescribe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Air Date"/>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

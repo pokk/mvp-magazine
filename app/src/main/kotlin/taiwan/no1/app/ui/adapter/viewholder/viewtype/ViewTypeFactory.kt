@@ -8,6 +8,7 @@ import taiwan.no1.app.mvp.models.FilmVideoModel
 import taiwan.no1.app.mvp.models.cast.CastBriefModel
 import taiwan.no1.app.mvp.models.movie.MovieBriefModel
 import taiwan.no1.app.mvp.models.tv.TvBriefModel
+import taiwan.no1.app.mvp.models.tv.TvSeasonsModel
 import taiwan.no1.app.ui.adapter.viewholder.*
 
 /**
@@ -24,10 +25,11 @@ class ViewTypeFactory: IViewTypeFactory {
         TV_LIST(R.layout.item_brief_tv),
         CAST_LIST(R.layout.item_brief_cast),
         CAST(R.layout.item_movie_casts_crews),
-        CASTRELATED(R.layout.item_movie_casts_crews),
+        CAST_RELATED(R.layout.item_movie_casts_crews),
         CREW(R.layout.item_movie_casts_crews),
         RELATED(R.layout.item_movie_casts_crews),
         VIDEO(R.layout.item_movie_trailers),
+        TV_SEASON(R.layout.item_tv_seasons),
     }
 
     override fun type(movieBriefModel: MovieBriefModel, isMain: Boolean): Int =
@@ -37,7 +39,7 @@ class ViewTypeFactory: IViewTypeFactory {
 
     override fun type(crewBean: FilmCastsModel.CrewBean): Int = TypeResource.CREW.ordinal
 
-    override fun type(castBean: CreditsInFilmModel.CastInFilmBean): Int = TypeResource.CASTRELATED.ordinal
+    override fun type(castBean: CreditsInFilmModel.CastInFilmBean): Int = TypeResource.CAST_RELATED.ordinal
 
     override fun type(crewBean: CreditsInFilmModel.CrewInFilmBean): Int = TypeResource.CREW.ordinal
 
@@ -45,6 +47,8 @@ class ViewTypeFactory: IViewTypeFactory {
 
     override fun type(tvBriefModel: TvBriefModel, isMain: Boolean): Int =
             if (isMain) TypeResource.TV_LIST.ordinal else TypeResource.RELATED.ordinal
+
+    override fun type(tvSeasonsModel: TvSeasonsModel): Int = TypeResource.TV_SEASON.ordinal
 
     override fun type(castBriefModel: CastBriefModel): Int = TypeResource.CAST_LIST.ordinal
 
@@ -55,8 +59,9 @@ class ViewTypeFactory: IViewTypeFactory {
         TypeResource.RELATED.ordinal -> MovieRelatedViewHolder(itemView)
         TypeResource.VIDEO.ordinal -> MovieTrailerViewHolder(itemView)
         TypeResource.TV_LIST.ordinal -> TvListViewHolder(itemView)
-        TypeResource.CASTRELATED.ordinal -> MovieCastRelatedViewHolder(itemView)
+        TypeResource.CAST_RELATED.ordinal -> MovieCastRelatedViewHolder(itemView)
         TypeResource.CAST_LIST.ordinal -> CastListViewHolder(itemView)
+        TypeResource.TV_SEASON.ordinal -> TvSeasonViewHolder(itemView)
         else -> throw error("Illegal type")
     }
 }

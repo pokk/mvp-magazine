@@ -10,4 +10,16 @@
     <declare-styleable name="AdjustHeightImageView">
         <attr name="heightRatio" format="float"/>
     </declare-styleable>
+
+    <declare-styleable name="TopBottomLineView">
+        <attr name="centerColor" format="color"/>
+        <attr name="blurLength" format="float"/>
+        <attr name="strokeWidth" format="float"/>
+        <attr name="linePadding" format="integer"/>
+        <attr name="topOrBottom" format="enum">
+            <enum name="top" value="0"/>
+            <enum name="bottom" value="1"/>
+            <enum name="both" value="2"/>
+        </attr>
+    </declare-styleable>
 </resources>

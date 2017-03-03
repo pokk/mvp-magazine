@@ -7,6 +7,7 @@ import taiwan.no1.app.mvp.models.FilmVideoModel
 import taiwan.no1.app.mvp.models.cast.CastBriefModel
 import taiwan.no1.app.mvp.models.movie.MovieBriefModel
 import taiwan.no1.app.mvp.models.tv.TvBriefModel
+import taiwan.no1.app.mvp.models.tv.TvSeasonsModel
 import taiwan.no1.app.ui.adapter.viewholder.BaseViewHolder
 
 /**
@@ -30,6 +31,8 @@ interface IViewTypeFactory {
     fun type(movieVideosModel: FilmVideoModel): Int
 
     fun type(tvBriefModel: TvBriefModel, isMain: Boolean): Int
+
+    fun type(tvSeasonsModel: TvSeasonsModel): Int
 
     fun type(castBriefModel: CastBriefModel): Int
 

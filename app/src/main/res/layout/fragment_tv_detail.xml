@@ -25,6 +25,12 @@
                 android:layout="@layout/layout_tv_intro"/>
 
             <ViewStub
+                android:id="@+id/stub_seasons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout="@layout/horizontal_content_season"/>
+
+            <ViewStub
                 android:id="@+id/stub_casts"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -112,31 +118,40 @@
                     tools:text="The Flash"
                     tools:textColor="@color/colorBlack"/>
 
-                <LinearLayout
+                <taiwan.no1.app.ui.customize.TopBottomLineView
                     android:id="@+id/rl_bottom"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="60dp"
                     android:layout_below="@+id/al_drop_poster"
-                    android:orientation="horizontal">
+                    android:layout_marginTop="5dp"
+                    android:background="#fff"
+                    android:orientation="horizontal"
+                    app:blurLength=".5"
+                    app:centerColor="@color/colorDarkGrey"
+                    app:linePadding="70"
+                    app:strokeWidth="15"
+                    app:topOrBottom="bottom">
 
                     <TextView
                         android:id="@+id/tv_status"
-                        style="@style/LayoutSeparateTextView"/>
+                        style="@style/LayoutSeparateTextView"
+                        tools:text="release"/>
 
                     <View
                         style="@style/LayoutSeparateLine"/>
 
                     <TextView
                         android:id="@+id/tv_vote"
-                        style="@style/LayoutSeparateTextView"/>
+                        style="@style/LayoutSeparateTextView"
+                        tools:text="9.5"/>
 
                     <View
                         style="@style/LayoutSeparateLine"/>
 
                     <TextView
-                        android:id="@+id/tv_start_air_date"
+                        android:id="@+id/tv_season_count"
                         style="@style/LayoutSeparateTextView"
-                        tools:text="Start Air Date\n1986/10/24"/>
+                        tools:text="5"/>
 
                     <View
                         style="@style/LayoutSeparateLine"/>
@@ -145,7 +160,7 @@
                         android:id="@+id/tv_last_air_date"
                         style="@style/LayoutSeparateTextView"
                         tools:text="Last Air Date\n2017/10/24"/>
-                </LinearLayout>
+                </taiwan.no1.app.ui.customize.TopBottomLineView>
             </RelativeLayout>
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>

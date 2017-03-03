@@ -14,7 +14,6 @@ import taiwan.no1.app.mvp.models.tv.TvDetailModel
 import taiwan.no1.app.ui.fragments.MovieGalleryFragment
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment
 import taiwan.no1.app.utilies.AppLog
-import kotlin.comparisons.compareBy
 
 /**
  *
@@ -45,11 +44,12 @@ class TvDetailPresenter constructor(val tvDetail: TVDetail):
                 this.view.showTvBriefInfo(it.name.orEmpty(),
                         it.status.orEmpty(),
                         it.vote_average.toString(),
-                        it.first_air_date.orEmpty(),
+                        it.seasons?.lastOrNull()?.season_number.toString(),
                         it.last_air_date.orEmpty())
                 this.view.showTvDetail(it.overview.orEmpty(),
                         it.homepage.orEmpty(),
                         it.production_companies?.let { it.flatMap { listOf(it.name) }.joinToString("\n") }.orEmpty())
+                this.view.showTvSeasons(it.seasons.orEmpty())
                 this.view.showTvCasts(it.credits?.cast?.filter { null != it.profile_path }.orEmpty())
                 this.view.showTvCrews(it.credits?.crew?.filter { null != it.profile_path }.orEmpty())
                 this.view.showRelatedTvs(it.similar?.results?.let {
