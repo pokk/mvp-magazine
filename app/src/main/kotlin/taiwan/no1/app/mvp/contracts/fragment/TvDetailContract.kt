@@ -30,7 +30,7 @@ interface TvDetailContract {
         fun setLeftSlideButton(@IntRange(from = 0, to = 8) visibility: Int)
         fun setRightSlideButton(@IntRange(from = 0, to = 8) visibility: Int)
         fun showTvBriefInfo(title: String, status: String, rate: String, seasonCount: String, runTime: String)
-        fun showTvDetail(overview: String, lastAirDate: String, homepage: String, productions: String)
+        fun showTvDetail(overview: String, lastAirDate: String, language: String, homepage: String, productions: String)
         fun showTvSeasons(seasons: List<TvSeasonsModel>)
         fun showTvCasts(casts: List<FilmCastsModel.CastBean>)
         fun showTvCrews(crews: List<FilmCastsModel.CrewBean>)

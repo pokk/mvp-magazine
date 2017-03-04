@@ -187,8 +187,8 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
 
     //region View implementation
     override fun showBlurBackground(image: Bitmap) {
+        // FIXME: 2/25/17 If blur process isn't finished after the fragment turn back, app will crash.
         Blurry.with(this.context).radius(20).sampling(4).async({
-            // FIXME: 2/25/17 If blur process isn't finished after the fragment turn back, app will crash.
             isBackground.setImageDrawable(it as Drawable)
         })./* Here are redundant code, but it won't work without them. */from(image).into(iv_hidden)
     }

@@ -79,6 +79,7 @@ class TvDetailFragment: BaseFragment(), TvDetailContract.View {
     private val stubTrailer by bindView<ViewStub>(R.id.stub_trailer)
     private val tvOverview by bindView<TextView>(R.id.tv_overview)
     private val tvLastAirDate by bindView<TextView>(R.id.tv_last_air_date)
+    private val tvLanguage by bindView<TextView>(R.id.tv_language)
     private val tvHomepage by bindView<TextView>(R.id.tv_homepage)
     private val tvProduction by bindView<TextView>(R.id.tv_productions)
     private val rvSeasons by bindView<RecyclerView>(R.id.rv_seasons)
@@ -188,10 +189,12 @@ class TvDetailFragment: BaseFragment(), TvDetailContract.View {
         this.tvRunTime.text = runTime
     }
 
-    override fun showTvDetail(overview: String, lastAirDate: String, homepage: String, productions: String) {
+    override fun showTvDetail(overview: String, lastAirDate: String, language: String, homepage: String,
+                              productions: String) {
         this.showViewStub(this.stubIntro, {
             this.tvOverview.text = overview
             this.tvLastAirDate.text = lastAirDate
+            this.tvLanguage.text = language
             this.tvHomepage.text = homepage
             this.tvProduction.text = productions
         })

@@ -23,6 +23,14 @@
 
     <TextView
         style="@style/DetailTitle"
+        android:text="Original Language"/>
+
+    <TextView
+        android:id="@+id/tv_language"
+        style="@style/DetailContent"/>
+
+    <TextView
+        style="@style/DetailTitle"
         android:text="Homepage"/>
 
     <TextView
