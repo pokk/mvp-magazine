@@ -12,8 +12,8 @@ import taiwan.no1.app.domain.repository.IRepository;
  * Created by weian on 2017/2/1.
  */
 
-public class TVdDetail extends BaseUseCase<TVdDetail.Requests> {
-    public TVdDetail(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread, IRepository repository) {
+public class TvDetail extends BaseUseCase<TvDetail.Requests> {
+    public TvDetail(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread, IRepository repository) {
         super(threadExecutor, postExecutionThread, repository);
     }
 

@@ -7,7 +7,7 @@ import com.touchin.constant.RxbusTag
 import rx.lang.kotlin.subscriber
 import taiwan.no1.app.R
 import taiwan.no1.app.api.config.TMDBConfig
-import taiwan.no1.app.domain.usecase.TVdDetail
+import taiwan.no1.app.domain.usecase.TvDetail
 import taiwan.no1.app.mvp.contracts.fragment.TvDetailContract
 import taiwan.no1.app.mvp.models.ImageProfileModel
 import taiwan.no1.app.mvp.models.tv.TvDetailModel
@@ -20,7 +20,7 @@ import taiwan.no1.app.utilies.AppLog
  * @author  Jieyi
  * @since   2/12/17
  */
-class TvDetailPresenter constructor(val tvDetail: TVdDetail):
+class TvDetailPresenter constructor(val tvDetail: TvDetail):
         BasePresenter<TvDetailContract.View>(), TvDetailContract.Presenter {
     private var tvDetailModel: TvDetailModel? = null
 
@@ -30,7 +30,7 @@ class TvDetailPresenter constructor(val tvDetail: TVdDetail):
     }
 
     override fun requestListTvs(id: Int) {
-        val request = TVdDetail.Requests(id)
+        val request = TvDetail.Requests(id)
         request.fragmentLifecycle = this.view.getLifecycle()
         // If declaring [subscriber] as a variable, it won't be used again.
         this.tvDetail.execute(request, subscriber<TvDetailModel>().onError {

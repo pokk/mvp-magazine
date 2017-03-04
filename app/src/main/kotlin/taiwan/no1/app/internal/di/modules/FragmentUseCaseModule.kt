@@ -49,8 +49,8 @@ class FragmentUseCaseModule {
     @PerFragment
     fun ProvideTvDetail(threadExecutor: ThreadExecutor,
                         postExecutionThread: PostExecutionThread,
-                        repository: IRepository): TVdDetail
-            = TVdDetail(threadExecutor, postExecutionThread, repository)
+                        repository: IRepository): TvDetail
+            = TvDetail(threadExecutor, postExecutionThread, repository)
 
     @Provides
     @PerFragment
