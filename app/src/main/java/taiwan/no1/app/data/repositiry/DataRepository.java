@@ -20,7 +20,9 @@ import taiwan.no1.app.data.mapper.search.SearchMovieMapper;
 import taiwan.no1.app.data.mapper.search.SearchTvShowsMapper;
 import taiwan.no1.app.data.mapper.tv.TvBriefMapper;
 import taiwan.no1.app.data.mapper.tv.TvDetailMapper;
+import taiwan.no1.app.data.mapper.tv.TvEpisodeDetailMapper;
 import taiwan.no1.app.data.mapper.tv.TvListResMapper;
+import taiwan.no1.app.data.mapper.tv.TvSeasonDetailMapper;
 import taiwan.no1.app.data.source.CloudDataStore;
 import taiwan.no1.app.data.source.IDataStore;
 import taiwan.no1.app.data.source.factory.DataStoreFactory;
@@ -33,6 +35,8 @@ import taiwan.no1.app.mvp.models.search.SearchMovieModel;
 import taiwan.no1.app.mvp.models.search.SearchTvShowsModel;
 import taiwan.no1.app.mvp.models.tv.TvBriefModel;
 import taiwan.no1.app.mvp.models.tv.TvDetailModel;
+import taiwan.no1.app.mvp.models.tv.TvEpisodesModel;
+import taiwan.no1.app.mvp.models.tv.TvSeasonsModel;
 
 /**
  * Low layer pure entity convert to kotlin layer data model from the repositories.
@@ -53,6 +57,8 @@ public class DataRepository implements IRepository {
     @Inject CastListResMapper castListResMapper;
     @Inject SearchMovieMapper searchMovieMapper;
     @Inject SearchTvShowsMapper searchTvShowsMapper;
+    @Inject TvSeasonDetailMapper tvSeasonDetailMapper;
+    @Inject TvEpisodeDetailMapper tvEpisodeDetailMapper;
 
     @Inject
     DataRepository(DataStoreFactory dataStoreFactory) {
@@ -107,8 +113,24 @@ public class DataRepository implements IRepository {
 
     @NonNull
     @Override
-    public Observable<TvDetailModel> detailTV(int id) {
+    public Observable<TvDetailModel> detailTv(int id) {
         return this.dataStoreFactory.createCloud().tvDetailEntities(id).map(this.tvDetailMapper::transformTo);
+    }
+
+    @NonNull
+    @Override
+    public Observable<TvSeasonsModel> detailTvSeason(int id, int seasonNumber) {
+        return this.dataStoreFactory.createCloud()
+                                    .tvSeasonDetailEntities(id, seasonNumber)
+                                    .map(this.tvSeasonDetailMapper::transformTo);
+    }
+
+    @NonNull
+    @Override
+    public Observable<TvEpisodesModel> detailTvEpisode(int id, int seasonNumber, int episodeNumber) {
+        return this.dataStoreFactory.createCloud()
+                                    .tvEpisodeEntities(id, seasonNumber, episodeNumber)
+                                    .map(this.tvEpisodeDetailMapper::transformTo);
     }
 
     @NonNull
@@ -119,26 +141,25 @@ public class DataRepository implements IRepository {
 
     @NonNull
     @Override
-    public Observable<SearchMovieModel> searchMovies(String language,
-                                                     String query,
-                                                     int page,
-                                                     boolean include_adult,
-                                                     String region,
-                                                     int year,
-                                                     int primary_release_year) {
-        return this.dataStoreFactory.createCloud().searchMovieEntities(language,
-                query, page, include_adult, region, year, primary_release_year)
-                .map(this.searchMovieMapper::transformTo);
+    public Observable<SearchMovieModel> searchMovies(String language, String query, int page, boolean include_adult,
+                                                     String region, int year, int primary_release_year) {
+        return this.dataStoreFactory.createCloud()
+                                    .searchMovieEntities(language,
+                                                         query,
+                                                         page,
+                                                         include_adult,
+                                                         region,
+                                                         year,
+                                                         primary_release_year)
+                                    .map(this.searchMovieMapper::transformTo);
     }
 
     @NonNull
     @Override
-    public Observable<SearchTvShowsModel> searchTvShows(String language,
-                                                        String query,
-                                                        int page,
+    public Observable<SearchTvShowsModel> searchTvShows(String language, String query, int page,
                                                         int first_air_date_year) {
-        return this.dataStoreFactory.createCloud().searchTvShowsEntities(
-                language, query, page, first_air_date_year)
-                .map(this.searchTvShowsMapper::transformTo);
+        return this.dataStoreFactory.createCloud()
+                                    .searchTvShowsEntities(language, query, page, first_air_date_year)
+                                    .map(this.searchTvShowsMapper::transformTo);
     }
 }

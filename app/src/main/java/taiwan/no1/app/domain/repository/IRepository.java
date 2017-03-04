@@ -14,7 +14,9 @@ import taiwan.no1.app.mvp.models.search.SearchMovieModel;
 import taiwan.no1.app.mvp.models.search.SearchTvShowsModel;
 import taiwan.no1.app.mvp.models.tv.TvBriefModel;
 import taiwan.no1.app.mvp.models.tv.TvDetailModel;
+import taiwan.no1.app.mvp.models.tv.TvEpisodesModel;
 import taiwan.no1.app.mvp.models.tv.TvListResModel;
+import taiwan.no1.app.mvp.models.tv.TvSeasonsModel;
 
 /**
  * Interface that represents a Repository for getting a movie related data.
@@ -61,8 +63,14 @@ public interface IRepository {
     Observable<List<TvBriefModel>> tvs(final CloudDataStore.Tvs category, final int page);
 
     @NonNull
-    Observable<TvDetailModel> detailTV(final int id);
+    Observable<TvDetailModel> detailTv(final int id);
 
+    @NonNull
+    Observable<TvSeasonsModel> detailTvSeason(final int id, final int seasonNumber);
+
+    @NonNull
+    Observable<TvEpisodesModel> detailTvEpisode(final int id, final int seasonNumber, final int episodeNumber);
+    
     /**
      * Get an {@link Observable} which will emit a {@link List<CastListResModel>}.
      *

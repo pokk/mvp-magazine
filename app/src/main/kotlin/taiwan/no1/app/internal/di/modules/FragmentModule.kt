@@ -42,7 +42,7 @@ class FragmentModule {
 
     @Provides
     @PerFragment
-    fun provideTvDetailPresenter(tvDetail: TVDetail): TvDetailContract.Presenter =
+    fun provideTvDetailPresenter(tvDetail: TVdDetail): TvDetailContract.Presenter =
             TvDetailPresenter(tvDetail)
 
     @Provides

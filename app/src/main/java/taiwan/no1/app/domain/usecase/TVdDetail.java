@@ -12,8 +12,8 @@ import taiwan.no1.app.domain.repository.IRepository;
  * Created by weian on 2017/2/1.
  */
 
-public class TVDetail extends BaseUseCase<TVDetail.Requests> {
-    public TVDetail(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread, IRepository repository) {
+public class TVdDetail extends BaseUseCase<TVdDetail.Requests> {
+    public TVdDetail(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread, IRepository repository) {
         super(threadExecutor, postExecutionThread, repository);
     }
 
@@ -27,7 +27,7 @@ public class TVDetail extends BaseUseCase<TVDetail.Requests> {
     @NonNull
     @Override
     protected Observable buildUseCaseObservable() {
-        return this.repository.detailTV(this.requestValues.tvId);
+        return this.repository.detailTv(this.requestValues.tvId);
     }
 
     public static final class Requests extends BaseUseCase.RequestValues {
