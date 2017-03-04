@@ -73,13 +73,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/vp_drop_poster"
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"/>
-
                 <TextView
                     android:id="@+id/tv_title"
                     style="@style/Poster.Text.Name"
@@ -144,6 +137,13 @@
                 <taiwan.no1.app.ui.customize.TagsView
                     android:layout_width="200dp"
                     android:layout_height="50dp"/>
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/vp_drop_poster"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"/>
             </RelativeLayout>
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>

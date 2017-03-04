@@ -152,7 +152,7 @@
                     <TextView
                         android:id="@+id/tv_season_count"
                         style="@style/LayoutSeparateTextView"
-                        tools:text="5"/>
+                        tools:text="Season 5"/>
 
                     <View
                         style="@style/LayoutSeparateLine"/>

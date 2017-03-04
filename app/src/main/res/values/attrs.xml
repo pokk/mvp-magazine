@@ -22,4 +22,10 @@
             <enum name="both" value="2"/>
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="TagsView">
+        <attr name="fontColor" format="color"/>
+        <attr name="fontSize" format="float"/>
+        <attr name="fontPadding" format="float"/>
+    </declare-styleable>
 </resources>

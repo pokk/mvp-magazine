@@ -18,7 +18,7 @@ class TvSeasonAdapterPresenter: BaseAdapterPresenter<View, TvSeasonsModel>(), Pr
         this.viewHolder.also {
             it.showTvPoster(TMDBConfig.BASE_IMAGE_URL + this.model.poster_path)
             it.showTvEpisodeNumber(this.model.episode_count.toString())
-            it.showTvSeasonNumber(this.model.season_number.toString())
+            it.showTvSeasonNumber("Season " + this.model.season_number.toString())
             it.showTvAirDate(this.model.air_date.orEmpty())
         }
     }
