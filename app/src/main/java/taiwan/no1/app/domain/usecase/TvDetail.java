@@ -9,7 +9,10 @@ import taiwan.no1.app.domain.executor.ThreadExecutor;
 import taiwan.no1.app.domain.repository.IRepository;
 
 /**
- * Created by weian on 2017/2/1.
+ * {@inheritDoc}
+ *
+ * @author weian
+ * @since 2/1/17
  */
 
 public class TvDetail extends BaseUseCase<TvDetail.Requests> {

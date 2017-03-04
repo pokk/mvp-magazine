@@ -62,15 +62,36 @@ public interface IRepository {
     @NonNull
     Observable<List<TvBriefModel>> tvs(final CloudDataStore.Tvs category, final int page);
 
+    /**
+     * Get an {@link Observable} which will emit a {@link TvDetailModel}.
+     *
+     * @param id a tv id.
+     * @return {@link Observable}
+     */
     @NonNull
     Observable<TvDetailModel> detailTv(final int id);
 
+    /**
+     * Get an {@link Observable} which will emit a {@link TvSeasonsModel}.
+     *
+     * @param id           a tv id.
+     * @param seasonNumber the season number of a tv.
+     * @return {@link Observable}
+     */
     @NonNull
     Observable<TvSeasonsModel> detailTvSeason(final int id, final int seasonNumber);
 
+    /**
+     * Get an {@link Observable} which will emit a {@link TvEpisodesModel}.
+     *
+     * @param id            a tv id.
+     * @param seasonNumber  the season number of a tv.
+     * @param episodeNumber the episode number of a season number of a tv.
+     * @return {@link Observable}
+     */
     @NonNull
     Observable<TvEpisodesModel> detailTvEpisode(final int id, final int seasonNumber, final int episodeNumber);
-    
+
     /**
      * Get an {@link Observable} which will emit a {@link List<CastListResModel>}.
      *
@@ -83,36 +104,30 @@ public interface IRepository {
     /**
      * Get an {@link Observable} which will emit a {@link List<SearchMovieModel>}.
      *
-     * @param language Pass a ISO 639-1 value to display translated data for the fields that support it.
-     * @param query Pass a text query to search. This value should be URI encoded.
-     * @param page Specify which page to query.
-     * @param include_adult Choose whether to include adult (pornography) content in the results.
-     * @param region Specify a ISO 3166-1 code to filter release dates.
-     * @param year Release year.
+     * @param language             Pass a ISO 639-1 value to display translated data for the fields that support it.
+     * @param query                Pass a text query to search. This value should be URI encoded.
+     * @param page                 Specify which page to query.
+     * @param include_adult        Choose whether to include adult (pornography) content in the results.
+     * @param region               Specify a ISO 3166-1 code to filter release dates.
+     * @param year                 Release year.
      * @param primary_release_year Primary release year.
      * @return {@link Observable}
      */
     @NonNull
-    Observable<SearchMovieModel> searchMovies(final String language,
-                                              final String query,
-                                              final int page,
-                                              final boolean include_adult,
-                                              final String region,
-                                              final int year,
+    Observable<SearchMovieModel> searchMovies(final String language, final String query, final int page,
+                                              final boolean include_adult, final String region, final int year,
                                               final int primary_release_year);
 
     /**
      * Get an {@link Observable} which will emit a {@link List<SearchTvShowsModel>}.
      *
-     * @param language Pass a ISO 639-1 value to display translated data for the fields that support it.
-     * @param query Pass a text query to search. This value should be URI encoded.
-     * @param page Specify which page to query.
+     * @param language            Pass a ISO 639-1 value to display translated data for the fields that support it.
+     * @param query               Pass a text query to search. This value should be URI encoded.
+     * @param page                Specify which page to query.
      * @param first_air_date_year Specify first air date or year.
      * @return {@link Observable}
      */
     @NonNull
-    Observable<SearchTvShowsModel> searchTvShows(final String language,
-                                                 final String query,
-                                                 final int page,
+    Observable<SearchTvShowsModel> searchTvShows(final String language, final String query, final int page,
                                                  final int first_air_date_year);
 }
