@@ -21,6 +21,8 @@ import taiwan.no1.app.data.entities.search.SearchMovieEntity;
 import taiwan.no1.app.data.entities.search.SearchTvShowsEntity;
 import taiwan.no1.app.data.entities.tv.TvBriefEntity;
 import taiwan.no1.app.data.entities.tv.TvDetailEntity;
+import taiwan.no1.app.data.entities.tv.TvEpisodeDetailEntity;
+import taiwan.no1.app.data.entities.tv.TvSeasonDetailEntity;
 import taiwan.no1.app.internal.di.components.NetComponent;
 
 /**
@@ -183,6 +185,38 @@ public class CloudDataStore implements IDataStore {
         }};
 
         return this.tmdbService.tvDetail(id, query);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see <a href="https://developers.themoviedb.org/3/tv-seasons">Get-Tv-Season-Details</>
+     */
+    @Nullable
+    @Override
+    public Observable<TvSeasonDetailEntity> tvSeasonDetailEntities(int id, int seasonNumber) {
+        Map<String, String> query = new ArrayMap<String, String>() {{
+            put("api_key", api_key);
+            put("append_to_response", "videos,images,credits");
+        }};
+
+        return this.tmdbService.tvSeason(id, seasonNumber, query);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see <a href="https://developers.themoviedb.org/3/tv-episodes">Get-Tv-Episode-Details</>
+     */
+    @Nullable
+    @Override
+    public Observable<TvEpisodeDetailEntity> tvEpisodeEntities(int id, int seasonNumber, int episodeNumber) {
+        Map<String, String> query = new ArrayMap<String, String>() {{
+            put("api_key", api_key);
+            put("append_to_response", "videos,images,credits");
+        }};
+
+        return this.tmdbService.tvEpisode(id, seasonNumber, episodeNumber, query);
     }
 
     /**

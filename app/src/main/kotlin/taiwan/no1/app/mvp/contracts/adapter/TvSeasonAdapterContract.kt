@@ -1,6 +1,5 @@
 package taiwan.no1.app.mvp.contracts.adapter
 
-import android.graphics.Bitmap
 import taiwan.no1.app.mvp.models.tv.TvSeasonsModel
 import taiwan.no1.app.mvp.presenters.IAdapterPresenter
 import taiwan.no1.app.mvp.views.IViewHolder
@@ -15,7 +14,6 @@ import taiwan.no1.app.mvp.views.IViewHolder
 interface TvSeasonAdapterContract {
     interface Presenter: IAdapterPresenter<View, TvSeasonsModel> {
         fun onItemClicked(tag: Int)
-        fun onPosterResourceFinished(bitmap: Bitmap)
     }
 
     interface View: IViewHolder {

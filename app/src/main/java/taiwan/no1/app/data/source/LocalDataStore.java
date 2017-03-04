@@ -13,6 +13,8 @@ import taiwan.no1.app.data.entities.search.SearchMovieEntity;
 import taiwan.no1.app.data.entities.search.SearchTvShowsEntity;
 import taiwan.no1.app.data.entities.tv.TvBriefEntity;
 import taiwan.no1.app.data.entities.tv.TvDetailEntity;
+import taiwan.no1.app.data.entities.tv.TvEpisodeDetailEntity;
+import taiwan.no1.app.data.entities.tv.TvSeasonDetailEntity;
 
 /**
  * @author Jieyi
@@ -64,6 +66,18 @@ public class LocalDataStore implements IDataStore {
 
     @Nullable
     @Override
+    public Observable<TvSeasonDetailEntity> tvSeasonDetailEntities(int id, int seasonNumber) {
+        throw new Error("No-op");
+    }
+
+    @Nullable
+    @Override
+    public Observable<TvEpisodeDetailEntity> tvEpisodeEntities(int id, int seasonNumber, int episodeNumber) {
+        throw new Error("No-op");
+    }
+
+    @Nullable
+    @Override
     @Deprecated
     public Observable<ListResEntity<CastBriefEntity>> popularCastEntities(int page) {
         throw new Error("No-op");
@@ -71,21 +85,15 @@ public class LocalDataStore implements IDataStore {
 
     @Nullable
     @Override
-    public Observable<SearchMovieEntity> searchMovieEntities(String language,
-                                                             String query,
-                                                             int page,
-                                                             boolean include_adult,
-                                                             String region,
-                                                             int year,
+    public Observable<SearchMovieEntity> searchMovieEntities(String language, String query, int page,
+                                                             boolean include_adult, String region, int year,
                                                              int primary_release_year) {
         throw new Error("No-op");
     }
 
     @Nullable
     @Override
-    public Observable<SearchTvShowsEntity> searchTvShowsEntities(String language,
-                                                                 String query,
-                                                                 int page,
+    public Observable<SearchTvShowsEntity> searchTvShowsEntities(String language, String query, int page,
                                                                  int first_air_date_year) {
         throw new Error("No-op");
     }

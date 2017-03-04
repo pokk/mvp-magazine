@@ -45,8 +45,9 @@ class TvDetailPresenter constructor(val tvDetail: TVDetail):
                         it.status.orEmpty(),
                         it.vote_average.toString(),
                         it.seasons?.lastOrNull()?.season_number.toString(),
-                        it.last_air_date.orEmpty())
+                        it.episode_run_time?.get(0).toString())
                 this.view.showTvDetail(it.overview.orEmpty(),
+                        it.last_air_date.orEmpty(),
                         it.homepage.orEmpty(),
                         it.production_companies?.let { it.flatMap { listOf(it.name) }.joinToString("\n") }.orEmpty())
                 this.view.showTvSeasons(it.seasons.orEmpty())

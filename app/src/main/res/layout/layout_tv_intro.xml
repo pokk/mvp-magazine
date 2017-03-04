@@ -15,6 +15,14 @@
 
     <TextView
         style="@style/DetailTitle"
+        android:text="Last Air Date"/>
+
+    <TextView
+        android:id="@+id/tv_last_air_date"
+        style="@style/DetailContent"/>
+
+    <TextView
+        style="@style/DetailTitle"
         android:text="Homepage"/>
 
     <TextView

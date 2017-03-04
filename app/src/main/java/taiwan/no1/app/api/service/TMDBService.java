@@ -16,6 +16,8 @@ import taiwan.no1.app.data.entities.search.SearchMovieEntity;
 import taiwan.no1.app.data.entities.search.SearchTvShowsEntity;
 import taiwan.no1.app.data.entities.tv.TvBriefEntity;
 import taiwan.no1.app.data.entities.tv.TvDetailEntity;
+import taiwan.no1.app.data.entities.tv.TvEpisodeDetailEntity;
+import taiwan.no1.app.data.entities.tv.TvSeasonDetailEntity;
 
 /**
  * TmDB http api request interface set by using {@link retrofit2.Retrofit}.
@@ -57,6 +59,15 @@ public interface TMDBService {
 
     @GET("tv/{id}")
     Observable<TvDetailEntity> tvDetail(@Path("id") int id, @QueryMap Map<String, String> queries);
+
+    @GET("tv/{id}/season/{season_number}")
+    Observable<TvSeasonDetailEntity> tvSeason(@Path("id") int id, @Path("season_number") int seasonNumber,
+                                              @QueryMap Map<String, String> queries);
+
+    @GET("tv/{id}/season/{season_number}/episode/{episode_number}")
+    Observable<TvEpisodeDetailEntity> tvEpisode(@Path("id") int id, @Path("season_number") int seasonNumber,
+                                                @Path("episode_number") int episodeNumber,
+                                                @QueryMap Map<String, String> queries);
 
     @GET("person/popular")
     Observable<ListResEntity<CastBriefEntity>> popularCastList(@QueryMap Map<String, String> queries);

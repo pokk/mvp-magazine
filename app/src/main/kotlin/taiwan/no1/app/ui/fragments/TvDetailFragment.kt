@@ -70,7 +70,7 @@ class TvDetailFragment: BaseFragment(), TvDetailContract.View {
     private val tvStatus by bindView<TextView>(R.id.tv_status)
     private val tvVoteRate by bindView<TextView>(R.id.tv_vote)
     private val tvSeasonCount by bindView<TextView>(R.id.tv_season_count)
-    private val tvLastAirDate by bindView<TextView>(R.id.tv_last_air_date)
+    private val tvRunTime by bindView<TextView>(R.id.tv_run_time)
     private val stubIntro by bindView<ViewStub>(R.id.stub_introduction)
     private val stubSeasons by bindView<ViewStub>(R.id.stub_seasons)
     private val stubCasts by bindView<ViewStub>(R.id.stub_casts)
@@ -78,6 +78,7 @@ class TvDetailFragment: BaseFragment(), TvDetailContract.View {
     private val stubRelated by bindView<ViewStub>(R.id.stub_related)
     private val stubTrailer by bindView<ViewStub>(R.id.stub_trailer)
     private val tvOverview by bindView<TextView>(R.id.tv_overview)
+    private val tvLastAirDate by bindView<TextView>(R.id.tv_last_air_date)
     private val tvHomepage by bindView<TextView>(R.id.tv_homepage)
     private val tvProduction by bindView<TextView>(R.id.tv_productions)
     private val rvSeasons by bindView<RecyclerView>(R.id.rv_seasons)
@@ -179,18 +180,18 @@ class TvDetailFragment: BaseFragment(), TvDetailContract.View {
         this.ibRight.visibility = visibility
     }
 
-    override fun showTvBriefInfo(title: String, status: String, rate: String, seasonCount: String,
-                                 lastAirDate: String) {
+    override fun showTvBriefInfo(title: String, status: String, rate: String, seasonCount: String, runTime: String) {
         this.tvTitle.text = title
         this.tvStatus.text = status
         this.tvVoteRate.text = rate
         this.tvSeasonCount.text = seasonCount
-        this.tvLastAirDate.text = lastAirDate
+        this.tvRunTime.text = runTime
     }
 
-    override fun showTvDetail(overview: String, homepage: String, productions: String) {
+    override fun showTvDetail(overview: String, lastAirDate: String, homepage: String, productions: String) {
         this.showViewStub(this.stubIntro, {
             this.tvOverview.text = overview
+            this.tvLastAirDate.text = lastAirDate
             this.tvHomepage.text = homepage
             this.tvProduction.text = productions
         })

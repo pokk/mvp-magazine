@@ -111,10 +111,11 @@
                     android:layout_height="wrap_content"
                     android:layout_above="@+id/rl_bottom"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="15dp"
                     android:layout_marginStart="150dp"
+                    android:textSize="20sp"
                     android:gravity="center"
-                    android:textColor="#dddddd"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:textColor="@color/colorBlack"
                     tools:text="The Flash"
                     tools:textColor="@color/colorBlack"/>
 
@@ -157,9 +158,9 @@
                         style="@style/LayoutSeparateLine"/>
 
                     <TextView
-                        android:id="@+id/tv_last_air_date"
+                        android:id="@+id/tv_run_time"
                         style="@style/LayoutSeparateTextView"
-                        tools:text="Last Air Date\n2017/10/24"/>
+                        tools:text="54m"/>
                 </taiwan.no1.app.ui.customize.TopBottomLineView>
             </RelativeLayout>
         </android.support.design.widget.CollapsingToolbarLayout>

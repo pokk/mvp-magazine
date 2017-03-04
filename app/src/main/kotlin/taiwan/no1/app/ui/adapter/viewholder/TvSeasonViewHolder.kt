@@ -1,13 +1,10 @@
 package taiwan.no1.app.ui.adapter.viewholder
 
-import android.graphics.Bitmap
 import android.support.v7.widget.CardView
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.bindView
-import com.bumptech.glide.request.animation.GlideAnimation
-import com.bumptech.glide.request.target.BitmapImageViewTarget
 import taiwan.no1.app.R
 import taiwan.no1.app.mvp.contracts.adapter.TvSeasonAdapterContract
 import taiwan.no1.app.mvp.models.tv.TvSeasonsModel
@@ -54,12 +51,7 @@ class TvSeasonViewHolder(val view: View): BaseViewHolder<TvSeasonsModel>(view), 
 
     //region ViewHolder implementations
     override fun showTvPoster(uri: String) {
-        this.imageLoader.display(uri, listener = object: BitmapImageViewTarget(this.ivPoster) {
-            override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
-                super.onResourceReady(resource, glideAnimation)
-                this@TvSeasonViewHolder.presenter.onPosterResourceFinished(resource)
-            }
-        })
+        this.imageLoader.display(uri, this.ivPoster)
     }
 
     override fun showTvEpisodeNumber(episodeNumber: String) {

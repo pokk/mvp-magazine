@@ -13,6 +13,8 @@ import taiwan.no1.app.data.entities.search.SearchMovieEntity;
 import taiwan.no1.app.data.entities.search.SearchTvShowsEntity;
 import taiwan.no1.app.data.entities.tv.TvBriefEntity;
 import taiwan.no1.app.data.entities.tv.TvDetailEntity;
+import taiwan.no1.app.data.entities.tv.TvEpisodeDetailEntity;
+import taiwan.no1.app.data.entities.tv.TvSeasonDetailEntity;
 
 /**
  * Interface that represents a data store from where data is retrieved.
@@ -80,6 +82,27 @@ public interface IDataStore {
     Observable<TvDetailEntity> tvDetailEntities(final int id);
 
     /**
+     * Retrieve a detail tv season information by the tv id and the season number.
+     *
+     * @param id           tv id.
+     * @param seasonNumber season number.
+     * @return an {@link rx.Observable} which will emit a {@link TvSeasonDetailEntity}.
+     */
+    @Nullable
+    Observable<TvSeasonDetailEntity> tvSeasonDetailEntities(final int id, final int seasonNumber);
+
+    /**
+     * Retrieve a detail tv episode information by the tv id.
+     *
+     * @param id            tv id.
+     * @param seasonNumber  season number.
+     * @param episodeNumber episode number.
+     * @return an {@link rx.Observable} which will emit a {@link TvEpisodeDetailEntity}.
+     */
+    @Nullable
+    Observable<TvEpisodeDetailEntity> tvEpisodeEntities(final int id, final int seasonNumber, final int episodeNumber);
+
+    /**
      * Retrieve a list of the popular cast information.
      *
      * @param page a number of page from remote database.
@@ -91,36 +114,29 @@ public interface IDataStore {
     /**
      * Search for movies.
      *
-     * @param language Pass a ISO 639-1 value to display translated data for the fields that support it.
-     * @param query Pass a text query to search. This value should be URI encoded.
-     * @param page Specify which page to query.
-     * @param include_adult Choose whether to include adult (pornography) content in the results.
-     * @param region Specify a ISO 3166-1 code to filter release dates.
-     * @param year Release year.
+     * @param language             Pass a ISO 639-1 value to display translated data for the fields that support it.
+     * @param query                Pass a text query to search. This value should be URI encoded.
+     * @param page                 Specify which page to query.
+     * @param include_adult        Choose whether to include adult (pornography) content in the results.
+     * @param region               Specify a ISO 3166-1 code to filter release dates.
+     * @param year                 Release year.
      * @param primary_release_year Primary release year.
      * @return an {@link rx.Observable} which will emit a {@link SearchMovieEntity}.
      */
     @Nullable
-    Observable<SearchMovieEntity> searchMovieEntities(String language,
-                                                      String query,
-                                                      int page,
-                                                      boolean include_adult,
-                                                      String region,
-                                                      int year,
-                                                      int primary_release_year);
+    Observable<SearchMovieEntity> searchMovieEntities(String language, String query, int page, boolean include_adult,
+                                                      String region, int year, int primary_release_year);
 
     /**
      * Search for tv shows.
      *
-     * @param language Pass a ISO 639-1 value to display translated data for the fields that support it.
-     * @param query Pass a text query to search. This value should be URI encoded.
-     * @param page Specify which page to query.
+     * @param language            Pass a ISO 639-1 value to display translated data for the fields that support it.
+     * @param query               Pass a text query to search. This value should be URI encoded.
+     * @param page                Specify which page to query.
      * @param first_air_date_year Specify first air date or year.
      * @return an {@link rx.Observable} which will emit a {@link SearchTvShowsEntity}.
      */
     @Nullable
-    Observable<SearchTvShowsEntity> searchTvShowsEntities(String language,
-                                                          String query,
-                                                          int page,
+    Observable<SearchTvShowsEntity> searchTvShowsEntities(String language, String query, int page,
                                                           int first_air_date_year);
 }
