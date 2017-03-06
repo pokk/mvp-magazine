@@ -22,6 +22,7 @@ data class TvSeasonsModel(val _id: String? = null,
                           val id: Int = 0,
                           val poster_path: String? = null,
                           val season_number: Int = 0,
+                          var tv_id: Int = 0,
                           val images: FilmImagesModel? = null,
                           val videos: CommonModel.VideosBean? = null,
                           val credits: FilmCastsModel? = null,
@@ -44,6 +45,7 @@ data class TvSeasonsModel(val _id: String? = null,
             source.readInt(),
             source.readString(),
             source.readInt(),
+            source.readInt(),
             source.readParcelable<FilmImagesModel?>(FilmImagesModel::class.java.classLoader),
             source.readParcelable<CommonModel.VideosBean?>(CommonModel.VideosBean::class.java.classLoader),
             source.readParcelable<FilmCastsModel?>(FilmCastsModel::class.java.classLoader),
@@ -60,6 +62,7 @@ data class TvSeasonsModel(val _id: String? = null,
         dest?.writeInt(id)
         dest?.writeString(poster_path)
         dest?.writeInt(season_number)
+        dest?.writeInt(tv_id)
         dest?.writeParcelable(images, 0)
         dest?.writeParcelable(videos, 0)
         dest?.writeParcelable(credits, 0)

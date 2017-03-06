@@ -1,9 +1,13 @@
 package taiwan.no1.app.mvp.presenters.adapter
 
+import com.hwangjr.rxbus.RxBus
+import com.touchin.constant.RxbusTag
 import taiwan.no1.app.api.config.TMDBConfig
 import taiwan.no1.app.mvp.contracts.adapter.TvSeasonAdapterContract.Presenter
 import taiwan.no1.app.mvp.contracts.adapter.TvSeasonAdapterContract.View
 import taiwan.no1.app.mvp.models.tv.TvSeasonsModel
+import taiwan.no1.app.ui.fragments.TvSeasonFragment
+import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment
 
 /**
  *
@@ -24,9 +28,9 @@ class TvSeasonAdapterPresenter: BaseAdapterPresenter<View, TvSeasonsModel>(), Pr
     }
 
     override fun onItemClicked(tag: Int) {
-//        RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
-//                Pair(ViewPagerMainCtrlFragment.NAVIGATOR_ARG_FRAGMENT,
-//                        TvDetailFragment.newInstance(model.id.toString(), tag)),
-//                Pair(ViewPagerMainCtrlFragment.NAVIGATOR_ARG_TAG, tag)))
+        RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
+                Pair(ViewPagerMainCtrlFragment.NAVIGATOR_ARG_FRAGMENT,
+                        TvSeasonFragment.newInstance(model.tv_id.toString(), model.id.toString(), tag)),
+                Pair(ViewPagerMainCtrlFragment.NAVIGATOR_ARG_TAG, tag)))
     }
 } 

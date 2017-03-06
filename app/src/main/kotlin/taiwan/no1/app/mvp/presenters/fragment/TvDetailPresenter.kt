@@ -51,7 +51,9 @@ class TvDetailPresenter constructor(val tvDetail: TvDetail):
                         it.original_language.orEmpty(),
                         it.homepage.orEmpty(),
                         it.production_companies?.let { it.flatMap { listOf(it.name) }.joinToString("\n") }.orEmpty())
-                this.view.showTvSeasons(it.seasons?.filter { 0 != it.season_number }.orEmpty())
+                this.view.showTvSeasons(it.seasons?.filter { 0 != it.season_number }.orEmpty().also {
+                    it.forEach { it.tv_id = this.tvDetailModel?.id ?: 0 }
+                })
                 this.view.showTvCasts(it.credits?.cast?.filter { null != it.profile_path }.orEmpty())
                 this.view.showTvCrews(it.credits?.crew?.filter { null != it.profile_path }.orEmpty())
                 this.view.showRelatedTvs(it.similar?.results?.let {

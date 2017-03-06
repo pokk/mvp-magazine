@@ -42,5 +42,9 @@ interface FragmentComponent {
 
     fun inject(tvDetailFragment: TvDetailFragment)
 
+    fun inject(tvSeasonFragment: TvSeasonFragment)
+
+    fun inject(tvEpisodeFragment: TvEpisodeFragment)
+
     fun inject(actressMainFragment: ActressMainFragment)
 }

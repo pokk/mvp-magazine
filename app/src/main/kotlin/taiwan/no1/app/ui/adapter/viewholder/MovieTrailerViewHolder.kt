@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 /**
  * A [BaseViewHolder] of displaying movie trailer view of the MVP architecture's V.
- * 
+ *
  * @author  Jieyi
  * @since   1/7/17
  */
@@ -35,7 +35,7 @@ class MovieTrailerViewHolder(val view: View): BaseViewHolder<FilmVideoModel>(vie
     private val item by bindView<CardView>(R.id.item_trailer)
     private val yttnvTrailer by bindView<YouTubeThumbnailView>(R.id.yttnv_trailer)
     //endregion
-    
+
     private lateinit var containerListener: youTubeLoaderContainerListener
 
     interface youTubeLoaderContainerListener {
@@ -54,10 +54,10 @@ class MovieTrailerViewHolder(val view: View): BaseViewHolder<FilmVideoModel>(vie
                                                          loader: YouTubeThumbnailLoader) {
                         // FIXME: 2/27/17 There are still some memory leak happened.
                         if (this.youTubeKey.isNotEmpty()) {
-                            loader.apply {
-                                this@MovieTrailerViewHolder.containerListener.keepLoader(this)
-                                this.setVideo(youTubeKey)
-                                this.setOnThumbnailLoadedListener(this@MovieTrailerViewHolder.thumbnailLoadedListener)
+                            loader.also {
+                                this@MovieTrailerViewHolder.containerListener.keepLoader(it)
+                                it.setVideo(youTubeKey)
+                                it.setOnThumbnailLoadedListener(this@MovieTrailerViewHolder.thumbnailLoadedListener)
                             }
                         }
                     }

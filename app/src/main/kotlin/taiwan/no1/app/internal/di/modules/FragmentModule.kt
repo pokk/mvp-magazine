@@ -47,6 +47,16 @@ class FragmentModule {
 
     @Provides
     @PerFragment
+    fun provideTvSeasonPresenter(tvSeasonDetail: TvSeasonDetail): TvSeasonContract.Presenter =
+            TvSeasonPresenter()
+
+    @Provides
+    @PerFragment
+    fun provideTvEpisodePresenter(tvEpisodeDetail: TvEpisodeDetail): TvEpisodeContract.Presenter =
+            TvEpisodePresenter()
+
+    @Provides
+    @PerFragment
     fun provideActressesMainPresenter(castCase: CastLists): ActressMainContract.Presenter =
             ActressMainPresenter(castCase)
 }

@@ -92,6 +92,8 @@ public class TvDetailMapper implements IBeanMapper<TvDetailModel, TvDetailEntity
                                                          data.getId(),
                                                          data.getPoster_path(),
                                                          data.getSeason_number(),
+                                                         0,
+                                                         // For keeping the tv id to season model.
                                                          null,
                                                          null,
                                                          null,
@@ -117,8 +119,7 @@ public class TvDetailMapper implements IBeanMapper<TvDetailModel, TvDetailEntity
                                  entity.getType(),
                                  entity.getVote_average(),
                                  entity.getVote_count(),
-                                 new CommonModel.VideosBean(filmVideoModels),
-                                 filmImagesModel, tvListResModel,
+                                 new CommonModel.VideosBean(filmVideoModels), filmImagesModel, tvListResModel,
                                  filmCastsModel,
                                  createdByBeans,
                                  entity.getEpisode_run_time(),

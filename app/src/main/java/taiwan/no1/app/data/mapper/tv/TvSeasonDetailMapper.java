@@ -72,7 +72,7 @@ public class TvSeasonDetailMapper implements IBeanMapper<TvSeasonsModel, TvSeaso
                                   entity.getEpisode_count(),
                                   entity.getId(),
                                   entity.getPoster_path(),
-                                  entity.getSeason_number(),
+                                  entity.getSeason_number(), 0,  // For keeping the tv id to season model.
                                   filmImagesModel,
                                   new CommonModel.VideosBean(filmVideoModels),
                                   filmCastsModel,
