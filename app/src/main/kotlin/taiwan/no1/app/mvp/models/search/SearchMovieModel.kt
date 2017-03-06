@@ -73,7 +73,7 @@ data class SearchMovieModel(val page: Int = 0,
     }
 
     companion object {
-        @JvmField val CREATOR: Parcelable.Creator<SearchMovieModel> = object : Parcelable.Creator<SearchMovieModel> {
+        @JvmField val CREATOR: Parcelable.Creator<SearchMovieModel> = object: Parcelable.Creator<SearchMovieModel> {
             override fun createFromParcel(source: Parcel): SearchMovieModel = SearchMovieModel(source)
 
             override fun newArray(size: Int): Array<out SearchMovieModel?> = arrayOfNulls(size)

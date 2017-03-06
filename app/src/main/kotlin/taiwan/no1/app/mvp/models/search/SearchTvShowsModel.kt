@@ -25,7 +25,7 @@ data class SearchTvShowsModel(val page: Int = 0,
                                   val original_name: String? = null,
                                   val origin_country: List<String>? = null,
                                   val genre_ids: List<Int>? = null): Parcelable {
-        companion object{
+        companion object {
             @JvmField val CREATOR: Parcelable.Creator<ResultsTvShowsBean> = object: Parcelable.Creator<ResultsTvShowsBean> {
                 override fun createFromParcel(source: Parcel): ResultsTvShowsBean =
                         ResultsTvShowsBean(source)
@@ -72,7 +72,7 @@ data class SearchTvShowsModel(val page: Int = 0,
     }
 
     companion object {
-        @JvmField val CREATOR: Parcelable.Creator<SearchTvShowsModel> = object : Parcelable.Creator<SearchTvShowsModel> {
+        @JvmField val CREATOR: Parcelable.Creator<SearchTvShowsModel> = object: Parcelable.Creator<SearchTvShowsModel> {
             override fun createFromParcel(source: Parcel): SearchTvShowsModel
                     = SearchTvShowsModel(source)
 

@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 /**
  * A [BaseViewHolder] of displaying brief movie introduction view of the MVP architecture's V.
- * 
+ *
  * @author  Jieyi
  * @since   1/7/17
  */
