@@ -48,10 +48,10 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
 
     lateinit var currentTag: String
     private var isFirst: Boolean = true  // Avoid when the [BottomBarMenu] first init, it will add fragment twice times.
-    private val fragments: SparseArray<Fragment> = SparseArray<Fragment>().apply {
-        this.put(R.id.tab_movies, MovieMainFragment.newInstance())
-        this.put(R.id.tab_tv_dramas, TvMainFragment.newInstance())
-        this.put(R.id.tab_people, ActressMainFragment.newInstance())
+    private val fragments: SparseArray<Fragment> = SparseArray<Fragment>().also {
+        it.put(R.id.tab_movies, MovieMainFragment.newInstance())
+        it.put(R.id.tab_tv_dramas, TvMainFragment.newInstance())
+        it.put(R.id.tab_people, ActressMainFragment.newInstance())
     }
 
     //region Activity life cycle
@@ -97,12 +97,12 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
     private fun initFragment(savedInstanceState: Bundle?) {
         if (null == savedInstanceState) {
             FragmentUtils.addFragment(this.supportFragmentManager, R.id.rl_main_container,
-                    fragments[R.id.tab_movies].apply { this@MainActivity.currentTag = this.javaClass.name })
+                    fragments[R.id.tab_movies].also { this.currentTag = it.javaClass.name })
         }
 
         // When rotating the screen or fragment recreate, current tag need to be re-set. And avoiding the currentTag
         // isn't set when back button is pressed.
-        this.supportFragmentManager.fragments?.get(0)?.let { this@MainActivity.currentTag = it.javaClass.name }
+        this.supportFragmentManager.fragments?.get(0)?.let { this.currentTag = it.javaClass.name }
 
         this.bottombarMenu.setOnTabSelectListener {
             // TODO: 2/21/17 Here will waste memory. Becz of repeating creating and removing every single switching.
@@ -111,7 +111,7 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
                 FragmentUtils.removeRecursiveFragment(this.supportFragmentManager)
                 // Add a new fragment category.
                 FragmentUtils.addFragment(this.supportFragmentManager, R.id.rl_main_container,
-                        this.fragments[it].apply { this@MainActivity.currentTag = this.javaClass.name }, false)
+                        this.fragments[it].also { this.currentTag = it.javaClass.name }, false)
             }
         }
     }
@@ -134,7 +134,7 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
 
         // FIXME: 3/3/17 When actress view is rotated, the fragment manager will be null.
         AppLog.w(presentFragment.fragmentManager)
-        
+
         // To avoid the same fragment but different hash code's fragment add the fragment.
         if (tag == presentFragment.hashCode()) {
             val fragmentManager: FragmentManager

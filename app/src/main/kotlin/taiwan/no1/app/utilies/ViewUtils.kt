@@ -21,12 +21,12 @@ object ViewUtils {
         }
     }
 
-    fun resizeImageAsRatio(aspectRatio: Double, image: Bitmap): Bitmap = image.apply {
-        val ratio: Double = this.width.toDouble() / this.height.toDouble()
+    fun resizeImageAsRatio(aspectRatio: Double, image: Bitmap): Bitmap = image.also {
+        val ratio: Double = it.width.toDouble() / it.height.toDouble()
 
         if (ratio > aspectRatio)
-            this.width = (aspectRatio * this.height).toInt()
+            it.width = (aspectRatio * it.height).toInt()
         else
-            this.height = (this.width / aspectRatio).toInt()
+            it.height = (it.width / aspectRatio).toInt()
     }
 }

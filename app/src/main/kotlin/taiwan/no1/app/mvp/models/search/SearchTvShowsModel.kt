@@ -2,8 +2,6 @@ package taiwan.no1.app.mvp.models.search
 
 import android.os.Parcel
 import android.os.Parcelable
-import android.os.WorkSource
-import taiwan.no1.app.data.entities.search.SearchTvShowsEntity
 import java.util.*
 
 /**
@@ -47,11 +45,11 @@ data class SearchTvShowsModel(val page: Int = 0,
                 source.readInt(),
                 source.readString(),
                 source.readString(),
-                ArrayList<String>().apply {
-                    source.readList(this, String::class.java.classLoader)
+                ArrayList<String>().also {
+                    source.readList(it, String::class.java.classLoader)
                 },
-                ArrayList<Int>().apply {
-                    source.readList(this, Int::class.java.classLoader)
+                ArrayList<Int>().also {
+                    source.readList(it, Int::class.java.classLoader)
                 })
 
         override fun describeContents() = 0

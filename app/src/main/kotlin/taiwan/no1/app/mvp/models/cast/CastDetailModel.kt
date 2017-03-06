@@ -45,8 +45,8 @@ data class CastDetailModel(val isAdult: Boolean = false,
             source.readString(),
             source.readDouble(),
             source.readString(),
-            ArrayList<String>().apply {
-                source.readList(this, String::class.java.classLoader)
+            ArrayList<String>().also {
+                source.readList(it, String::class.java.classLoader)
             },
             source.readParcelable<CastImagesModel?>(CastImagesModel::class.java.classLoader),
             source.readParcelable<CreditsInFilmModel?>(CreditsInFilmModel::class.java.classLoader))

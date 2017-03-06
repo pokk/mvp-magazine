@@ -34,8 +34,8 @@ class ActressMainFragment: BaseFragment(), ActressMainContract.View, IMainFragme
          *
          * @return A new instance of [fragment] ActressMainFragment.
          */
-        fun newInstance(): ActressMainFragment = ActressMainFragment().apply {
-            this.arguments = Bundle().apply {}
+        fun newInstance(): ActressMainFragment = ActressMainFragment().also {
+            it.arguments = Bundle().also {}
         }
     }
     //endregion
@@ -117,13 +117,13 @@ class ActressMainFragment: BaseFragment(), ActressMainContract.View, IMainFragme
         }
 
         // FIXED: 2/11/17 Using the customize image view to fit the photo ratio.
-        this.rvCasts.apply {
-            this.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-            this.setHasFixedSize(true)
-            this.addItemDecoration(GridSpacingItemDecorator(2, 20, false))
+        this.rvCasts.also {
+            it.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            it.setHasFixedSize(true)
+            it.addItemDecoration(GridSpacingItemDecorator(2, 20, false))
             // Just give a empty adapter.
-            this.adapter = CommonRecyclerAdapter(castList, this@ActressMainFragment.hashCode())
-            this.setOnBottomListener { this@ActressMainFragment.presenter.requestListCasts(++pageIndex) }
+            it.adapter = CommonRecyclerAdapter(castList, this.hashCode())
+            it.setOnBottomListener { this.presenter.requestListCasts(++pageIndex) }
         }
     }
     //endregion

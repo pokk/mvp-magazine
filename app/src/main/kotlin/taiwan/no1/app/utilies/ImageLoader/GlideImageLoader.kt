@@ -17,17 +17,14 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget
 class GlideImageLoader(val context: Context): IImageLoader {
     private val loader: RequestManager by lazy { Glide.with(this.context.applicationContext) }
 
-    override fun display(uri: String,
-                         into: ImageView?,
-                         listener: BitmapImageViewTarget?,
-                         isFitCenter: Boolean) {
-        this.loader.load(uri).asBitmap().apply {
-            if (isFitCenter) this.fitCenter() else this.centerCrop()
-            this.diskCacheStrategy(DiskCacheStrategy.SOURCE)
+    override fun display(uri: String, into: ImageView?, listener: BitmapImageViewTarget?, isFitCenter: Boolean) {
+        this.loader.load(uri).asBitmap().also {
+            if (isFitCenter) it.fitCenter() else it.centerCrop()
+            it.diskCacheStrategy(DiskCacheStrategy.SOURCE)
             if ((null != listener && null != into) || (null != listener && null == into))
-                this.into(listener)
+                it.into(listener)
             else if (null == listener && null != into)
-                this.into(into)
+                it.into(into)
             else
                 throw Error("You must input a ImageView object or a Target object!!")
         }

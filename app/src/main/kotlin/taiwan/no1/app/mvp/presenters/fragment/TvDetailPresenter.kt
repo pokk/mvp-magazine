@@ -51,7 +51,7 @@ class TvDetailPresenter constructor(val tvDetail: TvDetail):
                         it.original_language.orEmpty(),
                         it.homepage.orEmpty(),
                         it.production_companies?.let { it.flatMap { listOf(it.name) }.joinToString("\n") }.orEmpty())
-                this.view.showTvSeasons(it.seasons.orEmpty())
+                this.view.showTvSeasons(it.seasons?.filter { 0 != it.season_number }.orEmpty())
                 this.view.showTvCasts(it.credits?.cast?.filter { null != it.profile_path }.orEmpty())
                 this.view.showTvCrews(it.credits?.crew?.filter { null != it.profile_path }.orEmpty())
                 this.view.showRelatedTvs(it.similar?.results?.let {
@@ -104,11 +104,9 @@ class TvDetailPresenter constructor(val tvDetail: TvDetail):
     private fun createViewPagerViews(backdrops: List<ImageProfileModel>): List<View> =
             backdrops.map {
                 View.inflate(this.view.context(), R.layout.item_tv_backdrop, null) as ImageView
-            }.apply {
-                this.forEachIndexed { i, imageView ->
-                    this@TvDetailPresenter.view.showTvSingleBackdrop(TMDBConfig.BASE_IMAGE_URL + backdrops[i].file_path,
-                            imageView)
-
+            }.also {
+                it.forEachIndexed { i, imageView ->
+                    this.view.showTvSingleBackdrop(TMDBConfig.BASE_IMAGE_URL + backdrops[i].file_path, imageView)
                 }
             }
 }

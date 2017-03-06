@@ -112,10 +112,10 @@
                     android:layout_above="@+id/rl_bottom"
                     android:layout_centerHorizontal="true"
                     android:layout_marginStart="150dp"
-                    android:textSize="20sp"
-                    android:gravity="center"
                     android:fontFamily="sans-serif-smallcaps"
+                    android:gravity="center"
                     android:textColor="@color/colorBlack"
+                    android:textSize="20sp"
                     tools:text="The Flash"
                     tools:textColor="@color/colorBlack"/>
 

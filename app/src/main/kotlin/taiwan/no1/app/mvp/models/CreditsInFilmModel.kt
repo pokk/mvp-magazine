@@ -126,9 +126,9 @@ data class CreditsInFilmModel(val cast: List<CastInFilmBean>? = null,
         }
     }
 
-    constructor(source: Parcel): this(ArrayList<CastInFilmBean>().apply {
-        source.readList(this, CastInFilmBean::class.java.classLoader)
-    }, ArrayList<CrewInFilmBean>().apply { source.readList(this, CrewInFilmBean::class.java.classLoader) })
+    constructor(source: Parcel): this(ArrayList<CastInFilmBean>().also {
+        source.readList(it, CastInFilmBean::class.java.classLoader)
+    }, ArrayList<CrewInFilmBean>().also { source.readList(it, CrewInFilmBean::class.java.classLoader) })
 
     override fun describeContents() = 0
 

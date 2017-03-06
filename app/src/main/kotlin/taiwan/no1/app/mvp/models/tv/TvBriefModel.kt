@@ -47,9 +47,9 @@ data class TvBriefModel(val poster_path: String? = null,
             source.readInt(),
             source.readString(),
             source.readString(),
-            ArrayList<String>().apply { source.readList(this, String::class.java.classLoader) },
+            ArrayList<String>().also { source.readList(it, String::class.java.classLoader) },
             1 == source.readInt(),
-            ArrayList<Int>().apply { source.readList(this, Int::class.java.classLoader) })
+            ArrayList<Int>().also { source.readList(it, Int::class.java.classLoader) })
 
     override fun describeContents() = 0
 

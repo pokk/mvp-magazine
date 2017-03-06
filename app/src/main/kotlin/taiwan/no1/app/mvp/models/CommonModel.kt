@@ -87,8 +87,8 @@ object CommonModel {
             }
         }
 
-        constructor(source: Parcel): this(ArrayList<FilmVideoModel>().apply {
-            source.readList(this, FilmVideoModel::class.java.classLoader)
+        constructor(source: Parcel): this(ArrayList<FilmVideoModel>().also {
+            source.readList(it, FilmVideoModel::class.java.classLoader)
         })
 
         override fun describeContents() = 0

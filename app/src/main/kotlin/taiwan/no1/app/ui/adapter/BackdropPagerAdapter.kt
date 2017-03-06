@@ -16,7 +16,7 @@ class BackdropPagerAdapter(val lists: List<View>): PagerAdapter() {
     override fun getCount(): Int = this.lists.size
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any =
-            this.lists[position].apply { container.addView(this) }
+            this.lists[position].also { container.addView(it) }
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
         container.removeView(`object` as View)

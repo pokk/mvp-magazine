@@ -15,7 +15,6 @@ import taiwan.no1.app.ui.fragments.MovieGalleryFragment
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment
 import taiwan.no1.app.utilies.AppLog
 import taiwan.no1.app.utilies.TimeUtils
-import kotlin.comparisons.compareBy
 
 /**
  *
@@ -93,10 +92,9 @@ class MovieDetailPresenter constructor(val movieDetailCase: MovieDetail):
     private fun createViewPagerViews(backdrops: List<ImageProfileModel>): List<View> =
             backdrops.map {
                 View.inflate(this.view.context(), R.layout.item_movie_backdrop, null) as DiagonalView
-            }.apply {
-                this.forEachIndexed { i, diagonalView ->
-                    this@MovieDetailPresenter.view.showMovieSingleBackdrop(TMDBConfig.BASE_IMAGE_URL + backdrops[i].file_path,
-                            diagonalView)
+            }.also {
+                it.forEachIndexed { i, diagonalView ->
+                    this.view.showMovieSingleBackdrop(TMDBConfig.BASE_IMAGE_URL + backdrops[i].file_path, diagonalView)
                 }
             }
 }

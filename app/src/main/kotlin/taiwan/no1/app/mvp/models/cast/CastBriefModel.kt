@@ -64,8 +64,8 @@ data class CastBriefModel(val profile_path: String? = null,
                 source.readString(),
                 source.readString(),
                 source.readString(),
-                ArrayList<Int>().apply { source.readList(this, Int::class.java.classLoader) },
-                ArrayList<String>().apply { source.readList(this, String::class.java.classLoader) })
+                ArrayList<Int>().also { source.readList(it, Int::class.java.classLoader) },
+                ArrayList<String>().also { source.readList(it, String::class.java.classLoader) })
 
         override fun describeContents() = 0
 

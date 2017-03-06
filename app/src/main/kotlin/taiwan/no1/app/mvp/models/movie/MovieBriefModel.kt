@@ -52,7 +52,7 @@ data class MovieBriefModel(val poster_path: String? = null,
             1 == source.readInt(),
             source.readDouble(),
             1 == source.readInt(),
-            ArrayList<Int>().apply { source.readList(this, Int::class.java.classLoader) })
+            ArrayList<Int>().also { source.readList(it, Int::class.java.classLoader) })
 
     override fun describeContents() = 0
 
