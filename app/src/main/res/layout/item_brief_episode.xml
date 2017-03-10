@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/item_movie_brief"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@drawable/episode_border_item"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/tv_episode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="5dp"
+        android:textColor="#d0d0d0"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:text="Episode 1"/>
+
+    <TextView
+        android:id="@+id/tv_episode_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_episode"
+        android:text="Chapter: Fire on the wall"
+        android:textColor="#d0d0d0"
+        android:textSize="18sp"/>
+
+</RelativeLayout>

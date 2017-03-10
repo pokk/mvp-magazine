@@ -11,7 +11,6 @@ import taiwan.no1.app.R;
 import taiwan.no1.app.internal.di.components.FragmentComponent;
 import taiwan.no1.app.mvp.contracts.fragment.TvSeasonContract;
 import taiwan.no1.app.ui.BaseFragment;
-import taiwan.no1.app.utilies.AppLog;
 
 /**
  * @author Jieyi
@@ -21,10 +20,12 @@ import taiwan.no1.app.utilies.AppLog;
 public class TvSeasonFragment extends BaseFragment implements TvSeasonContract.View {
     private static final String ARG_PARAM_TV_ID = "param_tv_id";
     private static final String ARG_PARAM_SEASON_NUMBER = "param_tv_season_number";
+    private static final String ARG_PARAM_TV_TITLE = "param_tv_title";
     private static final String ARG_PARAM_FROM_ID = "param_tv_from_fragment";
 
     @Inject TvSeasonContract.Presenter presenter;
     private String id;
+    private String tvTitle;
     private String seasonNumber;
     private int argFromFragment;
 
@@ -32,12 +33,12 @@ public class TvSeasonFragment extends BaseFragment implements TvSeasonContract.V
     }
 
     public static TvSeasonFragment newInstance(@NotNull final String id, @NotNull final String seasonNumber,
-                                               final int from) {
+                                               @NotNull final String tvTitle, final int from) {
         TvSeasonFragment fragment = new TvSeasonFragment();
         Bundle bundle = new Bundle();
 
-        AppLog.w(id, seasonNumber);
         bundle.putString(ARG_PARAM_TV_ID, id);
+        bundle.putString(ARG_PARAM_TV_TITLE, tvTitle);
         bundle.putString(ARG_PARAM_SEASON_NUMBER, seasonNumber);
         bundle.putInt(ARG_PARAM_FROM_ID, from);
         fragment.setArguments(bundle);
@@ -66,6 +67,7 @@ public class TvSeasonFragment extends BaseFragment implements TvSeasonContract.V
     @Override
     protected void init(@Nullable Bundle savedInstanceState) {
         this.id = this.getArguments().getString(ARG_PARAM_TV_ID);
+        this.tvTitle = this.getArguments().getString(ARG_PARAM_TV_TITLE);
         this.seasonNumber = this.getArguments().getString(ARG_PARAM_SEASON_NUMBER);
         this.argFromFragment = this.getArguments().getInt(ARG_PARAM_FROM_ID);
     }

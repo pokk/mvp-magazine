@@ -30,7 +30,10 @@ class TvSeasonAdapterPresenter: BaseAdapterPresenter<View, TvSeasonsModel>(), Pr
     override fun onItemClicked(tag: Int) {
         RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
                 Pair(ViewPagerMainCtrlFragment.NAVIGATOR_ARG_FRAGMENT,
-                        TvSeasonFragment.newInstance(model.tv_id.toString(), model.season_number.toString(), tag)),
+                        TvSeasonFragment.newInstance(this.model.tv_id.toString(),
+                                this.model.season_number.toString(),
+                                this.model.name.toString(),
+                                tag)),
                 Pair(ViewPagerMainCtrlFragment.NAVIGATOR_ARG_TAG, tag)))
     }
 }
