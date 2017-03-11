@@ -56,9 +56,9 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
                     this.sharedElementReturnTransition = it
                 }
             }
-            this.arguments = Bundle().apply {
-                this.putString(ARG_PARAM_CAST_ID, id)
-                this.putInt(ARG_PARAM_FROM_ID, from)
+            this.arguments = Bundle().also {
+                it.putString(ARG_PARAM_CAST_ID, id)
+                it.putInt(ARG_PARAM_FROM_ID, from)
             }
         }
     }
@@ -144,7 +144,6 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
      */
     override fun init(savedInstanceState: Bundle?) {
         this.presenter.requestCastDetail(this.argId.toInt())
-        this.ivDropPoster.setOnClickListener { this.presenter.enterToGallery(this.argFromFragment) }
     }
     //endregion
 
@@ -152,24 +151,27 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
     override fun showCastPoster(posterUri: String) {
         this.imageLoader.display(posterUri, listener = object: BitmapImageViewTarget(this.ivDropPoster) {
             override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
-                ivDropPoster.solidColor = Color.TRANSPARENT
+                this@CastDetailFragment.ivDropPoster.solidColor = Color.TRANSPARENT
                 super.onResourceReady(resource, glideAnimation)
+                this@CastDetailFragment.ivDropPoster.setOnClickListener {
+                    this@CastDetailFragment.presenter.enterToGallery(this@CastDetailFragment.argFromFragment)
+                }
             }
         })
     }
 
-    override fun showCastProPic(proPicUri: String) {
+    override fun showCastProfilePic(proPicUri: String) {
         this.imageLoader.display(proPicUri, this.ivPersonPoster, isFitCenter = false)
     }
 
     override fun showCastBase(gender: String, name: String) {
-        this.tvJob.apply {
-            this.setBackgroundColor(Color.TRANSPARENT)
-            this.text = gender
+        this.tvJob.also {
+            it.setBackgroundColor(Color.TRANSPARENT)
+            it.text = gender
         }
-        this.tvName.apply {
-            this.setBackgroundColor(Color.TRANSPARENT)
-            this.text = name
+        this.tvName.also {
+            it.setBackgroundColor(Color.TRANSPARENT)
+            it.text = name
         }
     }
 
@@ -191,10 +193,10 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
     //endregion
 
     private fun <T: IVisitable> showCardItems(recyclerView: RecyclerView, list: List<T>) {
-        recyclerView.apply {
-            this.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-            this.adapter = CommonRecyclerAdapter(list, argFromFragment)
-            this.addItemDecoration(MovieHorizontalItemDecorator(30))
+        recyclerView.also {
+            it.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+            it.adapter = CommonRecyclerAdapter(list, argFromFragment)
+            it.addItemDecoration(MovieHorizontalItemDecorator(30))
         }
     }
 

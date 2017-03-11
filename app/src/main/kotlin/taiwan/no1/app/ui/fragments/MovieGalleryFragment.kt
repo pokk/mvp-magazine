@@ -1,7 +1,7 @@
 package taiwan.no1.app.ui.fragments
 
 import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
+import android.graphics.drawable.BitmapDrawable
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.LayoutRes
@@ -18,8 +18,6 @@ import butterknife.bindView
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
 import com.jakewharton.rxbinding.support.v4.view.pageSelections
-import jp.wasabeef.blurry.Blurry
-import kotlinx.android.synthetic.main.fragment_gallery.*
 import taiwan.no1.app.App
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
@@ -187,10 +185,9 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
 
     //region View implementation
     override fun showBlurBackground(image: Bitmap) {
-        // FIXME: 2/25/17 If blur process isn't finished after the fragment turn back, app will crash.
-        Blurry.with(this.context).radius(20).sampling(4).async({
-            isBackground.setImageDrawable(it as Drawable)
-        })./* Here are redundant code, but it won't work without them. */from(image).into(iv_hidden)
+        // FIXED: 3/11/17 http://stackoverflow.com/questions/10919240/fragment-myfragment-not-attached-to-activity
+        if (isAdded)
+            this.isBackground.setImageDrawable(BitmapDrawable(resources, image))
     }
     //endregion
 }

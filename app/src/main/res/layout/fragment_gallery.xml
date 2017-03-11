@@ -19,6 +19,12 @@
         android:layout_height="match_parent"
         android:background="#123456"/>
 
+    <com.github.mmin18.widget.RealtimeBlurView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:realtimeBlurRadius="15dp"
+        app:realtimeOverlayColor="#0000"/>
+
     <com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
         android:id="@+id/hicvp_gallery"
         android:layout_width="match_parent"

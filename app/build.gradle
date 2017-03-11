@@ -9,10 +9,12 @@ android {
     buildToolsVersion "25.0.1"
     defaultConfig {
         applicationId "taiwan.no1.app"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+        renderscriptTargetApi 19
+        renderscriptSupportModeEnabled true    // Enable RS support
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     freeline {
@@ -88,7 +90,7 @@ dependencies {
     // Infinite view pager
     compile "com.github.devlight:infinitecycleviewpager:1.0.2"
     // Blurry image
-    compile "jp.wasabeef:blurry:2.1.0"
+    compile "com.github.mmin18:realtimeblurview:1.1.0"
     // Circle image
     compile "de.hdodenhof:circleimageview:2.1.0"
 

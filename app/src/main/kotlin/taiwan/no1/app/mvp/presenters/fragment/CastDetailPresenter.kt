@@ -32,7 +32,7 @@ class CastDetailPresenter constructor(val castDetailCase: CastDetail):
             val posterUrl: String = it.images?.let { it.profiles?.let { if (it.size > 1) it[1].file_path else it[0].file_path } }.orEmpty()
 
             this.view.showCastPoster(TMDBConfig.BASE_IMAGE_URL + posterUrl)
-            this.view.showCastProPic(TMDBConfig.BASE_IMAGE_URL + it.profile_path)
+            this.view.showCastProfilePic(TMDBConfig.BASE_IMAGE_URL + it.profile_path)
             this.view.showCastBase(Constant.Gender.values()[it.gender].jobName, it.name.orEmpty())
             this.view.showCastDetail(it.biography.orEmpty(),
                     it.birthday.orEmpty(),

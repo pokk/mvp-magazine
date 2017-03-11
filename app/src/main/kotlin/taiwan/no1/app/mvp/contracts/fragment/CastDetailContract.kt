@@ -20,7 +20,7 @@ interface CastDetailContract {
 
     interface View: IView, IFragmentView {
         fun showCastPoster(posterUri: String)
-        fun showCastProPic(proPicUri: String)
+        fun showCastProfilePic(proPicUri: String)
         fun showCastBase(gender: String, name: String)
         fun showCastDetail(bio: String, birthday: String, bron: String, homepage: String, deathday: String)
         fun showRelatedMovie(casts: List<CreditsInFilmModel.CastInFilmBean>)
