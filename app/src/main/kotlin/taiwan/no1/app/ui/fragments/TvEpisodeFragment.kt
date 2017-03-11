@@ -50,7 +50,6 @@ class TvEpisodeFragment: BaseFragment(), TvEpisodeContract.View {
     private val argEpisodeNumber: String by lazy { this.arguments.getString(ARG_PARAM_EPISODE_NUMBER) }
     private val argFromFragment: Int by lazy { this.arguments.getInt(ARG_PARAM_TV_FROM_FRAGMENT) }
 
-
     //region Fragment lifecycle
     override fun onResume() {
         super.onResume()

@@ -47,66 +47,63 @@ dependencies {
 
     /* For language */
     // kotlin
-    compile "org.jetbrains.kotlin:kotlin-stdlib:${kotlin_version}"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:1.1.0"
     // Kotter knife
-    compile "com.jakewharton:kotterknife:${koterknife_version}"
+    compile "com.jakewharton:kotterknife:0.1.0-SNAPSHOT"
     // Java 8 tool
-    compile "com.innahema:collections-query:${collection_query_version}"
+    compile "com.innahema:collections-query:0.2.9"
     /* For reaction programming */
     // Rx kotlin
-    compile "io.reactivex:rxkotlin:${rx_kotlin_version}"
+    compile "io.reactivex:rxkotlin:0.60.0"
     // Rx kotlin binding
-    compile "com.jakewharton.rxbinding:rxbinding-kotlin:${rx_binding_kotlin_version}"
-    compile "com.jakewharton.rxbinding:rxbinding-support-v4-kotlin:${rx_binding_kotlin_version}"
-    compile "com.jakewharton.rxbinding:rxbinding-appcompat-v7-kotlin:${rx_binding_kotlin_version}"
-    compile "com.jakewharton.rxbinding:rxbinding-design-kotlin:${rx_binding_kotlin_version}"
-    compile "com.jakewharton.rxbinding:rxbinding-recyclerview-v7-kotlin:${rx_binding_kotlin_version}"
-    compile "com.jakewharton.rxbinding:rxbinding-leanback-v17-kotlin:${rx_binding_kotlin_version}"
+    compile "com.jakewharton.rxbinding:rxbinding-kotlin:1.0.0"
+    compile "com.jakewharton.rxbinding:rxbinding-support-v4-kotlin:1.0.0"
+    compile "com.jakewharton.rxbinding:rxbinding-appcompat-v7-kotlin:1.0.0"
+    compile "com.jakewharton.rxbinding:rxbinding-design-kotlin:1.0.0"
+    compile "com.jakewharton.rxbinding:rxbinding-recyclerview-v7-kotlin:1.0.0"
+    compile "com.jakewharton.rxbinding:rxbinding-leanback-v17-kotlin:1.0.0"
     // Rx Bus
-    compile "com.hwangjr.rxbus:rxbus:${rx_bus_version}"
+    compile "com.hwangjr.rxbus:rxbus:1.0.5"
     // Rx lifecycle
-    compile "com.trello:rxlifecycle-kotlin:${rx_lifecycle_version}"
-    compile "com.trello:rxlifecycle-components:${rx_lifecycle_version}"
+    compile "com.trello:rxlifecycle-kotlin:1.0"
+    compile "com.trello:rxlifecycle-components:1.0"
     /* For architecture */
     // Dagger 2
-    kapt "com.google.dagger:dagger-compiler:${dagger_2_version}"
-    compile "com.google.dagger:dagger:${dagger_2_version}"
-    annotationProcessor "com.google.dagger:dagger-compiler:${dagger_2_version}"
+    kapt "com.google.dagger:dagger-compiler:2.8"
+    compile "com.google.dagger:dagger:2.8"
+    annotationProcessor "com.google.dagger:dagger-compiler:2.8"
     /* For internet */
     // Retrofit 2
-    compile "com.squareup.retrofit2:retrofit:${retrofit_2_version}"
-    compile "com.squareup.retrofit2:converter-gson:${retrofit_2_version}"
-    compile "com.squareup.retrofit2:adapter-rxjava:${retrofit_2_version}"
+    compile "com.squareup.retrofit2:retrofit:2.1.0"
+    compile "com.squareup.retrofit2:converter-gson:2.1.0"
+    compile "com.squareup.retrofit2:adapter-rxjava:2.1.0"
     // Glide
-    compile "com.github.bumptech.glide:glide:${gilde_version}"
-    /* For json format */
-    // Gson
-    compile "com.google.code.gson:gson:${gson_version}"
+    compile "com.github.bumptech.glide:glide:3.7.0"
     /* For UI */
     // Bottom bar
-    compile "com.roughike:bottom-bar:${bottom_bar_version}"
-    compile "com.github.devlight.navigationtabstrip:navigationtabstrip:${navigation_tabstrip_version}"
-    compile "com.github.IntruderShanky:Squint:${squint_version}"
-    compile "com.github.florent37:arclayout:${arclayout_version}"
+    compile "com.roughike:bottom-bar:2.1.1"
+    compile "com.github.devlight.navigationtabstrip:navigationtabstrip:1.0.4"
+    compile "com.github.IntruderShanky:Squint:3.0.1"
+    compile "com.github.florent37:arclayout:1.0.2"
     // Infinite view pager
-    compile "com.github.devlight:infinitecycleviewpager:${infinite_viewpager_version}"
+    compile "com.github.devlight:infinitecycleviewpager:1.0.2"
     // Blurry image
-    compile "jp.wasabeef:blurry:${blurry_version}"
+    compile "jp.wasabeef:blurry:2.1.0"
     // Circle image
-    compile "de.hdodenhof:circleimageview:${circle_image_version}"
+    compile "de.hdodenhof:circleimageview:2.1.0"
 
     // Google youtube api
-    compile 'com.github.tommus:youtube-android-player-api:1.2.2'
-    compile 'com.android.support:support-v4:25.2.0'
-    compile 'com.android.support:palette-v7:25.2.0'
-    compile 'com.android.support:appcompat-v7:25.2.0'
-    compile 'com.android.support:recyclerview-v7:25.2.0'
-    compile 'com.android.support:cardview-v7:25.2.0'
-    compile 'com.android.support:design:25.2.0'
+    compile "com.github.tommus:youtube-android-player-api:1.2.2"
+    compile "com.android.support:support-v4:25.2.0"
+    compile "com.android.support:palette-v7:25.2.0"
+    compile "com.android.support:appcompat-v7:25.2.0"
+    compile "com.android.support:recyclerview-v7:25.2.0"
+    compile "com.android.support:cardview-v7:25.2.0"
+    compile "com.android.support:design:25.2.0"
 
-    compile 'com.antfortune.freeline:runtime:0.8.6'
-    releaseCompile 'com.antfortune.freeline:runtime-no-op:0.8.6'
-    testCompile 'com.antfortune.freeline:runtime-no-op:0.8.6'
+    compile "com.antfortune.freeline:runtime:0.8.6"
+    releaseCompile "com.antfortune.freeline:runtime-no-op:0.8.6"
+    testCompile "com.antfortune.freeline:runtime-no-op:0.8.6"
 
     testCompile "junit:junit:4.12"
     // Set this dependency if you want to use Hamcrest matching
