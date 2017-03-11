@@ -21,12 +21,21 @@
         tools:text="Episode 1"/>
 
     <TextView
+        android:id="@+id/tv_air_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_episode"
+        android:textColor="#d0d0d0"
+        android:textSize="18sp"
+        tools:text="2014/01/01"/>
+
+    <TextView
         android:id="@+id/tv_episode_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_episode"
-        android:text="Chapter: Fire on the wall"
+        android:layout_below="@+id/tv_air_date"
         android:textColor="#d0d0d0"
-        android:textSize="18sp"/>
+        android:textSize="18sp"
+        tools:text="Chapter name: Go to the hell"/>
 
 </RelativeLayout>

@@ -1,7 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context=".ui.activities.MainActivity">
 
-</LinearLayout>
+    <android.support.v4.widget.NestedScrollView
+        style="@style/NestScrollInfo"
+        android:layout_alignParentBottom="true"
+        android:background="#302E55"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ViewStub
+                android:id="@+id/stub_casts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout="@layout/horizontal_content_cast"/>
+
+            <ViewStub
+                android:id="@+id/stub_crews"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout="@layout/horizontal_content_crew"/>
+
+            <ViewStub
+                android:id="@+id/stub_trailer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout="@layout/horizontal_content_trailer"/>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/vp_drop_poster"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    tools:background="@android:color/darker_gray"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/vp_drop_poster"
+                    android:background="#53629F"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/tv_episode_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#C1C8D6"
+                        android:textSize="25sp"
+                        android:textStyle="bold"
+                        tools:text="The Flash"/>
+
+
+                    <TextView
+                        android:id="@+id/tv_air_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_episode_title"
+                        android:textColor="#C1C8D6"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        tools:text="2014/01/01"/>
+
+                    <TextView
+                        android:id="@+id/tv_overview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_air_date"
+                        android:layout_marginTop="25dp"
+                        android:textColor="#C1C8D6"
+                        android:textSize="18sp"
+                        tools:text="@string/hello_blank_fragment"/>
+                </RelativeLayout>
+            </RelativeLayout>
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+</android.support.design.widget.CoordinatorLayout>
