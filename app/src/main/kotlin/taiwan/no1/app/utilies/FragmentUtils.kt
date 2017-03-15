@@ -55,13 +55,12 @@ object FragmentUtils {
      * @param manager A [FragmentManager].
      * @return is success to pop a [Fragment].
      */
-    fun popFragment(manager: FragmentManager): Boolean {
-        if (0 < manager.backStackEntryCount) {
-            manager.popBackStackImmediate()
-            return true
-        }
-        else return false
+    fun popFragment(manager: FragmentManager): Boolean = if (0 < manager.backStackEntryCount) {
+        manager.popBackStackImmediate()
+        true
     }
+    else
+        false
 
     /**
      * Clear all [Fragment] in the stack.

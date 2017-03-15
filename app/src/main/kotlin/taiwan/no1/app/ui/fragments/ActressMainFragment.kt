@@ -3,6 +3,7 @@ package taiwan.no1.app.ui.fragments
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v4.app.Fragment
+import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import butterknife.bindView
 import taiwan.no1.app.R
@@ -48,6 +49,7 @@ class ActressMainFragment: BaseFragment(), ActressMainContract.View, IMainFragme
     //endregion
 
     //region Local variables
+    private val itemGirdDecorator: RecyclerView.ItemDecoration by lazy { GridSpacingItemDecorator(2, 20, false) }
     private var pageIndex: Int = 1
     private var loading: Boolean = true
 
@@ -69,6 +71,12 @@ class ActressMainFragment: BaseFragment(), ActressMainContract.View, IMainFragme
         super.onSaveInstanceState(outState)
 
         outState.putParcelableArrayList(ARG_PARAM_INSTANCE_CASTS, this.presenter.getCastList())
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        this.rvCasts.removeItemDecoration(this.itemGirdDecorator)
     }
 
     override fun onDestroy() {
@@ -120,7 +128,8 @@ class ActressMainFragment: BaseFragment(), ActressMainContract.View, IMainFragme
         this.rvCasts.also {
             it.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             it.setHasFixedSize(true)
-            it.addItemDecoration(GridSpacingItemDecorator(2, 20, false))
+            // FIXED: 3/15/17 When the fragment is in the stop status, we have to remove the item decorator.
+            it.addItemDecoration(this.itemGirdDecorator)
             // Just give a empty adapter.
             it.adapter = CommonRecyclerAdapter(castList, this.hashCode())
             it.setOnBottomListener { this.presenter.requestListCasts(++pageIndex) }

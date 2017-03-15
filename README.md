@@ -39,7 +39,7 @@ We're using a lot of Rx family libraries.
 
 
 # TODO & FEATURE WORK
-test
+
 ### architecture
 
 Our architecture may not enough convenient for start-up project. If you have any good idea, please
