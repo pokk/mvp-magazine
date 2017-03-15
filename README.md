@@ -23,7 +23,6 @@ to this application. There are three parts of clean architecture as below.
 
 __*Kotlin*__ in __Presentation Layer__. <br> __*Java*__ in __Domain Layer__ and __Data Layer__.
 
-test
 
 # Third-party library
 
