@@ -26,11 +26,11 @@ __*Kotlin*__ in __Presentation Layer__. <br> __*Java*__ in __Domain Layer__ and 
 
 # Demo
 
-![001]()
+![001](https://github.com/pokk/mvp-magazine/blob/master/gif/001.gif)
 
-![002]()
+![002](https://github.com/pokk/mvp-magazine/blob/master/gif/002.gif)
 
-![003]()
+![003](https://github.com/pokk/mvp-magazine/blob/master/gif/003.gif)
 
 # Third-party library
 
