@@ -19,7 +19,9 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="taiwan.no1.app.ui.activities.MainActivity">
+        <activity
+            android:name="taiwan.no1.app.ui.activities.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

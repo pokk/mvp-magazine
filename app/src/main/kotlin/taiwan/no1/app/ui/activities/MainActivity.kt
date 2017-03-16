@@ -82,6 +82,8 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
     override fun getFragmentComponent(): FragmentComponent = super.provideFragmentComponent()
 
     override fun onBackPressed() {
+        AppLog.w(this.getCurrentPresentFragment().fragmentManager?.backStackEntryCount)
+        this.getCurrentPresentFragment().fragmentManager.fragments.let { AppLog.w(it) }
         this.getCurrentPresentFragment().let {
             it.childFragmentManager?.let {
                 // Pop back from current presenter fragment.
