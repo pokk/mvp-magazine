@@ -14,7 +14,7 @@ import android.view.ViewGroup
  */
 
 abstract class LazyPagerAdapter<T>: PagerAdapter() {
-    protected var mLazyItems = SparseArray<T>()
+    protected var lazyItems = SparseArray<T>()
     /**
      * Get the current item.
      *
@@ -47,7 +47,7 @@ abstract class LazyPagerAdapter<T>: PagerAdapter() {
      * @param position the position of item.
      * @return the item is lazily.
      */
-    fun isLazyItem(position: Int): Boolean = mLazyItems.get(position) != null
+    fun isLazyItem(position: Int): Boolean = lazyItems.get(position) != null
 
     /**
      * Call [LazyPagerAdapter.addLazyItem] to prevent [LazyViewPager.onPageScrolled] not working

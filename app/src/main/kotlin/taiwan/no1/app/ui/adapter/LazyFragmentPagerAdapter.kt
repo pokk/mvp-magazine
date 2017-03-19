@@ -13,26 +13,30 @@ import android.view.ViewGroup
  * @since   3/19/17
  */
 
-abstract class LazyFragmentPagerAdapter(private val mFragmentManager: FragmentManager): LazyPagerAdapter<Fragment>() {
-    private var mCurTransaction: FragmentTransaction? = null
+abstract class LazyFragmentPagerAdapter(private val fragmentManager: FragmentManager): LazyPagerAdapter<Fragment>() {
+    companion object {
+        private fun makeFragmentName(viewId: Int, id: Long): String = "android:switcher:$viewId:$id"
+    }
+
+    private var currTransaction: FragmentTransaction? = null
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        if (mCurTransaction == null)
-            mCurTransaction = mFragmentManager.beginTransaction()
+        if (null == this.currTransaction)
+            this.currTransaction = this.fragmentManager.beginTransaction()
 
-        val itemId = getItemId(position)
+        val itemId = this.getItemId(position)
 
         // Do we already have this fragment?
         val name = makeFragmentName(container.id, itemId)
-        var fragment = mFragmentManager.findFragmentByTag(name)
-        if (fragment != null)
-            mCurTransaction!!.attach(fragment)
+        var fragment = this.fragmentManager.findFragmentByTag(name)
+        if (null != fragment)
+            this.currTransaction?.attach(fragment)
         else {
-            fragment = getItem(container, position)
+            fragment = this.getItem(container, position)
             if (fragment is Laziable)
-                mLazyItems.put(position, fragment)
+                this.lazyItems.put(position, fragment)
             else
-                mCurTransaction!!.add(container.id, fragment, name)
+                this.currTransaction?.add(container.id, fragment, name)
         }
         if (fragment !== this.currentItem) {
             fragment.setMenuVisibility(false)
@@ -43,36 +47,36 @@ abstract class LazyFragmentPagerAdapter(private val mFragmentManager: FragmentMa
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-        if (mCurTransaction == null)
-            mCurTransaction = mFragmentManager.beginTransaction()
+        if (null == this.currTransaction)
+            this.currTransaction = this.fragmentManager.beginTransaction()
 
-        val itemId = getItemId(position)
+        val itemId = this.getItemId(position)
         val name = makeFragmentName(container.id, itemId)
-        if (mFragmentManager.findFragmentByTag(name) == null)
-            mCurTransaction!!.detach(`object` as Fragment)
+        if (null == this.fragmentManager.findFragmentByTag(name))
+            this.currTransaction?.detach(`object` as Fragment)
         else
-            mLazyItems.remove(position)
+            this.lazyItems.remove(position)
     }
 
     override fun addLazyItem(container: ViewGroup, position: Int): Fragment? {
-        val fragment = mLazyItems.get(position) ?: return null
+        val fragment = lazyItems.get(position) ?: return null
 
-        val itemId = getItemId(position)
+        val itemId = this.getItemId(position)
         val name = makeFragmentName(container.id, itemId)
-        if (mFragmentManager.findFragmentByTag(name) == null) {
-            if (mCurTransaction == null)
-                mCurTransaction = mFragmentManager.beginTransaction()
-            mCurTransaction!!.add(container.id, fragment, name)
-            mLazyItems.remove(position)
+        if (null == this.fragmentManager.findFragmentByTag(name)) {
+            if (null == this.currTransaction)
+                this.currTransaction = this.fragmentManager.beginTransaction()
+            this.currTransaction!!.add(container.id, fragment, name)
+            this.lazyItems.remove(position)
         }
         return fragment
     }
 
     override fun finishUpdate(container: ViewGroup) {
-        if (mCurTransaction != null) {
-            mCurTransaction!!.commitAllowingStateLoss()
-            mCurTransaction = null
-            mFragmentManager.executePendingTransactions()
+        if (null != this.currTransaction) {
+            this.currTransaction!!.commitAllowingStateLoss()
+            this.currTransaction = null
+            this.fragmentManager.executePendingTransactions()
         }
     }
 
@@ -81,17 +85,7 @@ abstract class LazyFragmentPagerAdapter(private val mFragmentManager: FragmentMa
     fun getItemId(position: Int): Long = position.toLong()
 
     /**
-     * mark the fragment can be added lazily
+     * Mark the fragment can be added lazily.
      */
     interface Laziable
-
-    companion object {
-        private val TAG = "LazyFragmentPagerAdapter"
-        private val DEBUG = false
-
-        private fun makeFragmentName(viewId: Int, id: Long): String {
-            return "android:switcher:$viewId:$id"
-        }
-    }
-
 }
