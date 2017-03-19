@@ -6,13 +6,14 @@ import android.view.ViewGroup
 
 
 /**
- *
+ * Lazy Pager Adapter.
+ * NOTE: https://github.com/lianghanzhen/LazyViewPager
+ * 
  * @author  Jieyi
  * @since   3/19/17
  */
 
 abstract class LazyPagerAdapter<T>: PagerAdapter() {
-
     protected var mLazyItems = SparseArray<T>()
     /**
      * Get the current item.
