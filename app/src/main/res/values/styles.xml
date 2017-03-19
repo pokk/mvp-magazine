@@ -143,14 +143,6 @@
         <item name="android:src">@drawable/ic_arrow_right</item>
     </style>
 
-    <style name="LayoutSeparateLine">
-        <item name="android:layout_width">1dp</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_marginBottom">12dp</item>
-        <item name="android:layout_marginTop">12dp</item>
-        <item name="android:background">@color/colorDarkGrey</item>
-    </style>
-
     <style name="LayoutSeparateTextView">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>

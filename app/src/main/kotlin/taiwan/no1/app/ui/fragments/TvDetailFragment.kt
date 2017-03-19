@@ -71,6 +71,7 @@ class TvDetailFragment: BaseFragment(), TvDetailContract.View {
     private val tvVoteRate by bindView<TextView>(R.id.tv_vote)
     private val tvSeasonCount by bindView<TextView>(R.id.tv_season_count)
     private val tvRunTime by bindView<TextView>(R.id.tv_run_time)
+    private val stubBriefIntro by bindView<ViewStub>(R.id.stub_tv_brief_intro)
     private val stubIntro by bindView<ViewStub>(R.id.stub_introduction)
     private val stubSeasons by bindView<ViewStub>(R.id.stub_seasons)
     private val stubCasts by bindView<ViewStub>(R.id.stub_casts)
@@ -182,11 +183,13 @@ class TvDetailFragment: BaseFragment(), TvDetailContract.View {
     }
 
     override fun showTvBriefInfo(title: String, status: String, rate: String, seasonCount: String, runTime: String) {
-        this.tvTitle.text = title
-        this.tvStatus.text = status
-        this.tvVoteRate.text = rate
-        this.tvSeasonCount.text = seasonCount
-        this.tvRunTime.text = runTime
+        this.showViewStub(this.stubBriefIntro, {
+            this.tvTitle.text = title
+            this.tvStatus.text = status
+            this.tvVoteRate.text = rate
+            this.tvSeasonCount.text = seasonCount
+            this.tvRunTime.text = runTime
+        })
     }
 
     override fun showTvDetail(overview: String, lastAirDate: String, language: String, homepage: String,

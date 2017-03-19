@@ -44,8 +44,8 @@ class TvDetailPresenter constructor(val tvDetail: TvDetail):
                 this.view.showTvBriefInfo(it.name.orEmpty(),
                         it.status.orEmpty(),
                         it.vote_average.toString(),
-                        "Season " + it.seasons?.lastOrNull()?.season_number.toString(),
-                        it.episode_run_time?.get(0).toString())
+                        "Season ${it.seasons?.lastOrNull()?.season_number.toString()}",
+                        "${it.episode_run_time?.get(0).toString()} m")
                 this.view.showTvDetail(it.overview.orEmpty(),
                         it.last_air_date.orEmpty(),
                         it.original_language.orEmpty(),

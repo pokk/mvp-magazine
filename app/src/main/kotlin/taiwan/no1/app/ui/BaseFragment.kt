@@ -127,17 +127,14 @@ abstract class BaseFragment: RxFragment(), IView, IFragmentView {
      * @param viewStub [ViewStub] of assignment.
      * @param settings the setting of [ViewStub]'s content.
      */
-    protected fun showViewStub(viewStub: ViewStub, settings: () -> Unit): View {
-        val v: View
+    protected fun showViewStub(viewStub: ViewStub, settings: () -> Unit) {
         if (null != viewStub.parent) {
-            v = viewStub.inflate()
+            viewStub.inflate()
             settings()
         }
         else {
             viewStub.visibility = View.VISIBLE
-            v = View(this.context())
+            View(this.context())
         }
-
-        return v
     }
 }

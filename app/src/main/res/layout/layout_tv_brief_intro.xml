@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<taiwan.no1.app.ui.customize.TopBottomLineView
+    android:id="@+id/rl_bottom"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:layout_below="@+id/al_drop_poster"
+    android:layout_marginTop="5dp"
+    android:background="#ffffff"
+    android:divider="@drawable/divider"
+    android:dividerPadding="10dp"
+    android:orientation="horizontal"
+    android:showDividers="middle"
+    app:blurLength=".5"
+    app:centerColor="@color/colorDarkGrey"
+    app:linePadding="70"
+    app:strokeWidth="15"
+    app:topOrBottom="bottom">
+
+    <TextView
+        android:id="@+id/tv_status"
+        style="@style/LayoutSeparateTextView"
+        android:drawableTop="@drawable/ic_movie_creation"
+        tools:text="release"/>
+
+    <TextView
+        android:id="@+id/tv_vote"
+        style="@style/LayoutSeparateTextView"
+        android:drawableTop="@drawable/ic_loyalty"
+        tools:text="9.5"/>
+
+    <TextView
+        android:id="@+id/tv_season_count"
+        style="@style/LayoutSeparateTextView"
+        android:drawableTop="@drawable/ic_personal_video"
+        tools:text="Season 5"/>
+
+    <TextView
+        android:id="@+id/tv_run_time"
+        style="@style/LayoutSeparateTextView"
+        android:drawableTop="@drawable/ic_access_time"
+        tools:text="54m"/>
+</taiwan.no1.app.ui.customize.TopBottomLineView>
