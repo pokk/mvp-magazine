@@ -32,6 +32,16 @@ object Constant {
         TV_Movie(10770, "TV Movie"),
         Thriller(53, "Thriller"),
         War(10752, "War"),
-        Western(37, "Western"),
+        // ------ As below all for Tv. ------
+        Western(10759, "Western"),
+        Kids(10762, "Kids"),
+        News(10763, "News"),
+        Reality(10764, "Reality"),
+        SciFiAndFantasy(10765, "Sci-Fi & Fantasy"),
+        Soap(10766, "Soap"),
+        Talk(10767, "Talk"),
+        WarAndPolitics(10768, "War & Politics"),
     }
+
+    val GenresMap: Map<Int, String> = Genres.values().map { it.id to it.categoryName }.toMap()
 }

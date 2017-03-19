@@ -9,6 +9,7 @@ import android.widget.TextView
 import butterknife.bindView
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.BitmapImageViewTarget
+import me.gujun.android.taggroup.TagGroup
 import taiwan.no1.app.R
 import taiwan.no1.app.mvp.contracts.adapter.TvListAdapterContract
 import taiwan.no1.app.mvp.models.tv.TvBriefModel
@@ -36,7 +37,7 @@ class TvListViewHolder(val view: View): BaseViewHolder<TvBriefModel>(view), TvLi
     private val ivBackdropFog by bindView<ImageView>(R.id.iv_fog)
     private val tvTitle by bindView<TextView>(R.id.tv_title)
     private val tvRelease by bindView<TextView>(R.id.tv_release_date)
-    private val tvGenres by bindView<TextView>(R.id.tv_genres)
+    private val tvGenres by bindView<TagGroup>(R.id.tg_genres)
     //endregion
 
     //region BaseViewHolder
@@ -69,8 +70,8 @@ class TvListViewHolder(val view: View): BaseViewHolder<TvBriefModel>(view), TvLi
         }, isFitCenter = false)
     }
 
-    override fun showTvGenres(genres: String) {
-        this.tvGenres.text = genres
+    override fun showTvGenres(genres: List<String>) {
+        this.tvGenres.setTags(genres)
     }
 
     override fun showTvTitle(title: String) {

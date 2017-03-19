@@ -22,23 +22,12 @@ import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment
 class TvListAdapterPresenter: BaseAdapterPresenter<View, TvBriefModel>(), Presenter {
     override fun init(viewHolder: View, model: TvBriefModel) {
         super.init(viewHolder, model)
-        val genresString: StringBuilder = StringBuilder()
-        val maxLengthOfGenres: Int = this.model.genre_ids?.let {
-            if (it.size >= 3) 3 else it.size
-        } ?: 0
 
         this.viewHolder.showTvPoster(TMDBConfig.BASE_IMAGE_URL + this.model.poster_path)
         this.viewHolder.showTvBackDrop(TMDBConfig.BASE_IMAGE_URL + this.model.backdrop_path)
         this.viewHolder.showTvTitle(this.model.name.orEmpty())
         this.viewHolder.showTvReleaseDate(this.model.first_air_date.orEmpty())
-
-        (0..maxLengthOfGenres - 1).forEach { i ->
-            Constant.Genres.values().forEach {
-                if (this.model.genre_ids!![i] == it.id)
-                    genresString.append("${it.categoryName} | ")
-            }
-        }
-        this.viewHolder.showTvGenres(genresString.toString().dropLast(3))
+        this.viewHolder.showTvGenres(this.model.genre_ids?.map { Constant.GenresMap[it].orEmpty() } ?: emptyList())
     }
 
     override fun onItemClicked(tag: Int) {

@@ -50,15 +50,21 @@
     <TextView
         android:id="@+id/tv_release_date"
         style="@style/TvListImageSubtitle"
-        android:layout_above="@+id/tv_genres"
+        android:layout_above="@+id/tg_genres"
         android:layout_toEndOf="@id/cv_frame"
         tools:text="2016-12-25"/>
 
-    <TextView
-        android:id="@+id/tv_genres"
+    <me.gujun.android.taggroup.TagGroup
+        android:id="@+id/tg_genres"
         style="@style/TvListImageSubtitle"
         android:layout_alignBottom="@id/iv_tv_backdrop"
         android:layout_marginBottom="5dp"
+        android:layout_marginTop="10dp"
         android:layout_toEndOf="@id/cv_frame"
-        tools:text="Action | Drama | Crime"/>
+        app:atg_backgroundColor="#00000000"
+        app:atg_borderColor="#CCCCCC"
+        app:atg_borderStrokeWidth="1dp"
+        app:atg_checkedBackgroundColor="#00000000"
+        app:atg_pressedBackgroundColor="#00000000"
+        app:atg_textColor="#F5F2EF"/>
 </RelativeLayout>

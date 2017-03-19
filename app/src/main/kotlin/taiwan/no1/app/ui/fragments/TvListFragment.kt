@@ -3,7 +3,6 @@ package taiwan.no1.app.ui.fragments
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.LinearLayoutManager
-import android.view.View
 import android.view.ViewStub
 import android.widget.LinearLayout
 import butterknife.bindView
@@ -17,7 +16,6 @@ import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.adapter.LazyFragmentPagerAdapter
 import taiwan.no1.app.ui.customize.LoadMoreRecyclerView
-import taiwan.no1.app.utilies.AppLog
 import javax.inject.Inject
 
 /**
@@ -141,12 +139,11 @@ class TvListFragment: BaseFragment(), TvListContract.View, LazyFragmentPagerAdap
 
     //region View implementations
     override fun showLoading() {
-        AppLog.w("GGGGGGGGGGGGGGGGGGGGg")
-        this.showViewStub(this.stubError, {})
+//        this.showViewStub(this.stubError, {})
     }
 
     override fun hideLoading() {
-        this.llError.visibility = View.GONE
+//        this.llError.visibility = View.GONE
     }
 
     override fun showRetry() {

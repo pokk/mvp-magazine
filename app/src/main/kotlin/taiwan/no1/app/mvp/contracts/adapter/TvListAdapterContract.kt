@@ -23,7 +23,7 @@ interface TvListAdapterContract {
     interface View: IViewHolder {
         fun showTvPoster(uri: String)
         fun showTvBackDrop(uri: String)
-        fun showTvGenres(genres: String)
+        fun showTvGenres(genres: List<String>)
         fun showTvTitle(title: String)
         fun showTvReleaseDate(date: String)
         fun showTvBackdropFrog(@ColorInt color: Int)
