@@ -13,4 +13,10 @@
         android:layout_height="match_parent"
         android:background="@color/viewPageBackground"
         tools:listitem="@layout/item_brief_tv"/>
+
+    <ViewStub
+        android:id="@+id/stub_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout="@layout/layout_error_msg"/>
 </FrameLayout>

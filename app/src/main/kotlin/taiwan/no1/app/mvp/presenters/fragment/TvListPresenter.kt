@@ -21,6 +21,7 @@ class TvListPresenter constructor(val tvCase: TvLists): BasePresenter<TvListCont
     }
 
     override fun requestListTvs(category: CloudDataStore.Tvs, page: Int) {
+        this.view.showLoading()
         val request = TvLists.Requests(category, page)
         request.fragmentLifecycle = this.view.getLifecycle()
         // If declaring [subscriber] as a variable, it won't be used again.
@@ -30,6 +31,7 @@ class TvListPresenter constructor(val tvCase: TvLists): BasePresenter<TvListCont
         }.onNext {
             this.tvBriefModelList += it
             view.showTvBriefList(this.tvBriefModelList)
+            this.view.hideLoading()
         })
     }
 

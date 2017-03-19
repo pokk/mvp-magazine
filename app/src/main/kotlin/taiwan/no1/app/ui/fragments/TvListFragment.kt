@@ -3,6 +3,9 @@ package taiwan.no1.app.ui.fragments
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
+import android.view.ViewStub
+import android.widget.LinearLayout
 import butterknife.bindView
 import taiwan.no1.app.R
 import taiwan.no1.app.data.source.CloudDataStore
@@ -12,7 +15,9 @@ import taiwan.no1.app.mvp.contracts.fragment.TvListContract
 import taiwan.no1.app.mvp.models.tv.TvBriefModel
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
+import taiwan.no1.app.ui.adapter.LazyFragmentPagerAdapter
 import taiwan.no1.app.ui.customize.LoadMoreRecyclerView
+import taiwan.no1.app.utilies.AppLog
 import javax.inject.Inject
 
 /**
@@ -21,7 +26,7 @@ import javax.inject.Inject
  * @since   1/7/17
  */
 @PerFragment
-class TvListFragment: BaseFragment(), TvListContract.View {
+class TvListFragment: BaseFragment(), TvListContract.View, LazyFragmentPagerAdapter.Laziable {
     //region Static initialization
     companion object Factory {
         // The key name of the fragment initialization parameters.
@@ -47,6 +52,8 @@ class TvListFragment: BaseFragment(), TvListContract.View {
 
     //region View variables
     private val rvTvs by bindView<LoadMoreRecyclerView>(R.id.rv_tv_list)
+    private val stubError by bindView<ViewStub>(R.id.stub_error)
+    private val llError by bindView<LinearLayout>(R.id.ll_error)
     //endregion
 
     //region Local variables
@@ -133,6 +140,27 @@ class TvListFragment: BaseFragment(), TvListContract.View {
     //endregion
 
     //region View implementations
+    override fun showLoading() {
+        AppLog.w("GGGGGGGGGGGGGGGGGGGGg")
+        this.showViewStub(this.stubError, {})
+    }
+
+    override fun hideLoading() {
+        this.llError.visibility = View.GONE
+    }
+
+    override fun showRetry() {
+        super.showRetry()
+    }
+
+    override fun hideRetry() {
+        super.hideRetry()
+    }
+
+    override fun showError(message: String) {
+        super.showError(message)
+    }
+
     override fun showTvBriefList(tvList: List<TvBriefModel>) {
         // Because the view pager will load the fragment first, if we just set the data directly, views won't
         // be showed. To avoid it, the adapter will be reset.

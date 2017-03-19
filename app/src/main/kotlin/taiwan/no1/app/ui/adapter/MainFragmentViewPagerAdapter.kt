@@ -3,7 +3,6 @@ package taiwan.no1.app.ui.adapter
 import android.content.Context
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentStatePagerAdapter
 import android.view.ViewGroup
 import taiwan.no1.app.utilies.AppLog
 
@@ -16,8 +15,8 @@ import taiwan.no1.app.utilies.AppLog
 class MainFragmentViewPagerAdapter constructor(val context: Context,
                                                val fragmentManager: FragmentManager,
                                                val fragmentList: List<Fragment>):
-        FragmentStatePagerAdapter(fragmentManager) {
-    override fun getItem(position: Int): Fragment = this.fragmentList[position]
+        LazyFragmentPagerAdapter(fragmentManager) {
+    override fun getItem(container: ViewGroup, position: Int): Fragment = this.fragmentList[position]
 
     override fun getCount(): Int = this.fragmentList.size
 
