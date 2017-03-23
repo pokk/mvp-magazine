@@ -84,11 +84,11 @@ object FragmentUtils {
         }
     }
 
-    fun showRecursiveFragment(manager: FragmentManager) {
+    fun showAllFragments(manager: FragmentManager) {
         manager.fragments?.forEach {
-            AppLog.d("Parent: $it")
             it?.let {
-                it.childFragmentManager?.fragments?.forEach { AppLog.v("Child: $it") }
+                AppLog.v("fragment: $it")
+                it.childFragmentManager?.let { showAllFragments(it) }
             }
         }
     }

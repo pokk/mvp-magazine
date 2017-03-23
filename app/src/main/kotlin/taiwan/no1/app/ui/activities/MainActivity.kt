@@ -84,12 +84,14 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
          * When we switch to other pager, the grandchild will be destroyed and create a new grandchild.
          *
          * ** Test code and this fragment concept.
+         *
+         * // FIXME: 3/24/17 Current problem is that after rotating, the xxListFragment will gone. Cause Deeper Fragments couldn't push to the stack laterly.
          */
         btn.setOnClickListener {
             AppLog.d("====================================")
             AppLog.w(this.supportFragmentManager.fragments)
             AppLog.d(this.getCurrentPresentFragment())
-            FragmentUtils.showRecursiveFragment(this.getCurrentPresentFragment().fragmentManager)
+            FragmentUtils.showAllFragments(this.getCurrentPresentFragment().fragmentManager)
         }
     }
 
