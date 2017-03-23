@@ -13,6 +13,7 @@ import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.annotation.Tag
 import com.roughike.bottombar.BottomBar
 import com.touchin.constant.RxbusTag
+import kotlinx.android.synthetic.main.activity_main.*
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.HasComponent
 import taiwan.no1.app.internal.di.annotations.PerActivity
@@ -63,6 +64,33 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
         this.getComponent().inject(MainActivity@ this)
         this.presenter.init(MainActivity@ this)
         this.initFragment(savedInstanceState)
+
+        AppLog.w(this.fragments)
+
+        /***
+         *              supportFragmentManager.fragment
+         *                                      supportFragmentManager.fragment(inside fragment list)
+         *                                                                      supportFragmentManager.fragment(inside fragment list).
+         *                                                                      childFragmentManager.fragments
+         *
+         *  Parent              Child                   GrandChild(only one)
+         *
+         *             ———  MovieMainFragment   --- Each of MovieListFragment   --- Deeper GrandChildren
+         *           ∕
+         * Activity ——————  TvMainFragment      --- Each of TvListFragment      --- Deeper GrandChildren
+         *           ﹨
+         *             ———  PeopleMainFragment                                  --- Deep GrandChildren
+         *
+         * When we switch to other pager, the grandchild will be destroyed and create a new grandchild.
+         *
+         * ** Test code and this fragment concept.
+         */
+        btn.setOnClickListener {
+            AppLog.d("====================================")
+            AppLog.w(this.supportFragmentManager.fragments)
+            AppLog.d(this.getCurrentPresentFragment())
+            FragmentUtils.showRecursiveFragment(this.getCurrentPresentFragment().fragmentManager)
+        }
     }
 
     override fun onResume() {
@@ -82,8 +110,6 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
     override fun getFragmentComponent(): FragmentComponent = super.provideFragmentComponent()
 
     override fun onBackPressed() {
-        AppLog.w(this.getCurrentPresentFragment().fragmentManager?.backStackEntryCount)
-        this.getCurrentPresentFragment().fragmentManager.fragments.let { AppLog.w(it) }
         this.getCurrentPresentFragment().let {
             it.childFragmentManager?.let {
                 // Pop back from current presenter fragment.
@@ -135,7 +161,7 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
         val shareElements: HashMap<View, String>? = mapArgs[NAVIGATOR_ARG_SHARED_ELEMENTS] as? HashMap<View, String>
 
         // FIXME: 3/3/17 When actress view is rotated, the fragment manager will be null.
-        AppLog.w(presentFragment.fragmentManager)
+        AppLog.w(presentFragment)
 
         // To avoid the same fragment but different hash code's fragment add the fragment.
         if (tag == presentFragment.hashCode()) {

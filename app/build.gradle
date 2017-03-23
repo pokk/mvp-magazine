@@ -95,6 +95,8 @@ dependencies {
     compile "de.hdodenhof:circleimageview:2.1.0"
     compile "me.gujun.android.taggroup:library:1.4@aar"
 
+    compile 'com.idescout.sql:sqlscout-server:2.0'
+
     // Google youtube api
     compile "com.github.tommus:youtube-android-player-api:1.2.2"
     compile "com.android.support:support-v4:25.2.0"

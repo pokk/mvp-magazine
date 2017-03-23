@@ -25,4 +25,13 @@
         app:bb_inActiveTabColor="#959595"
         app:bb_showShadow="false"
         app:bb_tabXmlResource="@xml/bottom_bar_tabs"/>
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="133dp"
+        android:text="Button"/>
 </RelativeLayout>

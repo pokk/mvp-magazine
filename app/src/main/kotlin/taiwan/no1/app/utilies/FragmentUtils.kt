@@ -83,4 +83,13 @@ object FragmentUtils {
             }
         }
     }
+
+    fun showRecursiveFragment(manager: FragmentManager) {
+        manager.fragments?.forEach {
+            AppLog.d("Parent: $it")
+            it?.let {
+                it.childFragmentManager?.fragments?.forEach { AppLog.v("Child: $it") }
+            }
+        }
+    }
 }
