@@ -15,6 +15,7 @@ import taiwan.no1.app.mvp.contracts.fragment.MovieListContract
 import taiwan.no1.app.mvp.models.movie.MovieBriefModel
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
+import taiwan.no1.app.ui.adapter.LazyFragmentPagerAdapter
 import taiwan.no1.app.ui.customize.LoadMoreRecyclerView
 import javax.inject.Inject
 
@@ -24,7 +25,7 @@ import javax.inject.Inject
  */
 
 @PerFragment
-class MovieListFragment: BaseFragment(), MovieListContract.View {
+class MovieListFragment: BaseFragment(), MovieListContract.View, LazyFragmentPagerAdapter.Laziable {
     //region Static initialization
     companion object Factory {
         // The key name of the fragment initialization parameters.

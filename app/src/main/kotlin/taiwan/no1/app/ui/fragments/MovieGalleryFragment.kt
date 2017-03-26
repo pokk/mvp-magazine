@@ -186,7 +186,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
     //region View implementation
     override fun showBlurBackground(image: Bitmap) {
         // FIXED: 3/11/17 http://stackoverflow.com/questions/10919240/fragment-myfragment-not-attached-to-activity
-        if (isAdded)
+        if (this.isAdded)
             this.isBackground.setImageDrawable(BitmapDrawable(resources, image))
     }
     //endregion

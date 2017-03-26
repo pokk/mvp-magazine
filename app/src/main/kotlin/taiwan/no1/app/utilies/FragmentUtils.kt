@@ -77,9 +77,10 @@ object FragmentUtils {
 
     fun removeRecursiveFragment(manager: FragmentManager) {
         manager.fragments?.forEach {
-            it?.let {
-                it.childFragmentManager?.let { removeRecursiveFragment(it) }
-                FragmentUtils.removeFragment(manager, it)
+            it?.let { f ->
+                it.childFragmentManager?.fragments?.forEach {
+                    it?.let { removeFragment(f.childFragmentManager, it) }
+                }
             }
         }
     }
@@ -87,8 +88,8 @@ object FragmentUtils {
     fun showAllFragments(manager: FragmentManager) {
         manager.fragments?.forEach {
             it?.let {
-                AppLog.v("fragment: $it")
-                it.childFragmentManager?.let { showAllFragments(it) }
+                AppLog.v("parent : $it")
+                it.childFragmentManager?.fragments?.forEach { AppLog.d("child!!!: $it") }
             }
         }
     }

@@ -87,8 +87,10 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
          *
          * // FIXME: 3/24/17 Current problem is that after rotating, the xxListFragment will gone. Cause Deeper Fragments couldn't push to the stack laterly.
          */
+        // NOTE: 3/26/17 DEBUG MODE.
         btn.setOnClickListener {
             AppLog.d("====================================")
+            AppLog.i(this)
             AppLog.w(this.supportFragmentManager.fragments)
             AppLog.d(this.getCurrentPresentFragment())
             FragmentUtils.showAllFragments(this.getCurrentPresentFragment().fragmentManager)

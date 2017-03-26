@@ -75,6 +75,11 @@ abstract class BaseFragment: RxFragment(), IView, IFragmentView {
      *
      * @return application [Context].
      */
+    /**
+     * FIXME: 3/26/17 03-26 07:17:36.275 E/MY_LOG: invoke(MovieDetailPresenter.kt:31):Attempt to invoke virtual method
+     * 'android.content.Context android.content.ContextWrapper.getApplicationContext()' on a null object reference
+     * 03-26 07:17:36.275 E/MY_LOG: taiwan.no1.app.ui.BaseFragment.context(BaseFragment.kt:78)
+     */
     override fun context(): Context = this.activity.applicationContext
 
     /**

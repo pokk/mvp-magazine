@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment
 import com.hwangjr.rxbus.RxBus
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.annotation.Tag
-import com.idescout.sql.SqlScoutServer
 import com.touchin.constant.RxbusTag
 import com.trello.rxlifecycle.android.ActivityEvent
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity
@@ -54,7 +53,7 @@ abstract class BaseActivity: RxAppCompatActivity(), IView, IActivityView {
 
         this.initialInjector()
 
-        SqlScoutServer.create(this, packageName)
+//        SqlScoutServer.create(this, packageName)
 
         // Register RxBus.
         RxBus.get().register(this.busEvent)
