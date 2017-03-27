@@ -91,6 +91,7 @@ class MovieDetailPresenter constructor(val movieDetailCase: MovieDetail):
      */
     private fun createViewPagerViews(backdrops: List<ImageProfileModel>): List<View> =
             backdrops.map {
+                // FIXME: 3/28/17 當還在讀取中，突然轉去其他頁面，context會變成null.
                 View.inflate(this.view.context(), R.layout.item_movie_backdrop, null) as DiagonalView
             }.also {
                 it.forEachIndexed { i, diagonalView ->
