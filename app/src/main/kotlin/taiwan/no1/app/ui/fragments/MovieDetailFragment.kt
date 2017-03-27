@@ -114,9 +114,6 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
 
     override fun onPause() {
         super.onPause()
-        // FIXED: 3/27/17 Becz rvTrailer is in the stubTrailer, if stubTrailer don't show, then rvTrailer won't created.
-        if (View.VISIBLE == stubTrailer.visibility)
-            this.rvTrailer.adapter?.let { (it as CommonRecyclerAdapter).releaseYouTubeLoader() }
         this.presenter.pause()
 //        this.stubIntro.inflate()
 //        this.stubCasts.inflate()

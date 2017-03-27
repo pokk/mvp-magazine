@@ -3,12 +3,10 @@ package taiwan.no1.app.ui.adapter
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import com.google.android.youtube.player.YouTubeThumbnailLoader
 import taiwan.no1.app.App
 import taiwan.no1.app.internal.di.components.AdapterComponent
 import taiwan.no1.app.mvp.models.IVisitable
 import taiwan.no1.app.ui.adapter.viewholder.BaseViewHolder
-import taiwan.no1.app.ui.adapter.viewholder.MovieTrailerViewHolder
 import taiwan.no1.app.ui.adapter.viewholder.viewtype.IViewTypeFactory
 import taiwan.no1.app.ui.adapter.viewholder.viewtype.ViewTypeFactory
 import javax.inject.Inject
@@ -24,8 +22,6 @@ class CommonRecyclerAdapter(var models: List<IVisitable>, val fragmentTag: Int =
         RecyclerView.Adapter<BaseViewHolder<IVisitable>>() {
     @Inject
     lateinit var typeFactory: IViewTypeFactory
-    // Keeping the YouTube loaders from TrailerViewHolder.
-    private val loaderContainer: MutableList<YouTubeThumbnailLoader> = mutableListOf()
 
     init {
         AdapterComponent.Initializer.init(App.appComponent()).inject(CommonRecyclerAdapter@ this)
@@ -33,10 +29,6 @@ class CommonRecyclerAdapter(var models: List<IVisitable>, val fragmentTag: Int =
 
     override fun onBindViewHolder(holder: BaseViewHolder<IVisitable>, position: Int) {
         holder.initView(this.models[position], position, this)
-        // YouTube thumbnail is used only by TrailerViewHolder.
-        (holder as? MovieTrailerViewHolder)?.setYouTubeLoaderContainerListener {
-            this@CommonRecyclerAdapter.loaderContainer.add(it)
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<IVisitable> {
@@ -58,15 +50,5 @@ class CommonRecyclerAdapter(var models: List<IVisitable>, val fragmentTag: Int =
         // TODO: 1/10/17 Maybe memory leak?!
         this.models = newModels
         this.notifyDataSetChanged()
-    }
-
-    /**
-     * For releasing all [YouTubeThumbnailLoader], they are created by .
-     */
-    fun releaseYouTubeLoader() {
-        this.loaderContainer.let {
-            it.forEach { it.release() }
-            it.removeAll(it)
-        }
     }
 }

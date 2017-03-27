@@ -74,6 +74,7 @@ abstract class ViewPagerMainCtrlFragment: BaseFragment(), IMainFragment {
                     flagClearPrevFragment = false
                 // Finished the view changed completely, the previous stack fragments will be cleared.
                 else if (ViewPager.SCROLL_STATE_IDLE == it && flagClearPrevFragment) {
+                    // FIXME: 3/27/17 rx.exceptions.OnErrorNotImplementedException: Fragment has not been attached yet.
                     FragmentUtils.popAllFragment(fragmentList[prevItemPos].childFragmentManager)
                     prevItemPos = currItemPos
                 }

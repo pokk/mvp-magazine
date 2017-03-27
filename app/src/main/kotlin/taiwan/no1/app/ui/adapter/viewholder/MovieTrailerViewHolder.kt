@@ -36,11 +36,7 @@ class MovieTrailerViewHolder(val view: View): BaseViewHolder<FilmVideoModel>(vie
     private val yttnvTrailer by bindView<YouTubeThumbnailView>(R.id.yttnv_trailer)
     //endregion
 
-    private lateinit var containerListener: youTubeLoaderContainerListener
-
-    interface youTubeLoaderContainerListener {
-        fun keepLoader(loader: YouTubeThumbnailLoader)
-    }
+    private var thumbnailLoader: YouTubeThumbnailLoader? = null
 
     //region BaseViewHolder
     override fun initView(model: FilmVideoModel, position: Int, adapter: CommonRecyclerAdapter) {
@@ -52,10 +48,9 @@ class MovieTrailerViewHolder(val view: View): BaseViewHolder<FilmVideoModel>(vie
                 object: YouTubeThumbnailInitListener(model.key.orEmpty()) {
                     override fun onInitializationSuccess(thumbnailView: YouTubeThumbnailView,
                                                          loader: YouTubeThumbnailLoader) {
-                        // FIXME: 2/27/17 There are still some memory leak happened.
                         if (this.youTubeKey.isNotEmpty()) {
                             loader.also {
-                                this@MovieTrailerViewHolder.containerListener.keepLoader(it)
+                                this@MovieTrailerViewHolder.thumbnailLoader = it
                                 it.setVideo(youTubeKey)
                                 it.setOnThumbnailLoadedListener(this@MovieTrailerViewHolder.thumbnailLoadedListener)
                             }
@@ -73,14 +68,6 @@ class MovieTrailerViewHolder(val view: View): BaseViewHolder<FilmVideoModel>(vie
     }
     //endregion
 
-    fun setYouTubeLoaderContainerListener(listener: (loader: YouTubeThumbnailLoader) -> Unit) {
-        this.containerListener = object: youTubeLoaderContainerListener {
-            override fun keepLoader(loader: YouTubeThumbnailLoader) {
-                listener(loader)
-            }
-        }
-    }
-
     private val thumbnailLoadedListener: OnThumbnailLoadedListener = object: OnThumbnailLoadedListener {
         override fun onThumbnailLoaded(thumbnailView: YouTubeThumbnailView, videoId: String) {
             item.apply {
@@ -89,6 +76,11 @@ class MovieTrailerViewHolder(val view: View): BaseViewHolder<FilmVideoModel>(vie
                     // FIXME: 2/22/17 After goto trailer activity, the original activity's fragments will be destroyed.
                     RxBus.get().post(RxbusTag.ACTIVITY_NAVIGATOR, VideoActivity.newInstance(view.context, videoId))
                 }
+            }
+            // FIXED: 3/27/17 After loader finished a task, release it for preventing the loader will be memory leak.
+            this@MovieTrailerViewHolder.thumbnailLoader = this@MovieTrailerViewHolder.thumbnailLoader?.let {
+                it.release()
+                null
             }
         }
 
