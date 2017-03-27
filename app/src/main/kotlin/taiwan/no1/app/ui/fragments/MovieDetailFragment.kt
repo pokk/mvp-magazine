@@ -114,8 +114,9 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
 
     override fun onPause() {
         super.onPause()
-        // FIXME: 3/26/17 If rvTrailer was not created, when changing to others page, app will crash.
-        this.rvTrailer.adapter?.let { (it as CommonRecyclerAdapter).releaseYouTubeLoader() }
+        // FIXED: 3/27/17 Becz rvTrailer is in the stubTrailer, if stubTrailer don't show, then rvTrailer won't created.
+        if (View.VISIBLE == stubTrailer.visibility)
+            this.rvTrailer.adapter?.let { (it as CommonRecyclerAdapter).releaseYouTubeLoader() }
         this.presenter.pause()
 //        this.stubIntro.inflate()
 //        this.stubCasts.inflate()
