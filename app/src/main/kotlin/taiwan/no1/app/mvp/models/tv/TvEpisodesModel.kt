@@ -4,7 +4,9 @@ import android.os.Parcel
 import android.os.Parcelable
 import taiwan.no1.app.mvp.models.CommonModel
 import taiwan.no1.app.mvp.models.FilmCastsModel
+import taiwan.no1.app.mvp.models.IVisitable
 import taiwan.no1.app.mvp.models.ImageProfileModel
+import taiwan.no1.app.ui.adapter.viewholder.viewtype.IViewTypeFactory
 
 /**
  *
@@ -25,7 +27,9 @@ data class TvEpisodesModel(val air_date: String? = null,
                            val videos: CommonModel.VideosBean? = null,
                            val credits: FilmCastsModel? = null,
                            val crew: List<FilmCastsModel.CrewBean>? = null,
-                           val guest_starts: List<FilmCastsModel.CastBean>? = null): Parcelable {
+                           val guest_starts: List<FilmCastsModel.CastBean>? = null): Parcelable, IVisitable {
+    override fun type(typeFactory: IViewTypeFactory): Int = typeFactory.type(this)
+
     //region Parcelable
     data class ImageBean(val stills: List<ImageProfileModel>? = null): Parcelable {
         companion object {
