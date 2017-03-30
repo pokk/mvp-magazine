@@ -73,7 +73,8 @@ class MovieTrailerViewHolder(val view: View): BaseViewHolder<FilmVideoModel>(vie
             item.apply {
                 this.visibility = View.VISIBLE
                 this.setOnClickListener {
-                    // FIXME: 2/22/17 After goto trailer activity, the original activity's fragments will be destroyed.
+                    // TODO: 2/22/17 After goto trailer activity, the original activity's fragments will be destroyed.
+                    // Here became good, the reason may be that activities have fixed?
                     RxBus.get().post(RxbusTag.ACTIVITY_NAVIGATOR, VideoActivity.newInstance(view.context, videoId))
                 }
             }
