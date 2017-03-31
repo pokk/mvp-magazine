@@ -11,6 +11,7 @@
     <android.support.v4.widget.NestedScrollView
         style="@style/NestScrollInfo"
         android:layout_alignParentBottom="true"
+        android:layout_marginTop="0dp"
         android:background="#302E55"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -18,6 +19,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <ViewStub
+                android:id="@+id/stub_introduction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout="@layout/layout_tv_season_intro"/>
+
+            <ViewStub
+                android:id="@+id/stub_episodes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout="@layout/vertical_content_episode"/>
 
             <ViewStub
                 android:id="@+id/stub_casts"
@@ -36,12 +49,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout="@layout/horizontal_content_trailer"/>
-
-            <ViewStub
-                android:id="@+id/stub_episodes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout="@layout/vertical_content_episode"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
@@ -63,6 +70,7 @@
                 android:layout_height="wrap_content">
 
                 <View
+                    android:id="@+id/v_top_bar"
                     android:layout_width="25dp"
                     android:layout_height="2dp"
                     android:layout_above="@+id/tv_title"

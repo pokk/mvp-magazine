@@ -35,9 +35,9 @@ interface IViewTypeFactory {
 
     fun type(tvSeasonsModel: TvSeasonsModel): Int
 
-    fun type(castBriefModel: CastBriefModel): Int
-
     fun type(tvEpisodesModel: TvEpisodesModel): Int
+
+    fun type(castBriefModel: CastBriefModel): Int
 
     /**
      * Creating a view holder.

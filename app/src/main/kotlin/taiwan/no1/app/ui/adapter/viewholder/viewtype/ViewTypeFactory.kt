@@ -31,7 +31,7 @@ class ViewTypeFactory: IViewTypeFactory {
         RELATED(R.layout.item_movie_casts_crews),
         VIDEO(R.layout.item_movie_trailers),
         TV_SEASON(R.layout.item_tv_seasons),
-        EPISODE(R.layout.item_brief_episode),
+        TV_EPISODE(R.layout.item_brief_episode),
     }
 
     override fun type(movieBriefModel: MovieBriefModel, isMain: Boolean): Int =
@@ -52,9 +52,9 @@ class ViewTypeFactory: IViewTypeFactory {
 
     override fun type(tvSeasonsModel: TvSeasonsModel): Int = TypeResource.TV_SEASON.ordinal
 
-    override fun type(castBriefModel: CastBriefModel): Int = TypeResource.CAST_LIST.ordinal
+    override fun type(tvEpisodesModel: TvEpisodesModel): Int = TypeResource.TV_EPISODE.ordinal
 
-    override fun type(tvEpisodesModel: TvEpisodesModel): Int = TypeResource.EPISODE.ordinal
+    override fun type(castBriefModel: CastBriefModel): Int = TypeResource.CAST_LIST.ordinal
 
     override fun createViewHolder(type: Int, itemView: View): BaseViewHolder<*> = when (type) {
         TypeResource.MOVIE_LIST.ordinal -> MovieListViewHolder(itemView)
@@ -63,10 +63,10 @@ class ViewTypeFactory: IViewTypeFactory {
         TypeResource.RELATED.ordinal -> MovieRelatedViewHolder(itemView)
         TypeResource.VIDEO.ordinal -> MovieTrailerViewHolder(itemView)
         TypeResource.TV_LIST.ordinal -> TvListViewHolder(itemView)
+        TypeResource.TV_SEASON.ordinal -> TvSeasonViewHolder(itemView)
+        TypeResource.TV_EPISODE.ordinal -> TvEpisodeViewHolder(itemView)
         TypeResource.CAST_RELATED.ordinal -> MovieCastRelatedViewHolder(itemView)
         TypeResource.CAST_LIST.ordinal -> CastListViewHolder(itemView)
-        TypeResource.TV_SEASON.ordinal -> TvSeasonViewHolder(itemView)
-        TypeResource.EPISODE.ordinal -> TvSeasonViewHolder(itemView)
         else -> throw error("Illegal type")
     }
 }

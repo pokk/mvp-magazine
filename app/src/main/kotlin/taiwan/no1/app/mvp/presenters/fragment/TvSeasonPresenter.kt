@@ -31,10 +31,11 @@ class TvSeasonPresenter constructor(val tvSeasonDetail: TvSeasonDetail):
         }.onNext {
             this.tvSeasonModel = it
 
+            this.view.showTvOverview(it.overview.orEmpty())
             this.view.showTvCasts(it.credits?.cast?.filter { null != it.profile_path }.orEmpty())
             this.view.showTvCrews(it.credits?.crew?.filter { null != it.profile_path }.orEmpty())
+            this.view.showTvEpisodes(it.episodes.orEmpty())
             this.view.showTvTrailers(it.videos?.results.orEmpty())
-            AppLog.d(it)
         })
     }
 

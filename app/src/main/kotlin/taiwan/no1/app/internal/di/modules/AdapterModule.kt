@@ -55,4 +55,8 @@ class AdapterModule {
     @PerFragment
     @Provides
     fun provideTvSeasonAdapterPresenter(): TvSeasonAdapterContract.Presenter = TvSeasonAdapterPresenter()
+
+    @PerFragment
+    @Provides
+    fun provideTvEpisodeAdapterPresenter(): TvEpisodeAdapterContract.Presenter = TvEpisodeAdapterPresenter()
 }

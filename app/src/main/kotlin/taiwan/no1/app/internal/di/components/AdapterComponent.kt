@@ -43,4 +43,6 @@ interface AdapterComponent {
     fun inject(tvListViewHolder: TvListViewHolder)
 
     fun inject(tvSeasonViewHolder: TvSeasonViewHolder)
+
+    fun inject(tvEpisodeVideHolder: TvEpisodeViewHolder)
 }

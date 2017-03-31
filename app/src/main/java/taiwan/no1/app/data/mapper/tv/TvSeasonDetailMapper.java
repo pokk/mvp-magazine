@@ -21,7 +21,6 @@ import taiwan.no1.app.mvp.models.FilmImagesModel;
 import taiwan.no1.app.mvp.models.FilmVideoModel;
 import taiwan.no1.app.mvp.models.tv.TvEpisodesModel;
 import taiwan.no1.app.mvp.models.tv.TvSeasonsModel;
-import taiwan.no1.app.utilies.AppLog;
 
 /**
  * Mapper class used to transform between {@link TvSeasonsModel} (in the kotlin layer) and {@link TvSeasonDetailEntity}
@@ -62,7 +61,6 @@ public class TvSeasonDetailMapper implements IBeanMapper<TvSeasonsModel, TvSeaso
         List<FilmVideoModel> filmVideoModels = null != entity.getVideos().getResults() ?
                 Queryable.from(entity.getVideos().getResults()).map(this.filmVideosMapper::transformTo).toList() :
                 Collections.emptyList();
-        AppLog.w(entity.getEpisodes());
         List<TvEpisodesModel> tvEpisodesModels = null != entity.getEpisodes() ?
                 Queryable.from(entity.getEpisodes()).map(this.tvEpisodeDetailMapper::transformTo).toList() :
                 Collections.emptyList();
@@ -74,7 +72,11 @@ public class TvSeasonDetailMapper implements IBeanMapper<TvSeasonsModel, TvSeaso
                                   entity.getEpisode_count(),
                                   entity.getId(),
                                   entity.getPoster_path(),
-                                  entity.getSeason_number(), 0,  // For keeping the tv id to season model.
+                                  entity.getSeason_number(),
+                                  0,
+                                  // For keeping the tv id to season model.
+                                  "",
+                                  // For keeping the tv name to season model.
                                   filmImagesModel,
                                   new CommonModel.VideosBean(filmVideoModels),
                                   filmCastsModel,

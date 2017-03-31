@@ -55,13 +55,17 @@ public class TvEpisodeDetailMapper implements IBeanMapper<TvEpisodesModel, TvEpi
     @NonNull
     @Override
     public TvEpisodesModel transformTo(@NonNull TvEpisodeDetailEntity entity) {
-        List<ImageProfileModel> imageProfileModels = null != entity.getImages().getStills() ?
+        List<ImageProfileModel> imageProfileModels = (null != entity.getImages() && null != entity.getImages()
+                                                                                                  .getStills()) ?
                 Queryable.from(entity.getImages().getStills()).map(this.imageProfileMapper::transformTo).toList() :
                 Collections.emptyList();
-        List<FilmVideoModel> tvMovieVideosModel = null != entity.getVideos().getResults() ?
+        List<FilmVideoModel> tvMovieVideosModel = (null != entity.getVideos() && null != entity.getVideos()
+                                                                                               .getResults()) ?
                 Queryable.from(entity.getVideos().getResults()).map(this.filmVideosMapper::transformTo).toList() :
                 Collections.emptyList();
-        FilmCastsModel filmCastsModel = this.filmCastsMapper.transformTo(entity.getCredits());
+        FilmCastsModel filmCastsModel = null != entity.getCredits() ?
+                this.filmCastsMapper.transformTo(entity.getCredits()) :
+                new FilmCastsModel(Collections.emptyList(), Collections.emptyList());
         // Using FileCastsEntity mapping to get the casts and the crews class.
         FilmCastsEntity tempEntity = new FilmCastsEntity();
         tempEntity.setCast(null != entity.getGuest_stars() ? entity.getGuest_stars() : Collections.emptyList());

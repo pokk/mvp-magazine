@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.view.ViewStub
 import android.widget.ImageView
 import android.widget.TextView
@@ -24,7 +25,7 @@ import taiwan.no1.app.mvp.models.tv.TvSeasonsModel
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.adapter.itemdecorator.MovieHorizontalItemDecorator
-import taiwan.no1.app.utilies.AppLog
+import taiwan.no1.app.ui.adapter.itemdecorator.MovieVerticalItemDecorator
 import taiwan.no1.app.utilies.ImageLoader.IImageLoader
 import javax.inject.Inject
 
@@ -63,13 +64,15 @@ class TvSeasonFragment: BaseFragment(), TvSeasonContract.View {
     lateinit var imageLoader: IImageLoader
 
     private val ivDropPoster by bindView<ImageView>(R.id.iv_backdrop)
+    private val vTopBar by bindView<View>(R.id.v_top_bar)
     private val tvDramaTitle by bindView<TextView>(R.id.tv_title)
     private val tvSeason by bindView<TextView>(R.id.tv_season)
-
+    private val stubIntro by bindView<ViewStub>(R.id.stub_introduction)
     private val stubCasts by bindView<ViewStub>(R.id.stub_casts)
     private val stubCrews by bindView<ViewStub>(R.id.stub_crews)
     private val stubTrailer by bindView<ViewStub>(R.id.stub_trailer)
     private val stubEpisodes by bindView<ViewStub>(R.id.stub_episodes)
+    private val tvOverview by bindView<TextView>(R.id.tv_overview)
     private val rvCasts by bindView<RecyclerView>(R.id.rv_casts)
     private val rvCrews by bindView<RecyclerView>(R.id.rv_crews)
     private val rvTrailer by bindView<RecyclerView>(R.id.rv_trailer)
@@ -130,8 +133,6 @@ class TvSeasonFragment: BaseFragment(), TvSeasonContract.View {
      * @param savedInstanceState the previous fragment data status after the system calls [onPause].
      */
     override fun init(savedInstanceState: Bundle?) {
-        AppLog.w(this.argTvSeasonInfo)
-
         this.imageLoader.display(TMDBConfig.BASE_IMAGE_URL + this.argTvSeasonInfo.poster_path,
                 listener = object: BitmapImageViewTarget(ivDropPoster) {
                     override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
@@ -139,11 +140,18 @@ class TvSeasonFragment: BaseFragment(), TvSeasonContract.View {
                     }
                 },
                 isFitCenter = false)
-        this.tvSeason.text = "(S.${this.argTvSeasonInfo.season_number} / EP.${this.argTvSeasonInfo.episode_count})"
+        this.vTopBar.bringToFront()
+        this.tvDramaTitle.text = this.argTvSeasonInfo.tv_name
+        this.tvSeason.text = "( S.${this.argTvSeasonInfo.season_number} / EP.${this.argTvSeasonInfo.episode_count} )"
 
         this.presenter.requestSeasonDetail(this.argTvSeasonInfo.tv_id, this.argTvSeasonInfo.season_number)
     }
     //endregion
+
+    override fun showTvOverview(overview: String) {
+        // Inflate the introduction section.
+        this.showViewStub(this.stubIntro, { this.tvOverview.text = overview })
+    }
 
     override fun showTvCasts(casts: List<FilmCastsModel.CastBean>) {
         // Inflate the cast section.
@@ -171,9 +179,16 @@ class TvSeasonFragment: BaseFragment(), TvSeasonContract.View {
 
     private fun <T: IVisitable> showCardItems(recyclerView: RecyclerView, list: List<T>) {
         recyclerView.apply {
-            this.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+            // Only episode list is vertical layout.
+            if (list.isNotEmpty() && list[0] is TvEpisodesModel) {
+                this.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
+                this.addItemDecoration(MovieVerticalItemDecorator(30, 60))
+            }
+            else {
+                this.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+                this.addItemDecoration(MovieHorizontalItemDecorator(30))
+            }
             this.adapter = CommonRecyclerAdapter(list, argFromFragment)
-            this.addItemDecoration(MovieHorizontalItemDecorator(30))
         }
     }
 }

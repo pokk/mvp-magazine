@@ -21,6 +21,7 @@ interface TvSeasonContract {
     }
 
     interface View: IView, IFragmentView {
+        fun showTvOverview(overview: String)
         fun showTvCasts(casts: List<FilmCastsModel.CastBean>)
         fun showTvCrews(crews: List<FilmCastsModel.CrewBean>)
         fun showTvEpisodes(episodes: List<TvEpisodesModel>)
