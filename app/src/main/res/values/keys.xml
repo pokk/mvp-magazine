@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="moviedb_api_key">YOUR TMDB API KEY</string>
+    <string name="youtube_api_key">YOUR YOUTUBE API KEY</string>
+</resources>
