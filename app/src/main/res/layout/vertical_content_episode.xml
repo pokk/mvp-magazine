@@ -7,6 +7,7 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/textView"
         style="@style/ItemTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,7 +17,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_episode"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="405dp"
         tools:listitem="@layout/item_brief_episode">
     </android.support.v7.widget.RecyclerView>
 </LinearLayout>

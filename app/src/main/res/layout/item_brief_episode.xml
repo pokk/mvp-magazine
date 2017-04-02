@@ -16,7 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="3dp"
         android:textColor="#d0d0d0"
         android:textSize="15sp"
         tools:text="Episode 1"/>

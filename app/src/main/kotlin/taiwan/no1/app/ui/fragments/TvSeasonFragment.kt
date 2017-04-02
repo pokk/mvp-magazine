@@ -1,9 +1,11 @@
 package taiwan.no1.app.ui.fragments
 
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.LinearSnapHelper
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewStub
@@ -69,15 +71,17 @@ class TvSeasonFragment: BaseFragment(), TvSeasonContract.View {
     private val tvSeason by bindView<TextView>(R.id.tv_season)
     private val stubIntro by bindView<ViewStub>(R.id.stub_introduction)
     private val stubCasts by bindView<ViewStub>(R.id.stub_casts)
+    private val tvCastsTitle by bindView<TextView>(R.id.tv_cast_title)
     private val stubCrews by bindView<ViewStub>(R.id.stub_crews)
+    private val tvCrewsTitle by bindView<TextView>(R.id.tv_crew_title)
     private val stubTrailer by bindView<ViewStub>(R.id.stub_trailer)
+    private val tvTrailersTitle by bindView<TextView>(R.id.tv_trailer_title)
     private val stubEpisodes by bindView<ViewStub>(R.id.stub_episodes)
     private val tvOverview by bindView<TextView>(R.id.tv_overview)
     private val rvCasts by bindView<RecyclerView>(R.id.rv_casts)
     private val rvCrews by bindView<RecyclerView>(R.id.rv_crews)
     private val rvTrailer by bindView<RecyclerView>(R.id.rv_trailer)
     private val rvEpisodes by bindView<RecyclerView>(R.id.rv_episode)
-
 
     // Get the arguments from the bundle here.
     private val argTvSeasonInfo: TvSeasonsModel by lazy {
@@ -155,14 +159,18 @@ class TvSeasonFragment: BaseFragment(), TvSeasonContract.View {
 
     override fun showTvCasts(casts: List<FilmCastsModel.CastBean>) {
         // Inflate the cast section.
-        if (casts.isNotEmpty())
+        if (casts.isNotEmpty()) {
             this.showViewStub(this.stubCasts, { this.showCardItems(this.rvCasts, casts) })
+            this.tvCastsTitle.setTextColor(Color.rgb(248, 247, 251))
+        }
     }
 
     override fun showTvCrews(crews: List<FilmCastsModel.CrewBean>) {
         // Inflate the crew section.
-        if (crews.isNotEmpty())
+        if (crews.isNotEmpty()) {
             this.showViewStub(this.stubCrews, { this.showCardItems(this.rvCrews, crews) })
+            this.tvCrewsTitle.setTextColor(Color.rgb(248, 247, 251))
+        }
     }
 
     override fun showTvEpisodes(episodes: List<TvEpisodesModel>) {
@@ -173,8 +181,10 @@ class TvSeasonFragment: BaseFragment(), TvSeasonContract.View {
 
     override fun showTvTrailers(trailers: List<FilmVideoModel>) {
         // Inflate the trailer movieList section.
-        if (trailers.isNotEmpty())
+        if (trailers.isNotEmpty()) {
             this.showViewStub(this.stubTrailer, { this.showCardItems(this.rvTrailer, trailers) })
+            this.tvTrailersTitle.setTextColor(Color.rgb(248, 247, 251))
+        }
     }
 
     private fun <T: IVisitable> showCardItems(recyclerView: RecyclerView, list: List<T>) {
@@ -182,7 +192,8 @@ class TvSeasonFragment: BaseFragment(), TvSeasonContract.View {
             // Only episode list is vertical layout.
             if (list.isNotEmpty() && list[0] is TvEpisodesModel) {
                 this.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
-                this.addItemDecoration(MovieVerticalItemDecorator(30, 60))
+                this.addItemDecoration(MovieVerticalItemDecorator(20, 60))
+                LinearSnapHelper().also { it.attachToRecyclerView(this) }
             }
             else {
                 this.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
