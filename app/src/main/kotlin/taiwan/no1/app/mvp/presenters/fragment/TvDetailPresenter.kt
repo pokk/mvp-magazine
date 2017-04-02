@@ -83,15 +83,18 @@ class TvDetailPresenter constructor(val tvDetail: TvDetail):
     }
 
     override fun scrollBackdropTo(index: Int) {
-        // TODO: 2/25/17 Seems stupid conditions judging.
         val maxSize: Int = this.tvDetailModel?.images?.backdrops?.size ?: 0
         if (0 >= index) {
             this.view.setLeftSlideButton(View.GONE)
             this.view.setRightSlideButton(View.VISIBLE)
         }
         else if (maxSize - 1 <= index) {
-            this.view.setRightSlideButton(View.GONE)
             this.view.setLeftSlideButton(View.VISIBLE)
+            this.view.setRightSlideButton(View.GONE)
+        }
+        else if (0 == maxSize) {
+            this.view.setLeftSlideButton(View.GONE)
+            this.view.setRightSlideButton(View.GONE)
         }
         else {
             this.view.setLeftSlideButton(View.VISIBLE)

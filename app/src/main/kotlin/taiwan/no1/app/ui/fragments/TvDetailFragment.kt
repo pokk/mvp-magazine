@@ -62,7 +62,10 @@ class TvDetailFragment: BaseFragment(), TvDetailContract.View {
     lateinit var presenter: TvDetailContract.Presenter
     @Inject
     lateinit var imageLoader: IImageLoader
+    // Prevent the selection icon will be strange after returning from the gallery fragment.
+    private var isResume: Boolean = true
 
+    //region View variables
     private val vpDropPoster by bindView<ViewPager>(R.id.vp_drop_poster)
     private val ibLeft by bindView<ImageButton>(R.id.ib_left_slide)
     private val ibRight by bindView<ImageButton>(R.id.ib_right_slide)
@@ -88,6 +91,7 @@ class TvDetailFragment: BaseFragment(), TvDetailContract.View {
     private val rvCrews by bindView<RecyclerView>(R.id.rv_crews)
     private val rvRelated by bindView<RecyclerView>(R.id.rv_related)
     private val rvTrailer by bindView<RecyclerView>(R.id.rv_trailer)
+    //endregion
 
     // Get the arguments from the bundle here.
     private val id: String by lazy { this.arguments.getString(ARG_PARAM_TV_ID) }
@@ -142,6 +146,8 @@ class TvDetailFragment: BaseFragment(), TvDetailContract.View {
      */
     override fun init(savedInstanceState: Bundle?) {
         this.presenter.requestListTvs(this.id.toInt())
+        this.isResume = true
+        
         View.OnClickListener { view ->
             this.vpDropPoster.currentItem.let {
                 when (view) {
@@ -149,18 +155,21 @@ class TvDetailFragment: BaseFragment(), TvDetailContract.View {
                     this.ibRight -> it + 1
                     else -> it
                 }
+                // Set the view pager to the assigned page.
             }.let { nextPosition -> this.vpDropPoster.setCurrentItem(nextPosition, true) }
         }.let {
             this.ibLeft.setOnClickListener(it)
             this.ibRight.setOnClickListener(it)
         }
-        // FIXME: 2/26/17 After back from gallery the icon will be strange.
+        // FIXED: 4/2/17 The selection is strange is fixed by using a flag(isResume).
         this.vpDropPoster.pageSelections().compose(this.bindToLifecycle<Int>()).subscribe {
-            this.presenter.scrollBackdropTo(it)
+            this.presenter.scrollBackdropTo(if (isResume) 0 else it)
         }
+        this.isResume = false 
     }
     //endregion
 
+    //region View implementations
     override fun showTvBackdrops(viewList: List<View>) {
         this.vpDropPoster.adapter = BackdropPagerAdapter(viewList)
     }
@@ -232,6 +241,7 @@ class TvDetailFragment: BaseFragment(), TvDetailContract.View {
         if (trailers.isNotEmpty())
             this.showViewStub(this.stubTrailer, { this.showCardItems(this.rvTrailer, trailers) })
     }
+    //endregion
 
     private fun <T: IVisitable> showCardItems(recyclerView: RecyclerView, list: List<T>) {
         recyclerView.apply {

@@ -33,7 +33,8 @@ object Constant {
         Thriller(53, "Thriller"),
         War(10752, "War"),
         // ------ As below all for Tv. ------
-        Western(10759, "Western"),
+        ActionAndAdventure(10759, "Action & Adventure"),
+        Western(37, "Western"),
         Kids(10762, "Kids"),
         News(10763, "News"),
         Reality(10764, "Reality"),

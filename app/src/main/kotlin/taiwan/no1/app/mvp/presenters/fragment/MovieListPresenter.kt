@@ -24,6 +24,7 @@ class MovieListPresenter constructor(val moviesCase: MovieLists):
     }
 
     override fun requestListMovies(category: CloudDataStore.Movies, page: Int) {
+        this.view.showLoading()
         val request = MovieLists.Requests(category, page)
         request.fragmentLifecycle = this.view.getLifecycle()
         // If declaring [subscriber] as a variable, it won't be used again.
@@ -34,6 +35,7 @@ class MovieListPresenter constructor(val moviesCase: MovieLists):
             this.movieBriefModelList += it
             view.showMovieBriefList(this.movieBriefModelList)
         })
+        this.view.hideLoading()
     }
 
     override fun restoreMovieList(movieList: List<MovieBriefModel>) {

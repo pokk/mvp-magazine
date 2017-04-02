@@ -15,6 +15,7 @@ import taiwan.no1.app.internal.di.HasComponent
 import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.views.IFragmentView
 import taiwan.no1.app.mvp.views.IView
+import taiwan.no1.app.utilies.AppLog
 
 /**
  * Base presenter for collecting common methods here.
@@ -55,9 +56,11 @@ abstract class BaseFragment: RxFragment(), IView, IFragmentView {
 
     //region Presenter implements
     override fun showLoading() {
+        AppLog.d()
     }
 
     override fun hideLoading() {
+        AppLog.d()
     }
 
     override fun showRetry() {

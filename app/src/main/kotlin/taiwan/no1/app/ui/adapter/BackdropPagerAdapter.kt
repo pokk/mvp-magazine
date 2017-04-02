@@ -15,6 +15,7 @@ class BackdropPagerAdapter(val lists: List<View>): PagerAdapter() {
 
     override fun getCount(): Int = this.lists.size
 
+    // FIXME: 4/2/17 There are only "3" pics will crash.
     override fun instantiateItem(container: ViewGroup, position: Int): Any =
             this.lists[position].also { container.addView(it) }
 

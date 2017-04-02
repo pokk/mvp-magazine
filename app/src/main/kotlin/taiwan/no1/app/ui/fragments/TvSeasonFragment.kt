@@ -65,6 +65,7 @@ class TvSeasonFragment: BaseFragment(), TvSeasonContract.View {
     @Inject
     lateinit var imageLoader: IImageLoader
 
+    //region View variables
     private val ivDropPoster by bindView<ImageView>(R.id.iv_backdrop)
     private val vTopBar by bindView<View>(R.id.v_top_bar)
     private val tvDramaTitle by bindView<TextView>(R.id.tv_title)
@@ -82,6 +83,7 @@ class TvSeasonFragment: BaseFragment(), TvSeasonContract.View {
     private val rvCrews by bindView<RecyclerView>(R.id.rv_crews)
     private val rvTrailer by bindView<RecyclerView>(R.id.rv_trailer)
     private val rvEpisodes by bindView<RecyclerView>(R.id.rv_episode)
+    //endregion
 
     // Get the arguments from the bundle here.
     private val argTvSeasonInfo: TvSeasonsModel by lazy {
@@ -152,6 +154,7 @@ class TvSeasonFragment: BaseFragment(), TvSeasonContract.View {
     }
     //endregion
 
+    //region View implementations
     override fun showTvOverview(overview: String) {
         // Inflate the introduction section.
         this.showViewStub(this.stubIntro, { this.tvOverview.text = overview })
@@ -186,6 +189,7 @@ class TvSeasonFragment: BaseFragment(), TvSeasonContract.View {
             this.tvTrailersTitle.setTextColor(Color.rgb(248, 247, 251))
         }
     }
+    //endregion
 
     private fun <T: IVisitable> showCardItems(recyclerView: RecyclerView, list: List<T>) {
         recyclerView.apply {

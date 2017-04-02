@@ -14,6 +14,10 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/bb_menu"/>
 
+    <include
+        layout="@layout/layout_loading"
+        android:visibility="gone"/>
+
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bb_menu"
         android:layout_width="match_parent"
