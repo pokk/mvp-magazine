@@ -27,6 +27,7 @@ class MovieListPresenter constructor(val moviesCase: MovieLists):
         this.view.showLoading()
         val request = MovieLists.Requests(category, page)
         request.fragmentLifecycle = this.view.getLifecycle()
+        // TODO: 4/4/17 Create a customize subscriber in [BasePresenter].
         // If declaring [subscriber] as a variable, it won't be used again.
         this.moviesCase.execute(request, subscriber<List<MovieBriefModel>>().onError {
             AppLog.e(it.message)
@@ -34,8 +35,7 @@ class MovieListPresenter constructor(val moviesCase: MovieLists):
         }.onNext {
             this.movieBriefModelList += it
             view.showMovieBriefList(this.movieBriefModelList)
-        })
-        this.view.hideLoading()
+        }.onCompleted { this.view.hideLoading() })
     }
 
     override fun restoreMovieList(movieList: List<MovieBriefModel>) {

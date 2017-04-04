@@ -2,20 +2,24 @@ package taiwan.no1.app.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.support.annotation.LayoutRes
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.ViewStub
+import butterknife.bindView
 import com.trello.rxlifecycle.android.FragmentEvent
 import com.trello.rxlifecycle.components.support.RxFragment
 import dagger.internal.Preconditions
 import rx.Observable
+import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.HasComponent
 import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.views.IFragmentView
 import taiwan.no1.app.mvp.views.IView
-import taiwan.no1.app.utilies.AppLog
 
 /**
  * Base presenter for collecting common methods here.
@@ -25,6 +29,10 @@ import taiwan.no1.app.utilies.AppLog
  */
 
 abstract class BaseFragment: RxFragment(), IView, IFragmentView {
+    private val vLoading by bindView<View>(R.id.ll_loading)
+    private val vRetry by bindView<View>(R.id.ll_error)
+    private val vError by bindView<View>(R.id.ll_error)
+    
     protected var rootView: View? = null
 
     //region Fragment lifecycle.
@@ -56,11 +64,12 @@ abstract class BaseFragment: RxFragment(), IView, IFragmentView {
 
     //region Presenter implements
     override fun showLoading() {
-        AppLog.d()
+        this.vLoading.visibility = VISIBLE
     }
 
     override fun hideLoading() {
-        AppLog.d()
+        // Delay 0.5s then hiding the loading view.
+        Handler().postDelayed({ this@BaseFragment.vLoading.visibility = GONE }, 500)
     }
 
     override fun showRetry() {
