@@ -30,6 +30,7 @@ class MovieDetailPresenter constructor(val movieDetailCase: MovieDetail):
     private val movieDetailSub = subscriber<MovieDetailModel>().onError {
         AppLog.e(it.message)
         AppLog.e(it)
+        this.view.showRetry()
     }.onNext {
         // TODO: 2/19/17 Here might be memory leak!?
         this.movieDetailModel = it
@@ -54,7 +55,7 @@ class MovieDetailPresenter constructor(val movieDetailCase: MovieDetail):
             }.orEmpty())
             this.view.showMovieTrailers(it.videos?.results.orEmpty())
         }
-    }
+    }.onCompleted { this.view.hideLoading() }
     //endregion
 
     //region Presenter implementation
@@ -63,6 +64,8 @@ class MovieDetailPresenter constructor(val movieDetailCase: MovieDetail):
     }
 
     override fun requestMovieDetail(movieId: Int) {
+        this.view.showLoading()
+        
         val request = MovieDetail.Requests(movieId)
         request.fragmentLifecycle = this.view.getLifecycle()
         this.movieDetailCase.execute(request, this.movieDetailSub)

@@ -93,13 +93,15 @@ dependencies {
     compile "com.github.mmin18:realtimeblurview:1.1.0"
     // Circle image
     compile "de.hdodenhof:circleimageview:2.1.0"
+    // Material progress
+    compile 'com.github.rey5137:material:1.2.4'
     compile "me.gujun.android.taggroup:library:1.4@aar"
 
     compile 'com.idescout.sql:sqlscout-server:2.0'
 
     // Google youtube api
     compile "com.github.tommus:youtube-android-player-api:1.2.2"
-    compile "com.android.support:support-v4:25.2.0"
+    compile "com.android.support:support-v4:25.3.0"
     compile "com.android.support:palette-v7:25.3.0"
     compile "com.android.support:appcompat-v7:25.3.0"
     compile "com.android.support:recyclerview-v7:25.3.0"

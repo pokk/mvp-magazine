@@ -3,7 +3,6 @@ package taiwan.no1.app.ui.fragments
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.LinearLayoutManager
-import android.view.ViewStub
 import android.widget.LinearLayout
 import butterknife.bindView
 import taiwan.no1.app.R
@@ -50,7 +49,6 @@ class TvListFragment: BaseFragment(), TvListContract.View, LazyFragmentPagerAdap
 
     //region View variables
     private val rvTvs by bindView<LoadMoreRecyclerView>(R.id.rv_tv_list)
-    private val stubError by bindView<ViewStub>(R.id.stub_error)
     private val llError by bindView<LinearLayout>(R.id.ll_error)
     //endregion
 
@@ -138,26 +136,6 @@ class TvListFragment: BaseFragment(), TvListContract.View, LazyFragmentPagerAdap
     //endregion
 
     //region View implementations
-    override fun showLoading() {
-//        this.showViewStub(this.stubError, {})
-    }
-
-    override fun hideLoading() {
-//        this.llError.visibility = View.GONE
-    }
-
-    override fun showRetry() {
-        super.showRetry()
-    }
-
-    override fun hideRetry() {
-        super.hideRetry()
-    }
-
-    override fun showError(message: String) {
-        super.showError(message)
-    }
-
     override fun showTvBriefList(tvList: List<TvBriefModel>) {
         // Because the view pager will load the fragment first, if we just set the data directly, views won't
         // be showed. To avoid it, the adapter will be reset.
