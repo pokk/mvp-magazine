@@ -25,6 +25,7 @@ class CastDetailPresenter constructor(val castDetailCase: CastDetail):
     private val castDetailSub = subscriber<CastDetailModel>().onError {
         AppLog.e(it.message)
         AppLog.e(it)
+        this.view.showRetry()
     }.onNext {
         this.castDetailModel = it
 
@@ -42,7 +43,7 @@ class CastDetailPresenter constructor(val castDetailCase: CastDetail):
             this.view.showRelatedMovie(it.combined_credits?.cast?.filter { it.media_type == "movie" }?.
                     sortedWith(compareBy({ it.release_date }))?.reversed().orEmpty())
         }
-    }
+    }.onCompleted { this.view.hideLoading() }
     //endregion
 
     //region Presenter implementation
@@ -51,6 +52,8 @@ class CastDetailPresenter constructor(val castDetailCase: CastDetail):
     }
 
     override fun requestCastDetail(castId: Int) {
+        this.view.showLoading()
+
         val request = CastDetail.Requests(castId)
         request.fragmentLifecycle = this.view.getLifecycle()
         this.castDetailCase.execute(request, this.castDetailSub)

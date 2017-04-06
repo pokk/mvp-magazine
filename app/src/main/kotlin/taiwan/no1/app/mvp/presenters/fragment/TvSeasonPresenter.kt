@@ -22,12 +22,15 @@ class TvSeasonPresenter constructor(val tvSeasonDetail: TvSeasonDetail):
     }
 
     override fun requestSeasonDetail(tvId: Int, seasonNumber: Int) {
+        this.view.showLoading()
+        
         val request = TvSeasonDetail.Requests(tvId, seasonNumber)
         request.fragmentLifecycle = this.view.getLifecycle()
         // If declaring [subscriber] as a variable, it won't be used again.
         this.tvSeasonDetail.execute(request, subscriber<TvSeasonsModel>().onError {
             AppLog.e(it.message)
             AppLog.e(it)
+            this.view.showRetry()
         }.onNext {
             this.tvSeasonModel = it
 
@@ -36,7 +39,7 @@ class TvSeasonPresenter constructor(val tvSeasonDetail: TvSeasonDetail):
             this.view.showTvCrews(it.credits?.crew?.filter { null != it.profile_path }.orEmpty())
             this.view.showTvEpisodes(it.episodes.orEmpty())
             this.view.showTvTrailers(it.videos?.results.orEmpty())
-        })
+        }.onCompleted { this.view.hideLoading() })
     }
 
     //endregion

@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
 import android.support.annotation.LayoutRes
+import android.support.v7.graphics.Palette
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.LinearSnapHelper
 import android.support.v7.widget.RecyclerView
@@ -30,6 +31,7 @@ import taiwan.no1.app.ui.adapter.itemdecorator.MovieHorizontalItemDecorator
 import taiwan.no1.app.ui.adapter.itemdecorator.MovieVerticalItemDecorator
 import taiwan.no1.app.utilies.ImageLoader.IImageLoader
 import javax.inject.Inject
+
 
 /**
  *
@@ -143,6 +145,10 @@ class TvSeasonFragment: BaseFragment(), TvSeasonContract.View {
                 listener = object: BitmapImageViewTarget(ivDropPoster) {
                     override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
                         super.onResourceReady(resource, glideAnimation)
+
+                        Palette.from(resource).maximumColorCount(24).generate().let {
+                            this@TvSeasonFragment.tvSeason.setTextColor(it.dominantSwatch?.titleTextColor ?: Color.WHITE)
+                        }
                     }
                 },
                 isFitCenter = false)
@@ -157,7 +163,9 @@ class TvSeasonFragment: BaseFragment(), TvSeasonContract.View {
     //region View implementations
     override fun showTvOverview(overview: String) {
         // Inflate the introduction section.
-        this.showViewStub(this.stubIntro, { this.tvOverview.text = overview })
+        if (overview.isNotBlank()) {
+            this.showViewStub(this.stubIntro, { this.tvOverview.text = overview })
+        }
     }
 
     override fun showTvCasts(casts: List<FilmCastsModel.CastBean>) {

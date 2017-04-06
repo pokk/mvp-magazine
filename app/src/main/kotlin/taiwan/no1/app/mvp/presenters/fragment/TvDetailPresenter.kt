@@ -30,12 +30,15 @@ class TvDetailPresenter constructor(val tvDetail: TvDetail):
     }
 
     override fun requestListTvs(id: Int) {
+        this.view.showLoading()
+
         val request = TvDetail.Requests(id)
         request.fragmentLifecycle = this.view.getLifecycle()
         // If declaring [subscriber] as a variable, it won't be used again.
         this.tvDetail.execute(request, subscriber<TvDetailModel>().onError {
             AppLog.e(it.message)
             AppLog.e(it)
+            this.view.showRetry()
         }.onNext {
             this.tvDetailModel = it
 
@@ -65,7 +68,7 @@ class TvDetailPresenter constructor(val tvDetail: TvDetail):
                 }.orEmpty())
                 this.view.showTvTrailers(it.videos?.results.orEmpty())
             }
-        })
+        }.onCompleted { this.view.hideLoading() })
     }
 
     override fun onResourceFinished(view: View, tag: Int) {
