@@ -48,7 +48,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
         /**
          * Use this factory method to create a new instance of this fragment using the provided parameters.
          *
-         * @return A new instance of [fragment] MovieGalleryFragment.
+         * @return A new instance of [MovieGalleryFragment].
          */
         fun newInstance(movies: List<ImageProfileModel>):
                 MovieGalleryFragment = MovieGalleryFragment().apply {

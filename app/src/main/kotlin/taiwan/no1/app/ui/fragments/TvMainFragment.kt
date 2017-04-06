@@ -23,7 +23,7 @@ class TvMainFragment: ViewPagerMainCtrlFragment() {
         /**
          * Use this factory method to create a new instance of this fragment using the provided parameters.
          *
-         * @return A new instance of [fragment] TvMainFragment.
+         * @return A new instance of [TvMainFragment].
          */
         fun newInstance(): TvMainFragment = TvMainFragment().apply {
             this.arguments = Bundle().apply {}

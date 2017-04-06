@@ -47,7 +47,7 @@ class TvDetailFragment: BaseFragment(), TvDetailContract.View {
         /**
          * Use this factory method to create a new instance of this fragment using the provided parameters.
          *
-         * @return A new instance of [fragment] TvDetailFragment.
+         * @return A new instance of [TvDetailFragment].
          */
         fun newInstance(id: String, from: Int): TvDetailFragment = TvDetailFragment().apply {
             this.arguments = Bundle().apply {

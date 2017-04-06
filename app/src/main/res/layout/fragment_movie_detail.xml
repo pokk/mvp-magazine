@@ -117,7 +117,7 @@
                     android:layout_marginStart="0dp"
                     android:drawableStart="@drawable/ic_access_time"
                     android:gravity="center"
-                    android:text="  0 h 0 m"
+                    android:text="@string/movie_detail_msg_time"
                     android:textColor="#A8A8A8"/>
 
                 <taiwan.no1.app.ui.customize.StarScoreView

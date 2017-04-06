@@ -8,7 +8,7 @@
     <TextView
         android:id="@+id/tv_title_bio"
         style="@style/DetailTitle"
-        android:text="Biography"/>
+        android:text="@string/component_title_bio"/>
 
     <TextView
         android:id="@+id/tv_bio"
@@ -17,7 +17,7 @@
     <TextView
         android:id="@+id/tv_title_birthday"
         style="@style/DetailTitle"
-        android:text="Birthday"/>
+        android:text="@string/component_title_bir"/>
 
     <TextView
         android:id="@+id/tv_birthday"
@@ -26,7 +26,7 @@
     <TextView
         android:id="@+id/tv_title_place_of_birth"
         style="@style/DetailTitle"
-        android:text="Bron"/>
+        android:text="@string/component_title_bron"/>
 
     <TextView
         android:id="@+id/tv_place_of_birth"
@@ -35,7 +35,7 @@
     <TextView
         android:id="@+id/tv_title_homepage"
         style="@style/DetailTitle"
-        android:text="Homepage"/>
+        android:text="@string/component_title_homepage"/>
 
     <TextView
         android:id="@+id/tv_homepage"
@@ -44,7 +44,7 @@
     <TextView
         android:id="@+id/tv_title_deathday"
         style="@style/DetailTitle"
-        android:text="Deathday"/>
+        android:text="@string/component_title_deathday"/>
 
     <TextView
         android:id="@+id/tv_deathday"

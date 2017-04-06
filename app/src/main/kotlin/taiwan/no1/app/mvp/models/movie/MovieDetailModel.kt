@@ -79,7 +79,7 @@ data class MovieDetailModel(val isAdult: Boolean = false,
         }
     }
 
-    constructor(source: Parcel): this(1.equals(source.readInt()),
+    constructor(source: Parcel): this(1 == source.readInt(),
             source.readString(),
             source.readParcelable<BelongsToCollectionBean?>(BelongsToCollectionBean::class.java.classLoader),
             source.readInt(),

@@ -1,16 +1,27 @@
 <resources>
     <string name="app_name">MovMagazine</string>
-    <string name="lorem">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula sem a malesuada rhoncus. Pellentesque ut dolor a dui porttitor porta lacinia non libero. Nunc volutpat arcu quis quam convallis molestie. Etiam ac tristique sem, id commodo justo. Phasellus congue tincidunt lectus, at dignissim ligula maximus eu. Quisque interdum nunc eget tellus bibendum suscipit. Phasellus feugiat ultricies posuere. Nullam porta accumsan velit, ut rutrum massa fermentum eu. Nunc ac bibendum nunc. Mauris eu ultricies ipsum. Ut id dolor dui. Pellentesque dictum dui vel tempus maximus. Vivamus non nisi quis libero scelerisque pretium. Ut eu tristique justo. Sed pellentesque placerat quam, ut ultricies turpis feugiat a. Aliquam a volutpat risus.
-
-Praesent at lectus semper, suscipit elit in, facilisis massa. Phasellus sed vestibulum ante, a euismod sem. Interdum et malesuada fames ac ante ipsum primis in faucibus. Proin tincidunt orci augue, a porta odio lacinia eu. Nunc in congue risus. Maecenas commodo nibh ac enim fermentum, eu sagittis massa blandit. Vestibulum elementum massa nec dapibus mollis. Etiam porta, est sit amet aliquet porta, odio elit finibus risus, id rutrum purus mi non ipsum. Nulla viverra nec enim sed venenatis.
-
-Maecenas mattis, erat et viverra euismod, neque diam porttitor tellus, in fringilla metus est id augue. Nunc at metus cursus, porttitor nisi vitae, congue diam. Curabitur ligula massa, ullamcorper eget scelerisque vel, pharetra ac sapien. Ut auctor luctus ultricies. Nullam semper tortor ac elementum luctus. In et tempus ex. Praesent sodales, dolor id volutpat elementum, ligula enim euismod odio, maximus sodales magna neque nec neque. Curabitur pretium nisl neque, consequat aliquet dui tincidunt ac. Vivamus augue nunc, aliquet eu ex a, ultrices aliquam lorem. Duis nibh lectus, ultricies vel iaculis sit amet, imperdiet id sapien. Duis scelerisque sodales metus eu rutrum. Suspendisse posuere nisi ac magna consequat, eu vestibulum ipsum venenatis. Suspendisse auctor nisi nec leo venenatis tristique.
-
-Praesent tincidunt lorem sit amet mi consequat cursus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent vitae blandit sapien. Curabitur est sapien, lobortis sit amet facilisis vel, faucibus eu quam. Nam tempus libero at tellus tempor laoreet. Pellentesque quam lorem, tincidunt in molestie eget, dictum vel risus. Nunc gravida convallis mattis.
-    </string>
-    <string name="story">Harris was born in Albuquerque, New Mexico and grew up Ruidoso, New Mexico, with his elder brother and their parents, Sheila Gai and Ronald Gene Harris. His parents were lawyers and also ran a restaurant. He attended La Cueva High School in Albuquerque, graduating with high honors in 1991.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="episode_list_title">Episode List</string>
+    <string name="movie_detail_msg_time">0 h 0 m</string>
+    <string name="component_title_cast">Casts</string>
+    <string name="component_title_crew">Crews</string>
+    <string name="component_title_related_movie">Related Movies</string>
+    <string name="component_title_season">Seasons</string>
+    <string name="component_title_trailer">Trailer</string>
+    <string name="component_title_bio">Biography</string>
+    <string name="component_title_bir">Birthday</string>
+    <string name="component_title_bron">Bron</string>
+    <string name="component_title_homepage">Homepage</string>
+    <string name="component_title_deathday">Deathday</string>
+    <string name="component_title_overview">Overview</string>
+    <string name="component_title_status">Status</string>
+    <string name="component_title_lang">Language</string>
+    <string name="component_title_prod">Production</string>
+    <string name="component_title_ori_lang">Original Language</string>
+    <string name="component_title_last_date">Last Air Date</string>
+    <string name="season_title_overview">Overview</string>
+    <string name="video_msg_time">--:--</string>
 </resources>

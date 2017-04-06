@@ -7,7 +7,7 @@
 
     <TextView
         style="@style/DetailTitle"
-        android:text="Overview"/>
+        android:text="@string/component_title_overview"/>
 
     <TextView
         android:id="@+id/tv_overview"
@@ -15,7 +15,7 @@
 
     <TextView
         style="@style/DetailTitle"
-        android:text="Last Air Date"/>
+        android:text="@string/component_title_last_date"/>
 
     <TextView
         android:id="@+id/tv_last_air_date"
@@ -23,7 +23,7 @@
 
     <TextView
         style="@style/DetailTitle"
-        android:text="Original Language"/>
+        android:text="@string/component_title_ori_lang"/>
 
     <TextView
         android:id="@+id/tv_language"
@@ -31,7 +31,7 @@
 
     <TextView
         style="@style/DetailTitle"
-        android:text="Homepage"/>
+        android:text="@string/component_title_homepage"/>
 
     <TextView
         android:id="@+id/tv_homepage"
@@ -39,7 +39,7 @@
 
     <TextView
         style="@style/DetailTitle"
-        android:text="Production"/>
+        android:text="@string/component_title_prod"/>
 
     <TextView
         android:id="@+id/tv_productions"

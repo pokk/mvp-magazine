@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/viewPageSlideBackground"
     tools:context=".ui.activities.MainActivity">
 
     <RelativeLayout
@@ -13,10 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bb_menu"/>
-
-    <include
-        layout="@layout/layout_loading"
-        android:visibility="gone"/>
 
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bb_menu"

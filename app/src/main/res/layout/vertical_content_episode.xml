@@ -11,7 +11,7 @@
         style="@style/ItemTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Episode List"
+        android:text="@string/episode_list_title"
         android:textColor="#F8F7FB"/>
 
     <android.support.v7.widget.RecyclerView

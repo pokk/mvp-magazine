@@ -27,7 +27,7 @@ class TvEpisodeFragment: BaseFragment(), TvEpisodeContract.View {
         /**
          * Use this factory method to create a new instance of this fragment using the provided parameters.
          *
-         * @return A new instance of [fragment] TvEpisodeFragment.
+         * @return A new instance of [TvEpisodeFragment].
          */
         fun newInstance(id: String, seasonNumber: String, episodeNumber: String, from: Int): TvEpisodeFragment =
                 TvEpisodeFragment().also {

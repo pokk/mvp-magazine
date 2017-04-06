@@ -52,7 +52,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         /**
          * Use this factory method to create a new instance of this fragment using the provided parameters.
          *
-         * @return A new instance of [fragment] MovieDetailFragment.
+         * @return A new instance of [MovieDetailFragment].
          */
         fun newInstance(id: String, from: Int): MovieDetailFragment = MovieDetailFragment().apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

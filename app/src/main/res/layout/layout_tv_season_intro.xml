@@ -9,7 +9,7 @@
         style="@style/ItemTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Overview"
+        android:text="@string/season_title_overview"
         android:textColor="#F8F7FB"/>
 
     <TextView

@@ -3,7 +3,6 @@ package taiwan.no1.app.ui.fragments
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.LinearLayoutManager
-import android.widget.LinearLayout
 import butterknife.bindView
 import taiwan.no1.app.R
 import taiwan.no1.app.data.source.CloudDataStore
@@ -34,7 +33,7 @@ class TvListFragment: BaseFragment(), TvListContract.View, LazyFragmentPagerAdap
         /**
          * Use this factory method to create a new instance of this fragment using the provided parameters.
          *
-         * @return A new instance of [fragment] TVListFragment.
+         * @return A new instance of [TvListFragment].
          */
         fun newInstance(category: CloudDataStore.Tvs): TvListFragment = TvListFragment().apply {
             this.arguments = Bundle().apply {
@@ -49,7 +48,6 @@ class TvListFragment: BaseFragment(), TvListContract.View, LazyFragmentPagerAdap
 
     //region View variables
     private val rvTvs by bindView<LoadMoreRecyclerView>(R.id.rv_tv_list)
-    private val llError by bindView<LinearLayout>(R.id.ll_error)
     //endregion
 
     //region Local variables

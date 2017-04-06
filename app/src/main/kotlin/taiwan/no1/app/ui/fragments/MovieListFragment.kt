@@ -36,7 +36,7 @@ class MovieListFragment: BaseFragment(), MovieListContract.View, LazyFragmentPag
         /**
          * Use this factory method to create a new instance of this fragment using the provided parameters.
          *
-         * @return A new instance of [fragment] MovieListFragment.
+         * @return A new instance of [MovieListFragment].
          */
         fun newInstance(category: CloudDataStore.Movies): MovieListFragment = MovieListFragment().apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

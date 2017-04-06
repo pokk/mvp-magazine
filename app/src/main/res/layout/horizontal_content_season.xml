@@ -11,7 +11,7 @@
         style="@style/ItemTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Seasons"/>
+        android:text="@string/component_title_season"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_seasons"

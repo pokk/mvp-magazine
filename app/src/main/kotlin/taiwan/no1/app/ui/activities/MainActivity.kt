@@ -44,7 +44,7 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
 
     //region View variables
     private val rlMainContainer by bindView<RelativeLayout>(R.id.rl_main_container)
-    private val bottombarMenu by bindView<BottomBar>(R.id.bb_menu)
+    private val bbMenu by bindView<BottomBar>(R.id.bb_menu)
     //endregion
 
     lateinit var currentTag: String
@@ -85,7 +85,7 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
          *
          * ** Test code and this fragment concept.
          *
-         * // FIXME: 3/24/17 Current problem is that after rotating, the xxListFragment will gone. Cause Deeper Fragments couldn't push to the stack laterly.
+         * // FIXME: 3/24/17 Current problem is that after rotating, the xxListFragment will gone. Cause Deeper Fragments couldn't push to the stack lately.
          */
         // NOTE: 3/26/17 DEBUG MODE.
         btn.setOnClickListener {
@@ -136,7 +136,7 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
         // isn't set when back button is pressed.
         this.supportFragmentManager.fragments?.get(0)?.let { this.currentTag = it.javaClass.name }
 
-        this.bottombarMenu.setOnTabSelectListener {
+        this.bbMenu.setOnTabSelectListener {
             // TODO: 2/21/17 Here will waste memory. Becz of repeating creating and removing every single switching.
             if (!isFirst) {
                 // Clear all fragments from the fragment manager.

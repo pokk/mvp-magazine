@@ -23,7 +23,7 @@ class MovieMainFragment: ViewPagerMainCtrlFragment() {
         /**
          * Use this factory method to create a new instance of this fragment using the provided parameters.
          *
-         * @return A new instance of [fragment] MovieMainFragment.
+         * @return A new instance of [MovieMainFragment].
          */
         fun newInstance(): MovieMainFragment = MovieMainFragment().apply {
             this.arguments = Bundle().apply {}

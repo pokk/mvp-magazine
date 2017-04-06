@@ -36,7 +36,7 @@ data class CreditsInFilmModel(val cast: List<CastInFilmBean>? = null,
             }
         }
 
-        constructor(source: Parcel): this(1.equals(source.readInt()),
+        constructor(source: Parcel): this(1 == source.readInt(),
                 source.readString(),
                 source.readString(),
                 source.readInt(),
@@ -90,7 +90,7 @@ data class CreditsInFilmModel(val cast: List<CastInFilmBean>? = null,
             }
         }
 
-        constructor(source: Parcel): this(1.equals(source.readInt()),
+        constructor(source: Parcel): this(1 == source.readInt(),
                 source.readString(),
                 source.readString(),
                 source.readInt(),
