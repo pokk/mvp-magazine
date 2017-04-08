@@ -1,6 +1,7 @@
 package taiwan.no1.app.ui.adapter.viewholder
 
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import butterknife.bindView
 import taiwan.no1.app.R
@@ -24,6 +25,7 @@ class TvEpisodeViewHolder(val view: View): BaseViewHolder<TvEpisodesModel>(view)
     lateinit var imageLoader: IImageLoader
 
     //region View variables
+    private val ivThumbnail by bindView<ImageView>(R.id.iv_thumbnail)
     private val tvEpisode by bindView<TextView>(R.id.tv_episode)
     private val tvAirDate by bindView<TextView>(R.id.tv_air_date)
     private val tvEpisodeTitle by bindView<TextView>(R.id.tv_episode_title)
@@ -44,6 +46,10 @@ class TvEpisodeViewHolder(val view: View): BaseViewHolder<TvEpisodesModel>(view)
     //endregion
 
     //region ViewHolder implementations
+    override fun showEpisodeThumbnail(episodeThumbnailUri: String) {
+        this.imageLoader.display(episodeThumbnailUri, this.ivThumbnail, isFitCenter = false)
+    }
+
     override fun showEpisodeNumber(episodeNumber: String) {
         this.tvEpisode.text = episodeNumber
     }

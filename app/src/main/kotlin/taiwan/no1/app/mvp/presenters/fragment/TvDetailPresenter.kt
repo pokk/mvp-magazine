@@ -44,6 +44,7 @@ class TvDetailPresenter constructor(val tvDetail: TvDetail):
 
             this.tvDetailModel?.let {
                 this.view.showTvBackdrops(this.createViewPagerViews(it.images?.backdrops.orEmpty()))
+                // FIXME: 4/9/17 invoke(TvDetailPresenter.kt:39):Invalid index 0, size is 0 
                 this.view.showTvBriefInfo(it.name.orEmpty(),
                         it.status.orEmpty(),
                         it.vote_average.toString(),

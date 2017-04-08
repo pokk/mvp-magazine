@@ -15,6 +15,7 @@ interface TvEpisodeAdapterContract {
     interface Presenter: IAdapterPresenter<View, TvEpisodesModel>
 
     interface View: IViewHolder {
+        fun showEpisodeThumbnail(episodeThumbnailUri: String)
         fun showEpisodeNumber(episodeNumber: String)
         fun showEpisodeAirDate(episodeAirDate: String)
         fun showEpisodeTitle(episodeTitle: String)
