@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/viewPageSlideBackground"
+    android:background="@color/viewpage_slide_background"
     tools:context=".ui.activities.MainActivity">
 
     <RelativeLayout
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/viewPageBackground"
+        android:background="@color/viewpage_background"
         app:bb_activeTabColor="#f0f0f0"
         app:bb_inActiveTabAlpha=".5"
         app:bb_inActiveTabColor="#959595"

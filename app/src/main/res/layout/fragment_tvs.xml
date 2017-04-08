@@ -10,14 +10,14 @@
         android:id="@+id/fl_top_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/viewPageBackground">
+        android:background="@color/viewpage_background">
 
         <View
             android:layout_width="match_parent"
             android:layout_height="5dp"
             android:layout_gravity="center|bottom"
             android:layout_marginTop="18dp"
-            android:background="@color/viewPageSlideBackground"/>
+            android:background="@color/viewpage_slide_background"/>
 
         <com.gigamole.navigationtabstrip.NavigationTabStrip
             android:id="@+id/nts_center"
