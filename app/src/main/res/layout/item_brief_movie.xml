@@ -20,7 +20,7 @@
         android:paddingEnd="18dp"
         android:paddingStart="18dp"
         android:paddingTop="13dp"
-        app:circleColor="@color/viewPageSlideBackground"
+        app:circleColor="@color/viewpage_slide_background"
         app:gap="15"
         app:radius="20">
 
