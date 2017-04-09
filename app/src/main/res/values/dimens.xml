@@ -35,8 +35,8 @@
     <dimen name="textsize_tvseason_thumbnaildescribe">17sp</dimen>
     <dimen name="height_all_navigation">45dp</dimen>
     <dimen name="weight_all_navigation">7dp</dimen>
-    <item name="radius_all_navigation" format="float" type="dimen">3.5dp</item>
-    <dimen name="textsize_recycleritem_title">18dp</dimen>
+    <dimen name="radius_all_navigation">3.5dp</dimen>
+    <dimen name="textsize_recycleritem_title">18sp</dimen>
     <dimen name="radius_item_gallerycard">20dp</dimen>
     <dimen name="height_item_castcrewthumbnail">250dp</dimen>
     <dimen name="elevation_item_castcrewcard">5dp</dimen>

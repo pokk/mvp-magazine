@@ -23,7 +23,7 @@
         android:background="#554f4f4f"
         android:gravity="center"
         android:padding="3dp"
-        android:textSize="@demin/textsize_recycleritem_title"
+        android:textSize="@dimen/textsize_recycleritem_title"
         android:textColor="#dfdfff"
         tools:text="Jieyi Wu"/>
 </android.support.v7.widget.CardView>
