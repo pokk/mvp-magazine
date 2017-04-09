@@ -9,8 +9,8 @@
     android:orientation="vertical">
 
     <com.rey.material.widget.ProgressView
-        android:layout_width="52dp"
-        android:layout_height="52dp"
+        android:layout_width="@dimen/size_loadview_loadingicon"
+        android:layout_height="@dimen/size_loadview_loadingicon"
         android:layout_gravity="center"
         app:pv_autostart="true"
         app:pv_circular="true"

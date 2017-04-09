@@ -10,12 +10,12 @@
     android:foreground="?android:attr/selectableItemBackground"
     android:orientation="vertical"
     app:cardCornerRadius="5dp"
-    app:cardElevation="5dp">
+    app:cardElevation="@dimen/elevation_item_castcrewcard">
 
     <ImageView
         android:id="@+id/iv_cast"
         android:layout_width="wrap_content"
-        android:layout_height="250dp"
+        android:layout_height="@dimen/height_item_castcrewthumbnail"
         android:transitionName="movie_post"
         tools:ignore="ContentDescription"/>
 

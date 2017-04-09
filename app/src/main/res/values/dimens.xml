@@ -3,6 +3,46 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <!-- Popular Movie Fragment -->
     <dimen name="item_movie_height">50dp</dimen>
+    <dimen name="height_main_menu_subtitle">56dp</dimen>
+    <dimen name="width_video_button">0dp</dimen>
+    <dimen name="margin_video_button">5dp</dimen>
+    <dimen name="margin_video_prograssbar">10dp</dimen>
+    <dimen name="height_castdetail_thumbnail">350dp</dimen>
+    <dimen name="size_castdetail_profileimage">200dp</dimen>
+    <dimen name="size_gallery_picture">0dp</dimen>
+    <dimen name="radius_gallery_blurmask">15dp</dimen>
+    <dimen name="marginbottom_gallery_textpager">10dp</dimen>
+    <dimen name="marginside_moviedetail_informationlayout">10dp</dimen>
+    <dimen name="width_moviedetail_profileimage">120dp</dimen>
+    <dimen name="height_moviedetail_profileimage">160dp</dimen>
+    <dimen name="marginside_all_navigation">10dp</dimen>
+    <dimen name="height_all_navigator">5dp</dimen>
+    <dimen name="margintop_all_navigator">18dp</dimen>
+    <dimen name="height_tvdetail_thumbnail">250dp</dimen>
+    <dimen name="height_tvdetail_thumbnailarc">50dp</dimen>
+    <dimen name="marginstart_tvdetail_tvtitle">150dp</dimen>
+    <dimen name="height_tvepisode_thumbnail">250dp</dimen>
+    <dimen name="margintop_tvepisode_overview">25dp</dimen>
+    <dimen name="margintop_tvseason_informationlayout">0dp</dimen>
+    <dimen name="width_tvseason_thumbnailbar">25dp</dimen>
+    <dimen name="height_tvseason_thumbnailbar">2dp</dimen>
+    <dimen name="marginbottom_tvseason_thumbnailbar">5dp</dimen>
+    <dimen name="marginstart_tvseason_thumbnailbar">30dp</dimen>
+    <dimen name="height_tvseason_thumbnail">250dp</dimen>
+    <dimen name="marginstart_tvseason_thumbnailtext">30dp</dimen>
+    <dimen name="marginbottom_tvseason_thumbnailtext">30dp</dimen>
+    <dimen name="textsize_tvseason_thumbnaildescribe">17sp</dimen>
+    <dimen name="height_all_navigation">45dp</dimen>
+    <dimen name="weight_all_navigation">7dp</dimen>
+    <item name="radius_all_navigation" format="float" type="dimen">3.5dp</item>
+    <dimen name="textsize_recycleritem_title">18dp</dimen>
+    <dimen name="radius_item_gallerycard">20dp</dimen>
+    <dimen name="height_item_castcrewthumbnail">250dp</dimen>
+    <dimen name="elevation_item_castcrewcard">5dp</dimen>
+    <dimen name="size_loadview_loadingicon">52dp</dimen>
+    <dimen name="margintop_tvseason_briefintro">5dp</dimen>
+    <dimen name="dividerpadding_tvseason_briefintro">10dp</dimen>
+    <dimen name="height_tvseason_contentepisode">405dp</dimen>
+    <dimen name="height_item_tvthumbnail">250dp</dimen>
 </resources>

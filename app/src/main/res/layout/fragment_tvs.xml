@@ -14,27 +14,27 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="5dp"
+            android:layout_height="@dimen/height_all_navigator"
             android:layout_gravity="center|bottom"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="@dimen/margintop_all_navigator"
             android:background="@color/viewpage_slide_background"/>
 
         <com.gigamole.navigationtabstrip.NavigationTabStrip
             android:id="@+id/nts_center"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="@dimen/height_all_navigation"
             android:layout_gravity="center"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginEnd="@dimen/marginside_all_navigation"
+            android:layout_marginStart="@dimen/marginside_all_navigation"
             app:nts_active_color="@color/viewpage_active_text"
             app:nts_color="@color/viewpage_slide_spot_background"
-            app:nts_corners_radius="3.5dp"
+            app:nts_corners_radius="@dimen/radius_all_navigation"
             app:nts_factor="0.8"
             app:nts_gravity="bottom"
             app:nts_inactive_color="@color/viewpage_text"
             app:nts_titles="@array/movie_titles"
             app:nts_type="point"
-            app:nts_weight="7dp"/>
+            app:nts_weight="@dimen/weight_all_navigation"/>
     </FrameLayout>
 
     <android.support.v4.view.ViewPager

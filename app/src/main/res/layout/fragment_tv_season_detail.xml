@@ -11,7 +11,7 @@
     <android.support.v4.widget.NestedScrollView
         style="@style/NestScrollInfo"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="@dimen/margintop_tvseason_informationlayout"
         android:background="#302E55"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -71,17 +71,17 @@
 
                 <View
                     android:id="@+id/v_top_bar"
-                    android:layout_width="25dp"
-                    android:layout_height="2dp"
+                    android:layout_width="@dimen/width_tvseason_thumbnailbar"
+                    android:layout_height="@dimen/height_tvseason_thumbnailbar"
                     android:layout_above="@+id/tv_title"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginStart="30dp"
+                    android:layout_marginBottom="@dimen/marginbottom_tvseason_thumbnailbar"
+                    android:layout_marginStart="@dimen/marginstart_tvseason_thumbnailbar"
                     android:background="@color/colorGrey"/>
 
                 <ImageView
                     android:id="@+id/iv_backdrop"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
+                    android:layout_height="@dimen/height_tvseason_thumbnail"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     tools:ignore="ContentDescription"/>
@@ -91,9 +91,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_above="@+id/tv_season"
-                    android:layout_marginStart="30dp"
+                    android:layout_marginStart="@dimen/marginstart_tvseason_thumbnailtext"
                     android:textColor="@color/colorGrey"
-                    android:textSize="17sp"
+                    android:textSize="@dimen/textsize_tvseason_thumbnaildescribe"
                     tools:text="The Flash"/>
 
                 <TextView
@@ -101,10 +101,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/iv_backdrop"
-                    android:layout_marginBottom="30dp"
-                    android:layout_marginStart="30dp"
+                    android:layout_marginBottom="@dimen/marginbottom_tvseason_thumbnailtext"
+                    android:layout_marginStart="@dimen/marginstart_tvseason_thumbnailtext"
                     android:textColor="@color/colorGrey"
-                    android:textSize="17sp"
+                    android:textSize="@dimen/textsize_tvseason_thumbnaildescribe"
                     tools:text="(S.1 / EP.15)"/>
 
             </RelativeLayout>

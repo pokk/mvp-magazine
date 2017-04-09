@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        app:cardCornerRadius="20dp"
+        app:cardCornerRadius="@dimen/radius_item_gallerycard"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true">
 

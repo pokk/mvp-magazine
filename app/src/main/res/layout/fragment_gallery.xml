@@ -8,10 +8,9 @@
 
     <ImageView
         android:id="@+id/iv_hidden"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        tools:ignore="ContentDescription">
-    </ImageView>
+        android:layout_width="@dimen/size_gallery_picture"
+        android:layout_height="@dimen/size_gallery_picture"
+        tools:ignore="ContentDescription"/>
 
     <ImageSwitcher
         android:id="@+id/is_gallery_background"
@@ -22,7 +21,7 @@
     <com.github.mmin18.widget.RealtimeBlurView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:realtimeBlurRadius="15dp"
+        app:realtimeBlurRadius="@dimen/radius_gallery_blurmask"
         app:realtimeOverlayColor="#0000"/>
 
     <com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
@@ -43,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="@dimen/marginbottom_gallery_textpager"
         android:gravity="center"
         tools:text="1/20"/>
 </FrameLayout>

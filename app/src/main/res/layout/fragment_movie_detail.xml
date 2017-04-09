@@ -18,8 +18,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginEnd="@dimen/marginside_moviedetail_informationlayout"
+            android:layout_marginStart="@dimen/marginside_moviedetail_informationlayout"
             android:background="@drawable/border_shadow"
             android:orientation="vertical">
 
@@ -130,11 +130,11 @@
 
                 <ImageView
                     android:id="@+id/iv_movie_poster"
-                    android:layout_width="120dp"
-                    android:layout_height="160dp"
+                    android:layout_width="@dimen/width_moviedetail_profileimage"
+                    android:layout_height="@dimen/height_moviedetail_profileimage"
                     android:layout_alignBottom="@+id/vp_drop_poster"
                     android:layout_alignParentStart="true"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="@dimen/marginside_moviedetail_informationlayout"
                     android:src="@color/lb_basic_card_content_text_color"
                     android:transitionName="movie_post"
                     app:layout_collapseMode="parallax"

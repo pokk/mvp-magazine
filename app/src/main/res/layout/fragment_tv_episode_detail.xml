@@ -59,7 +59,7 @@
                 <android.support.v4.view.ViewPager
                     android:id="@+id/vp_drop_poster"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
+                    android:layout_height="@dimen/height_tvepisode_thumbnail"
                     tools:background="@android:color/darker_gray"/>
 
                 <RelativeLayout
@@ -94,7 +94,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_air_date"
-                        android:layout_marginTop="25dp"
+                        android:layout_marginTop="@dimen/margintop_tvepisode_overview"
                         android:textColor="#C1C8D6"
                         android:textSize="18sp"
                         tools:text="@string/hello_blank_fragment"/>

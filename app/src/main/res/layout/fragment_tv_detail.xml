@@ -76,15 +76,15 @@
                 <com.github.florent37.arclayout.ArcLayout
                     android:id="@+id/al_drop_poster"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
+                    android:layout_height="@dimen/height_tvdetail_thumbnail"
                     android:elevation="5dp"
                     app:arc_cropDirection="cropInside"
-                    app:arc_height="50dp">
+                    app:arc_height="@dimen/height_tvdetail_thumbnailarc">
 
                     <android.support.v4.view.ViewPager
                         android:id="@+id/vp_drop_poster"
                         android:layout_width="match_parent"
-                        android:layout_height="250dp"/>
+                        android:layout_height="@dimen/height_tvdetail_thumbnail"/>
 
                     <ImageView
                         android:id="@+id/iv_fog"
@@ -111,7 +111,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/al_drop_poster"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginStart="150dp"
+                    android:layout_marginStart="@dimen/marginstart_tvdetail_tvtitle"
                     android:fontFamily="sans-serif-smallcaps"
                     android:gravity="center"
                     android:textColor="@color/colorBlack"

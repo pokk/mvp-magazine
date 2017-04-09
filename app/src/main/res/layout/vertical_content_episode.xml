@@ -17,7 +17,6 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_episode"
         android:layout_width="match_parent"
-        android:layout_height="405dp"
-        tools:listitem="@layout/item_brief_episode">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="@dimen/height_tvseason_contentepisode"
+        tools:listitem="@layout/item_brief_episode"/>
 </LinearLayout>

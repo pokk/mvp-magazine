@@ -18,7 +18,7 @@
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bb_menu"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="@dimen/height_main_menu_subtitle"
         android:layout_alignParentBottom="true"
         android:background="@color/viewpage_background"
         app:bb_activeTabColor="#f0f0f0"

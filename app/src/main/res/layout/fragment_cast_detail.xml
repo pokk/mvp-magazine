@@ -65,7 +65,7 @@
                 <com.intrusoft.squint.DiagonalView
                     android:id="@+id/dv_backdrop"
                     android:layout_width="match_parent"
-                    android:layout_height="350dp"
+                    android:layout_height="@dimen/height_castdetail_thumbnail"
                     android:padding="10dp"
                     android:scaleType="centerCrop"
                     app:angle="15"
@@ -76,8 +76,8 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/iv_person"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
+                    android:layout_width="@dimen/size_castdetail_profileimage"
+                    android:layout_height="@dimen/size_castdetail_profileimage"
                     android:layout_alignBottom="@+id/dv_backdrop"
                     android:layout_marginStart="10dp"
                     android:src="@color/lb_basic_card_content_text_color"
