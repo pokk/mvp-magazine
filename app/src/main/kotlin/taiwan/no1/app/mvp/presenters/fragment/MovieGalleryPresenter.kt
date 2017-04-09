@@ -42,7 +42,10 @@ class MovieGalleryPresenter: BasePresenter<MovieGalleryContract.View>(), MovieGa
     }
 
     override fun updatePageOfNumber(currentNum: Int) {
-        this.view.showCurrentNumOfPosters("${currentNum + 1} / ${this.postersInfo.size}")
+        // XXX: 4/9/17 Workaround to fix the problem of the size equal three will crash. 
+        val maxSize: Int = if (3 == this.postersInfo.size) this.postersInfo.size - 1 else this.postersInfo.size
+
+        this.view.showCurrentNumOfPosters("${currentNum + 1} / $maxSize")
     }
 
     override fun onResourceFinished(hicvp: HorizontalInfiniteCycleViewPager, isRatio: Double, position: Int) {

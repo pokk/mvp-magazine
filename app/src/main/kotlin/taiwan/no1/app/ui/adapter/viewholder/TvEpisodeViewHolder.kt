@@ -47,6 +47,7 @@ class TvEpisodeViewHolder(val view: View): BaseViewHolder<TvEpisodesModel>(view)
 
     //region ViewHolder implementations
     override fun showEpisodeThumbnail(episodeThumbnailUri: String) {
+        // FIXME: 4/9/17 Doesn't show episode pic.
         this.imageLoader.display(episodeThumbnailUri, this.ivThumbnail, isFitCenter = false)
     }
 

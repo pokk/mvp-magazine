@@ -13,9 +13,9 @@ import android.view.ViewGroup
 class BackdropPagerAdapter(val lists: List<View>): PagerAdapter() {
     override fun isViewFromObject(view: View, `object`: Any): Boolean = view == `object`
 
-    override fun getCount(): Int = this.lists.size
+    override fun getCount(): Int = if (3 == this.lists.size) this.lists.size - 1 else this.lists.size
 
-    // FIXME: 4/2/17 There are only "3" pics will crash.
+    // XXX: 4/9/17 Workaround to fix the problem of the size equal three will crash. 
     override fun instantiateItem(container: ViewGroup, position: Int): Any =
             this.lists[position].also { container.addView(it) }
 

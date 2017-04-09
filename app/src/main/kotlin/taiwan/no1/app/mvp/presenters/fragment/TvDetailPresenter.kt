@@ -44,12 +44,11 @@ class TvDetailPresenter constructor(val tvDetail: TvDetail):
 
             this.tvDetailModel?.let {
                 this.view.showTvBackdrops(this.createViewPagerViews(it.images?.backdrops.orEmpty()))
-                // FIXME: 4/9/17 invoke(TvDetailPresenter.kt:39):Invalid index 0, size is 0 
                 this.view.showTvBriefInfo(it.name.orEmpty(),
                         it.status.orEmpty(),
                         it.vote_average.toString(),
                         "Season ${it.seasons?.lastOrNull()?.season_number.toString()}",
-                        "${it.episode_run_time?.get(0).toString()} m")
+                        it.episode_run_time?.let { if (it.isEmpty()) "unKnown" else "${it[0]} m" }!!)
                 this.view.showTvDetail(it.overview.orEmpty(),
                         it.last_air_date.orEmpty(),
                         it.original_language.orEmpty(),
