@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import butterknife.bindView
+import com.devrapid.kotlinknifer.popAllFragment
 import com.gigamole.navigationtabstrip.NavigationTabStrip
 import com.jakewharton.rxbinding.support.v4.view.pageScrollStateChanges
 import com.jakewharton.rxbinding.support.v4.view.pageSelections
 import taiwan.no1.app.R
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.MainFragmentViewPagerAdapter
-import taiwan.no1.app.utilies.FragmentUtils
 
 /**
  *
@@ -75,7 +75,7 @@ abstract class ViewPagerMainCtrlFragment: BaseFragment(), IMainFragment {
                 // Finished the view changed completely, the previous stack fragments will be cleared.
                 else if (ViewPager.SCROLL_STATE_IDLE == it && flagClearPrevFragment) {
                     // FIXME: 3/27/17 rx.exceptions.OnErrorNotImplementedException: Fragment has not been attached yet.
-                    FragmentUtils.popAllFragment(fragmentList[prevItemPos].childFragmentManager)
+                    fragmentList[prevItemPos].childFragmentManager.popAllFragment()
                     prevItemPos = currItemPos
                 }
             }

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.CallSuper
 import android.support.v4.app.Fragment
+import com.devrapid.kotlinknifer.addFragment
 import com.hwangjr.rxbus.RxBus
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.annotation.Tag
@@ -20,7 +21,6 @@ import taiwan.no1.app.internal.di.components.AppComponent
 import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.views.IActivityView
 import taiwan.no1.app.mvp.views.IView
-import taiwan.no1.app.utilies.FragmentUtils
 import javax.inject.Inject
 
 /**
@@ -37,7 +37,7 @@ abstract class BaseActivity: RxAppCompatActivity(), IView, IActivityView {
     protected var busEvent = object {
         @Subscribe(tags = arrayOf(Tag(RxbusTag.FRAGMENT_NAVIGATOR)))
         fun navigateFragment(fragment: Fragment) {
-            FragmentUtils.addFragment(supportFragmentManager, R.id.main_container, fragment, true)
+            this@BaseActivity.supportFragmentManager.addFragment(R.id.main_container, fragment, true)
         }
 
         @Subscribe(tags = arrayOf(Tag(RxbusTag.ACTIVITY_NAVIGATOR)))

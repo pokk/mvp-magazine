@@ -5,12 +5,12 @@ import android.graphics.drawable.BitmapDrawable
 import android.support.v7.widget.CardView
 import android.view.View
 import android.widget.ImageView
+import com.devrapid.kotlinknifer.resizeImageAsRatio
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
 import taiwan.no1.app.R
 import taiwan.no1.app.api.config.TMDBConfig
 import taiwan.no1.app.mvp.contracts.fragment.MovieGalleryContract
 import taiwan.no1.app.mvp.models.ImageProfileModel
-import taiwan.no1.app.utilies.ViewUtils
 
 /**
  *
@@ -58,8 +58,8 @@ class MovieGalleryPresenter: BasePresenter<MovieGalleryContract.View>(), MovieGa
         if (0 == position && !this.isFirstLoaded) {
             // Entry the gallery view after the first photo was finished loading, doing this method to resize the photo size.
             this.isFirstImageFinished = true
-            this.view.showBlurBackground(ViewUtils.resizeImageAsRatio(isRatio,
-                    Bitmap.createBitmap(this.extractBitmap(hicvp, hicvp.realItem))))
+            this.view.showBlurBackground(Bitmap.createBitmap(this.extractBitmap(hicvp, hicvp.realItem)).
+                    resizeImageAsRatio(isRatio))
             this.notifyNotFinishLoadingYet = false
             this.isFirstLoaded = true
         }
@@ -78,8 +78,8 @@ class MovieGalleryPresenter: BasePresenter<MovieGalleryContract.View>(), MovieGa
                 this.notifyNotFinishLoadingYet = true
             }
             else {
-                this.view.showBlurBackground(ViewUtils.resizeImageAsRatio(isRatio,
-                        Bitmap.createBitmap(this.extractBitmap(hicvp, hicvp.realItem))))
+                this.view.showBlurBackground(Bitmap.createBitmap(this.extractBitmap(hicvp, hicvp.realItem)).
+                        resizeImageAsRatio(isRatio))
                 this.updateOldItemIndex(hicvp.currentItem)
             }
         }

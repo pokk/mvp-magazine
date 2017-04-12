@@ -8,6 +8,9 @@ import android.util.SparseArray
 import android.view.View
 import android.widget.RelativeLayout
 import butterknife.bindView
+import com.devrapid.kotlinknifer.addFragment
+import com.devrapid.kotlinknifer.popFragment
+import com.devrapid.kotlinknifer.removeRecursiveFragment
 import com.hwangjr.rxbus.RxBus
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.annotation.Tag
@@ -28,7 +31,6 @@ import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_A
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_SHARED_ELEMENTS
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_TAG
 import taiwan.no1.app.utilies.AppLog
-import taiwan.no1.app.utilies.FragmentUtils
 import java.util.*
 import javax.inject.Inject
 
@@ -93,7 +95,7 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
             AppLog.i(this)
             AppLog.w(this.supportFragmentManager.fragments)
             AppLog.d(this.getCurrentPresentFragment())
-            FragmentUtils.showAllFragments(this.getCurrentPresentFragment().fragmentManager)
+//            FragmentUtils.showAllFragments(this.getCurrentPresentFragment().fragmentManager)
         }
     }
 
@@ -117,7 +119,7 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
         this.getCurrentPresentFragment().let {
             it.childFragmentManager?.let {
                 // Pop back from current presenter fragment.
-                if (!FragmentUtils.popFragment(it))
+                if (!it.popFragment())
                     super.onBackPressed()
             }
         } ?: super.onBackPressed()
@@ -128,8 +130,9 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
      */
     private fun initFragment(savedInstanceState: Bundle?) {
         if (null == savedInstanceState) {
-            FragmentUtils.addFragment(this.supportFragmentManager, R.id.rl_main_container,
-                    fragments[R.id.tab_movies].also { this.currentTag = it.javaClass.name })
+            this.supportFragmentManager.addFragment(R.id.rl_main_container, fragments[R.id.tab_movies].also {
+                this.currentTag = it.javaClass.name
+            })
         }
 
         // When rotating the screen or fragment recreate, current tag need to be re-set. And avoiding the currentTag
@@ -140,10 +143,11 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
             // TODO: 2/21/17 Here will waste memory. Becz of repeating creating and removing every single switching.
             if (!isFirst) {
                 // Clear all fragments from the fragment manager.
-                FragmentUtils.removeRecursiveFragment(this.supportFragmentManager)
+                this.supportFragmentManager.removeRecursiveFragment()
                 // Add a new fragment category.
-                FragmentUtils.addFragment(this.supportFragmentManager, R.id.rl_main_container,
-                        this.fragments[it].also { this.currentTag = it.javaClass.name }, false)
+                this.supportFragmentManager.addFragment(R.id.rl_main_container, this.fragments[it].also {
+                    this.currentTag = it.javaClass.name
+                }, false)
             }
         }
     }
@@ -153,8 +157,8 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
      *
      * @return [Fragment]
      */
-    private fun getCurrentPresentFragment(): Fragment = (FragmentUtils.findFragmentByTag(this.supportFragmentManager,
-            this.currentTag) as IMainFragment).getCurrentDisplayFragment()
+    private fun getCurrentPresentFragment(): Fragment = (this.supportFragmentManager.findFragmentByTag(this.currentTag) as IMainFragment).
+            getCurrentDisplayFragment()
 
     //region RxBus
     @Subscribe(tags = arrayOf(Tag(RxbusTag.FRAGMENT_CHILD_NAVIGATOR)))
@@ -181,7 +185,7 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
                 container = R.id.main_container
             }
             // Do the transaction a fragment.
-            FragmentUtils.addFragment(fragmentManager, container, fragment, true, shareElements)
+            fragmentManager.addFragment(container, fragment, true, shareElements)
         }
     }
     //endregion
