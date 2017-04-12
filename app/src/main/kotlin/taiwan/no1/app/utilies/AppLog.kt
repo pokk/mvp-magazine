@@ -3,6 +3,7 @@ package taiwan.no1.app.utilies
 import android.util.Log
 
 /**
+ * This will be removed.
  * Log Module
  *
  * @author Jieyi
