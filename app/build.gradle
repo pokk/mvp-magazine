@@ -110,10 +110,6 @@ dependencies {
     compile "com.android.support:cardview-v7:25.3.1"
     compile "com.android.support:design:25.3.1"
 
-    compile "com.antfortune.freeline:runtime:0.8.6"
-    releaseCompile "com.antfortune.freeline:runtime-no-op:0.8.6"
-    testCompile "com.antfortune.freeline:runtime-no-op:0.8.6"
-
     testCompile "junit:junit:4.12"
     // Set this dependency if you want to use Hamcrest matching
     testCompile "org.robolectric:robolectric:3.0"

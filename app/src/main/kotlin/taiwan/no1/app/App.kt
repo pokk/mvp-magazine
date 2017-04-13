@@ -2,7 +2,6 @@ package taiwan.no1.app
 
 import android.app.Application
 import android.content.Context
-import com.antfortune.freeline.FreelineCore
 import taiwan.no1.app.internal.di.components.AppComponent
 
 /**
@@ -26,7 +25,6 @@ class App: Application() {
     override fun onCreate() {
         super.onCreate()
 
-        FreelineCore.init(this)
         context = this
     }
 }
