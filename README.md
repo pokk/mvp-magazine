@@ -11,6 +11,7 @@ This is the first time for us to mix two languages in this project, one is __Kot
 is __Java__, we could know which parts that Kotlin is stronger and more convenient than Java.
 
 ### MVP architecture
+
 We referenced the
 [Google clean architecture](https://github.com/googlesamples/android-architecture/tree/todo-mvp-clean/)
 to this application. There are three parts of clean architecture as below.

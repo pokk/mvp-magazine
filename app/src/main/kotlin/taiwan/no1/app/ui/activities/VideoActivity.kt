@@ -12,7 +12,6 @@ import butterknife.bindView
 import com.google.android.youtube.player.YouTubeBaseActivity
 import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayer.PlaybackEventListener
-import com.google.android.youtube.player.YouTubePlayer.Provider
 import com.google.android.youtube.player.YouTubePlayerView
 import com.jakewharton.rxbinding.widget.changes
 import taiwan.no1.app.R
@@ -60,23 +59,39 @@ class VideoActivity: YouTubeBaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_video)
 
-        this.ytpvTrailer.initialize(this.getString(R.string.youtube_api_key),
-                object: YouTubePlayerInitListener(argYoutubeKey) {
-                    override fun onInitializationSuccess(provider: Provider,
-                                                         player: YouTubePlayer,
-                                                         wasRestored: Boolean) {
-                        this@VideoActivity.youtubePlayer = player
-                        this@VideoActivity.displayCurrentTime(player)
-                        this@VideoActivity.youtubePlayer?.let {
-                            if (!wasRestored) {
-                                it.loadVideo(this.youTubeKey)
-                                it.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT)
-                            }
+//        this.ytpvTrailer.initialize(this.getString(R.string.youtube_api_key),
+//                object: YouTubePlayerInitListener(argYoutubeKey) {
+//                    override fun onInitializationSuccess(provider: Provider,
+//                                                         player: YouTubePlayer,
+//                                                         wasRestored: Boolean) {
+//                        this@VideoActivity.youtubePlayer = player
+//                        this@VideoActivity.displayCurrentTime(player)
+//                        this@VideoActivity.youtubePlayer?.let {
+//                            if (!wasRestored) {
+//                                it.loadVideo(this.youTubeKey)
+//                                it.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT)
+//                            }
+//
+//                            // Add listeners to YouTubePlayer instance.
+//                            it.setPlayerStateChangeListener(this@VideoActivity.stateChangeListener)
+//                            it.setPlaybackEventListener(this@VideoActivity.playbackEventListener)
+//                        }
+//                    }
+//                })
 
-                            // Add listeners to YouTubePlayer instance.
-                            it.setPlayerStateChangeListener(this@VideoActivity.stateChangeListener)
-                            it.setPlaybackEventListener(this@VideoActivity.playbackEventListener)
+        this.ytpvTrailer.initialize(this.getString(R.string.youtube_api_key),
+                YouTubePlayerInitListener(argYoutubeKey).onSuccess { _, player, wasRestored ->
+                    this@VideoActivity.youtubePlayer = player
+                    this@VideoActivity.displayCurrentTime(player)
+                    this@VideoActivity.youtubePlayer?.let {
+                        if (!wasRestored) {
+                            it.loadVideo(this.youTubeKey)
+                            it.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT)
                         }
+
+                        // Add listeners to YouTubePlayer instance.
+                        it.setPlayerStateChangeListener(this@VideoActivity.stateChangeListener)
+                        it.setPlaybackEventListener(this@VideoActivity.playbackEventListener)
                     }
                 })
 

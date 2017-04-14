@@ -45,15 +45,12 @@ class MovieTrailerViewHolder(val view: View): BaseViewHolder<FilmVideoModel>(vie
         // FIXED: 2/21/17 Keep each of YouTubeThumbnailLoaders into the adapter. When the fragment which keep this
         // FIXED: ViewHolder is destroyed by lifecycle, let it release loaders thru the adapter's release method.
         this.yttnvTrailer.initialize(this.mContext.getString(R.string.youtube_api_key),
-                object: YouTubeThumbnailInitListener(model.key.orEmpty()) {
-                    override fun onInitializationSuccess(thumbnailView: YouTubeThumbnailView,
-                                                         loader: YouTubeThumbnailLoader) {
-                        if (this.youTubeKey.isNotEmpty()) {
-                            loader.also {
-                                this@MovieTrailerViewHolder.thumbnailLoader = it
-                                it.setVideo(youTubeKey)
-                                it.setOnThumbnailLoadedListener(this@MovieTrailerViewHolder.thumbnailLoadedListener)
-                            }
+                YouTubeThumbnailInitListener(model.key.orEmpty()).onSuccess { _, loader ->
+                    if (this.youTubeKey.isNotEmpty()) {
+                        loader.also {
+                            this@MovieTrailerViewHolder.thumbnailLoader = it
+                            it.setVideo(youTubeKey)
+                            it.setOnThumbnailLoadedListener(this@MovieTrailerViewHolder.thumbnailLoadedListener)
                         }
                     }
                 })
