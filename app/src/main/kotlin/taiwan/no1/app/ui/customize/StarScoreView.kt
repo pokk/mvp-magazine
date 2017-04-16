@@ -2,6 +2,7 @@ package taiwan.no1.app.ui.customize
 
 import android.content.Context
 import android.graphics.*
+import android.graphics.Color.YELLOW
 import android.util.AttributeSet
 import android.view.View
 import taiwan.no1.app.R
@@ -16,7 +17,7 @@ class StarScoreView: View {
     private val scorePaint: Paint by lazy {
         Paint(Paint.ANTI_ALIAS_FLAG).apply {
             style = Paint.Style.FILL
-            color = Color.YELLOW
+            color = YELLOW
         }
     }
     private var mWidth: Int = 0

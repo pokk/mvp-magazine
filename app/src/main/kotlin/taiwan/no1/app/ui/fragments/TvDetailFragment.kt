@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.LinearLayoutManager.HORIZONTAL
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewStub
@@ -245,7 +246,7 @@ class TvDetailFragment: BaseFragment(), TvDetailContract.View {
 
     private fun <T: IVisitable> showCardItems(recyclerView: RecyclerView, list: List<T>) {
         recyclerView.apply {
-            this.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+            this.layoutManager = LinearLayoutManager(this.context, HORIZONTAL, false)
             this.adapter = CommonRecyclerAdapter(list, argFromFragment)
             this.addItemDecoration(MovieHorizontalItemDecorator(30))
         }

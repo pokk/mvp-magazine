@@ -1,19 +1,20 @@
 package taiwan.no1.app.mvp.presenters.fragment
 
 import android.view.View
+import com.devrapid.kotlinknifer.AppLog
 import com.hwangjr.rxbus.RxBus
 import com.intrusoft.squint.DiagonalView
-import com.touchin.constant.RxbusTag
+import com.touchin.constant.RxbusTag.FRAGMENT_CHILD_NAVIGATOR
 import rx.lang.kotlin.subscriber
 import taiwan.no1.app.R
-import taiwan.no1.app.api.config.TMDBConfig
+import taiwan.no1.app.api.config.TMDBConfig.BASE_IMAGE_URL
 import taiwan.no1.app.domain.usecase.MovieDetail
 import taiwan.no1.app.mvp.contracts.fragment.MovieDetailContract
 import taiwan.no1.app.mvp.models.ImageProfileModel
 import taiwan.no1.app.mvp.models.movie.MovieDetailModel
 import taiwan.no1.app.ui.fragments.MovieGalleryFragment
-import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment
-import taiwan.no1.app.utilies.AppLog
+import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
+import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_TAG
 import taiwan.no1.app.utilies.TimeUtils
 
 /**
@@ -39,7 +40,7 @@ class MovieDetailPresenter constructor(val movieDetailCase: MovieDetail):
             val runtime: TimeUtils.DateTime = TimeUtils.number2Time(it.runtime.toDouble(), TimeUtils.TimeType.Min)
 
             this.view.showMovieBackdrops(this.createViewPagerViews(it.images?.backdrops.orEmpty()))
-            this.view.showMovieCover(TMDBConfig.BASE_IMAGE_URL + it.poster_path)
+            this.view.showMovieCover(BASE_IMAGE_URL + it.poster_path)
             this.view.showMovieBase(it.title.orEmpty(),
                     it.release_date.orEmpty(),
                     "  ${runtime.hours} h ${runtime.mins} m",
@@ -64,7 +65,7 @@ class MovieDetailPresenter constructor(val movieDetailCase: MovieDetail):
     }
 
     override fun requestMovieDetail(movieId: Int) {
-        this.view.showLoading()
+//        this.view.showLoading()
         
         val request = MovieDetail.Requests(movieId)
         request.fragmentLifecycle = this.view.getLifecycle()
@@ -78,10 +79,9 @@ class MovieDetailPresenter constructor(val movieDetailCase: MovieDetail):
             } ?: emptyList()
 
             if (posters.isNotEmpty())
-                RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
-                        Pair(ViewPagerMainCtrlFragment.NAVIGATOR_ARG_FRAGMENT,
-                                MovieGalleryFragment.newInstance(posters)),
-                        Pair(ViewPagerMainCtrlFragment.NAVIGATOR_ARG_TAG, tag)))
+                RxBus.get().post(FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
+                        Pair(NAVIGATOR_ARG_FRAGMENT, MovieGalleryFragment.newInstance(posters)),
+                        Pair(NAVIGATOR_ARG_TAG, tag)))
         }
     }
     //endregion
@@ -98,7 +98,7 @@ class MovieDetailPresenter constructor(val movieDetailCase: MovieDetail):
                 View.inflate(this.view.context(), R.layout.item_movie_backdrop, null) as DiagonalView
             }.also {
                 it.forEachIndexed { i, diagonalView ->
-                    this.view.showMovieSingleBackdrop(TMDBConfig.BASE_IMAGE_URL + backdrops[i].file_path, diagonalView)
+                    this.view.showMovieSingleBackdrop(BASE_IMAGE_URL + backdrops[i].file_path, diagonalView)
                 }
             }
 }

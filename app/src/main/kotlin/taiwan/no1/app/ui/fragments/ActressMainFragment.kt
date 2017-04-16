@@ -5,6 +5,7 @@ import android.support.annotation.LayoutRes
 import android.support.v4.app.Fragment
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
+import android.support.v7.widget.StaggeredGridLayoutManager.VERTICAL
 import butterknife.bindView
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
@@ -126,7 +127,7 @@ class ActressMainFragment: BaseFragment(), ActressMainContract.View, IMainFragme
 
         // FIXED: 2/11/17 Using the customize image view to fit the photo ratio.
         this.rvCasts.also {
-            it.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            it.layoutManager = StaggeredGridLayoutManager(2, VERTICAL)
             it.setHasFixedSize(true)
             // FIXED: 3/15/17 When the fragment is in the stop status, we have to remove the item decorator.
             it.addItemDecoration(this.itemGirdDecorator)

@@ -41,8 +41,8 @@ class MovieListFragment: BaseFragment(), MovieListContract.View, LazyFragmentPag
         fun newInstance(category: CloudDataStore.Movies): MovieListFragment = MovieListFragment().apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 TransitionInflater.from(App.getAppContext()).let {
-                    this.sharedElementReturnTransition = it.inflateTransition(R.transition.change_image_transform)
-                    this.exitTransition = it.inflateTransition(android.R.transition.fade)
+                    this.sharedElementReturnTransition = it.inflateTransition(R.transition.default_transition)
+                    this.exitTransition = it.inflateTransition(android.R.transition.no_transition)
                 }
             }
 

@@ -8,6 +8,7 @@ import android.util.SparseArray
 import android.view.View
 import android.widget.RelativeLayout
 import butterknife.bindView
+import com.devrapid.kotlinknifer.AppLog
 import com.devrapid.kotlinknifer.addFragment
 import com.devrapid.kotlinknifer.popFragment
 import com.devrapid.kotlinknifer.removeRecursiveFragment
@@ -30,8 +31,6 @@ import taiwan.no1.app.ui.fragments.TvMainFragment
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_SHARED_ELEMENTS
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_TAG
-import taiwan.no1.app.utilies.AppLog
-import java.util.*
 import javax.inject.Inject
 
 /**

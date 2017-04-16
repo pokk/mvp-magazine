@@ -4,7 +4,7 @@ import android.content.Context
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.view.ViewGroup
-import taiwan.no1.app.utilies.AppLog
+import com.devrapid.kotlinknifer.AppLog
 
 /**
  *

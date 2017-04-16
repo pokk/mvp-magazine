@@ -1,11 +1,11 @@
 package taiwan.no1.app.mvp.presenters.fragment
 
+import com.devrapid.kotlinknifer.AppLog
 import rx.lang.kotlin.subscriber
 import taiwan.no1.app.data.source.CloudDataStore
 import taiwan.no1.app.domain.usecase.TvLists
 import taiwan.no1.app.mvp.contracts.fragment.TvListContract
 import taiwan.no1.app.mvp.models.tv.TvBriefModel
-import taiwan.no1.app.utilies.AppLog
 import java.util.*
 
 /**

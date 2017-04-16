@@ -5,7 +5,7 @@ import android.graphics.Color
 import android.support.v7.graphics.Palette
 import com.hwangjr.rxbus.RxBus
 import com.touchin.constant.RxbusTag
-import taiwan.no1.app.api.config.TMDBConfig
+import taiwan.no1.app.api.config.TMDBConfig.BASE_IMAGE_URL
 import taiwan.no1.app.mvp.contracts.adapter.CastListAdapterContract.Presenter
 import taiwan.no1.app.mvp.contracts.adapter.CastListAdapterContract.View
 import taiwan.no1.app.mvp.models.cast.CastBriefModel
@@ -23,7 +23,7 @@ class CastListAdapterPresenter: BaseAdapterPresenter<View, CastBriefModel>(), Pr
     override fun init(viewHolder: View, model: CastBriefModel) {
         super.init(viewHolder, model)
 
-        this.viewHolder.showProfile(TMDBConfig.BASE_IMAGE_URL + this.model.profile_path)
+        this.viewHolder.showProfile(BASE_IMAGE_URL + this.model.profile_path)
         this.viewHolder.showTvName(this.model.name.orEmpty())
     }
 

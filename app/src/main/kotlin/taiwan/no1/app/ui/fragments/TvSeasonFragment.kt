@@ -2,10 +2,13 @@ package taiwan.no1.app.ui.fragments
 
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.Color.WHITE
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v7.graphics.Palette
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.LinearLayoutManager.HORIZONTAL
+import android.support.v7.widget.LinearLayoutManager.VERTICAL
 import android.support.v7.widget.LinearSnapHelper
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -16,7 +19,7 @@ import butterknife.bindView
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.BitmapImageViewTarget
 import taiwan.no1.app.R
-import taiwan.no1.app.api.config.TMDBConfig
+import taiwan.no1.app.api.config.TMDBConfig.BASE_IMAGE_URL
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.contracts.fragment.TvSeasonContract
@@ -141,13 +144,13 @@ class TvSeasonFragment: BaseFragment(), TvSeasonContract.View {
      * @param savedInstanceState the previous fragment data status after the system calls [onPause].
      */
     override fun init(savedInstanceState: Bundle?) {
-        this.imageLoader.display(TMDBConfig.BASE_IMAGE_URL + this.argTvSeasonInfo.poster_path,
+        this.imageLoader.display(BASE_IMAGE_URL + this.argTvSeasonInfo.poster_path,
                 listener = object: BitmapImageViewTarget(ivDropPoster) {
                     override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
                         super.onResourceReady(resource, glideAnimation)
 
                         Palette.from(resource).maximumColorCount(24).generate().let {
-                            this@TvSeasonFragment.tvSeason.setTextColor(it.dominantSwatch?.titleTextColor ?: Color.WHITE)
+                            this@TvSeasonFragment.tvSeason.setTextColor(it.dominantSwatch?.titleTextColor ?: WHITE)
                         }
                     }
                 },
@@ -203,12 +206,12 @@ class TvSeasonFragment: BaseFragment(), TvSeasonContract.View {
         recyclerView.apply {
             // Only episode list is vertical layout.
             if (list.isNotEmpty() && list[0] is TvEpisodesModel) {
-                this.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
+                this.layoutManager = LinearLayoutManager(this.context, VERTICAL, false)
                 this.addItemDecoration(MovieVerticalItemDecorator(20, 60))
                 LinearSnapHelper().also { it.attachToRecyclerView(this) }
             }
             else {
-                this.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+                this.layoutManager = LinearLayoutManager(this.context, HORIZONTAL, false)
                 this.addItemDecoration(MovieHorizontalItemDecorator(30))
             }
             this.adapter = CommonRecyclerAdapter(list, argFromFragment)

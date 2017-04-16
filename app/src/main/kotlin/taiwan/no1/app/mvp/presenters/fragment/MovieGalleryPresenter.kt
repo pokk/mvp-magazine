@@ -8,7 +8,7 @@ import android.widget.ImageView
 import com.devrapid.kotlinknifer.resizeImageAsRatio
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
 import taiwan.no1.app.R
-import taiwan.no1.app.api.config.TMDBConfig
+import taiwan.no1.app.api.config.TMDBConfig.BASE_IMAGE_URL
 import taiwan.no1.app.mvp.contracts.fragment.MovieGalleryContract
 import taiwan.no1.app.mvp.models.ImageProfileModel
 
@@ -123,7 +123,7 @@ class MovieGalleryPresenter: BasePresenter<MovieGalleryContract.View>(), MovieGa
 
                     // For finding this view easily.
                     view.tag = i
-                    this@MovieGalleryPresenter.view.showSinglePoster(TMDBConfig.BASE_IMAGE_URL + posters[i].file_path,
+                    this@MovieGalleryPresenter.view.showSinglePoster(BASE_IMAGE_URL + posters[i].file_path,
                             i, ivPoster, cvFrame)
                 }
             }

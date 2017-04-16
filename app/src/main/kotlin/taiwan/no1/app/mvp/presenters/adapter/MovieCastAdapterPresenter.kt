@@ -1,13 +1,14 @@
 package taiwan.no1.app.mvp.presenters.adapter
 
 import com.hwangjr.rxbus.RxBus
-import com.touchin.constant.RxbusTag
-import taiwan.no1.app.api.config.TMDBConfig
+import com.touchin.constant.RxbusTag.FRAGMENT_CHILD_NAVIGATOR
+import taiwan.no1.app.api.config.TMDBConfig.BASE_IMAGE_URL
 import taiwan.no1.app.mvp.contracts.adapter.MovieCastAdapterContract.Presenter
 import taiwan.no1.app.mvp.contracts.adapter.MovieCastAdapterContract.View
 import taiwan.no1.app.mvp.models.FilmCastsModel
 import taiwan.no1.app.ui.fragments.CastDetailFragment
-import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment
+import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
+import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_TAG
 
 /**
  *
@@ -19,14 +20,13 @@ class MovieCastAdapterPresenter: BaseAdapterPresenter<View, FilmCastsModel.CastB
     override fun init(viewHolder: View, model: FilmCastsModel.CastBean) {
         super.init(viewHolder, model)
 
-        this.viewHolder.showCastProfilePhoto(TMDBConfig.BASE_IMAGE_URL + this.model.profile_path)
+        this.viewHolder.showCastProfilePhoto(BASE_IMAGE_URL + this.model.profile_path)
         this.viewHolder.showCastInfo(this.model.character.orEmpty(), this.model.name.orEmpty())
     }
 
     override fun onItemClicked(tag: Int) {
-        RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
-                Pair(ViewPagerMainCtrlFragment.NAVIGATOR_ARG_FRAGMENT,
-                        CastDetailFragment.newInstance(model.id.toString(), tag)),
-                Pair(ViewPagerMainCtrlFragment.NAVIGATOR_ARG_TAG, tag)))
+        RxBus.get().post(FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
+                Pair(NAVIGATOR_ARG_FRAGMENT, CastDetailFragment.newInstance(model.id.toString(), tag)),
+                Pair(NAVIGATOR_ARG_TAG, tag)))
     }
 } 

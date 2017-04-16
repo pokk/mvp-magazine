@@ -16,7 +16,6 @@
         android:id="@+id/iv_tv_poster"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/height_item_tvthumbnail"
-        android:transitionName="tv_poster"
         tools:ignore="ContentDescription"/>
 
     <LinearLayout

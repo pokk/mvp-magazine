@@ -3,6 +3,7 @@ package taiwan.no1.app.ui.customize
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Color.WHITE
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.widget.RelativeLayout
@@ -19,7 +20,7 @@ import taiwan.no1.app.R
 class TicketDisplayLayout: RelativeLayout {
     //region Member Variables
     // Paint's color.
-    var color: Int = Color.WHITE
+    var color: Int = WHITE
         set(value) {
             field = value
         }

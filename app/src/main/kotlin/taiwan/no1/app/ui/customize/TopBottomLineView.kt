@@ -2,6 +2,8 @@ package taiwan.no1.app.ui.customize
 
 import android.content.Context
 import android.graphics.*
+import android.graphics.Color.BLACK
+import android.graphics.Color.WHITE
 import android.support.annotation.ColorRes
 import android.support.annotation.FloatRange
 import android.util.AttributeSet
@@ -19,7 +21,7 @@ class TopBottomLineView: LinearLayout {
     //region Member Variables
     // Paint's color.
     @ColorRes
-    var color: Int = Color.WHITE
+    var color: Int = WHITE
         set(value) {
             field = value
         }
@@ -64,7 +66,7 @@ class TopBottomLineView: LinearLayout {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int): super(context, attrs, defStyleAttr) {
         attrs?.let {
             context.obtainStyledAttributes(it, R.styleable.TopBottomLineView).apply {
-                this@TopBottomLineView.color = this.getInt(R.styleable.TopBottomLineView_centerColor, Color.BLACK)
+                this@TopBottomLineView.color = this.getInt(R.styleable.TopBottomLineView_centerColor, BLACK)
                 this@TopBottomLineView.blurLength = this.getFloat(R.styleable.TopBottomLineView_blurLength, 0f)
                 this@TopBottomLineView.strokeWidth = this.getFloat(R.styleable.TopBottomLineView_strokeWidth, 0f)
                 this@TopBottomLineView.linePadding = this.getInteger(R.styleable.TopBottomLineView_linePadding, 0)

@@ -1,10 +1,10 @@
 package taiwan.no1.app.mvp.presenters.fragment
 
+import com.devrapid.kotlinknifer.AppLog
 import rx.lang.kotlin.subscriber
 import taiwan.no1.app.domain.usecase.TvSeasonDetail
 import taiwan.no1.app.mvp.contracts.fragment.TvSeasonContract
 import taiwan.no1.app.mvp.models.tv.TvSeasonsModel
-import taiwan.no1.app.utilies.AppLog
 
 /**
  * @author Jieyi

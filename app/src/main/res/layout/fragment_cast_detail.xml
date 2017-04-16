@@ -81,7 +81,6 @@
                     android:layout_alignBottom="@+id/dv_backdrop"
                     android:layout_marginStart="10dp"
                     android:src="@color/lb_basic_card_content_text_color"
-                    android:transitionName="cast_poster"
                     app:civ_border_color="#77ffffff"
                     app:civ_border_width="3dp"
                     app:layout_collapseMode="parallax"/>

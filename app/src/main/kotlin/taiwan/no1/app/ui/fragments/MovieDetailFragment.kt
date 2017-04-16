@@ -1,12 +1,13 @@
 package taiwan.no1.app.ui.fragments
 
 import android.graphics.Bitmap
-import android.graphics.Color
+import android.graphics.Color.TRANSPARENT
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.LinearLayoutManager.HORIZONTAL
 import android.support.v7.widget.RecyclerView
 import android.transition.TransitionInflater
 import android.view.View
@@ -16,6 +17,7 @@ import android.widget.TextView
 import butterknife.bindView
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.BitmapImageViewTarget
+import com.devrapid.kotlinknifer.AppLog
 import com.intrusoft.squint.DiagonalView
 import taiwan.no1.app.App
 import taiwan.no1.app.R
@@ -48,26 +50,30 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         // The key name of the fragment initialization parameters.
         private const val ARG_PARAM_MOVIE_ID: String = "param_movie_id"
         private const val ARG_PARAM_FROM_ID: String = "param_movie_from_fragment"
+        private const val ARG_PARAM_TRANSITION_NAME: String = "param_movie_transition_name"
+        private const val ARG_PARAM_TRANSITION_URI: String = "param_movie_transition_uri"
 
         /**
          * Use this factory method to create a new instance of this fragment using the provided parameters.
          *
          * @return A new instance of [MovieDetailFragment].
          */
-        fun newInstance(id: String, from: Int): MovieDetailFragment = MovieDetailFragment().apply {
+        fun newInstance(id: String,
+                        from: Int,
+                        transitionName: String,
+                        transitionUri: String): MovieDetailFragment = MovieDetailFragment().apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 TransitionInflater.from(App.getAppContext()).let {
-                    this.sharedElementReturnTransition = it.inflateTransition(R.transition.change_image_transform)
-//                    this.exitTransition = it.inflateTransition(R.transition.detail_transform)
-                    this.sharedElementEnterTransition = it.inflateTransition(R.transition.change_image_transform)
-//                    this.enterTransition = it.inflateTransition(R.transition.detail_transform)
-//                    this.reenterTransition = it.inflateTransition(R.transition.detail_transform)
+                    this.sharedElementReturnTransition = it.inflateTransition(R.transition.default_transition)
+                    this.sharedElementEnterTransition = it.inflateTransition(android.R.transition.no_transition)
                 }
             }
 
             this.arguments = Bundle().apply {
                 this.putString(ARG_PARAM_MOVIE_ID, id)
                 this.putInt(ARG_PARAM_FROM_ID, from)
+                this.putString(ARG_PARAM_TRANSITION_NAME, transitionName)
+                this.putString(ARG_PARAM_TRANSITION_URI, transitionUri)
             }
         }
     }
@@ -104,6 +110,8 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     // Get the arguments from the bundle here.
     private val argMovieId: String by lazy { this.arguments.getString(ARG_PARAM_MOVIE_ID) }
     private val argFromFragment: Int by lazy { this.arguments.getInt(ARG_PARAM_FROM_ID) }
+    private val argTransitionName: String by lazy { this.arguments.getString(ARG_PARAM_TRANSITION_NAME) }
+    private val argTransitionUri: String by lazy { this.arguments.getString(ARG_PARAM_TRANSITION_URI) }
     //endregion
 
     //region Fragment lifecycle
@@ -160,6 +168,9 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
         this.argMovieId.toInt().let {
             this.presenter.requestMovieDetail(it)
         }
+        AppLog.w(this.argTransitionName)
+        this.ivMoviePoster.transitionName = this.argTransitionName
+        this.imageLoader.display(this.argTransitionUri, this.ivMoviePoster)
     }
     //endregion
 
@@ -171,7 +182,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     override fun showMovieSingleBackdrop(uri: String, diagonalView: DiagonalView) {
         this.imageLoader.display(uri, listener = object: BitmapImageViewTarget(diagonalView) {
             override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
-                diagonalView.solidColor = Color.TRANSPARENT
+                diagonalView.solidColor = TRANSPARENT
                 this@MovieDetailFragment.presenter.onResourceFinished(diagonalView,
                         this@MovieDetailFragment.argFromFragment)
                 super.onResourceReady(resource, glideAnimation)
@@ -180,16 +191,17 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     }
 
     override fun showMovieCover(posterUri: String) {
-        this.imageLoader.display(posterUri, this.ivMoviePoster)
+        AppLog.v(posterUri)
+//        this.imageLoader.display(posterUri, this.ivMoviePoster)
     }
 
     override fun showMovieBase(movieTitle: String, releaseDate: String, runtime: String, score: Double) {
         this.tvTitle.apply {
-            this.setBackgroundColor(Color.TRANSPARENT)
+            this.setBackgroundColor(TRANSPARENT)
             this.text = movieTitle
         }
         this.tvReleaseDate.apply {
-            this.setBackgroundColor(Color.TRANSPARENT)
+            this.setBackgroundColor(TRANSPARENT)
             this.text = releaseDate
         }
         this.tvTime.text = runtime
@@ -229,7 +241,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
 
     private fun <T: IVisitable> showCardItems(recyclerView: RecyclerView, list: List<T>) {
         recyclerView.apply {
-            this.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+            this.layoutManager = LinearLayoutManager(this.context, HORIZONTAL, false)
             this.adapter = CommonRecyclerAdapter(list, argFromFragment)
             this.addItemDecoration(MovieHorizontalItemDecorator(30))
         }

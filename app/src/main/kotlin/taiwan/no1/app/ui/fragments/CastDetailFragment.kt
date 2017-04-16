@@ -1,11 +1,12 @@
 package taiwan.no1.app.ui.fragments
 
 import android.graphics.Bitmap
-import android.graphics.Color
+import android.graphics.Color.TRANSPARENT
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.LinearLayoutManager.HORIZONTAL
 import android.support.v7.widget.RecyclerView
 import android.transition.TransitionInflater
 import android.view.View
@@ -151,7 +152,7 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
     override fun showCastPoster(posterUri: String) {
         this.imageLoader.display(posterUri, listener = object: BitmapImageViewTarget(this.ivDropPoster) {
             override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
-                this@CastDetailFragment.ivDropPoster.solidColor = Color.TRANSPARENT
+                this@CastDetailFragment.ivDropPoster.solidColor = TRANSPARENT
                 super.onResourceReady(resource, glideAnimation)
                 this@CastDetailFragment.ivDropPoster.setOnClickListener {
                     this@CastDetailFragment.presenter.enterToGallery(this@CastDetailFragment.argFromFragment)
@@ -166,11 +167,11 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
 
     override fun showCastBase(gender: String, name: String) {
         this.tvJob.also {
-            it.setBackgroundColor(Color.TRANSPARENT)
+            it.setBackgroundColor(TRANSPARENT)
             it.text = gender
         }
         this.tvName.also {
-            it.setBackgroundColor(Color.TRANSPARENT)
+            it.setBackgroundColor(TRANSPARENT)
             it.text = name
         }
     }
@@ -194,7 +195,7 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
 
     private fun <T: IVisitable> showCardItems(recyclerView: RecyclerView, list: List<T>) {
         recyclerView.also {
-            it.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+            it.layoutManager = LinearLayoutManager(this.context, HORIZONTAL, false)
             it.adapter = CommonRecyclerAdapter(list, argFromFragment)
             it.addItemDecoration(MovieHorizontalItemDecorator(30))
         }

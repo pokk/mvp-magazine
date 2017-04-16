@@ -1,11 +1,11 @@
 package taiwan.no1.app.mvp.presenters.fragment
 
+import com.devrapid.kotlinknifer.AppLog
 import rx.lang.kotlin.subscriber
 import taiwan.no1.app.domain.usecase.CastLists
 import taiwan.no1.app.mvp.contracts.fragment.ActressMainContract
 import taiwan.no1.app.mvp.models.cast.CastBriefModel
 import taiwan.no1.app.mvp.models.cast.CastListResModel
-import taiwan.no1.app.utilies.AppLog
 import java.util.*
 
 /**
