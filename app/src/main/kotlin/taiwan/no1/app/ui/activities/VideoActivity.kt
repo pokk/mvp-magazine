@@ -11,11 +11,12 @@ import android.widget.TextView
 import butterknife.bindView
 import com.google.android.youtube.player.YouTubeBaseActivity
 import com.google.android.youtube.player.YouTubePlayer
-import com.google.android.youtube.player.YouTubePlayer.PlaybackEventListener
 import com.google.android.youtube.player.YouTubePlayerView
 import com.jakewharton.rxbinding.widget.changes
 import taiwan.no1.app.R
+import taiwan.no1.app.ui.listeners.YouTubePlaybackEventListener
 import taiwan.no1.app.ui.listeners.YouTubePlayerInitListener
+import taiwan.no1.app.ui.listeners.YouTubePlayerStateChangeListener
 
 /**
  *
@@ -59,26 +60,6 @@ class VideoActivity: YouTubeBaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_video)
 
-//        this.ytpvTrailer.initialize(this.getString(R.string.youtube_api_key),
-//                object: YouTubePlayerInitListener(argYoutubeKey) {
-//                    override fun onInitializationSuccess(provider: Provider,
-//                                                         player: YouTubePlayer,
-//                                                         wasRestored: Boolean) {
-//                        this@VideoActivity.youtubePlayer = player
-//                        this@VideoActivity.displayCurrentTime(player)
-//                        this@VideoActivity.youtubePlayer?.let {
-//                            if (!wasRestored) {
-//                                it.loadVideo(this.youTubeKey)
-//                                it.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT)
-//                            }
-//
-//                            // Add listeners to YouTubePlayer instance.
-//                            it.setPlayerStateChangeListener(this@VideoActivity.stateChangeListener)
-//                            it.setPlaybackEventListener(this@VideoActivity.playbackEventListener)
-//                        }
-//                    }
-//                })
-
         this.ytpvTrailer.initialize(this.getString(R.string.youtube_api_key),
                 YouTubePlayerInitListener(argYoutubeKey).onSuccess { _, player, wasRestored ->
                     this@VideoActivity.youtubePlayer = player
@@ -90,8 +71,12 @@ class VideoActivity: YouTubeBaseActivity() {
                         }
 
                         // Add listeners to YouTubePlayer instance.
-                        it.setPlayerStateChangeListener(this@VideoActivity.stateChangeListener)
-                        it.setPlaybackEventListener(this@VideoActivity.playbackEventListener)
+                        it.setPlayerStateChangeListener(YouTubePlayerStateChangeListener().onVideoStarted {
+                            this@VideoActivity.youtubePlayer?.let { displayCurrentTime(it) }
+                        })
+                        it.setPlaybackEventListener(YouTubePlaybackEventListener().onPlaying {
+                            this@VideoActivity.youtubePlayer?.let { displayCurrentTime(it) }
+                        })
                     }
                 })
 
@@ -138,45 +123,6 @@ class VideoActivity: YouTubeBaseActivity() {
     }
     //endregion
 
-    private val stateChangeListener: YouTubePlayer.PlayerStateChangeListener = object: YouTubePlayer.PlayerStateChangeListener {
-        override fun onAdStarted() {
-        }
-
-        override fun onLoading() {
-        }
-
-        override fun onLoaded(p0: String?) {
-        }
-
-        override fun onVideoStarted() {
-            this@VideoActivity.youtubePlayer?.let { displayCurrentTime(it) }
-        }
-
-        override fun onVideoEnded() {
-        }
-
-        override fun onError(p0: YouTubePlayer.ErrorReason?) {
-        }
-    }
-
-    private val playbackEventListener: PlaybackEventListener = object: PlaybackEventListener {
-        override fun onSeekTo(p0: Int) {
-        }
-
-        override fun onPlaying() {
-            this@VideoActivity.youtubePlayer?.let { displayCurrentTime(it) }
-        }
-
-        override fun onStopped() {
-        }
-
-        override fun onBuffering(p0: Boolean) {
-        }
-
-        override fun onPaused() {
-        }
-    }
-
     private fun displayCurrentTime(player: YouTubePlayer) {
         val formattedTime = formatTime(player.durationMillis - player.currentTimeMillis)
         this.tvTime.text = formattedTime
@@ -192,11 +138,4 @@ class VideoActivity: YouTubeBaseActivity() {
         else
             hours.toString() + ":") + String.format("%02d:%02d", minutes % 60, seconds % 60)
     }
-
-//    private val runnable = object: Runnable {
-//        override fun run() {
-//            displayCurrentTime()
-//            mHandler.postDelayed(this, 100)
-//        }
-//    }
 }

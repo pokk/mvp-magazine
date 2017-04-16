@@ -11,9 +11,8 @@ import com.google.android.youtube.player.YouTubePlayer.Provider
  */
 
 open class YouTubePlayerInitListener(val youTubeKey: String): OnInitializedListener {
-    // XXX: 4/14/17 Here may memory leak!?! ** Search that if lambda function doesn't be released, it'll memory leak or not. **
-    var successFunction: (YouTubePlayerInitListener.(provider: Provider, player: YouTubePlayer, wasRestored: Boolean) -> Unit)? = null
-    var failureFunction: (YouTubePlayerInitListener.(provider: Provider, result: YouTubeInitializationResult) -> Unit)? = null
+    private var successFunction: (YouTubePlayerInitListener.(provider: Provider, player: YouTubePlayer, wasRestored: Boolean) -> Unit)? = null
+    private var failureFunction: (YouTubePlayerInitListener.(provider: Provider, result: YouTubeInitializationResult) -> Unit)? = null
 
     override fun onInitializationSuccess(provider: Provider, player: YouTubePlayer, wasRestored: Boolean) =
             this.successFunction?.let { it(provider, player, wasRestored) } ?: Unit

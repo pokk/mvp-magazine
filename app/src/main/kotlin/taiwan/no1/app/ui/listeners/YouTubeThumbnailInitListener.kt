@@ -12,10 +12,9 @@ import com.google.android.youtube.player.YouTubeThumbnailView.OnInitializedListe
  */
 
 open class YouTubeThumbnailInitListener(val youTubeKey: String): OnInitializedListener {
-    // XXX: 4/14/17 Here may memory leak!?! ** Search that if lambda function doesn't be released, it'll memory leak or not. **
     // More like Kotlin style Chain style.
-    var successFunction: (YouTubeThumbnailInitListener.(thumbnailView: YouTubeThumbnailView, loader: YouTubeThumbnailLoader) -> Unit)? = null
-    var failureFunction: (YouTubeThumbnailInitListener.(thumbnailView: YouTubeThumbnailView, result: YouTubeInitializationResult) -> Unit)? = null
+    private var successFunction: (YouTubeThumbnailInitListener.(thumbnailView: YouTubeThumbnailView, loader: YouTubeThumbnailLoader) -> Unit)? = null
+    private var failureFunction: (YouTubeThumbnailInitListener.(thumbnailView: YouTubeThumbnailView, result: YouTubeInitializationResult) -> Unit)? = null
 
     override fun onInitializationSuccess(thumbnailView: YouTubeThumbnailView, loader: YouTubeThumbnailLoader) =
             this.successFunction?.let { it(thumbnailView, loader) } ?: Unit
