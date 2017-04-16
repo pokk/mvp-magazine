@@ -1,9 +1,13 @@
 package taiwan.no1.app.ui.adapter.viewholder
 
+import android.graphics.Bitmap
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.bindView
+import com.bumptech.glide.request.animation.GlideAnimation
+import com.bumptech.glide.request.target.BitmapImageViewTarget
+import com.devrapid.kotlinknifer.resizeView
 import taiwan.no1.app.R
 import taiwan.no1.app.mvp.contracts.adapter.TvEpisodeAdapterContract
 import taiwan.no1.app.mvp.models.tv.TvEpisodesModel
@@ -47,8 +51,14 @@ class TvEpisodeViewHolder(val view: View): BaseViewHolder<TvEpisodesModel>(view)
 
     //region ViewHolder implementations
     override fun showEpisodeThumbnail(episodeThumbnailUri: String) {
-        // FIXME: 4/9/17 Doesn't show episode pic.
-        this.imageLoader.display(episodeThumbnailUri, this.ivThumbnail, isFitCenter = false)
+        this.imageLoader.display(episodeThumbnailUri, listener = object: BitmapImageViewTarget(this.ivThumbnail) {
+            override fun onResourceReady(resource: Bitmap?, glideAnimation: GlideAnimation<in Bitmap>?) {
+                super.onResourceReady(resource, glideAnimation)
+                // FIXME: 4/9/17 The image's height fits the item height.
+                if (this.view.height <= this@TvEpisodeViewHolder.view.height)
+                    this.view.resizeView(this.view.width, this@TvEpisodeViewHolder.view.height)
+            }
+        }, isFitCenter = false)
     }
 
     override fun showEpisodeNumber(episodeNumber: String) {
