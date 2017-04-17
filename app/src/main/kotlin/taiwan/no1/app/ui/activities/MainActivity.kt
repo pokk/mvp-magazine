@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.annotation.IdRes
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import android.transition.TransitionInflater
 import android.util.SparseArray
 import android.view.View
 import android.widget.RelativeLayout
@@ -18,6 +19,7 @@ import com.hwangjr.rxbus.annotation.Tag
 import com.roughike.bottombar.BottomBar
 import com.touchin.constant.RxbusTag
 import kotlinx.android.synthetic.main.activity_main.*
+import taiwan.no1.app.App
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.HasComponent
 import taiwan.no1.app.internal.di.annotations.PerActivity
@@ -170,6 +172,12 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
         // FIXME: 3/3/17 When actress view is rotated, the fragment manager will be null.
         AppLog.w(presentFragment)
 
+        // TODO: 4/17/17 Add the shared elements effective, buy now it's no effective yet.
+        presentFragment.sharedElementReturnTransition = TransitionInflater.from(App.getAppContext()).inflateTransition(R.transition.default_transition)
+        presentFragment.exitTransition = TransitionInflater.from(App.getAppContext()).inflateTransition(android.R.transition.no_transition)
+        fragment.sharedElementEnterTransition = TransitionInflater.from(App.getAppContext()).inflateTransition(R.transition.default_transition)
+        fragment.enterTransition = TransitionInflater.from(App.getAppContext()).inflateTransition(android.R.transition.no_transition)
+        
         // To avoid the same fragment but different hash code's fragment add the fragment.
         if (tag == presentFragment.hashCode()) {
             val fragmentManager: FragmentManager

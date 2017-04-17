@@ -41,11 +41,10 @@ class MovieListViewHolder(val view: View): BaseViewHolder<MovieBriefModel>(view)
     override fun initView(model: MovieBriefModel, position: Int, adapter: CommonRecyclerAdapter) {
         super.initView(model, position, adapter)
 
-        this.ivPoster.transitionName = "transition" + position
-        this.item.setOnClickListener {
-            this.presenter.onItemClicked(adapter.fragmentTag,
-                    hashMapOf(Pair(this.ivPoster, this.ivPoster.transitionName)))
-        }
+        this.ivPoster.transitionName = "poster_transition" + position
+        this.tvTitle.transitionName = "title_transition" + position
+        this.tvRelease.transitionName = "release_transition" + position
+        this.item.setOnClickListener { this.presenter.onItemClicked(adapter.fragmentTag) }
     }
 
     override fun inject() {

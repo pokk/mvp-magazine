@@ -42,7 +42,7 @@ class MovieRelatedAdapterPresenter: BaseAdapterPresenter<View, IVisitable>(), Pr
     override fun onItemClicked(tag: Int) {
         RxBus.get().post(FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
                 Pair(NAVIGATOR_ARG_FRAGMENT, if (model is MovieBriefModel)
-                    MovieDetailFragment.newInstance(filmId.toString(), tag, "123", "123")
+                    MovieDetailFragment.newInstance(filmId.toString(), tag)
                 else
                     TvDetailFragment.newInstance(filmId.toString(), tag)),
                 Pair(NAVIGATOR_ARG_TAG, tag)))

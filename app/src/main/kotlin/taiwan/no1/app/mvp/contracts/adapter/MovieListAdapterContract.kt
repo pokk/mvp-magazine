@@ -13,7 +13,7 @@ import taiwan.no1.app.mvp.views.IViewHolder
 
 interface MovieListAdapterContract {
     interface Presenter: IAdapterPresenter<View, MovieBriefModel> {
-        fun onItemClicked(tag: Int, sharedElements: HashMap<android.view.View, String>)
+        fun onItemClicked(tag: Int)
     }
 
     interface View: IViewHolder {

@@ -14,7 +14,7 @@
     <dimen name="radius_gallery_blurmask">15dp</dimen>
     <dimen name="marginbottom_gallery_textpager">10dp</dimen>
     <dimen name="marginside_moviedetail_informationlayout">10dp</dimen>
-    <dimen name="width_moviedetail_profileimage">120dp</dimen>
+    <dimen name="width_moviedetail_profileimage">135dp</dimen>
     <dimen name="height_moviedetail_profileimage">160dp</dimen>
     <dimen name="marginside_all_navigation">10dp</dimen>
     <dimen name="height_all_navigator">5dp</dimen>

@@ -8,7 +8,6 @@ import taiwan.no1.app.mvp.contracts.adapter.MovieListAdapterContract.View
 import taiwan.no1.app.mvp.models.movie.MovieBriefModel
 import taiwan.no1.app.ui.fragments.MovieDetailFragment
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
-import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_SHARED_ELEMENTS
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_TAG
 
 /**
@@ -28,20 +27,10 @@ class MovieListAdapterPresenter: BaseAdapterPresenter<View, MovieBriefModel>(), 
         this.viewHolder.showMovieOverview(this.model.overview.orEmpty())
     }
 
-    override fun onItemClicked(tag: Int, sharedElements: HashMap<android.view.View, String>) {
-        var s: String = ""
-
-        sharedElements.values.forEach { s = it }
-
-
+    override fun onItemClicked(tag: Int) {
         RxBus.get().post(FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
-                Pair(NAVIGATOR_ARG_FRAGMENT,
-                        MovieDetailFragment.newInstance(model.id.toString(),
-                                tag,
-                                s,
-                                BASE_IMAGE_URL + this.model.poster_path)),
-                Pair(NAVIGATOR_ARG_TAG, tag),
-                Pair(NAVIGATOR_ARG_SHARED_ELEMENTS, sharedElements)
+                Pair(NAVIGATOR_ARG_FRAGMENT, MovieDetailFragment.newInstance(model.id.toString(), tag)),
+                Pair(NAVIGATOR_ARG_TAG, tag)
         ))
     }
 }

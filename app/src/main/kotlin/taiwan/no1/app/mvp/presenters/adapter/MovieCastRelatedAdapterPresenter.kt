@@ -27,7 +27,7 @@ class MovieCastRelatedAdapterPresenter: BaseAdapterPresenter<View, CreditsInFilm
 
     override fun onItemClicked(tag: Int) {
         RxBus.get().post(FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
-                Pair(NAVIGATOR_ARG_FRAGMENT, MovieDetailFragment.newInstance(model.id.toString(), tag, "123", "123")),
+                Pair(NAVIGATOR_ARG_FRAGMENT, MovieDetailFragment.newInstance(model.id.toString(), tag)),
                 Pair(NAVIGATOR_ARG_TAG, tag)))
     }
 } 
