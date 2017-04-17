@@ -52,8 +52,6 @@ class CastDetailPresenter constructor(val castDetailCase: CastDetail):
     }
 
     override fun requestCastDetail(castId: Int) {
-        this.view.showLoading()
-
         val request = CastDetail.Requests(castId)
         request.fragmentLifecycle = this.view.getLifecycle()
         this.castDetailCase.execute(request, this.castDetailSub)

@@ -146,9 +146,11 @@ class TvDetailFragment: BaseFragment(), TvDetailContract.View {
      * @param savedInstanceState the previous fragment data status after the system calls [onPause].
      */
     override fun init(savedInstanceState: Bundle?) {
+        this.showLoading()
+
         this.presenter.requestListTvs(this.id.toInt())
         this.isResume = true
-        
+
         View.OnClickListener { view ->
             this.vpDropPoster.currentItem.let {
                 when (view) {
@@ -166,7 +168,7 @@ class TvDetailFragment: BaseFragment(), TvDetailContract.View {
         this.vpDropPoster.pageSelections().compose(this.bindToLifecycle<Int>()).subscribe {
             this.presenter.scrollBackdropTo(if (isResume) 0 else it)
         }
-        this.isResume = false 
+        this.isResume = false
     }
     //endregion
 

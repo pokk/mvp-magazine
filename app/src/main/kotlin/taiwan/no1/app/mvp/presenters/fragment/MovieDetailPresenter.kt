@@ -65,8 +65,6 @@ class MovieDetailPresenter constructor(val movieDetailCase: MovieDetail):
     }
 
     override fun requestMovieDetail(movieId: Int) {
-        this.view.showLoading()
-        
         val request = MovieDetail.Requests(movieId)
         request.fragmentLifecycle = this.view.getLifecycle()
         this.movieDetailCase.execute(request, this.movieDetailSub)

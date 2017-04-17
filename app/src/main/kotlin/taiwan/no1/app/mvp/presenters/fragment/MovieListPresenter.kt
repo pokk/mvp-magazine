@@ -24,8 +24,6 @@ class MovieListPresenter constructor(val moviesCase: MovieLists):
     }
 
     override fun requestListMovies(category: CloudDataStore.Movies, page: Int) {
-        this.view.showLoading()
-
         val request = MovieLists.Requests(category, page)
         request.fragmentLifecycle = this.view.getLifecycle()
         // TODO: 4/4/17 Create a customize subscriber in [BasePresenter].

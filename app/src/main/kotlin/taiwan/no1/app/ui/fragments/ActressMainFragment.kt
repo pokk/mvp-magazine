@@ -117,6 +117,8 @@ class ActressMainFragment: BaseFragment(), ActressMainContract.View, IMainFragme
      * @param savedInstanceState the previous fragment data status after the system calls [onPause].
      */
     override fun init(savedInstanceState: Bundle?) {
+        this.showLoading()
+
         var castList: List<CastBriefModel> = emptyList()
         if (null == savedInstanceState)
             this.presenter.requestListCasts()  // Request the casts data.

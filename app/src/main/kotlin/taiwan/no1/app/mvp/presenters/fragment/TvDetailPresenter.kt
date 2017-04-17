@@ -31,8 +31,6 @@ class TvDetailPresenter constructor(val tvDetail: TvDetail):
     }
 
     override fun requestListTvs(id: Int) {
-        this.view.showLoading()
-
         val request = TvDetail.Requests(id)
         request.fragmentLifecycle = this.view.getLifecycle()
         // If declaring [subscriber] as a variable, it won't be used again.

@@ -144,6 +144,8 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
      * @param savedInstanceState the previous fragment data status after the system calls [onPause].
      */
     override fun init(savedInstanceState: Bundle?) {
+        this.showLoading()
+
         this.presenter.requestCastDetail(this.argId.toInt())
     }
     //endregion

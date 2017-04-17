@@ -23,8 +23,6 @@ class ActressMainPresenter(val castCase: CastLists):
     }
 
     override fun requestListCasts(page: Int) {
-        this.view.showLoading()
-        
         val request = CastLists.Requests(page)
         request.fragmentLifecycle = this.view.getLifecycle()
         this.castCase.execute(request, subscriber<CastListResModel>().onError {

@@ -125,6 +125,8 @@ class MovieListFragment: BaseFragment(), MovieListContract.View, LazyFragmentPag
      * @param savedInstanceState the previous fragment data status after the system calls [onPause].
      */
     override fun init(savedInstanceState: Bundle?) {
+        this.showLoading()
+
         var movieList: List<MovieBriefModel> = emptyList()
         // FIXED: 2/21/17 After this was destroyed, the data will restore from instance state.
         if (null == savedInstanceState)

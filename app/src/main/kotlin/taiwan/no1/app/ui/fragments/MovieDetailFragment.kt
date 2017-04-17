@@ -155,6 +155,8 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
      * @param savedInstanceState the previous fragment data status after the system calls [onPause].
      */
     override fun init(savedInstanceState: Bundle?) {
+        this.showLoading()
+
         this.argMovieId.toInt().let { this.presenter.requestMovieDetail(it) }
     }
     //endregion

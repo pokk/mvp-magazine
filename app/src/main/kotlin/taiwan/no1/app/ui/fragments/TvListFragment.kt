@@ -115,6 +115,8 @@ class TvListFragment: BaseFragment(), TvListContract.View, LazyFragmentPagerAdap
      * @param savedInstanceState the previous fragment data status after the system calls [onPause].
      */
     override fun init(savedInstanceState: Bundle?) {
+        this.showLoading()
+
         var tvList: List<TvBriefModel> = emptyList()
         if (null == savedInstanceState)
             this.argTvCategory.let { this.presenter.requestListTvs(it) }  // Request the tvs data.
