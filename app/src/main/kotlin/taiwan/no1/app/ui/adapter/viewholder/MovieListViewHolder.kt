@@ -5,7 +5,6 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import butterknife.bindView
-import com.devrapid.kotlinknifer.AppLog
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.mvp.contracts.adapter.MovieListAdapterContract
@@ -58,7 +57,6 @@ class MovieListViewHolder(val view: View): BaseViewHolder<MovieBriefModel>(view)
 
     //region ViewHolder implementations
     override fun showMoviePoster(uri: String) {
-        AppLog.i(uri)
         this.imageLoader.display(uri, this.ivPoster, isFitCenter = false)
     }
 

@@ -72,7 +72,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
     //region View variables
     private val hicvpGallery by bindView<HorizontalInfiniteCycleViewPager>(R.id.hicvp_gallery)
     private val isBackground by bindView<ImageSwitcher>(R.id.is_gallery_background)
-    private val tvNumbers by bindView<TextView>(R.id.tv_numbers)
+    private val tvPager by bindView<TextView>(R.id.tv_pager)
     //endregion
 
     //region Local variables
@@ -179,7 +179,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
     }
 
     override fun showCurrentNumOfPosters(total: String) {
-        this.tvNumbers.text = total
+        this.tvPager.text = total
     }
     //endregion
 

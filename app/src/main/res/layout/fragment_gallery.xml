@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clickable="true">
 
     <ImageView
         android:id="@+id/iv_hidden"
@@ -38,11 +39,14 @@
 
     <!-- TODO: Change the color, font, and size. -->
     <TextView
-        android:id="@+id/tv_numbers"
+        android:id="@+id/tv_pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_marginBottom="@dimen/marginbottom_gallery_textpager"
         android:gravity="center"
-        tools:text="1/20"/>
+        android:textColor="#DDDDDD"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:text="1 / 20"/>
 </FrameLayout>
