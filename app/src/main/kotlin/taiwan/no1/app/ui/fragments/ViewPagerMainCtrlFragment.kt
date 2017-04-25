@@ -56,8 +56,7 @@ abstract class ViewPagerMainCtrlFragment: BaseFragment(), IMainFragment {
         this.ntsTabMenu.setViewPager(this.vpContainer.apply {
             var flagClearPrevFragment: Boolean = false
 
-            this.adapter = MainFragmentViewPagerAdapter(context(),
-                    this@ViewPagerMainCtrlFragment.childFragmentManager,
+            this.adapter = MainFragmentViewPagerAdapter(context(), this@ViewPagerMainCtrlFragment.childFragmentManager,
                     fragmentList)
             // Initial the position.
             currItemPos = this.currentItem

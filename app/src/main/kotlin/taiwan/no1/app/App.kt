@@ -2,7 +2,6 @@ package taiwan.no1.app
 
 import android.app.Application
 import android.content.Context
-import com.squareup.leakcanary.LeakCanary
 import taiwan.no1.app.internal.di.components.AppComponent
 
 /**
@@ -27,7 +26,7 @@ class App: Application() {
         super.onCreate()
 
         // Check memory leak tool.
-        LeakCanary.install(this)
+//        LeakCanary.install(this)
 
         context = this
     }

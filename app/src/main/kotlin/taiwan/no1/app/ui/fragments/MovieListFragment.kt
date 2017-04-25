@@ -6,6 +6,7 @@ import android.support.annotation.LayoutRes
 import android.support.v7.widget.LinearLayoutManager
 import android.transition.TransitionInflater
 import butterknife.bindView
+import com.devrapid.kotlinknifer.AppLog
 import taiwan.no1.app.App
 import taiwan.no1.app.R
 import taiwan.no1.app.data.source.CloudDataStore
@@ -71,7 +72,12 @@ class MovieListFragment: BaseFragment(), MovieListContract.View, LazyFragmentPag
     }
     //endregion
 
-    //region Fragment lifecycle
+    override fun onStart() {
+        super.onStart()
+
+        AppLog.v(argMovieCategory)
+    }
+    
     override fun onResume() {
         super.onResume()
         this.presenter.resume()
@@ -85,6 +91,7 @@ class MovieListFragment: BaseFragment(), MovieListContract.View, LazyFragmentPag
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
+        // FIXME: 4/25/17 popular -> up coming -> now playing -> background 會掛，presenter沒有被init
         outState.putParcelableArrayList(ARG_PARAM_INSTANCE_MOVIES, this.presenter.getMovieList())
     }
 
