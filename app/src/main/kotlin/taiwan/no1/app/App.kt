@@ -13,6 +13,10 @@ import taiwan.no1.app.internal.di.components.AppComponent
 
 class App: Application() {
     companion object {
+        // For the loading view size.
+        var containerWidth: Int = 0
+        var containerHeight: Int = 0
+        
         lateinit private var context: Context
 
         @JvmStatic fun appComponent(): AppComponent = (context as App).appComponent

@@ -102,6 +102,12 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
 
     override fun onResume() {
         super.onResume()
+        // FIXED: 4/26/17 Obtain the container size for setting the loading size.
+        this.rlMainContainer.viewTreeObserver.addOnGlobalLayoutListener {
+            App.containerHeight = this.rlMainContainer.measuredHeight
+            App.containerWidth = this.rlMainContainer.measuredWidth
+        }
+        
         // FIXED: 3/3/17 Avoiding rotating the screen, the bottom bar's listener will reset the fragment stack. It causes
         // FIXED: when we rotate, the view always goes to list view.
         this.isFirst = false

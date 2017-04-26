@@ -11,10 +11,12 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.ViewStub
 import butterknife.bindView
+import com.devrapid.kotlinknifer.resizeView
 import com.trello.rxlifecycle.android.FragmentEvent
 import com.trello.rxlifecycle.components.support.RxFragment
 import dagger.internal.Preconditions
 import rx.Observable
+import taiwan.no1.app.App
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.HasComponent
 import taiwan.no1.app.internal.di.components.FragmentComponent
@@ -64,6 +66,8 @@ abstract class BaseFragment: RxFragment(), IView, IFragmentView {
 
     //region Presenter implements
     override fun showLoading() {
+        // Before show the loading view resize the view size.
+        this.vLoading.resizeView(App.containerWidth, App.containerHeight)
         this.vLoading.visibility = VISIBLE
     }
 
