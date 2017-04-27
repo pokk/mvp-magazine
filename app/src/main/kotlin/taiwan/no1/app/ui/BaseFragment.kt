@@ -10,14 +10,13 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.ViewStub
 import butterknife.bindView
-import com.devrapid.kotlinknifer.AppLog
 import com.devrapid.kotlinknifer.resizeView
 import com.trello.rxlifecycle.android.FragmentEvent
 import com.trello.rxlifecycle.components.support.RxFragment
 import dagger.internal.Preconditions
 import rx.Observable
+import rx.Subscription
 import rx.android.schedulers.AndroidSchedulers
-import rx.lang.kotlin.subscriber
 import taiwan.no1.app.App
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.HasComponent
@@ -39,12 +38,7 @@ abstract class BaseFragment: RxFragment(), IView, IFragmentView {
     private val vError by bindView<View>(R.id.ll_error)
 
     protected var rootView: View? = null
-    // TODO: 4/27/17 這邊要修一下!!!
-    private var delayPost = Observable.just("").delay(5, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread())
-    private var sub = subscriber<String>().onNext { this@BaseFragment.vLoading.visibility = GONE }.onError {
-        AppLog.e(it.message)
-        AppLog.e(it)
-    }
+    private var hideLoadingSubscription: Subscription? = null  // Hide the loading view.
 
     //region Fragment lifecycle.
     override final fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -71,6 +65,18 @@ abstract class BaseFragment: RxFragment(), IView, IFragmentView {
 
         this.init(savedInstanceState)
     }
+
+    override fun onResume() {
+        super.onResume()
+
+        this.hideLoadingSubscription?.let {
+            // If the user press the home button when the loading view is showing, hideLoading() will be triggered again.
+            if (it.isUnsubscribed && VISIBLE == this.vLoading.visibility) {
+                this.hideLoadingSubscription = null
+                this.hideLoading()
+            }
+        }
+    }
     //endregion
 
     //region Presenter implements
@@ -82,9 +88,11 @@ abstract class BaseFragment: RxFragment(), IView, IFragmentView {
 
     override fun hideLoading() {
         // Delay 0.5s then hiding the loading view.
-//        Handler().postDelayed({ this@BaseFragment.vLoading.visibility = GONE }, 500)
-        val t = this.delayPost.subscribe(this.sub)
-        t.unsubscribe()
+        this.hideLoadingSubscription = Observable.just(null).
+                delay(500, TimeUnit.MICROSECONDS).
+                observeOn(AndroidSchedulers.mainThread()).
+                compose(this.bindToLifecycle()).
+                subscribe { this@BaseFragment.vLoading.visibility = GONE }
     }
 
     override fun showRetry() {
