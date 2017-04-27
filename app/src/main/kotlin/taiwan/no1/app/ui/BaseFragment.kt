@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.ViewStub
@@ -17,6 +16,7 @@ import dagger.internal.Preconditions
 import rx.Observable
 import rx.Subscription
 import rx.android.schedulers.AndroidSchedulers
+import rx.lang.kotlin.subscriber
 import taiwan.no1.app.App
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.HasComponent
@@ -91,8 +91,11 @@ abstract class BaseFragment: RxFragment(), IView, IFragmentView {
         this.hideLoadingSubscription = Observable.just(null).
                 delay(500, TimeUnit.MICROSECONDS).
                 observeOn(AndroidSchedulers.mainThread()).
+                doOnUnsubscribe { this.hideLoadingSubscription = null }.
                 compose(this.bindToLifecycle()).
-                subscribe { this@BaseFragment.vLoading.visibility = GONE }
+                subscribe(subscriber<Int>().
+                        onNext { this@BaseFragment.vLoading.visibility = View.GONE }.
+                        onCompleted { this.hideLoadingSubscription = null })
     }
 
     override fun showRetry() {
