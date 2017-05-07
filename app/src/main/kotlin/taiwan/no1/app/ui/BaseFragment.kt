@@ -88,12 +88,12 @@ abstract class BaseFragment: RxFragment(), IView, IFragmentView {
 
     override fun hideLoading() {
         // Delay 0.5s then hiding the loading view.
-        this.hideLoadingSubscription = Observable.just(null).
+        this.hideLoadingSubscription = Observable.just("").
                 delay(500, TimeUnit.MICROSECONDS).
                 observeOn(AndroidSchedulers.mainThread()).
                 doOnUnsubscribe { this.hideLoadingSubscription = null }.
                 compose(this.bindToLifecycle()).
-                subscribe(subscriber<Int>().
+                subscribe(subscriber<String>().
                         onNext { this@BaseFragment.vLoading.visibility = View.GONE }.
                         onCompleted { this.hideLoadingSubscription = null })
     }
