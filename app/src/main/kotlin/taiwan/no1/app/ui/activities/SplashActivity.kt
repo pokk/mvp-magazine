@@ -21,7 +21,7 @@ class SplashActivity: Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Delay 0.5 second for showing the splash view.
+        // Delay 0.5 second for showing the ic_splash view.
         Handler().postDelayed({
             this.let {
                 it.startActivity(Intent(this, MainActivity::class.java))
