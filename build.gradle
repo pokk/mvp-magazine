@@ -34,9 +34,10 @@ buildscript {
 }
 
 allprojects {
+    if (new File("/volumes/ramdisk").exists()) {
+        buildDir = "/volumes/ramdisk/Android/${rootProject.name}/${project.name}"
+    }
 
-    buildDir = "/volumes/ramdisk/Android/${rootProject.name}/${project.name}"
-    
     repositories {
         jcenter()
 
