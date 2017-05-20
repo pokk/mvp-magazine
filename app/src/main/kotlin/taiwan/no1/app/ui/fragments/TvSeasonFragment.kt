@@ -158,7 +158,6 @@ class TvSeasonFragment: BaseFragment(), TvSeasonContract.View {
         this.vTopBar.bringToFront()
         this.tvDramaTitle.text = this.argTvSeasonInfo.tv_name
         this.tvSeason.text = "( S.${this.argTvSeasonInfo.season_number} / EP.${this.argTvSeasonInfo.episode_count} )"
-
         this.presenter.requestSeasonDetail(this.argTvSeasonInfo.tv_id, this.argTvSeasonInfo.season_number)
     }
     //endregion
@@ -189,8 +188,12 @@ class TvSeasonFragment: BaseFragment(), TvSeasonContract.View {
 
     override fun showTvEpisodes(episodes: List<TvEpisodesModel>) {
         // Inflate the trailer movieList section.
-        if (episodes.isNotEmpty())
+        if (episodes.isNotEmpty()) {
             this.showViewStub(this.stubEpisodes, { this.showCardItems(this.rvEpisodes, episodes) })
+            episodes.forEach {
+                it.tv_id = this.argTvSeasonInfo.tv_id
+            }
+        }
     }
 
     override fun showTvTrailers(trailers: List<FilmVideoModel>) {

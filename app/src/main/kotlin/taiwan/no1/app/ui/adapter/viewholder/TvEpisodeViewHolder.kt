@@ -38,6 +38,9 @@ class TvEpisodeViewHolder(val view: View): BaseViewHolder<TvEpisodesModel>(view)
     //region BaseViewHolder
     override fun initView(model: TvEpisodesModel, position: Int, adapter: CommonRecyclerAdapter) {
         super.initView(model, position, adapter)
+        this.view.setOnClickListener {
+            this.presenter.onItemClicked(adapter.fragmentTag)
+        }
     }
 
     override fun inject() {

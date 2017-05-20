@@ -1,12 +1,31 @@
 package taiwan.no1.app.ui.fragments
 
+import android.graphics.Bitmap
+import android.graphics.Color
 import android.os.Bundle
 import android.support.annotation.LayoutRes
+import android.support.v4.view.ViewPager
+import android.support.v7.graphics.Palette
+import android.support.v7.widget.RecyclerView
+import android.view.View
+import android.view.ViewStub
+import android.widget.ImageView
+import android.widget.TextView
+import butterknife.bindView
+import com.bumptech.glide.request.animation.GlideAnimation
+import com.bumptech.glide.request.target.BitmapImageViewTarget
+import kotlinx.android.synthetic.main.fragment_tv_episode_detail.*
 import taiwan.no1.app.R
+import taiwan.no1.app.api.config.TMDBConfig.BASE_IMAGE_URL
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.contracts.fragment.TvEpisodeContract
+import taiwan.no1.app.mvp.models.IVisitable
+import taiwan.no1.app.mvp.models.ImageProfileModel
+import taiwan.no1.app.mvp.models.tv.TvEpisodesModel
 import taiwan.no1.app.ui.BaseFragment
+import taiwan.no1.app.ui.adapter.BackdropPagerAdapter
+import taiwan.no1.app.utilies.ImageLoader.IImageLoader
 import javax.inject.Inject
 
 /**
@@ -23,18 +42,17 @@ class TvEpisodeFragment: BaseFragment(), TvEpisodeContract.View {
         private const val ARG_PARAM_SEASON_NUMBER: String = "param_season_number"
         private const val ARG_PARAM_EPISODE_NUMBER: String = "param_episode_number"
         private const val ARG_PARAM_TV_FROM_FRAGMENT: String = "param_from_fragment"
+        private const val ARG_PARAM_TV_EPISODE_INFO: String = "param_tv_episode_info"
 
         /**
          * Use this factory method to create a new instance of this fragment using the provided parameters.
          *
          * @return A new instance of [TvEpisodeFragment].
          */
-        fun newInstance(id: String, seasonNumber: String, episodeNumber: String, from: Int): TvEpisodeFragment =
+        fun newInstance(episodeModel: TvEpisodesModel, from: Int): TvEpisodeFragment =
                 TvEpisodeFragment().also {
                     it.arguments = Bundle().also {
-                        it.putString(ARG_PARAM_TV_ID, id)
-                        it.putString(ARG_PARAM_TV_ID, seasonNumber)
-                        it.putString(ARG_PARAM_TV_ID, episodeNumber)
+                        it.putParcelable(ARG_PARAM_TV_EPISODE_INFO, episodeModel)
                         it.putInt(ARG_PARAM_TV_ID, from)
                     }
                 }
@@ -45,10 +63,11 @@ class TvEpisodeFragment: BaseFragment(), TvEpisodeContract.View {
     lateinit var presenter: TvEpisodeContract.Presenter
 
     // Get the arguments from the bundle here.
-    private val argId: String by lazy { this.arguments.getString(ARG_PARAM_TV_ID) }
-    private val argSeasonNumber: String by lazy { this.arguments.getString(ARG_PARAM_SEASON_NUMBER) }
-    private val argEpisodeNumber: String by lazy { this.arguments.getString(ARG_PARAM_EPISODE_NUMBER) }
     private val argFromFragment: Int by lazy { this.arguments.getInt(ARG_PARAM_TV_FROM_FRAGMENT) }
+    private val argEpisodeInfo: TvEpisodesModel by lazy {
+        this.arguments.getParcelable<TvEpisodesModel>(ARG_PARAM_TV_EPISODE_INFO)
+    }
+
 
     //region Fragment lifecycle
     override fun onResume() {
@@ -92,12 +111,55 @@ class TvEpisodeFragment: BaseFragment(), TvEpisodeContract.View {
         this.presenter.init(TvEpisodeFragment@ this)
     }
 
+    @Inject
+    lateinit var imageLoader: IImageLoader
+
+    private val ivBackDrop by bindView<ImageView>(R.id.iv_backdrop)
+
     /**
      * Initialization of this fragment. Set the listeners or view components' attributions.
      *
      * @param savedInstanceState the previous fragment data status after the system calls [onPause].
      */
     override fun init(savedInstanceState: Bundle?) {
+        this.imageLoader.display(BASE_IMAGE_URL + argEpisodeInfo.still_path,
+                listener = object: BitmapImageViewTarget(ivBackDrop) {
+                    override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
+                        super.onResourceReady(resource, glideAnimation)
+                    }
+                },
+                isFitCenter = false)
+
+        this.presenter.requestTvEpisodeDetail(argEpisodeInfo.tv_id,
+                argEpisodeInfo.season_number, argEpisodeInfo.episode_number)
     }
+
     //endregion
+
+    private val tvEpisodeTitle by bindView<TextView>(R.id.tv_episode_title)
+    private val tvAirDate by bindView<TextView>(R.id.tv_air_date)
+    private val tvOverview by bindView<TextView>(R.id.tv_overview)
+    private val vp_drop_poster by bindView<ViewPager>(R.id.vp_drop_poster)
+
+    override fun showTvEpisodeInfo() {
+        this.tvEpisodeTitle.text    = argEpisodeInfo.name
+        this.tvAirDate.text         = argEpisodeInfo.air_date
+        this.tvOverview.text = argEpisodeInfo.overview
+    }
+
+    override fun showTvEpisodeImages(list: List<View>) {
+        this.vp_drop_poster.adapter = BackdropPagerAdapter(list)
+    }
+
+    override fun showTvEpisodes(episodes: List<TvEpisodesModel>) {
+    }
+
+    override fun showTvEpisodeBackDrop(uri: String, imageview: ImageView) {
+        this.imageLoader.display(uri, listener = object: BitmapImageViewTarget(imageview) {
+            override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
+                this@TvEpisodeFragment.presenter.onResourceFinished(imageview, this@TvEpisodeFragment.argFromFragment)
+                super.onResourceReady(resource, glideAnimation)
+            }
+        }, isFitCenter = false)
+    }
 }

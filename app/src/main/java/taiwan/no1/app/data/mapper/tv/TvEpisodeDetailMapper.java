@@ -81,6 +81,7 @@ public class TvEpisodeDetailMapper implements IBeanMapper<TvEpisodesModel, TvEpi
                                    entity.getSeason_number(),
                                    entity.getStill_path(),
                                    entity.getVote_count(),
+                                   0,
                                    new TvEpisodesModel.ImageBean(imageProfileModels),
                                    new CommonModel.VideosBean(tvMovieVideosModel),
                                    filmCastsModel,

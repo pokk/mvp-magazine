@@ -90,11 +90,11 @@
                     android:id="@+id/tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/tv_season"
-                    android:layout_marginStart="@dimen/marginstart_tvseason_thumbnailtext"
                     android:textColor="@color/colorGrey"
                     android:textSize="@dimen/textsize_tvseason_thumbnaildescribe"
-                    tools:text="The Flash"/>
+                    tools:text="The Flash"
+                    android:layout_above="@+id/tv_season"
+                    android:layout_alignStart="@+id/tv_season"/>
 
                 <TextView
                     android:id="@+id/tv_season"

@@ -1,5 +1,8 @@
 package taiwan.no1.app.mvp.contracts.fragment
 
+import android.view.View
+import android.widget.ImageView
+import taiwan.no1.app.mvp.models.tv.TvEpisodesModel
 import taiwan.no1.app.mvp.presenters.IPresenter
 import taiwan.no1.app.mvp.views.IFragmentView
 import taiwan.no1.app.mvp.views.IView
@@ -13,7 +16,15 @@ import taiwan.no1.app.mvp.views.IView
  */
 
 interface TvEpisodeContract {
-    interface Presenter: IPresenter<View>
+    interface Presenter: IPresenter<View> {
+        fun requestTvEpisodeDetail(id: Int, seasonNum: Int, episodeNum: Int)
+        fun onResourceFinished(imageview: ImageView, argFromFragment: Int)
+    }
 
-    interface View: IView, IFragmentView
+    interface View: IView, IFragmentView {
+        fun showTvEpisodeInfo()
+        fun showTvEpisodeImages(list: List<android.view.View>)
+        fun showTvEpisodes(episodes: List<TvEpisodesModel>)
+        fun showTvEpisodeBackDrop(uri: String, imageview: ImageView)
+    }
 }

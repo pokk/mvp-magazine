@@ -53,7 +53,7 @@ class FragmentModule {
     @Provides
     @PerFragment
     fun provideTvEpisodePresenter(tvEpisodeDetail: TvEpisodeDetail): TvEpisodeContract.Presenter =
-            TvEpisodePresenter()
+            TvEpisodePresenter(tvEpisodeDetail)
 
     @Provides
     @PerFragment

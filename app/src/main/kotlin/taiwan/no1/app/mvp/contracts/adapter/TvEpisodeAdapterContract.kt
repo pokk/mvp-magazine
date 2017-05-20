@@ -12,7 +12,9 @@ import taiwan.no1.app.mvp.views.IViewHolder
  */
 
 interface TvEpisodeAdapterContract {
-    interface Presenter: IAdapterPresenter<View, TvEpisodesModel>
+    interface Presenter: IAdapterPresenter<View, TvEpisodesModel> {
+        fun onItemClicked(tag: Int)
+    }
 
     interface View: IViewHolder {
         fun showEpisodeThumbnail(episodeThumbnailUri: String)

@@ -23,6 +23,7 @@ data class TvEpisodesModel(val air_date: String? = null,
                            val season_number: Int = 0,
                            val still_path: String? = null,
                            val vote_count: Double = 0.toDouble(),
+                           var tv_id: Int = 0,
                            val images: ImageBean? = null,
                            val videos: CommonModel.VideosBean? = null,
                            val credits: FilmCastsModel? = null,
@@ -64,6 +65,7 @@ data class TvEpisodesModel(val air_date: String? = null,
             source.readInt(),
             source.readString(),
             source.readDouble(),
+            source.readInt(),
             source.readParcelable<ImageBean?>(ImageBean::class.java.classLoader),
             source.readParcelable<CommonModel.VideosBean?>(CommonModel.VideosBean::class.java.classLoader),
             source.readParcelable<FilmCastsModel?>(FilmCastsModel::class.java.classLoader),
@@ -82,6 +84,7 @@ data class TvEpisodesModel(val air_date: String? = null,
         dest?.writeInt(season_number)
         dest?.writeString(still_path)
         dest?.writeDouble(vote_count)
+        dest?.writeInt(tv_id)
         dest?.writeParcelable(images, 0)
         dest?.writeParcelable(videos, 0)
         dest?.writeParcelable(credits, 0)
