@@ -16,7 +16,10 @@ class MainFragmentViewPagerAdapter constructor(val context: Context,
                                                val fragmentManager: FragmentManager,
                                                val fragmentList: List<Fragment>):
         LazyFragmentPagerAdapter(fragmentManager) {
-    override fun getItem(container: ViewGroup, position: Int): Fragment = this.fragmentList[position]
+    override fun getItem(container: ViewGroup, position: Int): Fragment {
+        AppLog.w(container, position)
+        return this.fragmentList[position]
+    }
 
     override fun getCount(): Int = this.fragmentList.size
 

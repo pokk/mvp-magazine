@@ -8,6 +8,9 @@
         android:name="android.software.leanback"
         android:required="false">
     </uses-feature>
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false"/>
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -20,12 +23,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="taiwan.no1.app.ui.activities.MainActivity"
-            android:screenOrientation="portrait">
+            android:name=".ui.activities.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity
+            android:name="taiwan.no1.app.ui.activities.MainActivity"
+            android:screenOrientation="portrait">
         </activity>
         <!-- TODO: Become full screen. -->
         <activity

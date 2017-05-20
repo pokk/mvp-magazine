@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'me.tatarka.retrolambda'
-apply plugin: 'com.antfortune.freeline'
 
 android {
     compileSdkVersion 25
@@ -16,10 +15,6 @@ android {
         renderscriptTargetApi 19
         renderscriptSupportModeEnabled true    // Enable RS support
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    }
-    freeline {
-        hack true
-        autoDependency false
     }
     sourceSets {
         main.java.srcDirs += 'src/main/java'

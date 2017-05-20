@@ -37,7 +37,6 @@
         app:icvp_min_page_scale_offset="5dp"
         app:icvp_scroll_duration="400"/>
 
-    <!-- TODO: Change the color, font, and size. -->
     <TextView
         android:id="@+id/tv_pager"
         android:layout_width="match_parent"

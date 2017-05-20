@@ -2,7 +2,6 @@ package taiwan.no1.app
 
 import android.app.Application
 import android.content.Context
-import com.squareup.leakcanary.LeakCanary
 import taiwan.no1.app.internal.di.components.AppComponent
 
 /**
@@ -14,6 +13,10 @@ import taiwan.no1.app.internal.di.components.AppComponent
 
 class App: Application() {
     companion object {
+        // For the loading view size.
+        var containerWidth: Int = 0
+        var containerHeight: Int = 0
+        
         lateinit private var context: Context
 
         @JvmStatic fun appComponent(): AppComponent = (context as App).appComponent
@@ -27,7 +30,7 @@ class App: Application() {
         super.onCreate()
 
         // Check memory leak tool.
-        LeakCanary.install(this)
+//        LeakCanary.install(this)
 
         context = this
     }
