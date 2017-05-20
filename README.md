@@ -14,7 +14,7 @@ is __Java__, we could know which parts that Kotlin is stronger and more convenie
 
 We referenced the
 [Google clean architecture](https://github.com/googlesamples/android-architecture/tree/todo-mvp-clean/)
-to this application. There are three parts of clean architecture as below.
+to this application. There're three parts of clean architecture as below.
 
 1. __Presentation Layer__
 2. __Domain Layer__
@@ -79,4 +79,3 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
-
