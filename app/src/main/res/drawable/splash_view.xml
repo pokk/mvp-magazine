@@ -6,6 +6,6 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@drawable/ic_pause_circle"/>
+            android:src="@drawable/ic_splash"/>
     </item>
 </layer-list>
