@@ -11,6 +11,7 @@
     <android.support.v4.widget.NestedScrollView
         style="@style/NestScrollInfo"
         android:layout_alignParentBottom="true"
+        android:layout_marginTop="0dp"
         android:background="#302E55"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -18,6 +19,44 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/vp_drop_poster"
+                android:background="#53629F"
+                android:padding="20dp">
+
+                <TextView
+                    android:id="@+id/tv_episode_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#C1C8D6"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    tools:text="The Flash"/>
+
+
+                <TextView
+                    android:id="@+id/tv_air_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_episode_title"
+                    android:textColor="#C1C8D6"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    tools:text="2014/01/01"/>
+
+                <TextView
+                    android:id="@+id/tv_overview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_air_date"
+                    android:layout_marginTop="@dimen/margintop_tvepisode_overview"
+                    android:textColor="#C1C8D6"
+                    android:textSize="15sp"
+                    tools:text="@string/hello_blank_fragment"/>
+            </RelativeLayout>
 
             <ViewStub
                 android:id="@+id/stub_casts"
@@ -52,65 +91,13 @@
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
-            <RelativeLayout
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_drop_poster"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/iv_backdrop"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_tvepisode_thumbnail"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    tools:ignore="ContentDescription"/>
-
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/vp_drop_poster"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_tvepisode_thumbnail"
-                    tools:background="@android:color/darker_gray"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true"/>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/vp_drop_poster"
-                    android:background="#53629F"
-                    android:padding="20dp">
-
-                    <TextView
-                        android:id="@+id/tv_episode_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#C1C8D6"
-                        android:textSize="25sp"
-                        android:textStyle="bold"
-                        tools:text="The Flash"/>
-
-
-                    <TextView
-                        android:id="@+id/tv_air_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tv_episode_title"
-                        android:textColor="#C1C8D6"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        tools:text="2014/01/01"/>
-
-                    <TextView
-                        android:id="@+id/tv_overview"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tv_air_date"
-                        android:layout_marginTop="@dimen/margintop_tvepisode_overview"
-                        android:textColor="#C1C8D6"
-                        android:textSize="18sp"
-                        tools:text="@string/hello_blank_fragment"/>
-                </RelativeLayout>
-
-            </RelativeLayout>
+                android:layout_height="@dimen/height_tvepisode_thumbnail"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                tools:background="@android:color/darker_gray"/>
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
