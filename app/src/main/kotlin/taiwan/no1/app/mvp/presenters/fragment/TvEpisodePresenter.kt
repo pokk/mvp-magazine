@@ -43,6 +43,9 @@ class TvEpisodePresenter constructor(val tvEpisode: TvEpisodeDetail):
             this.tvEpisodesModel.let {
                 this.view.showTvEpisodeInfo()
                 this.view.showTvEpisodeImages(this.createViewPagerViews(it?.images?.stills.orEmpty()))
+                this.view.showTvEpisodeCasts(it?.credits?.cast?.filter { null != it.profile_path }.orEmpty())
+                this.view.showTvEpisodeCrews(it?.credits?.crew?.filter { null != it.profile_path }.orEmpty())
+                this.view.showTvEpisodeTrailers(it?.videos?.results.orEmpty())
             }
         }.onCompleted {
             this.view.hideLoading()

@@ -4,7 +4,10 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v4.view.ViewPager
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.view.ViewStub
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.bindView
@@ -14,9 +17,14 @@ import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
 import taiwan.no1.app.mvp.contracts.fragment.TvEpisodeContract
+import taiwan.no1.app.mvp.models.FilmCastsModel
+import taiwan.no1.app.mvp.models.FilmVideoModel
+import taiwan.no1.app.mvp.models.IVisitable
 import taiwan.no1.app.mvp.models.tv.TvEpisodesModel
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.BackdropPagerAdapter
+import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
+import taiwan.no1.app.ui.adapter.itemdecorator.MovieHorizontalItemDecorator
 import taiwan.no1.app.utilies.ImageLoader.IImageLoader
 import javax.inject.Inject
 
@@ -31,8 +39,6 @@ class TvEpisodeFragment: BaseFragment(), TvEpisodeContract.View {
     companion object Factory {
         // The key name of the fragment initialization parameters.
         private const val ARG_PARAM_TV_ID: String = "param_tv_id"
-        private const val ARG_PARAM_SEASON_NUMBER: String = "param_season_number"
-        private const val ARG_PARAM_EPISODE_NUMBER: String = "param_episode_number"
         private const val ARG_PARAM_TV_FROM_FRAGMENT: String = "param_from_fragment"
         private const val ARG_PARAM_TV_EPISODE_INFO: String = "param_tv_episode_info"
 
@@ -61,6 +67,12 @@ class TvEpisodeFragment: BaseFragment(), TvEpisodeContract.View {
     private val tvAirDate by bindView<TextView>(R.id.tv_air_date)
     private val tvOverview by bindView<TextView>(R.id.tv_overview)
     private val vp_drop_poster by bindView<ViewPager>(R.id.vp_drop_poster)
+    private val stubCasts by bindView<ViewStub>(R.id.stub_casts)
+    private val stubCrews by bindView<ViewStub>(R.id.stub_crews)
+    private val stubTrailer by bindView<ViewStub>(R.id.stub_trailer)
+    private val rvCasts by bindView<RecyclerView>(R.id.rv_casts)
+    private val rvCrews by bindView<RecyclerView>(R.id.rv_crews)
+    private val rvTrailer by bindView<RecyclerView>(R.id.rv_trailer)
     //endregion
 
     // Get the arguments from the bundle here.
@@ -136,6 +148,24 @@ class TvEpisodeFragment: BaseFragment(), TvEpisodeContract.View {
     override fun showTvEpisodes(episodes: List<TvEpisodesModel>) {
     }
 
+    override fun showTvEpisodeCasts(casts: List<FilmCastsModel.CastBean>) {
+        // Inflate the cast section.
+        if (casts.isNotEmpty())
+            this.showViewStub(this.stubCasts, { this.showCardItems(this.rvCasts, casts) })
+    }
+
+    override fun showTvEpisodeCrews(crews: List<FilmCastsModel.CrewBean>) {
+        // Inflate the crew section.
+        if (crews.isNotEmpty())
+            this.showViewStub(this.stubCrews, { this.showCardItems(this.rvCrews, crews) })
+    }
+
+    override fun showTvEpisodeTrailers(trailers: List<FilmVideoModel>) {
+        // Inflate the trailer movieList section.
+        if (trailers.isNotEmpty())
+            this.showViewStub(this.stubTrailer, { this.showCardItems(this.rvTrailer, trailers) })
+    }
+
     override fun showTvEpisodeBackDrop(uri: String, imageview: ImageView) {
         this.imageLoader.display(uri, listener = object: BitmapImageViewTarget(imageview) {
             override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
@@ -143,5 +173,13 @@ class TvEpisodeFragment: BaseFragment(), TvEpisodeContract.View {
                 super.onResourceReady(resource, glideAnimation)
             }
         }, isFitCenter = false)
+    }
+
+    private fun <T: IVisitable> showCardItems(recyclerView: RecyclerView, list: List<T>) {
+        recyclerView.apply {
+            this.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+            this.adapter = CommonRecyclerAdapter(list, argFromFragment)
+            this.addItemDecoration(MovieHorizontalItemDecorator(30))
+        }
     }
 }

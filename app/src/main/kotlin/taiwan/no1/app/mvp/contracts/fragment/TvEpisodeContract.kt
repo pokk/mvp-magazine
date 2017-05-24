@@ -1,7 +1,8 @@
 package taiwan.no1.app.mvp.contracts.fragment
 
-import android.view.View
 import android.widget.ImageView
+import taiwan.no1.app.mvp.models.FilmCastsModel
+import taiwan.no1.app.mvp.models.FilmVideoModel
 import taiwan.no1.app.mvp.models.tv.TvEpisodesModel
 import taiwan.no1.app.mvp.presenters.IPresenter
 import taiwan.no1.app.mvp.views.IFragmentView
@@ -25,6 +26,9 @@ interface TvEpisodeContract {
         fun showTvEpisodeInfo()
         fun showTvEpisodeImages(list: List<android.view.View>)
         fun showTvEpisodes(episodes: List<TvEpisodesModel>)
+        fun showTvEpisodeCasts(casts: List<FilmCastsModel.CastBean>)
+        fun showTvEpisodeCrews(crews: List<FilmCastsModel.CrewBean>)
+        fun showTvEpisodeTrailers(trailers: List<FilmVideoModel>)
         fun showTvEpisodeBackDrop(uri: String, imageview: ImageView)
     }
 }
