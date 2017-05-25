@@ -176,7 +176,6 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
         val shareElements: HashMap<View, String>? = mapArgs[NAVIGATOR_ARG_SHARED_ELEMENTS] as? HashMap<View, String>
 
         // FIXME: 3/3/17 When actress view is rotated, the fragment manager will be null.
-        AppLog.w(presentFragment)
 
         // TODO: 4/17/17 Add the shared elements effective, buy now it's no effective yet.
         presentFragment.sharedElementReturnTransition = TransitionInflater.from(App.getAppContext()).inflateTransition(R.transition.default_transition)
