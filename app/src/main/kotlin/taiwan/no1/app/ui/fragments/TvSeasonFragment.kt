@@ -1,7 +1,6 @@
 package taiwan.no1.app.ui.fragments
 
 import android.graphics.Bitmap
-import android.graphics.Color
 import android.graphics.Color.WHITE
 import android.os.Bundle
 import android.support.annotation.LayoutRes
@@ -174,7 +173,7 @@ class TvSeasonFragment: BaseFragment(), TvSeasonContract.View {
         // Inflate the cast section.
         if (casts.isNotEmpty()) {
             this.showViewStub(this.stubCasts, { this.showCardItems(this.rvCasts, casts) })
-            this.tvCastsTitle.setTextColor(Color.rgb(248, 247, 251))
+            this.tvCastsTitle.setTextColor(this.context.resources.getColor(R.color.recyclerview_dark_bg_title))
         }
     }
 
@@ -182,7 +181,7 @@ class TvSeasonFragment: BaseFragment(), TvSeasonContract.View {
         // Inflate the crew section.
         if (crews.isNotEmpty()) {
             this.showViewStub(this.stubCrews, { this.showCardItems(this.rvCrews, crews) })
-            this.tvCrewsTitle.setTextColor(Color.rgb(248, 247, 251))
+            this.tvCrewsTitle.setTextColor(this.context.resources.getColor(R.color.recyclerview_dark_bg_title))
         }
     }
 
@@ -200,7 +199,7 @@ class TvSeasonFragment: BaseFragment(), TvSeasonContract.View {
         // Inflate the trailer movieList section.
         if (trailers.isNotEmpty()) {
             this.showViewStub(this.stubTrailer, { this.showCardItems(this.rvTrailer, trailers) })
-            this.tvTrailersTitle.setTextColor(Color.rgb(248, 247, 251))
+            this.tvTrailersTitle.setTextColor(this.context.resources.getColor(R.color.recyclerview_dark_bg_title))
         }
     }
     //endregion

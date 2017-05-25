@@ -5,7 +5,6 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
 import android.view.View
 import android.view.ViewGroup
-import com.devrapid.kotlinknifer.AppLog
 
 
 /**
@@ -31,15 +30,11 @@ abstract class LazyFragmentPagerAdapter(private val fragmentManager: FragmentMan
         val name = makeFragmentName(container.id, itemId)
         var fragment = this.fragmentManager.findFragmentByTag(name)
 
-        AppLog.e(position)
-        AppLog.v("GGGGGGGGGGGGGGG", fragment)
         // FIXME: 4/25/17 : 4/25/17 這邊有問題，導致沒辦法 1 -> 4 -> 2 顯示畫面。
         if (null != fragment) {
-            AppLog.w("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb")
             this.currTransaction?.attach(fragment)
         }
         else {
-            AppLog.w("1111111111111111111111111111111")
             fragment = this.getItem(container, position)
             if (fragment is Laziable)
                 this.lazyItems.put(position, fragment)
@@ -50,8 +45,6 @@ abstract class LazyFragmentPagerAdapter(private val fragmentManager: FragmentMan
             fragment.setMenuVisibility(false)
             fragment.userVisibleHint = false
         }
-
-        AppLog.v(fragment, position)
 
         return fragment
     }
@@ -80,7 +73,6 @@ abstract class LazyFragmentPagerAdapter(private val fragmentManager: FragmentMan
             this.lazyItems.remove(position)
         }
 
-        AppLog.i(fragment)
         return fragment
     }
 

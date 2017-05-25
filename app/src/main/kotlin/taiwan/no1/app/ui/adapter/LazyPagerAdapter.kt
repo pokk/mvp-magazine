@@ -3,7 +3,6 @@ package taiwan.no1.app.ui.adapter
 import android.support.v4.view.PagerAdapter
 import android.util.SparseArray
 import android.view.ViewGroup
-import com.devrapid.kotlinknifer.AppLog
 
 
 /**
@@ -55,8 +54,6 @@ abstract class LazyPagerAdapter<T>: PagerAdapter() {
      * when the offset of [LazyViewPager] is too big.
      */
     override fun setPrimaryItem(container: ViewGroup, position: Int, `object`: Any) {
-        AppLog.i(position)
-        AppLog.v(currentItem)
         currentItem = addLazyItem(container, position)
     }
 }

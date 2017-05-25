@@ -71,8 +71,11 @@ class TvEpisodeFragment: BaseFragment(), TvEpisodeContract.View {
     private val stubCrews by bindView<ViewStub>(R.id.stub_crews)
     private val stubTrailer by bindView<ViewStub>(R.id.stub_trailer)
     private val rvCasts by bindView<RecyclerView>(R.id.rv_casts)
+    private val tvCastTitle by bindView<TextView>(R.id.tv_cast_title)
     private val rvCrews by bindView<RecyclerView>(R.id.rv_crews)
+    private val tvCrewTitle by bindView<TextView>(R.id.tv_crew_title)
     private val rvTrailer by bindView<RecyclerView>(R.id.rv_trailer)
+    private val tvTrailerTitle by bindView<TextView>(R.id.tv_trailer_title)
     //endregion
 
     // Get the arguments from the bundle here.
@@ -130,7 +133,7 @@ class TvEpisodeFragment: BaseFragment(), TvEpisodeContract.View {
      */
     override fun init(savedInstanceState: Bundle?) {
         this.presenter.requestTvEpisodeDetail(argEpisodeInfo.tv_id,
-                                              argEpisodeInfo.season_number, argEpisodeInfo.episode_number)
+                argEpisodeInfo.season_number, argEpisodeInfo.episode_number)
     }
 
     //endregion
@@ -151,19 +154,28 @@ class TvEpisodeFragment: BaseFragment(), TvEpisodeContract.View {
     override fun showTvEpisodeCasts(casts: List<FilmCastsModel.CastBean>) {
         // Inflate the cast section.
         if (casts.isNotEmpty())
-            this.showViewStub(this.stubCasts, { this.showCardItems(this.rvCasts, casts) })
+            this.showViewStub(this.stubCasts, {
+                this.showCardItems(this.rvCasts, casts)
+                this.tvCastTitle.setTextColor(this.context.resources.getColor(R.color.recyclerview_dark_bg_title))
+            })
     }
 
     override fun showTvEpisodeCrews(crews: List<FilmCastsModel.CrewBean>) {
         // Inflate the crew section.
         if (crews.isNotEmpty())
-            this.showViewStub(this.stubCrews, { this.showCardItems(this.rvCrews, crews) })
+            this.showViewStub(this.stubCrews, {
+                this.showCardItems(this.rvCrews, crews)
+                this.tvCrewTitle.setTextColor(this.context.resources.getColor(R.color.recyclerview_dark_bg_title))
+            })
     }
 
     override fun showTvEpisodeTrailers(trailers: List<FilmVideoModel>) {
         // Inflate the trailer movieList section.
         if (trailers.isNotEmpty())
-            this.showViewStub(this.stubTrailer, { this.showCardItems(this.rvTrailer, trailers) })
+            this.showViewStub(this.stubTrailer, {
+                this.showCardItems(this.rvTrailer, trailers)
+                this.tvTrailerTitle.setTextColor(this.context.resources.getColor(R.color.recyclerview_dark_bg_title))
+            })
     }
 
     override fun showTvEpisodeBackDrop(uri: String, imageview: ImageView) {

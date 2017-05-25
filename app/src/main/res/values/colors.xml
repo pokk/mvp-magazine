@@ -27,5 +27,8 @@
     <color name="viewpage_slide_spot_background">#3cdedd</color>
     <color name="viewpage_active_text">#fff</color>
     <color name="viewpage_text">#81ffffff</color>
+
+    <!-- Title -->
+    <color name="recyclerview_dark_bg_title">#f7f8fb</color>
 </resources>
  

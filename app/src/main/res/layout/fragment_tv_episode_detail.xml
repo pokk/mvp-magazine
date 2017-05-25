@@ -12,7 +12,7 @@
         style="@style/NestScrollInfo"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="0dp"
-        android:background="#302E55"
+        android:background="#9953629F"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -23,7 +23,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/vp_drop_poster"
                 android:background="#53629F"
                 android:padding="20dp">
 
