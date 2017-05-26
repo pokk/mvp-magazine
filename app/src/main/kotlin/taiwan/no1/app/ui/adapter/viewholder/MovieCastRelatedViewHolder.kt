@@ -38,6 +38,13 @@ class MovieCastRelatedViewHolder(view: View): BaseViewHolder<CreditsInFilmModel.
         super.initView(model, position, adapter)
 
         this.item.setOnClickListener { this.presenter.onItemClicked(adapter.fragmentTag) }
+
+        this.ivPoster.viewTreeObserver.addOnGlobalLayoutListener {
+            this.ivPoster.measuredWidth.let {
+                this.tvReleaseDate.width = it
+                this.tvMovieTitle.width = it
+            }
+        }
     }
 
     override fun inject() {

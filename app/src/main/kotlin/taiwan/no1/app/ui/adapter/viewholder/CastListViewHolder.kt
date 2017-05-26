@@ -40,6 +40,10 @@ class CastListViewHolder(val view: View): BaseViewHolder<CastBriefModel>(view), 
         super.initView(model, position, adapter)
 
         this.item.setOnClickListener { this.presenter.onItemClicked(adapter.fragmentTag) }
+
+        this.ivPoster.viewTreeObserver.addOnGlobalLayoutListener {
+            this.ivPoster.measuredWidth.let { this.tvName.width = it }
+        }
     }
 
     override fun inject() {

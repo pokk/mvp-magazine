@@ -38,6 +38,13 @@ class MovieCastViewHolder(view: View): BaseViewHolder<FilmCastsModel.CastBean>(v
         super.initView(model, position, adapter)
 
         this.item.setOnClickListener { this.presenter.onItemClicked(adapter.fragmentTag) }
+
+        this.ivCast.viewTreeObserver.addOnGlobalLayoutListener {
+            this.ivCast.measuredWidth.let {
+                this.tvCharacter.width = it
+                this.tvName.width = it
+            }
+        }
     }
 
     override fun inject() {

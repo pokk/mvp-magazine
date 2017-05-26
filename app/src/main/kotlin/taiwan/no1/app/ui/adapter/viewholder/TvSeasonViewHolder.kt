@@ -12,6 +12,7 @@ import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.utilies.ImageLoader.IImageLoader
 import javax.inject.Inject
 
+
 /**
  * A [BaseViewHolder] of displaying tv brief introduction view of the MVP architecture's V.
  *
@@ -38,6 +39,14 @@ class TvSeasonViewHolder(val view: View): BaseViewHolder<TvSeasonsModel>(view), 
         super.initView(model, position, adapter)
 
         this.item.setOnClickListener { this.presenter.onItemClicked(adapter.fragmentTag) }
+
+        this.ivPoster.viewTreeObserver.addOnGlobalLayoutListener {
+            this.ivPoster.measuredWidth.let {
+                this.tvEpisodeCount.width = it
+                this.tvSeasonNumber.width = it
+                this.tvAirDate.width = it
+            }
+        }
     }
 
     override fun inject() {

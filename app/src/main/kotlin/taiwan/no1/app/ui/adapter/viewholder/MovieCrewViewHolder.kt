@@ -36,6 +36,13 @@ class MovieCrewViewHolder(view: View): BaseViewHolder<FilmCastsModel.CrewBean>(v
     //region BaseViewHolder
     override fun initView(model: FilmCastsModel.CrewBean, position: Int, adapter: CommonRecyclerAdapter) {
         super.initView(model, position, adapter)
+
+        this.ivCast.viewTreeObserver.addOnGlobalLayoutListener {
+            this.ivCast.measuredWidth.let {
+                this.tvCharacter.width = it
+                this.tvName.width = it
+            }
+        }
     }
 
     override fun inject() {
