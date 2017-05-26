@@ -206,22 +206,26 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
 
     override fun showMovieCasts(casts: List<FilmCastsModel.CastBean>) {
         // Inflate the cast section.
-        this.showViewStub(this.stubCasts, { this.showCardItems(this.rvCasts, casts) })
+        if (casts.isNotEmpty())
+            this.showViewStub(this.stubCasts, { this.showCardItems(this.rvCasts, casts) })
     }
 
     override fun showMovieCrews(crews: List<FilmCastsModel.CrewBean>) {
         // Inflate the crew section.
-        this.showViewStub(this.stubCrews, { this.showCardItems(this.rvCrews, crews) })
+        if (crews.isNotEmpty())
+            this.showViewStub(this.stubCrews, { this.showCardItems(this.rvCrews, crews) })
     }
 
     override fun showRelatedMovies(relatedMovies: List<MovieBriefModel>) {
         // Inflate the related movieList section.
-        this.showViewStub(this.stubRelated, { this.showCardItems(this.rvRelated, relatedMovies) })
+        if (relatedMovies.isNotEmpty())
+            this.showViewStub(this.stubRelated, { this.showCardItems(this.rvRelated, relatedMovies) })
     }
 
     override fun showMovieTrailers(trailers: List<FilmVideoModel>) {
         // Inflate the trailer movieList section.
-        this.showViewStub(this.stubTrailer, { this.showCardItems(this.rvTrailer, trailers) })
+        if (trailers.isNotEmpty())
+            this.showViewStub(this.stubTrailer, { this.showCardItems(this.rvTrailer, trailers) })
     }
     //endregion
 
