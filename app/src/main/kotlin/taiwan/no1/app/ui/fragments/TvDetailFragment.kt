@@ -87,6 +87,7 @@ class TvDetailFragment: BaseFragment(), TvDetailContract.View {
     private val tvLanguage by bindView<TextView>(R.id.tv_language)
     private val tvHomepage by bindView<TextView>(R.id.tv_homepage)
     private val tvProduction by bindView<TextView>(R.id.tv_productions)
+    private val tvRelatedTitle by bindView<TextView>(R.id.tv_related_title)
     private val rvSeasons by bindView<RecyclerView>(R.id.rv_seasons)
     private val rvCasts by bindView<RecyclerView>(R.id.rv_casts)
     private val rvCrews by bindView<RecyclerView>(R.id.rv_crews)
@@ -236,7 +237,10 @@ class TvDetailFragment: BaseFragment(), TvDetailContract.View {
     override fun showRelatedTvs(relatedTvs: List<TvBriefModel>) {
         // Inflate the related movieList section.
         if (relatedTvs.isNotEmpty())
-            this.showViewStub(this.stubRelated, { this.showCardItems(this.rvRelated, relatedTvs) })
+            this.showViewStub(this.stubRelated, {
+                this.tvRelatedTitle.text = "Related Tvs"
+                this.showCardItems(this.rvRelated, relatedTvs)
+            })
     }
 
     override fun showTvTrailers(trailers: List<FilmVideoModel>) {
