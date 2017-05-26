@@ -132,10 +132,10 @@ class TvEpisodeFragment: BaseFragment(), TvEpisodeContract.View {
      * @param savedInstanceState the previous fragment data status after the system calls [onPause].
      */
     override fun init(savedInstanceState: Bundle?) {
+        this.showLoading()
         this.presenter.requestTvEpisodeDetail(argEpisodeInfo.tv_id,
                 argEpisodeInfo.season_number, argEpisodeInfo.episode_number)
     }
-
     //endregion
 
     override fun showTvEpisodeInfo() {

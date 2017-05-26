@@ -29,10 +29,10 @@ class TvEpisodePresenter constructor(val tvEpisode: TvEpisodeDetail):
 
     private var tvEpisodesModel: TvEpisodesModel? = null
 
-    override fun requestTvEpisodeDetail(id: Int,
-                                        seasonNum: Int,
-                                        episodeNum: Int) {
-        var request = TvEpisodeDetail.Requests(id, seasonNum, episodeNum)
+    override fun requestTvEpisodeDetail(id: Int, seasonNum: Int, episodeNum: Int) {
+        // This is exception, because we've had the episode information.
+        this.view.showTvEpisodeInfo()
+        val request = TvEpisodeDetail.Requests(id, seasonNum, episodeNum)
         request.fragmentLifecycle = this.view.getLifecycle()
         this.tvEpisode.execute(request, subscriber<TvEpisodesModel>().onError {
             AppLog.e(it.message)
@@ -40,8 +40,8 @@ class TvEpisodePresenter constructor(val tvEpisode: TvEpisodeDetail):
             this.view.showRetry()
         }.onNext {
             this.tvEpisodesModel = it
+
             this.tvEpisodesModel.let {
-                this.view.showTvEpisodeInfo()
                 this.view.showTvEpisodeImages(this.createViewPagerViews(it?.images?.stills.orEmpty()))
                 this.view.showTvEpisodeCasts(it?.credits?.cast?.filter { null != it.profile_path }.orEmpty())
                 this.view.showTvEpisodeCrews(it?.credits?.crew?.filter { null != it.profile_path }.orEmpty())
@@ -70,7 +70,8 @@ class TvEpisodePresenter constructor(val tvEpisode: TvEpisodeDetail):
 
             if (posters.isNotEmpty())
                 RxBus.get().post(RxbusTag.FRAGMENT_CHILD_NAVIGATOR, hashMapOf(
-                        Pair(ViewPagerMainCtrlFragment.NAVIGATOR_ARG_FRAGMENT, MovieGalleryFragment.newInstance(posters)),
+                        Pair(ViewPagerMainCtrlFragment.NAVIGATOR_ARG_FRAGMENT,
+                                MovieGalleryFragment.newInstance(posters)),
                         Pair(ViewPagerMainCtrlFragment.NAVIGATOR_ARG_TAG, argFromFragment)))
         }
     }
