@@ -1,15 +1,18 @@
 package taiwan.no1.app.ui.adapter.viewholder
 
+import android.graphics.Bitmap
+import android.support.annotation.ColorInt
 import android.support.v7.widget.CardView
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.bindView
+import com.bumptech.glide.request.animation.GlideAnimation
+import com.bumptech.glide.request.target.BitmapImageViewTarget
 import taiwan.no1.app.R
 import taiwan.no1.app.mvp.contracts.adapter.MovieCastRelatedAdapterContract
 import taiwan.no1.app.mvp.models.CreditsInFilmModel
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
-import taiwan.no1.app.ui.listeners.GlideResizeTargetListener
 import taiwan.no1.app.utilies.ImageLoader.IImageLoader
 import javax.inject.Inject
 
@@ -58,7 +61,12 @@ class MovieCastRelatedViewHolder(view: View): BaseViewHolder<CreditsInFilmModel.
 
     //region ViewHolder implementations
     override fun showMoviePoster(uri: String) {
-        this.imageLoader.display(uri, listener = GlideResizeTargetListener(this.ivPoster, this.item))
+        this.imageLoader.display(uri, listener = object: BitmapImageViewTarget(this.ivPoster) {
+            override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
+                this@MovieCastRelatedViewHolder.presenter.onResourceFinished(resource)
+                super.onResourceReady(resource, glideAnimation)
+            }
+        })
     }
 
     override fun showMovieReleaseDate(date: String) {
@@ -67,6 +75,11 @@ class MovieCastRelatedViewHolder(view: View): BaseViewHolder<CreditsInFilmModel.
 
     override fun showMovieTitle(title: String) {
         this.tvMovieTitle.text = title
+    }
+
+    override fun setMovieTitleBg(@ColorInt color: Int) {
+        this.tvReleaseDate.setBackgroundColor(color)
+        this.tvMovieTitle.setBackgroundColor(color)
     }
     //endregion
 }

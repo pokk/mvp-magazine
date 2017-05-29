@@ -1,5 +1,7 @@
 package taiwan.no1.app.mvp.presenters.adapter
 
+import android.graphics.Bitmap
+import android.graphics.Color
 import com.hwangjr.rxbus.RxBus
 import com.touchin.constant.RxbusTag.FRAGMENT_CHILD_NAVIGATOR
 import taiwan.no1.app.api.config.TMDBConfig.BASE_IMAGE_URL
@@ -12,6 +14,7 @@ import taiwan.no1.app.ui.fragments.MovieDetailFragment
 import taiwan.no1.app.ui.fragments.TvDetailFragment
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_FRAGMENT
 import taiwan.no1.app.ui.fragments.ViewPagerMainCtrlFragment.Factory.NAVIGATOR_ARG_TAG
+import taiwan.no1.app.utilies.getColorWithAplha
 
 /**
  *
@@ -36,6 +39,14 @@ class MovieRelatedAdapterPresenter: BaseAdapterPresenter<View, IVisitable>(), Pr
             this.viewHolder.showMovieReleaseDate(model.first_air_date.orEmpty())
             this.viewHolder.showMovieTitle(model.name.orEmpty())
             this.filmId = model.id
+        }
+    }
+
+    override fun onResourceFinished(bitmap: Bitmap) {
+        this.captureColor(bitmap, 24) {
+            it.getDarkVibrantColor(Color.argb(0x55, 0x00, 0x00, 0x00)).let {
+                this.viewHolder.setMovieTitleBg(getColorWithAplha(it, 0.5f))
+            }
         }
     }
 
