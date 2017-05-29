@@ -2,7 +2,7 @@ package taiwan.no1.app.mvp.presenters.adapter
 
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.support.v7.graphics.Palette
+import android.graphics.Color.LTGRAY
 import com.hwangjr.rxbus.RxBus
 import com.touchin.constant.RxbusTag
 import taiwan.no1.app.api.config.TMDBConfig.BASE_IMAGE_URL
@@ -36,16 +36,13 @@ class CastListAdapterPresenter: BaseAdapterPresenter<View, CastBriefModel>(), Pr
     }
 
     override fun onResourceFinished(bitmap: Bitmap) {
-        this.captureColor(bitmap)
-        this.viewHolder.resetHeightRatio(bitmap.height / bitmap.width.toFloat())
-    }
-
-    override fun captureColor(bitmap: Bitmap) {
-        Palette.from(bitmap).generate().let {
+        this.captureColor(bitmap) {
             it.getDarkVibrantColor(Color.argb(153, 79, 79, 79)).let {
                 // Set the fog in front of the backdrop.
                 this.viewHolder.showTvNameBgColor(Color.argb(153, Color.red(it), Color.green(it), Color.blue(it)))
             }
+            this.viewHolder.showTvNameTextColor(it.darkVibrantSwatch?.titleTextColor ?: LTGRAY)
         }
+        this.viewHolder.resetHeightRatio(bitmap.height / bitmap.width.toFloat())
     }
 } 

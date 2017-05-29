@@ -1,6 +1,8 @@
 package taiwan.no1.app.mvp.presenters.adapter
 
+import android.graphics.Bitmap
 import android.support.annotation.CallSuper
+import android.support.v7.graphics.Palette
 import dagger.internal.Preconditions
 import taiwan.no1.app.mvp.models.IVisitable
 import taiwan.no1.app.mvp.presenters.IAdapterPresenter
@@ -23,4 +25,7 @@ open class BaseAdapterPresenter<VH: IViewHolder, M: IVisitable>: IAdapterPresent
         this.viewHolder = viewHolder
         this.model = model
     }
+
+    fun captureColor(bitmap: Bitmap, colors: Int = 32, block: (palette: Palette) -> Unit) =
+            Palette.from(bitmap).maximumColorCount(colors).generate().let { block(it) }
 }

@@ -73,6 +73,10 @@ class CastListViewHolder(val view: View): BaseViewHolder<CastBriefModel>(view), 
         this.tvName.setBackgroundColor(color)
     }
 
+    override fun showTvNameTextColor(@ColorInt color: Int) {
+        this.tvName.setTextColor(color)
+    }
+
     override fun resetHeightRatio(ratio: Float) {
         this.ivPoster.heightRatio = ratio
     }

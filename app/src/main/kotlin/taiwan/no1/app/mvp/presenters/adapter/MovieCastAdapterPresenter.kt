@@ -29,4 +29,4 @@ class MovieCastAdapterPresenter: BaseAdapterPresenter<View, FilmCastsModel.CastB
                 Pair(NAVIGATOR_ARG_FRAGMENT, CastDetailFragment.newInstance(model.id.toString(), tag)),
                 Pair(NAVIGATOR_ARG_TAG, tag)))
     }
-} 
+}

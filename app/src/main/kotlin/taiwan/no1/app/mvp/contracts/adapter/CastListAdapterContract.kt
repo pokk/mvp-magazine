@@ -17,13 +17,13 @@ interface CastListAdapterContract {
     interface Presenter: IAdapterPresenter<View, CastBriefModel> {
         fun onItemClicked(tag: Int)
         fun onResourceFinished(bitmap: Bitmap)
-        fun captureColor(bitmap: Bitmap)
     }
 
     interface View: IViewHolder {
         fun showProfile(uri: String)
         fun showTvName(name: String)
         fun showTvNameBgColor(@ColorInt color: Int)
+        fun showTvNameTextColor(@ColorInt color: Int)
         fun resetHeightRatio(ratio: Float)
     }
 }
