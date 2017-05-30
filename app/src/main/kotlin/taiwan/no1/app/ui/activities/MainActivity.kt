@@ -9,10 +9,7 @@ import android.util.SparseArray
 import android.view.View
 import android.widget.RelativeLayout
 import butterknife.bindView
-import com.devrapid.kotlinknifer.AppLog
-import com.devrapid.kotlinknifer.addFragment
-import com.devrapid.kotlinknifer.popFragment
-import com.devrapid.kotlinknifer.removeRecursiveFragment
+import com.devrapid.kotlinknifer.*
 import com.hwangjr.rxbus.RxBus
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.annotation.Tag
@@ -68,7 +65,7 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
         this.presenter.init(MainActivity@ this)
         this.initFragment(savedInstanceState)
 
-        AppLog.w(this.fragments)
+        logw(this.fragments)
 
         /***
          *              supportFragmentManager.fragment
@@ -92,10 +89,10 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
          */
         // NOTE: 3/26/17 DEBUG MODE.
         btn.setOnClickListener {
-            AppLog.d("====================================")
-            AppLog.i(this)
-            AppLog.w(this.supportFragmentManager.fragments)
-            AppLog.d(this.getCurrentPresentFragment())
+            logd("====================================")
+            logi(this)
+            logw(this.supportFragmentManager.fragments)
+            logd(this.getCurrentPresentFragment())
 //            FragmentUtils.showAllFragments(this.getCurrentPresentFragment().fragmentManager)
         }
     }

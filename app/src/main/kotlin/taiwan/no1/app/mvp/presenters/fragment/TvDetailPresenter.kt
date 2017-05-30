@@ -2,7 +2,7 @@ package taiwan.no1.app.mvp.presenters.fragment
 
 import android.view.View
 import android.widget.ImageView
-import com.devrapid.kotlinknifer.AppLog
+import com.devrapid.kotlinknifer.loge
 import com.hwangjr.rxbus.RxBus
 import com.touchin.constant.RxbusTag.FRAGMENT_CHILD_NAVIGATOR
 import rx.lang.kotlin.subscriber
@@ -35,8 +35,8 @@ class TvDetailPresenter constructor(val tvDetail: TvDetail):
         request.fragmentLifecycle = this.view.getLifecycle()
         // If declaring [subscriber] as a variable, it won't be used again.
         this.tvDetail.execute(request, subscriber<TvDetailModel>().onError {
-            AppLog.e(it.message)
-            AppLog.e(it)
+            loge(it.message)
+            loge(it)
             this.view.showRetry()
         }.onNext {
             this.tvDetailModel = it

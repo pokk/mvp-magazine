@@ -1,6 +1,6 @@
 package taiwan.no1.app.mvp.presenters.fragment
 
-import com.devrapid.kotlinknifer.AppLog
+import com.devrapid.kotlinknifer.loge
 import rx.lang.kotlin.subscriber
 import taiwan.no1.app.data.source.CloudDataStore
 import taiwan.no1.app.domain.usecase.MovieLists
@@ -29,8 +29,8 @@ class MovieListPresenter constructor(val moviesCase: MovieLists):
         // TODO: 4/4/17 Create a customize subscriber in [BasePresenter].
         // If declaring [subscriber] as a variable, it won't be used again.
         this.moviesCase.execute(request, subscriber<List<MovieBriefModel>>().onError {
-            AppLog.e(it.message)
-            AppLog.e(it)
+            loge(it.message)
+            loge(it)
             this.view.showRetry()
         }.onNext {
             this.movieBriefModelList += it

@@ -1,6 +1,6 @@
 package taiwan.no1.app.mvp.presenters.fragment
 
-import com.devrapid.kotlinknifer.AppLog
+import com.devrapid.kotlinknifer.loge
 import com.hwangjr.rxbus.RxBus
 import com.touchin.constant.RxbusTag.FRAGMENT_CHILD_NAVIGATOR
 import rx.lang.kotlin.subscriber
@@ -23,8 +23,8 @@ class CastDetailPresenter constructor(val castDetailCase: CastDetail):
     private var castDetailModel: CastDetailModel? = null
     //region Subscribers
     private val castDetailSub = subscriber<CastDetailModel>().onError {
-        AppLog.e(it.message)
-        AppLog.e(it)
+        loge(it.message)
+        loge(it)
         this.view.showRetry()
     }.onNext {
         this.castDetailModel = it

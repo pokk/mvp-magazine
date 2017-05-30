@@ -1,7 +1,7 @@
 package taiwan.no1.app.mvp.presenters.fragment
 
 import android.view.View
-import com.devrapid.kotlinknifer.AppLog
+import com.devrapid.kotlinknifer.loge
 import com.hwangjr.rxbus.RxBus
 import com.intrusoft.squint.DiagonalView
 import com.touchin.constant.RxbusTag.FRAGMENT_CHILD_NAVIGATOR
@@ -29,8 +29,8 @@ class MovieDetailPresenter constructor(val movieDetailCase: MovieDetail):
 
     //region Subscribers
     private val movieDetailSub = subscriber<MovieDetailModel>().onError {
-        AppLog.e(it.message)
-        AppLog.e(it)
+        loge(it.message)
+        loge(it)
         this.view.showRetry()
     }.onNext {
         // TODO: 2/19/17 Here might be memory leak!?

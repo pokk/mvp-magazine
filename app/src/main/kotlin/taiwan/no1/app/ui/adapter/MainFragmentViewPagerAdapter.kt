@@ -4,7 +4,7 @@ import android.content.Context
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.view.ViewGroup
-import com.devrapid.kotlinknifer.AppLog
+import com.devrapid.kotlinknifer.loge
 
 /**
  *
@@ -29,7 +29,7 @@ class MainFragmentViewPagerAdapter constructor(val context: Context,
             super.finishUpdate(container)
         }
         catch (exception: Exception) {
-            AppLog.e("This is view pager bug!!!! shrug :<")
+            loge("This is view pager bug!!!! shrug :<")
         }
     }
 }

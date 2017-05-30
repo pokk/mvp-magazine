@@ -2,7 +2,7 @@ package taiwan.no1.app.mvp.presenters.fragment
 
 import android.view.View
 import android.widget.ImageView
-import com.devrapid.kotlinknifer.AppLog
+import com.devrapid.kotlinknifer.loge
 import com.hwangjr.rxbus.RxBus
 import com.touchin.constant.RxbusTag
 import rx.lang.kotlin.subscriber
@@ -35,8 +35,8 @@ class TvEpisodePresenter constructor(val tvEpisode: TvEpisodeDetail):
         val request = TvEpisodeDetail.Requests(id, seasonNum, episodeNum)
         request.fragmentLifecycle = this.view.getLifecycle()
         this.tvEpisode.execute(request, subscriber<TvEpisodesModel>().onError {
-            AppLog.e(it.message)
-            AppLog.e(it)
+            loge(it.message)
+            loge(it)
             this.view.showRetry()
         }.onNext {
             this.tvEpisodesModel = it

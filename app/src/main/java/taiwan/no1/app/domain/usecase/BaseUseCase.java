@@ -68,7 +68,7 @@ abstract class BaseUseCase<R extends BaseUseCase.RequestValues> {
         Preconditions.checkNotNull(useCaseSubscriber);
 
         Observable observable = this.buildUseCaseObservable();
-        //                                    .doOnUnsubscribe(() -> AppLog.d("Unsubscribing subscription"));
+        //                                    .doOnUnsubscribe(() -> logd("Unsubscribing subscription"));
 
         // Assign the one of them to RxJava request.
         if (null != request.fragmentLifecycle) {

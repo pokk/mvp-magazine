@@ -6,7 +6,7 @@ import android.support.annotation.LayoutRes
 import android.support.v7.widget.LinearLayoutManager
 import android.transition.TransitionInflater
 import butterknife.bindView
-import com.devrapid.kotlinknifer.AppLog
+import com.devrapid.kotlinknifer.logv
 import taiwan.no1.app.App
 import taiwan.no1.app.R
 import taiwan.no1.app.data.source.CloudDataStore
@@ -75,7 +75,7 @@ class MovieListFragment: BaseFragment(), MovieListContract.View, LazyFragmentPag
     override fun onStart() {
         super.onStart()
 
-        AppLog.v(argMovieCategory)
+        logv(argMovieCategory)
     }
     
     override fun onResume() {

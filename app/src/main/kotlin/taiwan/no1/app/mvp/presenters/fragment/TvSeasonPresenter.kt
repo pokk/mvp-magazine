@@ -1,6 +1,6 @@
 package taiwan.no1.app.mvp.presenters.fragment
 
-import com.devrapid.kotlinknifer.AppLog
+import com.devrapid.kotlinknifer.loge
 import rx.lang.kotlin.subscriber
 import taiwan.no1.app.domain.usecase.TvSeasonDetail
 import taiwan.no1.app.mvp.contracts.fragment.TvSeasonContract
@@ -28,8 +28,8 @@ class TvSeasonPresenter constructor(val tvSeasonDetail: TvSeasonDetail):
         request.fragmentLifecycle = this.view.getLifecycle()
         // If declaring [subscriber] as a variable, it won't be used again.
         this.tvSeasonDetail.execute(request, subscriber<TvSeasonsModel>().onError {
-            AppLog.e(it.message)
-            AppLog.e(it)
+            loge(it.message)
+            loge(it)
             this.view.showRetry()
         }.onNext {
             this.tvSeasonModel = it

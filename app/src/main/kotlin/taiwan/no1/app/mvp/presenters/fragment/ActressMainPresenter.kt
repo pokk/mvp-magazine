@@ -1,6 +1,6 @@
 package taiwan.no1.app.mvp.presenters.fragment
 
-import com.devrapid.kotlinknifer.AppLog
+import com.devrapid.kotlinknifer.loge
 import rx.lang.kotlin.subscriber
 import taiwan.no1.app.domain.usecase.CastLists
 import taiwan.no1.app.mvp.contracts.fragment.ActressMainContract
@@ -26,8 +26,8 @@ class ActressMainPresenter(val castCase: CastLists):
         val request = CastLists.Requests(page)
         request.fragmentLifecycle = this.view.getLifecycle()
         this.castCase.execute(request, subscriber<CastListResModel>().onError {
-            AppLog.e(it.message)
-            AppLog.e(it)
+            loge(it.message)
+            loge(it)
         }.onNext {
             it.results?.let {
                 this.castBriefModelList += it

@@ -1,6 +1,6 @@
 package taiwan.no1.app.mvp.presenters.fragment
 
-import com.devrapid.kotlinknifer.AppLog
+import com.devrapid.kotlinknifer.loge
 import rx.lang.kotlin.subscriber
 import taiwan.no1.app.data.source.CloudDataStore
 import taiwan.no1.app.domain.usecase.TvLists
@@ -25,8 +25,8 @@ class TvListPresenter constructor(val tvCase: TvLists): BasePresenter<TvListCont
         request.fragmentLifecycle = this.view.getLifecycle()
         // If declaring [subscriber] as a variable, it won't be used again.
         this.tvCase.execute(request, subscriber<List<TvBriefModel>>().onError {
-            AppLog.e(it.message)
-            AppLog.e(it)
+            loge(it.message)
+            loge(it)
         }.onNext {
             this.tvBriefModelList += it
             view.showTvBriefList(this.tvBriefModelList)

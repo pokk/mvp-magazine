@@ -46,9 +46,9 @@ abstract class ViewPagerMainCtrlFragment: BaseFragment(), IMainFragment {
     override fun init(savedInstanceState: Bundle?) {
 //        savedInstanceState?.let {
 //            this.fragmentList.forEach {
-//                AppLog.w(it)
+//                logw(it)
 //                it.childFragmentManager.let {
-//                    AppLog.w(it.backStackEntryCount)
+//                    logw(it.backStackEntryCount)
 //                }
 //            }
 //        }
