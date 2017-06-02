@@ -33,6 +33,7 @@ import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.adapter.itemdecorator.MovieHorizontalItemDecorator
 import taiwan.no1.app.ui.customize.StarScoreView
 import taiwan.no1.app.utilies.ImageLoader.IImageLoader
+import java.util.Arrays.asList
 import javax.inject.Inject
 
 
@@ -88,6 +89,10 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     private val stubCrews by bindView<ViewStub>(R.id.stub_crews)
     private val stubRelated by bindView<ViewStub>(R.id.stub_related)
     private val stubTrailer by bindView<ViewStub>(R.id.stub_trailer)
+    private val tvTitleOverview by bindView<TextView>(R.id.tv_title_overview)
+    private val tvTitleStatus by bindView<TextView>(R.id.tv_title_status)
+    private val tvTitleLanguage by bindView<TextView>(R.id.tv_title_language)
+    private val tvTitleProduction by bindView<TextView>(R.id.tv_title_productions)
     private val tvOverview by bindView<TextView>(R.id.tv_overview)
     private val tvStatus by bindView<TextView>(R.id.tv_status)
     private val tvLanguage by bindView<TextView>(R.id.tv_language)
@@ -197,10 +202,10 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     override fun showMovieDetail(overview: String, status: String, languages: String, productions: String) {
         // Inflate the introduction section.
         this.showViewStub(this.stubIntro, {
-            this.tvOverview.text = overview
-            this.tvStatus.text = status
-            this.tvLanguage.text = languages
-            this.tvProduction.text = productions
+            this.showText(overview, this.tvOverview, asList(this.tvOverview, this.tvTitleOverview))
+            this.showText(overview, this.tvStatus, asList(this.tvStatus, this.tvTitleStatus))
+            this.showText(overview, this.tvLanguage, asList(this.tvLanguage, this.tvTitleLanguage))
+            this.showText(overview, this.tvProduction, asList(this.tvProduction, this.tvTitleProduction))
         })
     }
 

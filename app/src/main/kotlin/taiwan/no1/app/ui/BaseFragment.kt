@@ -8,6 +8,7 @@ import android.view.View
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.ViewStub
+import android.widget.TextView
 import butterknife.bindView
 import com.devrapid.kotlinknifer.resizeView
 import com.trello.rxlifecycle.android.FragmentEvent
@@ -179,5 +180,19 @@ abstract class BaseFragment: RxFragment(), IView, IFragmentView {
             viewStub.visibility = View.VISIBLE
             View(this.context())
         }
+    }
+
+    /**
+     * Showing/Hiding the [View]s depends on the text is empty or not.
+     *
+     * @param text the text context will be input into [mainView].
+     * @param mainView a [TextView] of showing the text context.
+     * @param views the [View]s will GONE or remainder.
+     */
+    protected fun showText(text: String, mainView: TextView, views: List<View>) {
+        if (text.isEmpty())
+            views.forEach { it.visibility = View.GONE }
+        else
+            mainView.text = text
     }
 }

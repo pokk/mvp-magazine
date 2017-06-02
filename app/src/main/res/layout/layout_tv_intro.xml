@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/tv_title_overview"
         style="@style/DetailTitle"
         android:text="@string/component_title_overview"/>
 
@@ -14,6 +15,7 @@
         style="@style/DetailContent"/>
 
     <TextView
+        android:id="@+id/tv_title_last_air_date"
         style="@style/DetailTitle"
         android:text="@string/component_title_last_date"/>
 
@@ -22,6 +24,7 @@
         style="@style/DetailContent"/>
 
     <TextView
+        android:id="@+id/tv_title_language"
         style="@style/DetailTitle"
         android:text="@string/component_title_ori_lang"/>
 
@@ -30,6 +33,7 @@
         style="@style/DetailContent"/>
 
     <TextView
+        android:id="@+id/tv_title_homepage"
         style="@style/DetailTitle"
         android:text="@string/component_title_homepage"/>
 
@@ -38,6 +42,7 @@
         style="@style/DetailContent"/>
 
     <TextView
+        android:id="@+id/tv_title_productions"
         style="@style/DetailTitle"
         android:text="@string/component_title_prod"/>
 

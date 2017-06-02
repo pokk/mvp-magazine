@@ -30,6 +30,7 @@ import taiwan.no1.app.ui.adapter.BackdropPagerAdapter
 import taiwan.no1.app.ui.adapter.CommonRecyclerAdapter
 import taiwan.no1.app.ui.adapter.itemdecorator.MovieHorizontalItemDecorator
 import taiwan.no1.app.utilies.ImageLoader.IImageLoader
+import java.util.Arrays.asList
 import javax.inject.Inject
 
 /**
@@ -82,6 +83,11 @@ class TvDetailFragment: BaseFragment(), TvDetailContract.View {
     private val stubCrews by bindView<ViewStub>(R.id.stub_crews)
     private val stubRelated by bindView<ViewStub>(R.id.stub_related)
     private val stubTrailer by bindView<ViewStub>(R.id.stub_trailer)
+    private val tvTitleOverview by bindView<TextView>(R.id.tv_title_overview)
+    private val tvTitleLastAirDate by bindView<TextView>(R.id.tv_title_last_air_date)
+    private val tvTitleLanguage by bindView<TextView>(R.id.tv_title_language)
+    private val tvTitleHomepage by bindView<TextView>(R.id.tv_title_homepage)
+    private val tvTitleProduction by bindView<TextView>(R.id.tv_title_productions)
     private val tvOverview by bindView<TextView>(R.id.tv_overview)
     private val tvLastAirDate by bindView<TextView>(R.id.tv_last_air_date)
     private val tvLanguage by bindView<TextView>(R.id.tv_language)
@@ -208,11 +214,11 @@ class TvDetailFragment: BaseFragment(), TvDetailContract.View {
     override fun showTvDetail(overview: String, lastAirDate: String, language: String, homepage: String,
                               productions: String) {
         this.showViewStub(this.stubIntro, {
-            this.tvOverview.text = overview
-            this.tvLastAirDate.text = lastAirDate
-            this.tvLanguage.text = language
-            this.tvHomepage.text = homepage
-            this.tvProduction.text = productions
+            this.showText(overview, this.tvOverview, asList(this.tvOverview, this.tvTitleOverview))
+            this.showText(lastAirDate, this.tvLastAirDate, asList(this.tvLastAirDate, this.tvTitleLastAirDate))
+            this.showText(language, this.tvLanguage, asList(this.tvLanguage, this.tvTitleLanguage))
+            this.showText(homepage, this.tvHomepage, asList(this.tvHomepage, this.tvTitleHomepage))
+            this.showText(productions, this.tvProduction, asList(this.tvProduction, this.tvTitleProduction))
         })
     }
 
