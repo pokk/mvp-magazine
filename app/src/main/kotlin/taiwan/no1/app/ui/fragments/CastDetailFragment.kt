@@ -13,10 +13,10 @@ import android.view.View
 import android.view.ViewStub
 import android.widget.ImageView
 import android.widget.TextView
-import butterknife.bindView
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.intrusoft.squint.DiagonalView
+import kotterknife.bindView
 import taiwan.no1.app.App
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
@@ -38,7 +38,7 @@ import javax.inject.Inject
  */
 
 @PerFragment
-class CastDetailFragment: BaseFragment(), CastDetailContract.View {
+class CastDetailFragment : BaseFragment(), CastDetailContract.View {
     //region Static initialization
     companion object Factory {
         // The key name of the fragment initialization parameters.
@@ -152,7 +152,7 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
 
     //region View implementations
     override fun showCastPoster(posterUri: String) {
-        this.imageLoader.display(posterUri, listener = object: BitmapImageViewTarget(this.ivDropPoster) {
+        this.imageLoader.display(posterUri, listener = object : BitmapImageViewTarget(this.ivDropPoster) {
             override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
                 this@CastDetailFragment.ivDropPoster.solidColor = TRANSPARENT
                 super.onResourceReady(resource, glideAnimation)
@@ -195,7 +195,7 @@ class CastDetailFragment: BaseFragment(), CastDetailContract.View {
     }
     //endregion
 
-    private fun <T: IVisitable> showCardItems(recyclerView: RecyclerView, list: List<T>) {
+    private fun <T : IVisitable> showCardItems(recyclerView: RecyclerView, list: List<T>) {
         recyclerView.also {
             it.layoutManager = LinearLayoutManager(this.context, HORIZONTAL, false)
             it.adapter = CommonRecyclerAdapter(list, argFromFragment)

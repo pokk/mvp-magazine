@@ -3,7 +3,7 @@ package taiwan.no1.app.ui.fragments
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.LinearLayoutManager
-import butterknife.bindView
+import kotterknife.bindView
 import taiwan.no1.app.R
 import taiwan.no1.app.data.source.CloudDataStore
 import taiwan.no1.app.internal.di.annotations.PerFragment
@@ -22,7 +22,7 @@ import javax.inject.Inject
  * @since   1/7/17
  */
 @PerFragment
-class TvListFragment: BaseFragment(), TvListContract.View, LazyFragmentPagerAdapter.Laziable {
+class TvListFragment : BaseFragment(), TvListContract.View, LazyFragmentPagerAdapter.Laziable {
     //region Static initialization
     companion object Factory {
         // The key name of the fragment initialization parameters.

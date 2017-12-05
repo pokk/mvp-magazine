@@ -10,9 +10,9 @@ import android.view.View
 import android.view.ViewStub
 import android.widget.ImageView
 import android.widget.TextView
-import butterknife.bindView
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.BitmapImageViewTarget
+import kotterknife.bindView
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
@@ -34,7 +34,7 @@ import javax.inject.Inject
  * @since   3/6/17
  */
 @PerFragment
-class TvEpisodeFragment: BaseFragment(), TvEpisodeContract.View {
+class TvEpisodeFragment : BaseFragment(), TvEpisodeContract.View {
     //region Static initialization
     companion object Factory {
         // The key name of the fragment initialization parameters.
@@ -48,12 +48,12 @@ class TvEpisodeFragment: BaseFragment(), TvEpisodeContract.View {
          * @return A new instance of [TvEpisodeFragment].
          */
         fun newInstance(episodeModel: TvEpisodesModel, from: Int): TvEpisodeFragment =
-                TvEpisodeFragment().also {
-                    it.arguments = Bundle().also {
-                        it.putParcelable(ARG_PARAM_TV_EPISODE_INFO, episodeModel)
-                        it.putInt(ARG_PARAM_TV_ID, from)
-                    }
+            TvEpisodeFragment().also {
+                it.arguments = Bundle().also {
+                    it.putParcelable(ARG_PARAM_TV_EPISODE_INFO, episodeModel)
+                    it.putInt(ARG_PARAM_TV_ID, from)
                 }
+            }
     }
     //endregion
 
@@ -134,7 +134,7 @@ class TvEpisodeFragment: BaseFragment(), TvEpisodeContract.View {
     override fun init(savedInstanceState: Bundle?) {
         this.showLoading()
         this.presenter.requestTvEpisodeDetail(argEpisodeInfo.tv_id,
-                argEpisodeInfo.season_number, argEpisodeInfo.episode_number)
+            argEpisodeInfo.season_number, argEpisodeInfo.episode_number)
     }
     //endregion
 
@@ -179,7 +179,7 @@ class TvEpisodeFragment: BaseFragment(), TvEpisodeContract.View {
     }
 
     override fun showTvEpisodeBackDrop(uri: String, imageview: ImageView) {
-        this.imageLoader.display(uri, listener = object: BitmapImageViewTarget(imageview) {
+        this.imageLoader.display(uri, listener = object : BitmapImageViewTarget(imageview) {
             override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
                 this@TvEpisodeFragment.presenter.onResourceFinished(imageview, this@TvEpisodeFragment.argFromFragment)
                 super.onResourceReady(resource, glideAnimation)
@@ -187,7 +187,7 @@ class TvEpisodeFragment: BaseFragment(), TvEpisodeContract.View {
         }, isFitCenter = false)
     }
 
-    private fun <T: IVisitable> showCardItems(recyclerView: RecyclerView, list: List<T>) {
+    private fun <T : IVisitable> showCardItems(recyclerView: RecyclerView, list: List<T>) {
         recyclerView.apply {
             this.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
             this.adapter = CommonRecyclerAdapter(list, argFromFragment)

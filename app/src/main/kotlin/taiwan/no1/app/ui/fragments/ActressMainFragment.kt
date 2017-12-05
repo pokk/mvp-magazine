@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.support.v7.widget.StaggeredGridLayoutManager.VERTICAL
-import butterknife.bindView
+import kotterknife.bindView
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
@@ -24,7 +24,7 @@ import javax.inject.Inject
  * @since   1/12/17
  */
 @PerFragment
-class ActressMainFragment: BaseFragment(), ActressMainContract.View, IMainFragment {
+class ActressMainFragment : BaseFragment(), ActressMainContract.View, IMainFragment {
     //region Static initialization
     companion object Factory {
         // The key name of the fragment initialization parameters.

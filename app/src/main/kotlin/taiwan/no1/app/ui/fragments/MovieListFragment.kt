@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.LinearLayoutManager
 import android.transition.TransitionInflater
-import butterknife.bindView
 import com.devrapid.kotlinknifer.logv
+import kotterknife.bindView
 import taiwan.no1.app.App
 import taiwan.no1.app.R
 import taiwan.no1.app.data.source.CloudDataStore
@@ -26,7 +26,7 @@ import javax.inject.Inject
  */
 
 @PerFragment
-class MovieListFragment: BaseFragment(), MovieListContract.View, LazyFragmentPagerAdapter.Laziable {
+class MovieListFragment : BaseFragment(), MovieListContract.View, LazyFragmentPagerAdapter.Laziable {
     //region Static initialization
     companion object Factory {
         // The key name of the fragment initialization parameters.
@@ -77,7 +77,7 @@ class MovieListFragment: BaseFragment(), MovieListContract.View, LazyFragmentPag
 
         logv(argMovieCategory)
     }
-    
+
     override fun onResume() {
         super.onResume()
         this.presenter.resume()

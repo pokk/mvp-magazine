@@ -14,10 +14,10 @@ import android.view.View
 import android.view.ViewStub
 import android.widget.ImageView
 import android.widget.TextView
-import butterknife.bindView
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.intrusoft.squint.DiagonalView
+import kotterknife.bindView
 import taiwan.no1.app.App
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
@@ -44,7 +44,7 @@ import javax.inject.Inject
  */
 
 @PerFragment
-class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
+class MovieDetailFragment : BaseFragment(), MovieDetailContract.View {
     //region Static initialization
     companion object Factory {
         // The key name of the fragment initialization parameters.
@@ -172,11 +172,11 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     }
 
     override fun showMovieSingleBackdrop(uri: String, diagonalView: DiagonalView) {
-        this.imageLoader.display(uri, listener = object: BitmapImageViewTarget(diagonalView) {
+        this.imageLoader.display(uri, listener = object : BitmapImageViewTarget(diagonalView) {
             override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
                 diagonalView.solidColor = TRANSPARENT
                 this@MovieDetailFragment.presenter.onResourceFinished(diagonalView,
-                        this@MovieDetailFragment.argFromFragment)
+                    this@MovieDetailFragment.argFromFragment)
                 super.onResourceReady(resource, glideAnimation)
             }
         }, isFitCenter = false)
@@ -234,7 +234,7 @@ class MovieDetailFragment: BaseFragment(), MovieDetailContract.View {
     }
     //endregion
 
-    private fun <T: IVisitable> showCardItems(recyclerView: RecyclerView, list: List<T>) {
+    private fun <T : IVisitable> showCardItems(recyclerView: RecyclerView, list: List<T>) {
         recyclerView.apply {
             this.layoutManager = LinearLayoutManager(this.context, HORIZONTAL, false)
             this.adapter = CommonRecyclerAdapter(list, argFromFragment)

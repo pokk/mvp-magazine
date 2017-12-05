@@ -14,10 +14,10 @@ import android.widget.FrameLayout
 import android.widget.ImageSwitcher
 import android.widget.ImageView
 import android.widget.TextView
-import butterknife.bindView
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
 import com.jakewharton.rxbinding.support.v4.view.pageSelections
+import kotterknife.bindView
 import taiwan.no1.app.App
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
@@ -39,7 +39,7 @@ import javax.inject.Inject
  */
 
 @PerFragment
-class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
+class MovieGalleryFragment : BaseFragment(), MovieGalleryContract.View {
     //region Static initialization
     companion object Factory {
         // The key name of the fragment initialization parameters.
@@ -51,7 +51,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
          * @return A new instance of [MovieGalleryFragment].
          */
         fun newInstance(movies: List<ImageProfileModel>):
-                MovieGalleryFragment = MovieGalleryFragment().apply {
+            MovieGalleryFragment = MovieGalleryFragment().apply {
             this.arguments = Bundle().apply {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     TransitionInflater.from(App.getAppContext()).let {
@@ -137,7 +137,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
                 ImageView(MovieGalleryFragment@ this.context).apply {
                     // Assign the layout is match the parent.
                     this.layoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.MATCH_PARENT)
+                        ViewGroup.LayoutParams.MATCH_PARENT)
                 }
             }
             // Set the changing images' animation.
@@ -165,7 +165,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
     }
 
     override fun showSinglePoster(uri: String, position: Int, imageView: ImageView, cvFrame: CardView) {
-        this.imageLoader.display(uri, listener = object: GlideResizeTargetListener(imageView, cvFrame) {
+        this.imageLoader.display(uri, listener = object : GlideResizeTargetListener(imageView, cvFrame) {
             override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
                 super.onResourceReady(resource, glideAnimation)
 
@@ -173,7 +173,7 @@ class MovieGalleryFragment: BaseFragment(), MovieGalleryContract.View {
                     it.width.toDouble() / it.height.toDouble()
                 }
                 this@MovieGalleryFragment.presenter.onResourceFinished(this@MovieGalleryFragment.hicvpGallery,
-                        isRatio, position)
+                    isRatio, position)
             }
         })
     }

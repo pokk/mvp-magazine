@@ -8,14 +8,19 @@ import android.transition.TransitionInflater
 import android.util.SparseArray
 import android.view.View
 import android.widget.RelativeLayout
-import butterknife.bindView
-import com.devrapid.kotlinknifer.*
+import com.devrapid.kotlinknifer.addFragment
+import com.devrapid.kotlinknifer.logd
+import com.devrapid.kotlinknifer.logi
+import com.devrapid.kotlinknifer.logw
+import com.devrapid.kotlinknifer.popFragment
+import com.devrapid.kotlinknifer.removeRecursiveFragment
 import com.hwangjr.rxbus.RxBus
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.annotation.Tag
 import com.roughike.bottombar.BottomBar
 import com.touchin.constant.RxbusTag
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.btn
+import kotterknife.bindView
 import taiwan.no1.app.App
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.HasComponent
@@ -38,7 +43,7 @@ import javax.inject.Inject
  */
 
 @PerActivity
-class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComponent> {
+class MainActivity : BaseActivity(), MainContract.View, HasComponent<FragmentComponent> {
     @Inject
     lateinit var presenter: MainContract.Presenter
 
@@ -104,7 +109,7 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
             App.containerHeight = this.rlMainContainer.measuredHeight
             App.containerWidth = this.rlMainContainer.measuredWidth
         }
-        
+
         // FIXED: 3/3/17 Avoiding rotating the screen, the bottom bar's listener will reset the fragment stack. It causes
         // FIXED: when we rotate, the view always goes to list view.
         this.isFirst = false
@@ -141,7 +146,7 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
 
         // When rotating the screen or fragment recreate, current tag need to be re-set. And avoiding the currentTag
         // isn't set when back button is pressed.
-        this.supportFragmentManager.fragments?.get(0)?.let { this.currentTag = it.javaClass.name }
+//        this.supportFragmentManager.fragments?.get(0)?.let { this.currentTag = it.javaClass.name }
 
         this.bbMenu.setOnTabSelectListener {
             // TODO: 2/21/17 Here will waste memory. Becz of repeating creating and removing every single switching.
@@ -162,7 +167,7 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
      * @return [Fragment]
      */
     private fun getCurrentPresentFragment(): Fragment = (this.supportFragmentManager.findFragmentByTag(this.currentTag) as IMainFragment).
-            getCurrentDisplayFragment()
+        getCurrentDisplayFragment()
 
     //region RxBus
     @Subscribe(tags = arrayOf(Tag(RxbusTag.FRAGMENT_CHILD_NAVIGATOR)))
@@ -179,7 +184,7 @@ class MainActivity: BaseActivity(), MainContract.View, HasComponent<FragmentComp
         presentFragment.exitTransition = TransitionInflater.from(App.getAppContext()).inflateTransition(android.R.transition.no_transition)
         fragment.sharedElementEnterTransition = TransitionInflater.from(App.getAppContext()).inflateTransition(R.transition.default_transition)
         fragment.enterTransition = TransitionInflater.from(App.getAppContext()).inflateTransition(android.R.transition.no_transition)
-        
+
         // To avoid the same fragment but different hash code's fragment add the fragment.
         if (tag == presentFragment.hashCode()) {
             val fragmentManager: FragmentManager

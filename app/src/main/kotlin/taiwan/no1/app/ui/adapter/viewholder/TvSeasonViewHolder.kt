@@ -4,7 +4,7 @@ import android.support.v7.widget.CardView
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import butterknife.bindView
+import kotterknife.bindView
 import taiwan.no1.app.R
 import taiwan.no1.app.mvp.contracts.adapter.TvSeasonAdapterContract
 import taiwan.no1.app.mvp.models.tv.TvSeasonsModel
@@ -20,7 +20,7 @@ import javax.inject.Inject
  * @since   3/3/17
  */
 
-class TvSeasonViewHolder(val view: View): BaseViewHolder<TvSeasonsModel>(view), TvSeasonAdapterContract.View {
+class TvSeasonViewHolder(val view: View) : BaseViewHolder<TvSeasonsModel>(view), TvSeasonAdapterContract.View {
     @Inject
     lateinit var presenter: TvSeasonAdapterContract.Presenter
     @Inject

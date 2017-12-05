@@ -4,7 +4,7 @@ import android.support.v7.widget.CardView
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import butterknife.bindView
+import kotterknife.bindView
 import taiwan.no1.app.R
 import taiwan.no1.app.mvp.contracts.adapter.MovieCrewAdapterContract
 import taiwan.no1.app.mvp.models.FilmCastsModel
@@ -20,7 +20,7 @@ import javax.inject.Inject
  * @since   1/7/17
  */
 
-class MovieCrewViewHolder(view: View): BaseViewHolder<FilmCastsModel.CrewBean>(view), MovieCrewAdapterContract.View {
+class MovieCrewViewHolder(view: View) : BaseViewHolder<FilmCastsModel.CrewBean>(view), MovieCrewAdapterContract.View {
     @Inject
     lateinit var presenter: MovieCrewAdapterContract.Presenter
     @Inject

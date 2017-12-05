@@ -2,13 +2,13 @@ package taiwan.no1.app.ui.adapter.viewholder
 
 import android.support.v7.widget.CardView
 import android.view.View
-import butterknife.bindView
 import com.google.android.youtube.player.YouTubeThumbnailLoader
 import com.google.android.youtube.player.YouTubeThumbnailLoader.ErrorReason
 import com.google.android.youtube.player.YouTubeThumbnailLoader.OnThumbnailLoadedListener
 import com.google.android.youtube.player.YouTubeThumbnailView
 import com.hwangjr.rxbus.RxBus
 import com.touchin.constant.RxbusTag
+import kotterknife.bindView
 import taiwan.no1.app.R
 import taiwan.no1.app.mvp.contracts.adapter.TrailerAdapterContract
 import taiwan.no1.app.mvp.models.FilmVideoModel
@@ -25,7 +25,7 @@ import javax.inject.Inject
  * @since   1/7/17
  */
 
-class MovieTrailerViewHolder(val view: View): BaseViewHolder<FilmVideoModel>(view), TrailerAdapterContract.View {
+class MovieTrailerViewHolder(val view: View) : BaseViewHolder<FilmVideoModel>(view), TrailerAdapterContract.View {
     @Inject
     lateinit var presenter: TrailerAdapterContract.Presenter
     @Inject
@@ -45,15 +45,15 @@ class MovieTrailerViewHolder(val view: View): BaseViewHolder<FilmVideoModel>(vie
         // FIXED: 2/21/17 Keep each of YouTubeThumbnailLoaders into the adapter. When the fragment which keep this
         // FIXED: ViewHolder is destroyed by lifecycle, let it release loaders thru the adapter's release method.
         this.yttnvTrailer.initialize(this.mContext.getString(R.string.youtube_api_key),
-                YouTubeThumbnailInitListener(model.key.orEmpty()).onSuccess { _, loader ->
-                    if (this.youTubeKey.isNotEmpty()) {
-                        loader.also {
-                            this@MovieTrailerViewHolder.thumbnailLoader = it
-                            it.setVideo(youTubeKey)
-                            it.setOnThumbnailLoadedListener(this@MovieTrailerViewHolder.thumbnailLoadedListener)
-                        }
+            YouTubeThumbnailInitListener(model.key.orEmpty()).onSuccess { _, loader ->
+                if (this.youTubeKey.isNotEmpty()) {
+                    loader.also {
+                        this@MovieTrailerViewHolder.thumbnailLoader = it
+                        it.setVideo(youTubeKey)
+                        it.setOnThumbnailLoadedListener(this@MovieTrailerViewHolder.thumbnailLoadedListener)
                     }
-                })
+                }
+            })
     }
 
     override fun inject() {
@@ -65,7 +65,7 @@ class MovieTrailerViewHolder(val view: View): BaseViewHolder<FilmVideoModel>(vie
     }
     //endregion
 
-    private val thumbnailLoadedListener: OnThumbnailLoadedListener = object: OnThumbnailLoadedListener {
+    private val thumbnailLoadedListener: OnThumbnailLoadedListener = object : OnThumbnailLoadedListener {
         override fun onThumbnailLoaded(thumbnailView: YouTubeThumbnailView, videoId: String) {
             item.apply {
                 this.visibility = View.VISIBLE

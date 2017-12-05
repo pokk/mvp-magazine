@@ -3,11 +3,11 @@ package taiwan.no1.app.ui.fragments
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
-import butterknife.bindView
 import com.devrapid.kotlinknifer.popAllFragment
 import com.gigamole.navigationtabstrip.NavigationTabStrip
 import com.jakewharton.rxbinding.support.v4.view.pageScrollStateChanges
 import com.jakewharton.rxbinding.support.v4.view.pageSelections
+import kotterknife.bindView
 import taiwan.no1.app.R
 import taiwan.no1.app.ui.BaseFragment
 import taiwan.no1.app.ui.adapter.MainFragmentViewPagerAdapter
@@ -19,7 +19,7 @@ import taiwan.no1.app.ui.adapter.MainFragmentViewPagerAdapter
  */
 
 
-abstract class ViewPagerMainCtrlFragment: BaseFragment(), IMainFragment {
+abstract class ViewPagerMainCtrlFragment : BaseFragment(), IMainFragment {
     companion object Factory {
         // For navigating the fragment's arguments. 
         const val NAVIGATOR_ARG_FRAGMENT = "fragment"
@@ -57,7 +57,7 @@ abstract class ViewPagerMainCtrlFragment: BaseFragment(), IMainFragment {
             var flagClearPrevFragment: Boolean = false
 
             this.adapter = MainFragmentViewPagerAdapter(context(), this@ViewPagerMainCtrlFragment.childFragmentManager,
-                    fragmentList)
+                fragmentList)
             // Initial the position.
             currItemPos = this.currentItem
             prevItemPos = this.currentItem

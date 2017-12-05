@@ -24,6 +24,10 @@ buildscript {
     repositories {
         jcenter()
         mavenCentral()
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.2'
@@ -44,6 +48,10 @@ allprojects {
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
         maven { url 'https://jitpack.io' }
         maven { url 'http://www.idescout.com/maven/repo/' }
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
     }
 }
 

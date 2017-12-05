@@ -12,10 +12,10 @@ import android.view.ViewStub
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import butterknife.bindView
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.jakewharton.rxbinding.support.v4.view.pageSelections
+import kotterknife.bindView
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.internal.di.components.FragmentComponent
@@ -39,7 +39,7 @@ import javax.inject.Inject
  * @since   2/12/17
  */
 @PerFragment
-class TvDetailFragment: BaseFragment(), TvDetailContract.View {
+class TvDetailFragment : BaseFragment(), TvDetailContract.View {
     //region Static initialization
     companion object Factory {
         // The key name of the fragment initialization parameters.
@@ -185,7 +185,7 @@ class TvDetailFragment: BaseFragment(), TvDetailContract.View {
     }
 
     override fun showTvSingleBackdrop(uri: String, imageview: ImageView) {
-        this.imageLoader.display(uri, listener = object: BitmapImageViewTarget(imageview) {
+        this.imageLoader.display(uri, listener = object : BitmapImageViewTarget(imageview) {
             override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
                 this@TvDetailFragment.presenter.onResourceFinished(imageview, this@TvDetailFragment.argFromFragment)
                 super.onResourceReady(resource, glideAnimation)
@@ -256,7 +256,7 @@ class TvDetailFragment: BaseFragment(), TvDetailContract.View {
     }
     //endregion
 
-    private fun <T: IVisitable> showCardItems(recyclerView: RecyclerView, list: List<T>) {
+    private fun <T : IVisitable> showCardItems(recyclerView: RecyclerView, list: List<T>) {
         recyclerView.apply {
             this.layoutManager = LinearLayoutManager(this.context, HORIZONTAL, false)
             this.adapter = CommonRecyclerAdapter(list, argFromFragment)

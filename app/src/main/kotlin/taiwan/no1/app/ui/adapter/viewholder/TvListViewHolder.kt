@@ -6,9 +6,9 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
-import butterknife.bindView
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.BitmapImageViewTarget
+import kotterknife.bindView
 import me.gujun.android.taggroup.TagGroup
 import taiwan.no1.app.R
 import taiwan.no1.app.mvp.contracts.adapter.TvListAdapterContract
@@ -24,7 +24,7 @@ import javax.inject.Inject
  * @since   1/7/17
  */
 
-class TvListViewHolder(val view: View): BaseViewHolder<TvBriefModel>(view), TvListAdapterContract.View {
+class TvListViewHolder(val view: View) : BaseViewHolder<TvBriefModel>(view), TvListAdapterContract.View {
     @Inject
     lateinit var presenter: TvListAdapterContract.Presenter
     @Inject
@@ -62,7 +62,7 @@ class TvListViewHolder(val view: View): BaseViewHolder<TvBriefModel>(view), TvLi
     }
 
     override fun showTvBackDrop(uri: String) {
-        this.imageLoader.display(uri, listener = object: BitmapImageViewTarget(this.ivBackdrop) {
+        this.imageLoader.display(uri, listener = object : BitmapImageViewTarget(this.ivBackdrop) {
             override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
                 super.onResourceReady(resource, glideAnimation)
                 this@TvListViewHolder.presenter.onBackdropResourceFinished(resource)

@@ -6,9 +6,9 @@ import android.support.v7.widget.CardView
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import butterknife.bindView
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.BitmapImageViewTarget
+import kotterknife.bindView
 import taiwan.no1.app.R
 import taiwan.no1.app.mvp.contracts.adapter.MovieCastRelatedAdapterContract
 import taiwan.no1.app.mvp.models.CreditsInFilmModel
@@ -23,7 +23,8 @@ import javax.inject.Inject
  * @since   1/7/17
  */
 
-class MovieCastRelatedViewHolder(view: View): BaseViewHolder<CreditsInFilmModel.CastInFilmBean>(view), MovieCastRelatedAdapterContract.View {
+class MovieCastRelatedViewHolder(view: View) : BaseViewHolder<CreditsInFilmModel.CastInFilmBean>(view),
+    MovieCastRelatedAdapterContract.View {
     @Inject
     lateinit var presenter: MovieCastRelatedAdapterContract.Presenter
     @Inject
@@ -61,7 +62,7 @@ class MovieCastRelatedViewHolder(view: View): BaseViewHolder<CreditsInFilmModel.
 
     //region ViewHolder implementations
     override fun showMoviePoster(uri: String) {
-        this.imageLoader.display(uri, listener = object: BitmapImageViewTarget(this.ivPoster) {
+        this.imageLoader.display(uri, listener = object : BitmapImageViewTarget(this.ivPoster) {
             override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
                 this@MovieCastRelatedViewHolder.presenter.onResourceFinished(resource)
                 super.onResourceReady(resource, glideAnimation)

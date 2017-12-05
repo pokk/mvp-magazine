@@ -14,9 +14,9 @@ import android.view.View
 import android.view.ViewStub
 import android.widget.ImageView
 import android.widget.TextView
-import butterknife.bindView
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.BitmapImageViewTarget
+import kotterknife.bindView
 import taiwan.no1.app.R
 import taiwan.no1.app.api.config.TMDBConfig.BASE_IMAGE_URL
 import taiwan.no1.app.internal.di.annotations.PerFragment
@@ -42,7 +42,7 @@ import javax.inject.Inject
  */
 
 @PerFragment
-class TvSeasonFragment: BaseFragment(), TvSeasonContract.View {
+class TvSeasonFragment : BaseFragment(), TvSeasonContract.View {
     //region Static initialization
     companion object Factory {
         // The key name of the fragment initialization parameters.
@@ -55,12 +55,12 @@ class TvSeasonFragment: BaseFragment(), TvSeasonContract.View {
          * @return A new instance of [fragment] TvDetailFragment.
          */
         fun newInstance(seasonsModel: TvSeasonsModel, from: Int): TvSeasonFragment =
-                TvSeasonFragment().apply {
-                    this.arguments = Bundle().apply {
-                        this.putParcelable(ARG_PARAM_TV_SEASON_INFO, seasonsModel)
-                        this.putInt(ARG_PARAM_FROM_ID, from)
-                    }
+            TvSeasonFragment().apply {
+                this.arguments = Bundle().apply {
+                    this.putParcelable(ARG_PARAM_TV_SEASON_INFO, seasonsModel)
+                    this.putInt(ARG_PARAM_FROM_ID, from)
                 }
+            }
     }
     //endregion
 
@@ -144,16 +144,16 @@ class TvSeasonFragment: BaseFragment(), TvSeasonContract.View {
      */
     override fun init(savedInstanceState: Bundle?) {
         this.imageLoader.display(BASE_IMAGE_URL + this.argTvSeasonInfo.poster_path,
-                listener = object: BitmapImageViewTarget(ivDropPoster) {
-                    override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
-                        super.onResourceReady(resource, glideAnimation)
+            listener = object : BitmapImageViewTarget(ivDropPoster) {
+                override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
+                    super.onResourceReady(resource, glideAnimation)
 
-                        Palette.from(resource).maximumColorCount(24).generate().let {
-                            this@TvSeasonFragment.tvSeason.setTextColor(it.dominantSwatch?.titleTextColor ?: WHITE)
-                        }
+                    Palette.from(resource).maximumColorCount(24).generate().let {
+                        this@TvSeasonFragment.tvSeason.setTextColor(it.dominantSwatch?.titleTextColor ?: WHITE)
                     }
-                },
-                isFitCenter = false)
+                }
+            },
+            isFitCenter = false)
         this.vTopBar.bringToFront()
         this.tvDramaTitle.text = this.argTvSeasonInfo.tv_name
         this.tvSeason.text = "( S.${this.argTvSeasonInfo.season_number} / EP.${this.argTvSeasonInfo.episode_count} )"
@@ -204,7 +204,7 @@ class TvSeasonFragment: BaseFragment(), TvSeasonContract.View {
     }
     //endregion
 
-    private fun <T: IVisitable> showCardItems(recyclerView: RecyclerView, list: List<T>) {
+    private fun <T : IVisitable> showCardItems(recyclerView: RecyclerView, list: List<T>) {
         recyclerView.apply {
             // Only episode list is vertical layout.
             if (list.isNotEmpty() && list[0] is TvEpisodesModel) {

@@ -9,11 +9,11 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.ViewStub
 import android.widget.TextView
-import butterknife.bindView
 import com.devrapid.kotlinknifer.resizeView
 import com.trello.rxlifecycle.android.FragmentEvent
 import com.trello.rxlifecycle.components.support.RxFragment
 import dagger.internal.Preconditions
+import kotterknife.bindView
 import rx.Observable
 import rx.Subscription
 import rx.android.schedulers.AndroidSchedulers
@@ -33,7 +33,7 @@ import java.util.concurrent.TimeUnit
  * @since   12/5/16
  */
 
-abstract class BaseFragment: RxFragment(), IView, IFragmentView {
+abstract class BaseFragment : RxFragment(), IView, IFragmentView {
     private val vLoading by bindView<View>(R.id.ll_loading)
     private val vRetry by bindView<View>(R.id.ll_error)
     private val vError by bindView<View>(R.id.ll_error)
@@ -90,13 +90,13 @@ abstract class BaseFragment: RxFragment(), IView, IFragmentView {
     override fun hideLoading() {
         // Delay 0.5s then hiding the loading view.
         this.hideLoadingSubscription = Observable.just("").
-                delay(500, TimeUnit.MICROSECONDS).
-                observeOn(AndroidSchedulers.mainThread()).
-                doOnUnsubscribe { this.hideLoadingSubscription = null }.
-                compose(this.bindToLifecycle()).
-                subscribe(subscriber<String>().
-                        onNext { this@BaseFragment.vLoading.visibility = View.GONE }.
-                        onCompleted { this.hideLoadingSubscription = null })
+            delay(500, TimeUnit.MICROSECONDS).
+            observeOn(AndroidSchedulers.mainThread()).
+            doOnUnsubscribe { this.hideLoadingSubscription = null }.
+            compose(this.bindToLifecycle()).
+            subscribe(subscriber<String>().
+                onNext { this@BaseFragment.vLoading.visibility = View.GONE }.
+                onCompleted { this.hideLoadingSubscription = null })
     }
 
     override fun showRetry() {
@@ -163,7 +163,7 @@ abstract class BaseFragment: RxFragment(), IView, IFragmentView {
      * @return [FragmentComponent].
      */
     protected fun <C> getComponent(componentType: Class<C>): C =
-            componentType.cast((activity as HasComponent<*>).getFragmentComponent())
+        componentType.cast((activity as HasComponent<*>).getFragmentComponent())
 
     /**
      * Show the [viewStub] and prevent to show again and again.

@@ -4,10 +4,10 @@ import android.graphics.Bitmap
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import butterknife.bindView
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.devrapid.kotlinknifer.resizeView
+import kotterknife.bindView
 import taiwan.no1.app.R
 import taiwan.no1.app.mvp.contracts.adapter.TvEpisodeAdapterContract
 import taiwan.no1.app.mvp.models.tv.TvEpisodesModel
@@ -22,7 +22,7 @@ import javax.inject.Inject
  * @since   3/3/17
  */
 
-class TvEpisodeViewHolder(val view: View): BaseViewHolder<TvEpisodesModel>(view), TvEpisodeAdapterContract.View {
+class TvEpisodeViewHolder(val view: View) : BaseViewHolder<TvEpisodesModel>(view), TvEpisodeAdapterContract.View {
     @Inject
     lateinit var presenter: TvEpisodeAdapterContract.Presenter
     @Inject
@@ -54,7 +54,7 @@ class TvEpisodeViewHolder(val view: View): BaseViewHolder<TvEpisodesModel>(view)
 
     //region ViewHolder implementations
     override fun showEpisodeThumbnail(episodeThumbnailUri: String) {
-        this.imageLoader.display(episodeThumbnailUri, listener = object: BitmapImageViewTarget(this.ivThumbnail) {
+        this.imageLoader.display(episodeThumbnailUri, listener = object : BitmapImageViewTarget(this.ivThumbnail) {
             override fun onResourceReady(resource: Bitmap?, glideAnimation: GlideAnimation<in Bitmap>?) {
                 super.onResourceReady(resource, glideAnimation)
                 // FIXME: 4/9/17 The image's height fits the item height.

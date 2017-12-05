@@ -5,9 +5,9 @@ import android.support.annotation.ColorInt
 import android.support.v7.widget.CardView
 import android.view.View
 import android.widget.TextView
-import butterknife.bindView
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.BitmapImageViewTarget
+import kotterknife.bindView
 import taiwan.no1.app.R
 import taiwan.no1.app.mvp.contracts.adapter.CastListAdapterContract
 import taiwan.no1.app.mvp.models.cast.CastBriefModel
@@ -23,7 +23,7 @@ import javax.inject.Inject
  * @since   1/7/17
  */
 
-class CastListViewHolder(val view: View): BaseViewHolder<CastBriefModel>(view), CastListAdapterContract.View {
+class CastListViewHolder(val view: View) : BaseViewHolder<CastBriefModel>(view), CastListAdapterContract.View {
     @Inject
     lateinit var presenter: CastListAdapterContract.Presenter
     @Inject
@@ -57,7 +57,7 @@ class CastListViewHolder(val view: View): BaseViewHolder<CastBriefModel>(view), 
 
     //region ViewHolder implementations
     override fun showProfile(uri: String) {
-        this.imageLoader.display(uri, listener = object: BitmapImageViewTarget(this.ivPoster) {
+        this.imageLoader.display(uri, listener = object : BitmapImageViewTarget(this.ivPoster) {
             override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
                 this@CastListViewHolder.presenter.onResourceFinished(resource)
                 super.onResourceReady(resource, glideAnimation)

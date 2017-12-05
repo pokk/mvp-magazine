@@ -8,11 +8,11 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.SeekBar
 import android.widget.TextView
-import butterknife.bindView
 import com.google.android.youtube.player.YouTubeBaseActivity
 import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerView
 import com.jakewharton.rxbinding.widget.changes
+import kotterknife.bindView
 import taiwan.no1.app.R
 import taiwan.no1.app.ui.listeners.YouTubePlaybackEventListener
 import taiwan.no1.app.ui.listeners.YouTubePlayerInitListener
@@ -23,7 +23,7 @@ import taiwan.no1.app.ui.listeners.YouTubePlayerStateChangeListener
  * @author  Jieyi
  * @since   1/15/17
  */
-class VideoActivity: YouTubeBaseActivity() {
+class VideoActivity : YouTubeBaseActivity() {
     //region Static initialization
     companion object Factory {
         // The key name of the fragment initialization parameters.
@@ -61,24 +61,24 @@ class VideoActivity: YouTubeBaseActivity() {
         setContentView(R.layout.activity_video)
 
         this.ytpvTrailer.initialize(this.getString(R.string.youtube_api_key),
-                YouTubePlayerInitListener(argYoutubeKey).onSuccess { _, player, wasRestored ->
-                    this@VideoActivity.youtubePlayer = player
-                    this@VideoActivity.displayCurrentTime(player)
-                    this@VideoActivity.youtubePlayer?.let {
-                        if (!wasRestored) {
-                            it.loadVideo(this.youTubeKey)
-                            it.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT)
-                        }
-
-                        // Add listeners to YouTubePlayer instance.
-                        it.setPlayerStateChangeListener(YouTubePlayerStateChangeListener().onVideoStarted {
-                            this@VideoActivity.youtubePlayer?.let { displayCurrentTime(it) }
-                        })
-                        it.setPlaybackEventListener(YouTubePlaybackEventListener().onPlaying {
-                            this@VideoActivity.youtubePlayer?.let { displayCurrentTime(it) }
-                        })
+            YouTubePlayerInitListener(argYoutubeKey).onSuccess { _, player, wasRestored ->
+                this@VideoActivity.youtubePlayer = player
+                this@VideoActivity.displayCurrentTime(player)
+                this@VideoActivity.youtubePlayer?.let {
+                    if (!wasRestored) {
+                        it.loadVideo(this.youTubeKey)
+                        it.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT)
                     }
-                })
+
+                    // Add listeners to YouTubePlayer instance.
+                    it.setPlayerStateChangeListener(YouTubePlayerStateChangeListener().onVideoStarted {
+                        this@VideoActivity.youtubePlayer?.let { displayCurrentTime(it) }
+                    })
+                    it.setPlaybackEventListener(YouTubePlaybackEventListener().onPlaying {
+                        this@VideoActivity.youtubePlayer?.let { displayCurrentTime(it) }
+                    })
+                }
+            })
 
         // NOTE: We don't use it currently. Mainly using default controller by YouTube.
         // NOTE: http://stacktips.com/tutorials/android/how-to-customize-youtubeplayer-controls-in-android.

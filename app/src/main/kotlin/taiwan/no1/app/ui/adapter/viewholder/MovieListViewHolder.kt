@@ -4,7 +4,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
-import butterknife.bindView
+import kotterknife.bindView
 import taiwan.no1.app.R
 import taiwan.no1.app.internal.di.annotations.PerFragment
 import taiwan.no1.app.mvp.contracts.adapter.MovieListAdapterContract
@@ -21,7 +21,7 @@ import javax.inject.Inject
  */
 
 @PerFragment
-class MovieListViewHolder(val view: View): BaseViewHolder<MovieBriefModel>(view), MovieListAdapterContract.View {
+class MovieListViewHolder(val view: View) : BaseViewHolder<MovieBriefModel>(view), MovieListAdapterContract.View {
     @Inject
     lateinit var presenter: MovieListAdapterContract.Presenter
     @Inject
